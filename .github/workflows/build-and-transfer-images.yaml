@@ -18,12 +18,14 @@ jobs:
         run: |
           source .github/env
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
+
       - name: Set environment variables from GitHub Secrets
         id: load-secrets
         run: |
           echo "VPS_USER=${{ secrets.VPS_USER }}" >> $GITHUB_ENV
           echo "VPS_PASSWORD=${{ secrets.VPS_PASSWORD }}" >> $GITHUB_ENV
           echo "VPS_HOST=${{ secrets.VPS_HOST }}" >> $GITHUB_ENV
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -45,7 +47,20 @@ jobs:
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar $VPS_USER@$VPS_HOST:/tmp/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-backend.tar $VPS_USER@$VPS_HOST:/tmp/
 
+      - name: Transfer docker-compose-vps.yaml to VPS
+        run: |
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
+
+      - name: Load Docker images on VPS
+        run: |
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "docker load -i /tmp/seasonistas-frontend.tar"
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "docker load -i /tmp/seasonistas-backend.tar"
+
       - name: Clean up local tar files
         run: |
           rm seasonistas-frontend.tar
           rm seasonistas-backend.tar
+
+      - name: Restart Docker containers with docker-compose
+        run: |
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "cd /root && docker-compose -f docker-compose-vps.yaml down && docker-compose -f docker-compose-vps.yaml up -d"
