@@ -51,11 +51,10 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Transfer images to server using password
-        env:
-          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+
         run: |
-          sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar root@145.223.116.46:/tmp/
-          sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-backend.tar root@145.223.116.46:/tmp/
+          sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar root@145.223.116.46:/tmp/
+          sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-backend.tar root@145.223.116.46:/tmp/
 
       - name: Clean up local tar files
         run: |
