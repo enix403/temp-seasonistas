@@ -1,8 +1,9 @@
 name: Build and Transfer Client Application
 
 on:
-  pull_request:
-  workflow_dispatch:
+  push:
+    branches:
+      - deploy
 
 jobs:
   build:
