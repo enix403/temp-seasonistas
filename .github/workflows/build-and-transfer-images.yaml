@@ -18,7 +18,12 @@ jobs:
         run: |
           source .github/env
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
-
+      - name: Set environment variables from GitHub Secrets
+        id: load-secrets
+        run: |
+          echo "VPS_USER=${{ secrets.VPS_USER }}" >> $GITHUB_ENV
+          echo "VPS_PASSWORD=${{ secrets.VPS_PASSWORD }}" >> $GITHUB_ENV
+          echo "VPS_HOST=${{ secrets.VPS_HOST }}" >> $GITHUB_ENV
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -37,8 +42,8 @@ jobs:
 
       - name: Transfer images to server using password
         run: |
-          sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar root@145.223.116.46:/tmp/
-          sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-backend.tar root@145.223.116.46:/tmp/
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar $VPS_USER@$VPS_HOST:/tmp/
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-backend.tar $VPS_USER@$VPS_HOST:/tmp/
 
       - name: Clean up local tar files
         run: |
