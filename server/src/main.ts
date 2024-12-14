@@ -23,7 +23,7 @@ function createApp() {
     next();
   });
 
-  const allowedOrigins = ['http://localhost:3000', 'http://145.223.116.46:3000'];
+  const allowedOrigins = ['http://localhost:3000', 'http://145.223.116.46'];
   app.use(cors({ origin: allowedOrigins, credentials: true }));
   app.use(express.json());
 
