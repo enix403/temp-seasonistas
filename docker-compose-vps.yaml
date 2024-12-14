@@ -9,6 +9,8 @@ services:
       - NEXT_PUBLIC_API_URL=http://backend:4201
     depends_on:
       - backend
+    networks:
+      - app-network
 
   backend:
     image: seasonistas-backend:latest
@@ -16,5 +18,11 @@ services:
       - "4201:4201"
     environment:
       - PORT=4201
-      - MONGO_URL=mongodb+srv://shoaibtube1:GTZTQYeWYkUo7ePE@cluster0.vkz20.mongodb.net/
-      - JWT_SIGNING_KEY=y<*XQuUBop;?aHlA{Dy+uIaejxPOC(K]FND9Y<)A[$8X.=Vm=)/r*mtIaZSYnCNC
+      - MONGO_URL=${MONGO_URL}
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
