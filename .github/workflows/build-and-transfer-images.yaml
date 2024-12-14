@@ -19,24 +19,8 @@ jobs:
           source .github/env
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./client
-
-      - name: Build the application
-        run: npm run build
-        working-directory: ./client
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Build Docker images
         run: |
@@ -52,7 +36,6 @@ jobs:
         run: sudo apt-get install -y sshpass
 
       - name: Transfer images to server using password
-
         run: |
           sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar root@145.223.116.46:/tmp/
           sshpass -p "8=lpbO|yV7Qepw5z6Cg+" scp -o StrictHostKeyChecking=no seasonistas-backend.tar root@145.223.116.46:/tmp/
