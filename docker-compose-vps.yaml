@@ -42,7 +42,7 @@ services:
     volumes:
       - ./letsencrypt:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-      - ./certbot-entrypoint.sh:/app/certbot-entrypoint.sh
+      - ./certbot-entrypoint.sh:/app/certbot-entrypoint.sh:ro
     entrypoint: /app/certbot-entrypoint.sh
     networks:
       - app-network
