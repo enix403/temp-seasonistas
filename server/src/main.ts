@@ -23,7 +23,7 @@ function createApp() {
     next();
   });
 
-  const allowedOrigins = ['https://seasonistas.com/','https://www.seasonistas.com/'];
+  const allowedOrigins = ['https://seasonistas.com','https://www.seasonistas.com'];
   app.use(cors({ origin: allowedOrigins, credentials: true }));
   app.use(express.json());
 
