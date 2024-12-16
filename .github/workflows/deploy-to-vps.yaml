@@ -47,10 +47,12 @@ jobs:
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar $VPS_USER@$VPS_HOST:/tmp/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-backend.tar $VPS_USER@$VPS_HOST:/tmp/
 
-      - name: Transfer docker-compose-vps.yaml and .env to VPS
+      - name: Transfer docker-compose-vps.yaml , .env ang nginx.conf to VPS
         run: |
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no .env $VPS_USER@$VPS_HOST:/root/
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no nginx.conf $VPS_USER@$VPS_HOST:/root/
+          
 
       - name: Load Docker images on VPS
         run: |

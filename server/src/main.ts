@@ -23,7 +23,7 @@ function createApp() {
     next();
   });
 
-  const allowedOrigins = ['http://localhost:3000', 'http://145.223.116.46'];
+  const allowedOrigins = ['https://seasonistas.com/','https://www.seasonistas.com/'];
   app.use(cors({ origin: allowedOrigins, credentials: true }));
   app.use(express.json());
 

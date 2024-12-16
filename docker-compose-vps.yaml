@@ -3,10 +3,8 @@ version: "3"
 services:
   frontend:
     image: seasonistas-frontend:latest
-    ports:
-      - "80:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:4201
+      - NEXT_PUBLIC_API_URL=https://api.seasonistas.com
     depends_on:
       - backend
     networks:
@@ -14,12 +12,44 @@ services:
 
   backend:
     image: seasonistas-backend:latest
-    ports:
-      - "4201:4201"
     environment:
       - PORT=4201
       - MONGO_URL=${MONGO_URL}
       - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    environment:
+      - DOMAIN=seasonistas.com
+    depends_on:
+      - frontend
+      - backend
+      - certbot
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./letsencrypt:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: >
+      /bin/sh -c 'trap exit TERM; while :; do
+      if [ ! -f /etc/letsencrypt/live/seasonistas.com/fullchain.pem ]; then
+        certbot certonly --webroot -w /var/www/certbot --email admin@seasonistas.com --agree-tos --no-eff-email
+        -d seasonistas.com -d www.seasonistas.com -d api.seasonistas.com;
+      fi;
+      sleep 12h & wait $!;
+      done;'
     networks:
       - app-network
 
