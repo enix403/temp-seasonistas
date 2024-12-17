@@ -27,6 +27,9 @@ jobs:
           echo "VPS_USER=${{ secrets.VPS_USER }}" >> $GITHUB_ENV
           echo "VPS_PASSWORD=${{ secrets.VPS_PASSWORD }}" >> $GITHUB_ENV
           echo "VPS_HOST=${{ secrets.VPS_HOST }}" >> $GITHUB_ENV
+          echo "FULLCHAIN=${{ secrets.FULLCHAIN }}" >> $GITHUB_ENV
+          echo "PRIVKEY=${{ secrets.PRIVKEY }}" >> $GITHUB_ENV
+          
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -48,15 +51,23 @@ jobs:
         run: |
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-frontend.tar $VPS_USER@$VPS_HOST:/tmp/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no seasonistas-backend.tar $VPS_USER@$VPS_HOST:/tmp/
-
+      - name: Create SSL folder and save keys
+        run: |
+          mkdir -p ssl
+          echo "${{ secrets.PRIVKEY }}" | base64 --decode > ssl/privkey.pem
+          echo "${{ secrets.FULLCHAIN }}" | base64 --decode > ssl/fullchain.pem
+          
       - name: Transfer scripts to VPS
         run: |
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no .env $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no nginx.conf $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no certbot-entrypoint.sh $VPS_USER@$VPS_HOST:/root/
+          # Transfer SSL certificates
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no ssl/privkey.pem $VPS_USER@$VPS_HOST:/root/ssl/
+          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no ssl/fullchain.pem $VPS_USER@$VPS_HOST:/root/ssl/
           
-
+      
       - name: Load Docker images on VPS
         run: |
           sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "docker load -i /tmp/seasonistas-frontend.tar"
