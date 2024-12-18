@@ -18,8 +18,6 @@ jobs:
         run: |
           source .github/env
           echo "NODE_VERSION=$NODE_VERSION" >> $GITHUB_ENV
-      - name: Set executable permissions for certbot-entrypoint.sh
-        run: chmod +x ./certbot-entrypoint.sh
 
       - name: Set environment variables from GitHub Secrets
         id: load-secrets
