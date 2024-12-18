@@ -30,7 +30,7 @@ jobs:
           echo "JWT_SIGNING_KEY=${{ secrets.JWT_SIGNING_KEY }}" >> $GITHUB_ENV
           echo "" >> .env # Add a blank line for readability
           echo "# Appended secrets from GitHub Actions" >> .env
-          echo "JWT_SIGNING_KEY=\$JWT_SIGNING_KEY" >> .env
+          echo "JWT_SIGNING_KEY=\"${{ secrets.JWT_SIGNING_KEY }}\"" >> .env
           
 
       - name: Set up Docker Buildx
