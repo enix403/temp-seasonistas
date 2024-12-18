@@ -29,6 +29,10 @@ jobs:
           echo "VPS_HOST=${{ secrets.VPS_HOST }}" >> $GITHUB_ENV
           echo "FULLCHAIN=${{ secrets.FULLCHAIN }}" >> $GITHUB_ENV
           echo "PRIVKEY=${{ secrets.PRIVKEY }}" >> $GITHUB_ENV
+          echo "JWT_SIGNING_KEY=${{ secrets.JWT_SIGNING_KEY }}" >> $GITHUB_ENV
+          echo "" >> .env # Add a blank line for readability
+          echo "# Appended secrets from GitHub Actions" >> .env
+          echo "JWT_SIGNING_KEY=\"${{ secrets.JWT_SIGNING_KEY }}\"" >> .env
           
 
       - name: Set up Docker Buildx
