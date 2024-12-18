@@ -64,7 +64,6 @@ jobs:
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no .env $VPS_USER@$VPS_HOST:/root/
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no nginx.conf $VPS_USER@$VPS_HOST:/root/
-          sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no certbot-entrypoint.sh $VPS_USER@$VPS_HOST:/root/
           # Transfer SSL certificates
           sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST "mkdir -p /root/ssl"
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no ssl/privkey.pem $VPS_USER@$VPS_HOST:/root/ssl/
