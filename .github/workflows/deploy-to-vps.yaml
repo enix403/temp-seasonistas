@@ -58,7 +58,15 @@ jobs:
           mkdir -p ssl
           echo "${{ secrets.PRIVKEY }}" | base64 --decode > ssl/privkey.pem
           echo "${{ secrets.FULLCHAIN }}" | base64 --decode > ssl/fullchain.pem
-          
+      - name: Append secrets to .env file
+        id: append-secrets
+        run: |
+            # Ensure a blank line and the actual content of the secret are appended to the .env file
+            {
+              echo ""; # Add a blank line for readability
+              echo "# Appended secrets from GitHub Actions";
+              echo "JWT_SIGNING_KEY=\"${{ secrets.JWT_SIGNING_KEY }}\"";
+            } >> .env 
       - name: Transfer scripts to VPS
         run: |
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
