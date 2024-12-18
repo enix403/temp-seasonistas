@@ -67,6 +67,7 @@ jobs:
               echo "# Appended secrets from GitHub Actions";
               echo "JWT_SIGNING_KEY=\"${{ secrets.JWT_SIGNING_KEY }}\"";
             } >> .env 
+            sed -i '/^JWT_SIGNING_KEY=/s/[^"]*$/&"/' .env
       - name: Transfer scripts to VPS
         run: |
           sshpass -p "$VPS_PASSWORD" scp -o StrictHostKeyChecking=no docker-compose-vps.yaml $VPS_USER@$VPS_HOST:/root/
