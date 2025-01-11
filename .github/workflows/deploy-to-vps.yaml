@@ -1,9 +1,6 @@
 name: Build and Deploy Application
 
-on:
-  push:
-    branches:
-      - deploy
+
 
 jobs:
   build:
