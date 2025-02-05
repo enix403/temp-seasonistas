@@ -108,7 +108,7 @@ export default function Community() {
                 className="flex-1"
               >
                 <option value="">All</option>
-                <option value="employee">Individuals</option>
+                <option value="employee">Peoples</option>
                 <option value="employer">Businesses</option>
               </Select>
             </FormLabel>

@@ -5,6 +5,7 @@ import { appEnv } from 'config/app-env';
 import { green, red } from 'colorette';
 
 export async function connect() {
+
   try {
     logger.info('Connecting to MongoDB ...');
     await mongoose.connect(appEnv.MONGO_URL ?? '');

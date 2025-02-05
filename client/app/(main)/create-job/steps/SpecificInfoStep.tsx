@@ -18,15 +18,15 @@ function FormCheckbox({
   ...rest
 }: { label: string } & Omit<InputProps, "color">) {
   return (
-    <label className="flex cursor-pointer items-center gap-2 p-2 select-none">
-      <Checkbox
-        {...rest}
-        ripple={false}
-        containerProps={{ className: "p-0" }}
-        className="hover:before:content-none"
-      />
-      {label}
-    </label>
+    <label className="flex items-center cursor-pointer gap-2 p-2 select-none">
+  <Checkbox
+    {...rest}
+    ripple={false}
+    containerProps={{ className: "p-0" }}
+    className="hover:before:content-none"
+  />
+  <span className="flex-1">{label}</span>
+</label>
   );
 }
 
@@ -51,36 +51,49 @@ export function SpecificInfoStep({
             <Select selectProps={register("jobType")} variant="light">
               <option value="fullTime">Full-Time</option>
               <option value="partTime">Part-Time</option>
-              <option value="internship">Internship</option>
-              <option value="specificDates">Specific dates</option>
+              <option value="flexible">Flexible / Other </option>
             </Select>
           </FormLabel>
 
           <FormLabel showAsterik label="Experience Level">
             <Select selectProps={register("expLevelRequired")} variant="light">
-              <option value="entry">Entry Level</option>
-              <option value="mid">Mid Level</option>
-              <option value="senior">Senior Level</option>
+              <option value="entry">Entry Level (0-2 years)</option>
+              <option value="mid">Mid Level (2-5 years)</option>
+              <option value="senior">Senior Level (5+ years)</option>
             </Select>
           </FormLabel>
 
-          <div>
-            Required Qualifications
-            <div className="p-0 grid grid-cols-2 xl:grid-cols-5">
-              {repeatNode(10, (index) => {
-                const qualName = `Qualification ${index + 1}`;
-                return (
-                  <FormCheckbox
-                    {...selCtrl.register("qualificationsRequired", qualName)}
-                    key={index}
-                    label={qualName}
-                  />
-                );
-              })}
+                   <div>
+            Relevant skills
+            <div className="p-0 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
+              {[
+                "A university degree in a field related to the position",
+                "Proficiency in using software such as MS Office or specialized tools",
+                "Excellent command of English",
+                "Basic knowledge of English",
+                "Knowledge of additional foreign languages",
+                "Time management and organizational skills",
+                "Problem-solving and decision-making abilities",
+                "Ability to collaborate in a team environment",
+                "Availability for travel or work outside the office, if required",
+                "Good knowledge of the industry or market in which the company operates",
+                "Creative thinking and innovative ideas",
+                "Flexibility in working hours",
+                "Customer service skills",
+                "Proficiency in using cash register systems or POS",
+                "Interest in maintaining a long-term collaboration"
+              ].map((skill, index) => (
+                <FormCheckbox
+                  {...selCtrl.register("qualificationsRequired", skill)}
+                  key={index}
+                  label={skill}
+                  className="form-checkbox"
+                />
+              ))}
             </div>
           </div>
 
-          <div>
+          {/* <div>
             Desirable Qualifications
             <div className="p-0 grid grid-cols-2 xl:grid-cols-5">
               {repeatNode(10, (index) => {
@@ -94,14 +107,14 @@ export function SpecificInfoStep({
                 );
               })}
             </div>
-          </div>
+          </div> */}
 
           <div className="flex gap-4 flex-col md:flex-row">
             <div className="flex-[1]">
               <FormLabel showAsterik label="Salary">
                 <div className="flex flex-1 w-full gap-x-1">
                   <Select selectProps={register("salaryMode")} variant="light">
-                    <option value="monthly">Monthly</option>
+                    <option value="monthly">Daily</option>
                     <option value="hourly">Hourly</option>
                   </Select>
                   <Input
@@ -115,19 +128,13 @@ export function SpecificInfoStep({
               </FormLabel>
             </div>
             <div className="flex-[1]">
-              <FormLabel showAsterik label="Periods of Work" className="h-full">
+              <FormLabel showAsterik label="Working period" className="h-full">
                 <div className="flex flex-col sm:flex-row gap-4 flex-1">
                   {/* TODO: Date picker */}
                   <DateRangePicker
                     className="flex-1 [&>*]:!h-full"
                     appearance="subtle"
                     placeholder="Select dates"
-                  />
-                  {/* TODO: Date picker */}
-                  <TimeRangePicker
-                    className="flex-1 [&>*]:!h-full"
-                    appearance="subtle"
-                    placeholder="Select times"
                   />
                 </div>
               </FormLabel>

@@ -146,6 +146,7 @@ function SearchControls({
           <Select selectProps={register("sort")}>
             <option value="datePosted">Date Posted</option>
             <option value="popularity">Popularity</option>
+            <option value="high-low">Salary (High - Low)</option>
           </Select>
         </div>
       </div>

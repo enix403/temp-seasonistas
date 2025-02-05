@@ -14,6 +14,7 @@ import Hero7 from "~/app/assets/about-p7.jpg";
 
 import Image from "next/image";
 
+
 import { AppLayout } from "~/components/AppLayout/AppLayout";
 import { TitleMark } from "~/components/decorations";
 import clsx from "clsx";
@@ -21,7 +22,7 @@ import clsx from "clsx";
 import { FrequentlyAskedQuestions } from "~/components/FrequentlyAskedQuestions";
 import { OurTeam } from "./OurTeam";
 import { IconBrandInstagram, IconMailFilled } from "@tabler/icons-react";
-
+import './About.css';
 function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
   return (
     <div className='flex flex-col items-center max-w-sm'>
@@ -119,9 +120,8 @@ function TopSection() {
         </h1>
 
         {/* Subtitle */}
-        <p className="text-center text-xl font-normal text-black/50 mt-6 max-w-lg mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-          tristique mauris rhoncus odio aliquet, vitae.
+        <p className="text-center text-xl font-normal text-black/50 mt-6 mx-auto">
+        We are a team of people who have firsthand experience in various aspects of seasonal work. Therefore, we understand the challenges and difficulties faced by both employers and employees in seasonal professions. Experienced at the core, we created a platform designed to meet the real needs of individuals working in these sectors. Our goal is to offer a tool that simplifies the process of finding work and staff, while also building trust between employees and employers.
         </p>
       </div>
 
@@ -142,24 +142,10 @@ function TopSection() {
 
         <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
           <p>
-            Far much that one rank beheld bluebird after outside ignobly
-            allegedly more when oh arrogantly vehement irresistibly fussy
-            penguin insect additionally wow absolutely crud meretriciously
-            hastily dalmatian a glowered inset one echidna cassowary some parrot
-            and much as goodness some froze the sullen much connected bat
-            wonderfully on instantaneously eel valiantly petted this along
-            across highhandedly much.
+          Seasonistas is a platform functioning as a marketplace, bringing together employees and employers engaged in seasonal work in Greece. It was created to improve existing working conditions, offering a faster, more accessible, and reliable way for employees to find a job that suits them and for employers to secure the necessary staff to meet their seasonal needs.
           </p>
           <p>
-            Repeatedly dreamed alas opossum but dramatically despite
-            expeditiously that jeepers loosely yikes that as or eel underneath
-            kept and slept compactly far purred sure abidingly up above fitting
-            to strident wiped set waywardly far the and pangolin horse approving
-            paid chuckled cassowary oh above a much opposite far much
-            hypnotically more therefore wasp less that hey apart well like while
-            superbly orca and far hence one.Far much that one rank beheld
-            bluebird after outside ignobly allegedly more when oh arrogantly
-            vehement irresistibly fussy.
+          Unlike a traditional agency, Seasonistas does not act as a middleman. Instead, it allows employees and employers to connect directly, evaluate opportunities independently, and negotiate their collaborations. Our platform provides all the tools needed to make the process more transparent and effective, empowering both employees and employers to make the best choices.
           </p>
         </section>
         <h1 className="text-3xl font-semibold mt-12 text-center md:text-left">
@@ -168,24 +154,10 @@ function TopSection() {
 
         <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
           <p>
-            Far much that one rank beheld bluebird after outside ignobly
-            allegedly more when oh arrogantly vehement irresistibly fussy
-            penguin insect additionally wow absolutely crud meretriciously
-            hastily dalmatian a glowered inset one echidna cassowary some parrot
-            and much as goodness some froze the sullen much connected bat
-            wonderfully on instantaneously eel valiantly petted this along
-            across highhandedly much.
+          Understanding the challenges associated with Greece’s tourism sector, such as demanding schedules and tough working conditions, Seasonistas was created to offer solutions that enhance the seasonal job market. Our platform facilitates a direct connection between businesses committed to providing quality working conditions and professionals seeking reliable partnerships.
           </p>
           <p>
-            Repeatedly dreamed alas opossum but dramatically despite
-            expeditiously that jeepers loosely yikes that as or eel underneath
-            kept and slept compactly far purred sure abidingly up above fitting
-            to strident wiped set waywardly far the and pangolin horse approving
-            paid chuckled cassowary oh above a much opposite far much
-            hypnotically more therefore wasp less that hey apart well like while
-            superbly orca and far hence one.Far much that one rank beheld
-            bluebird after outside ignobly allegedly more when oh arrogantly
-            vehement irresistibly fussy.
+          Our aim is to support companies that recognize the value of their staff by helping them find talented employees, and to provide a framework that encourages improved workplace practices. We believe that through proper collaboration, we can contribute to a fairer and more functional workplace.
           </p>
         </section>
 
@@ -195,25 +167,14 @@ function TopSection() {
 
         <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
           <p>
-            Far much that one rank beheld bluebird after outside ignobly
-            allegedly more when oh arrogantly vehement irresistibly fussy
-            penguin insect additionally wow absolutely crud meretriciously
-            hastily dalmatian a glowered inset one echidna cassowary some parrot
-            and much as goodness some froze the sullen much connected bat
-            wonderfully on instantaneously eel valiantly petted this along
-            across highhandedly much.
+          At Seasonistas, our values reflect our commitment to continuously improving the experience of seasonal employees and employers. We envision a work environment based on trust, mutual respect, and growth.
+          <ul className="circle-bullets">
+            <li>Transparency: We believe in open and clear communication, so that employees and employers can build trust-based relationships.</li>
+            <li>Respect: Every partnership should be grounded in mutual appreciation and fair treatment.</li>
+            <li>Growth: We encourage continuous improvement for both employees and businesses, fostering a culture of progress.</li>
+          </ul>
           </p>
-          <p>
-            Repeatedly dreamed alas opossum but dramatically despite
-            expeditiously that jeepers loosely yikes that as or eel underneath
-            kept and slept compactly far purred sure abidingly up above fitting
-            to strident wiped set waywardly far the and pangolin horse approving
-            paid chuckled cassowary oh above a much opposite far much
-            hypnotically more therefore wasp less that hey apart well like while
-            superbly orca and far hence one.Far much that one rank beheld
-            bluebird after outside ignobly allegedly more when oh arrogantly
-            vehement irresistibly fussy.
-          </p>
+         
         </section>
       </div>
     </>
@@ -267,9 +228,9 @@ function BottomSection() {
       </h1>
 
       {/* Subtitle */}
-      <p className="text-center text-xl font-normal text-black/50 mt-6 max-w-lg mx-auto">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        tristique mauris rhoncus odio aliquet, vitae.
+      <p className="text-center text-xl font-normal text-black/50 mt-6 mx-auto">
+      At Seasonistas, we specialize in connecting Greek tourism businesses with qualified staff from Greece and abroad. Through our platform, we assist in successfully filling job openings, providing employers with immediate access to suitable candidates and workers with employment opportunities that match their skillsets.
+With a flexible and user-friendly process, we ensure that collaboration is simple, quick, and yields desirable results for all parties involved.
       </p>
 
       {/* Features */}
@@ -321,9 +282,7 @@ export default function AboutUs() {
   return (
     <AppLayout>
       <TopSection />
-      <OurTeam />
       <BottomSection />
-
       <div className="app-container w-full pb-20">
         <h1 className="text-4xl text-center mt-12 mb-8">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">

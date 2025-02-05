@@ -50,9 +50,6 @@ export function GeneralInfoStep({
       <h1 className="font-semibold text-2xl text-center md:text-left">
         Post a New Job !
       </h1>
-      <h4 className="text-black/70 h-0 -translate-y-1 text-sm text-center md:text-left">
-        Ready to jump back in?
-      </h4>
       {progressView}
 
       <StepForm onNext={onNext}>

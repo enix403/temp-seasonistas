@@ -148,68 +148,6 @@ export function Filters({
               ))}
             </Select>
           </Filter>
-          <Filter label="Job Type">
-            <div className="space-y-2.5">
-              <SwitchOption
-                {...register("jobType.fullTime")}
-                label="Full Time"
-              />
-              <SwitchOption
-                {...register("jobType.partTime")}
-                label="Part Time"
-              />
-              <SwitchOption
-                {...register("jobType.internship")}
-                label="internship"
-              />
-              <SwitchOption
-                {...register("jobType.specificDates")}
-                label="Temporary"
-              />
-            </div>
-          </Filter>
-          <Filter label="Date Posted">
-            <div className="space-y-2.5">
-              <SwitchOption {...register("datePosted.all")} label="All" />
-              <SwitchOption
-                {...register("datePosted.lastHour")}
-                label="Last Hour"
-              />
-              <SwitchOption
-                {...register("datePosted.last24Hours")}
-                label="Last 24 Hour"
-              />
-              <SwitchOption
-                {...register("datePosted.last7Days")}
-                label="Last 7 Days"
-              />
-            </div>
-          </Filter>
-          <Filter label="Experience Level">
-            <div className="space-y-2.5">
-              <SwitchOption
-                {...register("expLevelRequired.entry")}
-                label="Entry Level"
-              />
-              <SwitchOption
-                {...register("expLevelRequired.mid")}
-                label="Mid Level"
-              />
-              <SwitchOption
-                {...register("expLevelRequired.senior")}
-                label="Senior Level"
-              />
-            </div>
-
-            <Button
-              variant="text"
-              fullRounded
-              className="mt-3 !gap-x-2 text-teal"
-            >
-              <IconCirclePlusFilled size={20} />
-              View More
-            </Button>
-          </Filter>
           <Filter label="Salary">
             <div className="flex gap-x-4">
               <RichInput
@@ -222,6 +160,70 @@ export function Filters({
               />
             </div>
           </Filter>
+          <Filter label="Job Type">
+            <div className="space-y-2.5">
+              <SwitchOption
+                {...register("jobType.fullTime")}
+                label="Full Time"
+              />
+              <SwitchOption
+                {...register("jobType.partTime")}
+                label="Part Time"
+              />
+              <SwitchOption
+                {...register("jobType.internship")}
+                label="Permanent"
+              />
+              <SwitchOption
+                {...register("jobType.specificDates")}
+                label="Temporary"
+              />
+            </div>
+          </Filter>
+          <Filter label="Experience Level">
+            <div className="space-y-2.5">
+              <SwitchOption
+                {...register("expLevelRequired.entry")}
+                label="0-2 years"
+              />
+              <SwitchOption
+                {...register("expLevelRequired.mid")}
+                label="2-5 years"
+              />
+              <SwitchOption
+                {...register("expLevelRequired.senior")}
+                label="5+ years"
+              />
+            </div>
+
+            <Button
+              variant="text"
+              fullRounded
+              className="mt-3 !gap-x-2 text-teal"
+            >
+              <IconCirclePlusFilled size={20} />
+              View More
+            </Button>
+          </Filter>
+          <Filter label="Date Posted">
+            <div className="space-y-2.5">
+              <SwitchOption {...register("datePosted.all")} label="All" />
+              <SwitchOption
+                {...register("datePosted.lastHour")}
+                label="Last Day"
+              />
+              <SwitchOption
+                {...register("datePosted.last24Hours")}
+                label="Last week"
+              />
+              <SwitchOption
+                {...register("datePosted.last7Days")}
+                label="Last month"
+              />
+            </div>
+          </Filter>
+          
+          
         </>
       )}
     </FilterList>

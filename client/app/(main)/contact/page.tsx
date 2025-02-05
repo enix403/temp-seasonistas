@@ -44,8 +44,7 @@ function TopSection() {
 
       {/* Subtitle */}
       <p className='text-center text-xl font-normal text-black/50 mt-6 max-w-xl mx-auto'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        tristique mauris rhoncus odio aliquet, vitae.
+            Ask us whatever you need and we'll contact you soon!
       </p>
 
       <div className='flex justify-center  gap-x-10 sm:gap-x-20 gap-y-12 mt-12'>
@@ -78,7 +77,7 @@ function FormSection() {
         </FormLabel>
       </div>
       <FormLabel label='Your Message' className='mt-8'>
-        <ContactInput placeholder='Hi, I think we need a website for our products at Company X. How soon can you hop on to discuss this?' />
+        <ContactInput placeholder='Hello! I’m interested in learning more about your services. Could you provide me with some information?' />
       </FormLabel>
 
       <Button className='mx-auto mt-16' fullRounded>

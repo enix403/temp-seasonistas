@@ -69,58 +69,13 @@ function InformationPageContent() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
           tristique mauris rhoncus odio aliquet, vitae.
         </p>
-
-        <section className="mt-8 space-y-6">
-          <h1 className="text-2xl font-bold pt-4">
-            Information around seasonal work.
-          </h1>
-          <p>
-            Starting in 2019 in a small workshop in Toronto, a group of eight
-            passionate individuals came together with a shared vision—to build a
-            product that would transform how people connect with their careers.
-            We were not just colleagues but a team driven by a common goal: to
-            bridge the gap between employees and employers, and empower
-            individuals to excel in their professional journeys.
-          </p>
-          <p>
-            Our journey began with countless brainstorming sessions, fueled by
-            coffee and the desire to make a difference. Each of us brought
-            something unique to the table—ranging from expertise in software
-            development, user experience design, and data analytics to deep
-            insights into human resources and career development. This diverse
-            blend of skills and perspectives was our greatest strength, allowing
-            us to tackle the complexities of the modern workplace from multiple
-            angles.
-          </p>
-          <p>
-            We recognized early on that the traditional job market was evolving.
-            The days of static resumes and long-term employment with a single
-            company were fading. In their place, a more dynamic and fluid job
-            market was emerging—one where networking, continuous learning, and
-            adaptability were key to career success. Our mission became clear:
-            to create a platform that would not only connect people with job
-            opportunities but also provide them with the tools and resources to
-            thrive in an ever-changing work environment.
-          </p>
-        </section>
-
-        <div className="flex max-md:flex-col justify-center gap-x-3 gap-y-8 mt-8">
-          {viewMode === "employer" ? (
-            <FeatureBlock Icon={IconUserSearch} title="Find Employees">
-              Service to help find the best employee for your company
-            </FeatureBlock>
-          ) : (
-            <FeatureBlock Icon={ResumeIcon} title="Improve your CV">
-              Service for improving and creating a proper CV.
-            </FeatureBlock>
-          )}
-          <FeatureBlock Icon={IconCoins} title="Minimum wage" />
-          <FeatureBlock Icon={IconCoinFilled} title="Net wage" />
-        </div>
       </div>
-      <JobBanner />
       <div className="app-container max-w-5xl w-full pt-8">
         <InfoStepper />
+        </div>
+        <JobBanner />
+
+        <div className="app-container max-w-5xl w-full pt-8">
         <h1 className="text-4xl text-center mt-14 mb-8">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
             Frequently
