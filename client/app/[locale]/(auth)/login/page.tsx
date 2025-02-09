@@ -52,7 +52,7 @@ function LoginFormContent() {
       <Note
         label="Don't have an account?"
         linkLabel="Sign up"
-        linkHref="/register"
+        linkHref={`/en/register`}
       />
     </form>
   );
