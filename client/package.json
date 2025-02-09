@@ -23,6 +23,7 @@
     "jotai": "^2.9.1",
     "ky": "^1.7.2",
     "next": "^14.2.20",
+    "next-intl": "^3.26.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",
@@ -33,12 +34,14 @@
     "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.26.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
+    "next-intl": "^3.26.3",
     "next-plugin-svgr": "^1.1.10",
     "postcss": "^8",
     "prisma": "^5.16.1",

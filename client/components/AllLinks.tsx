@@ -3,36 +3,39 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentProps } from "react";
 import { useViewMode } from "~/app/providers/auth-state";
+import { useLocale, useTranslations } from "next-intl";
 
 function AppLink(props: ComponentProps<typeof Link>) {
   const pathname = usePathname();
-
+  const locale = useLocale();
+  
   return (
-    <>
-      <Link
-        {...props}
-        className={clsx(pathname === props.href && "text-teal")}
-      />
-    </>
+    <Link
+    {...props}
+    href={`/${locale}${props.href}`} // Correct locale-based URL
+    className={clsx(pathname === props.href && "text-teal")}
+  />
   );
 }
 
 export function AllLinks() {
+  const t = useTranslations("navigation"); // Use translations
   const viewMode = useViewMode();
+
   return (
     <>
-      <AppLink href={`/home`}>Home</AppLink>
-      <AppLink href={`/community`}>Community</AppLink>
+      <AppLink href={`/home`}>{t("home")}</AppLink>
+      <AppLink href={`/community`}>{t("community")}</AppLink>
       {viewMode === "employer" && (
         <>
-          <AppLink href={`/create-job`}>Create job</AppLink>
-          <AppLink href={`/postings`}>Postings</AppLink>
+          <AppLink href={`/create-job`}>{t("createJob")}</AppLink>
+          <AppLink href={`/postings`}>{t("postings")}</AppLink>
         </>
       )}
-      <AppLink href={`/information`}>Information</AppLink>
-      <AppLink href={`/services`}>Services</AppLink>
-      <AppLink href={`/about`}>About us</AppLink>
-      <AppLink href={`/contact`}>Contact us</AppLink>
+      <AppLink href={`/information`}>{t("information")}</AppLink>
+      <AppLink href={`/services`}>{t("services")}</AppLink>
+      <AppLink href={`/about`}>{t("aboutUs")}</AppLink>
+      <AppLink href={`/contact`}>{t("contactUs")}</AppLink>
     </>
   );
 }
