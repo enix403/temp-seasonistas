@@ -1,5 +1,8 @@
-// const withSvgr = require('next-plugin-svgr');
 import withSvgr from "next-plugin-svgr";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin();
+
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,9 +12,7 @@ const nextConfig = {
         {
           name: "preset-default",
           params: {
-            overrides: {
-              removeViewBox: false,
-            },
+            overrides: { removeViewBox: false },
           },
         },
       ],
@@ -19,4 +20,4 @@ const nextConfig = {
   },
 };
 
-export default withSvgr(nextConfig);
+export default withNextIntl(withSvgr(nextConfig));
