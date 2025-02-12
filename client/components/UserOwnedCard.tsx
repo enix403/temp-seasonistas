@@ -68,8 +68,8 @@ export function UserOwnedCard({
             {tag}
           </div>
         )}
-
-        {withFavouriteToggle && (
+{/* 
+        {withFavouriteToggle && ( */}
           <div className="absolute right-0 top-0">
             <IconButton
               variant="text"
@@ -82,7 +82,7 @@ export function UserOwnedCard({
               />
             </IconButton>
           </div>
-        )}
+        {/* )} */}
       </header>
 
       <Link

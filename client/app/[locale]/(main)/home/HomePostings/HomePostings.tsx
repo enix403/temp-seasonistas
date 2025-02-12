@@ -90,6 +90,10 @@ export function HomePostings({
           <Spinner color="green" />
           <span>{t('loading')}</span>
         </div>
+      ) : postings.length === 0 ? (
+        <div className="flex items-center gap-x-2 py-3">
+          <span>No saved data is here.</span>
+        </div>
       ) : (
         postings.map(
           (posting) =>
