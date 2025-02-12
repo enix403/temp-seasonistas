@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { apiRoutes } from "~/app/api-routes";
 import { useResumableAction } from "~/app/hooks/useResumableAction";
@@ -11,7 +12,12 @@ import { useTranslations } from 'next-intl';
 export function CommunityItemCard({ user }: { user: any }) {
   const userId = user["_id"];
   const t = useTranslations('community');
+  const [ msgUrl, setMsgUrl ] = useState("");
 
+  useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setMsgUrl(`/${locale}/chat/${user["_id"]}`);
+  }, []);
   // Friendship
   const {
     isDone: isFriend,
@@ -58,7 +64,7 @@ export function CommunityItemCard({ user }: { user: any }) {
           >
             {isFriend ? t('remove') : t('add')}
           </Button>
-          <Link href={`/chat/${user["_id"]}`}>
+          <Link href={msgUrl}>
             <Button variant="outlined" fullRounded className="!py-1 flex-1">
             {t('message')}
             </Button>

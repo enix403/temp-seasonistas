@@ -27,9 +27,9 @@ export function Select({
     <div
       {...combineVisualProps(divProps, {
         className: [
-          "rounded-xl flex p-3 justify-between gap-x-1.5",
+          "rounded-xl flex p-3 justify-between gap-x-5",
           "items-center",
-          variant === "outlined" ? "border border-black/20" : "bg-white"
+          variant === "outlined" ? "border border-gray-300" : "bg-white"
         ]
       })}
     >
@@ -37,9 +37,9 @@ export function Select({
       <select
         {...combineVisualProps(selectProps || {}, {
           className: [
-            "appearance-none bg-transparent flex-1 self-stretch",
+            "appearance-none bg-transparent flex-1 self-stretch border-none outline-none",
             selectClassName
-          ]
+          ],
         })}
         value={value}
         onChange={(e) => {

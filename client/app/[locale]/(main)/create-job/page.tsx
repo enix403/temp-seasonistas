@@ -204,8 +204,8 @@ export default function CreateJobPage() {
         error: t('errorOccurred'),
       });
       console.log(result);
-
-      router.push("/postings");
+      const locale = localStorage.getItem("locale") || "en";
+      router.push(`/${locale}/postings`);
     } catch {
       setLoading(false);
     }

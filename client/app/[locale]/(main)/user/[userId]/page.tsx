@@ -5,23 +5,26 @@ import {
   CardBody,
   Avatar,
   Tabs,
-  TabsHeader,
   Tab,
+  TabsHeader,
+  TabsBody,
+  TabPanel,
   Chip,
   Spinner,
 } from "@material-tailwind/react";
-
+import Link from "next/link";
 import { IconMail, IconMap2, IconPhoneCall } from "@tabler/icons-react";
 
 import { Button } from "~/components/Button/Button";
 import { repeatNode } from "~/app/utils/markup";
 import { AppLayout } from "~/components/AppLayout/AppLayout";
 import { useParams } from "next/navigation";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 import { apiRoutes } from "~/app/api-routes";
 import { useQuery } from "@tanstack/react-query";
 import { useResumableAction } from "~/app/hooks/useResumableAction";
 import { reportedCall } from "~/app/utils/promises";
+import { useTranslations } from 'next-intl';
 
 export default function UserProfile() {
   const { userId } = useParams<{ userId: string }>();
@@ -34,7 +37,6 @@ export default function UserProfile() {
     async function loadUser() {
       try {
         const user = await apiRoutes.getUser(userId);
-        console.log(user);
         setUser(user);
         setStatus("ok");
       } catch {
@@ -102,6 +104,12 @@ function ConnectButton({ user, className }: any) {
 
 function Contents({ user }: any) {
   const connectionCount = user["friendsWith"].length + user["friendsOf"].length;
+  const t = useTranslations('community');
+  const [ msgUrl, setMsgUrl ] = useState("");
+  useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setMsgUrl(`/${locale}/chat/${user["_id"]}`);
+  }, []);
   return (
     <AppLayout>
       <div className="app-container max-w-6xl w-full mt-8 grid grid-cols-3 gap-6">
@@ -143,9 +151,11 @@ function Contents({ user }: any) {
               {/* Buttons */}
               <div className="mt-4 flex space-x-4">
                 <ConnectButton user={user} />
-                <Button fullRounded variant="outlined">
-                  Message
-                </Button>
+                <Link href={msgUrl}>
+                  <Button variant="outlined" fullRounded className="">
+                  {t('message')}
+                  </Button>
+                </Link>
               </div>
             </CardBody>
           </Card>
@@ -162,21 +172,20 @@ function Contents({ user }: any) {
               </TabsHeader>
 
               {/* Profile Details */}
-              <CardBody>
-                <h2 className="text-xl font-semibold mb-4">About</h2>
-                <p className="text-gray-700">
-                  Experienced software developer with a passion for building
-                  scalable web applications and working with modern JavaScript
-                  frameworks. Proficient in full-stack development.
-                </p>
-
-                <div className="mt-6 divide-y-2">
+              <TabsBody className="[&_*]:text-black">
+              <TabPanel value="profile">
+                <div className="divide-y-2">
                   <p className="text-gray-700 py-4">
                     <p className="font-bold text-xl text-purple-400 flex gap-x-2 items-center mb-3">
                       <IconMail size={28} />
                       <span>Email address:</span>
                     </p>
-                    <p>{user.email}</p>
+                    <a
+                      href={`mailto:${user.email}`}
+                      className="text-blue-500 hover:underline cursor-pointer"
+                    >
+                      {user.email}
+                    </a>
                   </p>
                   <p className="text-gray-700 py-4">
                     <p className="font-bold text-xl text-blue-400 flex gap-x-2 items-center mb-3">
@@ -193,54 +202,77 @@ function Contents({ user }: any) {
                       <IconPhoneCall size={28} />
                       <span>Phone number:</span>
                     </p>
-                    <p>+00 123 456 789 / +12 345 678</p>
+                    <a
+                      href="tel:+00123456789"
+                      className="text-blue-500 hover:underline cursor-pointer"
+                    >
+                      +00 123 456 789
+                    </a>
+                    /
+                    <a
+                      href="tel:+12345678"
+                      className="text-blue-500 hover:underline cursor-pointer"
+                    >
+                      +12 345 678
+                    </a>
                   </p>
                 </div>
-              </CardBody>
+              </TabPanel>
+              <TabPanel value="about">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">About</h2>
+                  <p className="text-red-700">
+                    Experienced software developer with a passion for building
+                    scalable web applications and working with modern JavaScript
+                    frameworks. Proficient in full-stack development.
+                  </p>
+                </div>
+              </TabPanel>
+              <TabPanel value="experience">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Experience</h2>
+                  <div className="mb-4">
+                    <h3 className="font-semibold">Software Developer</h3>
+                    <p className="text-gray-600">XYZ Corp</p>
+                    <p className="text-gray-500 text-sm">
+                      Jan 2020 - Present · 3 yrs
+                    </p>
+                    <p className="text-gray-700">
+                      Working on building web applications using React, Node.js, and
+                      GraphQL.
+                    </p>
+                  </div>
+                  <div className="mb-4">
+                    <h3 className="font-semibold">Junior Developer</h3>
+                    <p className="text-gray-600">ABC Inc.</p>
+                    <p className="text-gray-500 text-sm">
+                      Jun 2018 - Dec 2019 · 1 yr 6 mos
+                    </p>
+                    <p className="text-gray-700">
+                      Assisted in developing internal tools and dashboards for
+                      monitoring company-wide metrics.
+                    </p>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="education">
+                <div>
+                </div>
+              </TabPanel>
+              <TabPanel value="skills">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Skills</h2>
+                  <div className="flex flex-wrap gap-2">
+                    <Chip value="JavaScript" color="green" />
+                    <Chip value="React" color="green" />
+                    <Chip value="Node.js" color="green" />
+                    <Chip value="GraphQL" color="green" />
+                    <Chip value="Tailwind CSS" color="green" />
+                  </div>
+                </div>
+              </TabPanel>
+              </TabsBody>
             </Tabs>
-          </Card>
-
-          {/* Experience Section */}
-          <Card className="shadow-md rounded-lg mb-8">
-            <CardBody>
-              <h2 className="text-xl font-semibold mb-4">Experience</h2>
-              <div className="mb-4">
-                <h3 className="font-semibold">Software Developer</h3>
-                <p className="text-gray-600">XYZ Corp</p>
-                <p className="text-gray-500 text-sm">
-                  Jan 2020 - Present · 3 yrs
-                </p>
-                <p className="text-gray-700">
-                  Working on building web applications using React, Node.js, and
-                  GraphQL.
-                </p>
-              </div>
-              <div className="mb-4">
-                <h3 className="font-semibold">Junior Developer</h3>
-                <p className="text-gray-600">ABC Inc.</p>
-                <p className="text-gray-500 text-sm">
-                  Jun 2018 - Dec 2019 · 1 yr 6 mos
-                </p>
-                <p className="text-gray-700">
-                  Assisted in developing internal tools and dashboards for
-                  monitoring company-wide metrics.
-                </p>
-              </div>
-            </CardBody>
-          </Card>
-
-          {/* Skills Section */}
-          <Card className="shadow-md rounded-lg mb-8">
-            <CardBody>
-              <h2 className="text-xl font-semibold mb-4">Skills</h2>
-              <div className="flex flex-wrap gap-2">
-                <Chip value="JavaScript" color="green" />
-                <Chip value="React" color="green" />
-                <Chip value="Node.js" color="green" />
-                <Chip value="GraphQL" color="green" />
-                <Chip value="Tailwind CSS" color="green" />
-              </div>
-            </CardBody>
           </Card>
         </div>
 

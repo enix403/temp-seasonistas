@@ -123,6 +123,10 @@ export default function Community() {
                 <Spinner color="green" />
                 <span>{t('loading')}</span>
               </div>
+            ) : community.length === 0 ? (
+              <div className="flex items-center gap-x-2 py-3">
+                <span>No data found.</span>
+              </div>
             ) : (
               community.map(
                 (user) =>

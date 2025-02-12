@@ -21,7 +21,6 @@ function AppLink(props: ComponentProps<typeof Link>) {
 export function AllLinks() {
   const t = useTranslations("navigation"); // Use translations
   const viewMode = useViewMode();
-
   return (
     <>
       <AppLink href={`/home`}>{t("home")}</AppLink>
