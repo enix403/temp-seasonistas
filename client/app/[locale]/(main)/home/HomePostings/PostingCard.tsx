@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Button } from "~/components/Button/Button";
 import { UserOwnedCard } from "~/components/UserOwnedCard";
 import { apiRoutes } from "~/app/api-routes";
@@ -19,6 +20,11 @@ export function PostingCard({
 }) {
   const postingId = posting["_id"];
   const t = useTranslations('home');
+  const [ msgUrl, setMsgUrl ] = useState("");
+  useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setMsgUrl(`/${locale}/chat/${posting?.poster["_id"]}`);
+  }, []);
 
   const {
     isDone: isApplied,
@@ -64,7 +70,7 @@ export function PostingCard({
           >
             {isApplied === true ? t('alreadyApplied') : t('apply')}
           </Button>
-          <Link href={`/chat/${posting?.poster["_id"]}`}>
+          <Link href={msgUrl}>
             <Button fullRounded variant="outlined">
               {t('message')}
             </Button>

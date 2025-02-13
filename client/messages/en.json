@@ -45,7 +45,7 @@
       },
       "filters":{
         "location": "Location",
-        "locationPlaceholder": "London",
+        "locationPlaceholder": "Athens",
         "radius": "Radius around selected destination",
         "category": "Category",
         "chooseCategory": "Choose a category",

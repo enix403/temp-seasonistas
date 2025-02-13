@@ -175,11 +175,11 @@ export default function HomeProposalsPage() {
           <PrimaryTabs className="mt-5" activeTab={activeTab} setActiveTab={setActiveTab} />
           <SearchControls onFilter={setFilters} className="mt-4" />
         </div>
-        <div className="md:hidden block flex-1">
-          <PrimaryTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-          <PageTitle className="mt-4" />
-          <SearchControls onFilter={setFilters} className="mt-4" />
-        </div>
+        {/* <div className="md:hidden block flex-1"> */}
+          {/* <PrimaryTabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
+          {/* <PageTitle className="mt-4" /> */}
+          {/* <SearchControls onFilter={setFilters} className="mt-4" /> */}
+        {/* </div> */}
 
         <div className="mt-4 grid wl:grid-cols-2 gap-6">
           {viewMode === "employer" ? (

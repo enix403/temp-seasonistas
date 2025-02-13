@@ -29,6 +29,10 @@ export function HomeProfiles({ activeTab }: { activeTab: string }) {
           <Spinner color="green" />
           <span>{t('loading')}</span>
         </div>
+      ) : users.length === 0 ? (
+        <div className="flex items-center gap-x-2 py-3">
+          <span>No data is here</span>
+        </div>
       ) : (
         users.map((employee) => <CandidateCard key={employee["_id"]} employee={employee} />)
       )}

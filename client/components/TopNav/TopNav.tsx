@@ -30,8 +30,9 @@ import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useEffect } from "react";
 import { useTranslations, useLocale } from 'next-intl';
+import { useLayoutEffect, useEffect, useState } from "react";
+
 
 export interface TopNavProps {
   pageTitle?: string;
@@ -44,6 +45,7 @@ function capitalize(str: string | undefined) {
 const drawerAtom = atom(false);
 
 function Contents({ pageTitle }: TopNavProps) {
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const setDrawerOpen = useSetAtom(drawerAtom);
   const setLanguageDrawerOpen = useSetAtom(languageDrawerAtom);
@@ -51,17 +53,27 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { userId, userRole, logout } = useAuthState();
   // TODO: store user name in store
-  const { user } = useCurrentUser(userId);
+  useLayoutEffect(() => {
+    async function loadUser() {
+      try {
+        const temp_user = await useCurrentUser(userId);
+        setUser(temp_user);
+      } catch {
+      }
+    }
+    loadUser();
+  }, [userId]);
 
   const t = useTranslations('topNav');
   const locale = useLocale();
 
   let loggedIn = true;
-
   return (
     <>
       <div className="flex justify-between items-center">
-        <Link href="home" locale={locale}>
+
+        <Link href={`/en/home`}>
+
           <Image alt="" src={Logo} className="h-7 w-auto lg:h-10" />
         </Link>
         <div className="flex gap-x-1 items-center">
@@ -109,8 +121,11 @@ function Contents({ pageTitle }: TopNavProps) {
                   <MenuItem>{t('addCard')}</MenuItem>
                   <MenuItem
                     onClick={() => {
+                      const locale = localStorage.getItem("locale") || "en";
                       logout();
-                      router.push("login");
+
+                      router.push(`/${locale}/login` );
+
                     }}
                   >
                     {t('logout')}

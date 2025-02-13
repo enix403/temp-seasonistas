@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -15,7 +15,13 @@ import { AuthInput, Note, PasswordInput } from "../common";
 
 function LoginFormContent() {
   const [loading, setLoading] = useState(false);
+  const [ registerUrl, setRegisterUrl ] = useState("");
   const { register, handleSubmit } = useForm<any>();
+
+  useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setRegisterUrl(`/${locale}/register`);
+  }, []);
 
   const authState = useAuthState();
 

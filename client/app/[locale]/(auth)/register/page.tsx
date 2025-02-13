@@ -61,14 +61,16 @@ function RegisterFormContent() {
     mode === role ? "filled" : "outlined";
 
   const [loading, setLoading] = useState(false);
+  const [ loginUrl, setLoginUrl ] = useState("");
   const { register, handleSubmit, reset } = useForm<any>();
 
   const authState = useAuthState();
   const { isLoggedIn } = authState;
 
   useLayoutEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
     if (isLoggedIn) {
-      router.push("/home");
+      router.push(`/${locale}/home`);
     }
   }, [router, isLoggedIn]);
 
@@ -114,6 +116,8 @@ function RegisterFormContent() {
   }
 
   useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setLoginUrl(`/${locale}/login`);
     reset();
   }, [reset, role]);
 
@@ -175,7 +179,7 @@ function RegisterFormContent() {
         <Note
           label="Already have an account?"
           linkLabel="Login"
-          linkHref="/login"
+          linkHref={loginUrl}
         />
       </form>
     </>
