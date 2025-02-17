@@ -30,7 +30,7 @@ import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from 'next-intl';
 
 export interface TopNavProps {
