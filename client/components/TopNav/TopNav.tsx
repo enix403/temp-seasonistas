@@ -52,7 +52,7 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { userId, userRole, logout } = useAuthState();
   // TODO: store user name in store
-  const { user } = useCurrentUser(userId);
+  //const { user } = useCurrentUser(userId);
 
   const t = useTranslations('topNav');
   const locale = useLocale();
