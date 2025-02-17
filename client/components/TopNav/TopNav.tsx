@@ -44,6 +44,7 @@ function capitalize(str: string | undefined) {
 const drawerAtom = atom(false);
 
 function Contents({ pageTitle }: TopNavProps) {
+  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const setDrawerOpen = useSetAtom(drawerAtom);
   const setLanguageDrawerOpen = useSetAtom(languageDrawerAtom);
@@ -57,7 +58,6 @@ function Contents({ pageTitle }: TopNavProps) {
   const locale = useLocale();
 
   let loggedIn = true;
-
   return (
     <>
       <div className="flex justify-between items-center">
@@ -109,6 +109,7 @@ function Contents({ pageTitle }: TopNavProps) {
                   <MenuItem>{t('addCard')}</MenuItem>
                   <MenuItem
                     onClick={() => {
+                      const locale = localStorage.getItem("locale") || "en";
                       logout();
                       router.push("login");
                     }}

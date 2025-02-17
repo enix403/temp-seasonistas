@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { apiRoutes } from "~/app/api-routes";
 
 import { UserOwnedCard } from "~/components/UserOwnedCard";
@@ -10,6 +11,11 @@ import { useTranslations } from 'next-intl';
 export function CandidateCard({ employee }: { employee: any }) {
   const employeeId = employee["_id"];
   const t = useTranslations('home');
+  const [ msgUrl, setMsgUrl ] = useState("");
+  useEffect(() => {
+    const locale = localStorage.getItem("locale") || "en";
+    setMsgUrl(`/${locale}/chat/${employee["_id"]}`);
+  }, []);
 
   const {
     isDone: isInvited,
@@ -45,7 +51,7 @@ export function CandidateCard({ employee }: { employee: any }) {
           >
             {isInvited === true ? t('alreadyInvited') : t('invite')}
           </Button>
-          <Link href={`/chat/${employee["_id"]}`}>
+          <Link href={msgUrl}>
             <Button fullRounded variant="outlined">
             {t('message')}
             </Button>

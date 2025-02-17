@@ -26,9 +26,9 @@ import './About.css';
 import { useTranslations } from 'next-intl';
 
 
-function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
+function ContactInfoBlock({ Icon, title, href }: { Icon: any; title: string; href: string }) {
   return (
-    <div className='flex flex-col items-center max-w-sm'>
+    <a href={href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center max-w-sm">
       <div
         className={clsx(
           "border-black/20 border w-14 h-14 flex items-center justify-center",
@@ -37,9 +37,8 @@ function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
       >
         <Icon size={27} className='text-teal' />
       </div>
-      {/* <h2 className='text-xl font-semibold'>{title}</h2> */}
       <h2 className='text-md text-black/50 mt-4 font-semibold'>{title}</h2>
-    </div>
+    </a>
   );
 }
 
@@ -265,9 +264,17 @@ function BottomSection() {
 
       {/* Follow */}
       <h1 className="text-xl font-semibold mt-12 text-center">Follow us At</h1>
-      <div className="flex justify-center  gap-x-10 sm:gap-x-20 gap-y-12 mt-4">
-        <ContactInfoBlock Icon={IconBrandInstagram} title="@seasonistas" />
-        <ContactInfoBlock Icon={IconMailFilled} title="info@seasonistas.com" />
+      <div className="flex justify-center gap-x-10 sm:gap-x-20 gap-y-12 mt-4">
+        <ContactInfoBlock 
+          Icon={IconBrandInstagram} 
+          title="@seasonistas" 
+          href="https://www.instagram.com/seasonistas"
+        />
+        <ContactInfoBlock 
+          Icon={IconMailFilled} 
+          title="info@seasonistas.com" 
+          href="mailto:info@seasonistas.com"
+        />
       </div>
     </div>
   );

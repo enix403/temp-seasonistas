@@ -59,7 +59,8 @@ function Conversation({ conversation }: { conversation: any }) {
         activeReceiverId === receiverId && "bg-teal/30"
       )}
       onClick={() => {
-        router.push(`/chat/${receiverId}`);
+        const locale = localStorage.getItem("locale") || "en";
+        router.push(`/${locale}/chat/${receiverId}`);
       }}
     >
       <Badge
