@@ -342,6 +342,13 @@
         "overMillionInteractions": "In 2024, over 800,000 people in Greece found seasonal jobs. Find the ideal seasonal position that suits you now!",
         "searchDocument": "Post a Job Listing Now",
         "applyJobNow": "Apply for a Job Now"
+},
+"topNav": {
+        "changeLanguage": "Change language",
+        "changeCurrency": "Change currency",
+        "addCard": "Add card",
+        "logout": "Logout",
+        "registerLogin": "Register / Login"
 }
 
 }

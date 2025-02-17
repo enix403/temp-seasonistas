@@ -30,7 +30,8 @@ import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useLayoutEffect, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useTranslations, useLocale } from 'next-intl';
 
 export interface TopNavProps {
   pageTitle?: string;
@@ -51,28 +52,22 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { userId, userRole, logout } = useAuthState();
   // TODO: store user name in store
-  useLayoutEffect(() => {
-    async function loadUser() {
-      try {
-        const temp_user = await useCurrentUser(userId);
-        setUser(temp_user);
-      } catch {
-      }
-    }
-    loadUser();
-  }, [userId]);
+  const { user } = useCurrentUser(userId);
+
+  const t = useTranslations('topNav');
+  const locale = useLocale();
 
   let loggedIn = true;
   return (
     <>
       <div className="flex justify-between items-center">
-        <Link href={`/en/home`}>
+        <Link href="home" locale={locale}>
           <Image alt="" src={Logo} className="h-7 w-auto lg:h-10" />
         </Link>
         <div className="flex gap-x-1 items-center">
           {loggedIn ? (
             <>
-              <Link href={`/chat`}>
+              <Link href="chat" locale={locale}>
                 <IconButton variant="text">
                   <MessageIcon className="w-5" />
                 </IconButton>
@@ -101,34 +96,34 @@ function Contents({ pageTitle }: TopNavProps) {
                     onClick={() => setLanguageDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    Change language
+                    {t('changeLanguage')}
                     <US title="United States" className="w-5" />
                   </MenuItem>
                   <MenuItem
                     onClick={() => setCurrencyDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    Change currency
+                    {t('changeCurrency')}
                     <span className="text-xs font-bold">EUR</span>
                   </MenuItem>
-                  <MenuItem>Add card</MenuItem>
+                  <MenuItem>{t('addCard')}</MenuItem>
                   <MenuItem
                     onClick={() => {
                       const locale = localStorage.getItem("locale") || "en";
                       logout();
-                      router.push(`/${locale}/login` );
+                      router.push("login");
                     }}
                   >
-                    Logout
+                    {t('logout')}
                   </MenuItem>
                   {/* ======= */}
                 </MenuList>
               </Menu>
             </>
           ) : (
-            <Link href="/login" className="hidden ph:block">
+            <Link href="login" locale={locale} className="hidden ph:block">
               <Button className="!px-4 !py-1.5 text-sm">
-                Register / Login
+                {t('registerLogin')}
               </Button>
             </Link>
           )}
@@ -151,7 +146,7 @@ function Contents({ pageTitle }: TopNavProps) {
             "wl:flex hidden"
           )}
         >
-          <AllLinks />
+          <AllLinks/>
         </div>
         <h1 className="text-2xl font-semibold wl:hidden max-ph:hidden block">
           {pageTitle}
@@ -172,6 +167,9 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
   useEffect(() => {
     setIsOpen(false);
   }, [pathname, setIsOpen]);
+
+  const t = useTranslations('topNav');
+  const locale = useLocale();
 
   return (
     <>
@@ -196,12 +194,12 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
         </div>
 
         <div className="flex flex-col gap-y-3 mt-8 hover:[&>a]:underline text-xl">
-          <AllLinks />
+          <AllLinks/>
         </div>
 
         {!loggedIn && (
-          <Link href="/auth" className="block mt-8">
-            <Button className="!px-4d !py-2d">Register / Login</Button>
+          <Link href="auth" locale={locale} className="block mt-8">
+            <Button className="!px-4d !py-2d">{t('registerLogin')}</Button>
           </Link>
         )}
       </Drawer>
