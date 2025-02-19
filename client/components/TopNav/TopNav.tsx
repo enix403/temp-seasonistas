@@ -38,6 +38,7 @@ export interface TopNavProps {
 }
 
 function capitalize(str: string | undefined) {
+  console.log(str);
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
 }
 
@@ -52,7 +53,6 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { userId, userRole, logout } = useAuthState();
   // TODO: store user name in store
-  //const { user } = useCurrentUser(userId);
 
   const t = useTranslations('topNav');
   const locale = useLocale();
@@ -88,7 +88,7 @@ function Contents({ pageTitle }: TopNavProps) {
                   <div className="px-4 pt-2 pb-4 text-center space-y-2">
                     <h1 className="text-lg text-black">{user?.fullName}</h1>
                     <h2 className="text-sm text-gray-line-3/80 font-bold">
-                      {capitalize(user?.role)}
+                      {capitalize(userRole)}
                     </h2>
                   </div>
                   {/* ======= */}

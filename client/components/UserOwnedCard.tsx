@@ -3,6 +3,11 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { Avatar, Badge, IconButton } from "@material-tailwind/react";
 import { IconHeartFilled } from "@tabler/icons-react";
+import { useTranslations } from 'next-intl';
+
+const formatDateTime = (date: string) => {
+  return new Date(date).toLocaleString();
+}
 
 export function UserOwnedCard({
   user,
@@ -13,6 +18,9 @@ export function UserOwnedCard({
   isFavourite = false,
   setIsFavourite = () => {},
   actions,
+  companyCountry,
+  startTime,
+  endTime,
   layout = "default",
 }: {
   user?: any;
@@ -23,10 +31,13 @@ export function UserOwnedCard({
   isFavourite?: boolean;
   setIsFavourite?: (fav: boolean) => void;
   actions?: ReactNode;
+  companyCountry?: ReactNode;
+  startTime?: string;
+  endTime?: string;
   layout?: "default" | "centered";
 }) {
   let isCentered = layout === "centered";
-
+const t = useTranslations('home');
   return (
     <div
       className={clsx(
@@ -108,6 +119,34 @@ export function UserOwnedCard({
         <p className={clsx("text-black/70 mt-1", isCentered && "text-center")}>
           {subtitle}
         </p>
+      )}
+
+      {companyCountry && (
+        <p className={clsx("text-black/50 mt-1", isCentered && "text-center")}>
+          {companyCountry}
+        </p>
+      )}
+
+{(startTime || endTime) && (
+        <div className={clsx("text-black/50 mt-1", isCentered && "text-center")}>
+          <p className="flex items-center gap-2">
+            {startTime && (
+              <span>
+               <b>{t("start_time")}:</b> {formatDateTime(startTime)}
+              </span>
+            )}
+            {startTime && endTime && (
+              <span className="text-black/30">•</span>
+            )}
+            </p>
+            <p className="flex items-center gap-2">
+            {endTime && (
+              <span>
+                <b>{t("end_time")}:</b> {formatDateTime(endTime)}
+              </span>
+            )}
+          </p>
+        </div>
       )}
 
       {actions && (

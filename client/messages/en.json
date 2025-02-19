@@ -28,6 +28,7 @@
         "allJobs": "All Jobs",
         "proposals": "Proposals",
         "saved": "Saved",
+        "all_applications": "All Applications",
         "filters": "Filters",
         "sort": "Sort",
         "jobTitlePlaceholder": "Job title, keywords or company",
@@ -41,11 +42,13 @@
         "message": "Message",
         "bestMatch": "Best Match",
         "alreadyApplied": "Already Applied",
-        "apply": "Apply"
+        "apply": "Apply now",
+        "start_time": "Start time",
+        "end_time": "End time"
       },
       "filters":{
         "location": "Location",
-        "locationPlaceholder": "Athens",
+        "locationPlaceholder": "Location",
         "radius": "Radius around selected destination",
         "category": "Category",
         "chooseCategory": "Choose a category",
@@ -349,6 +352,13 @@
         "addCard": "Add card",
         "logout": "Logout",
         "registerLogin": "Register / Login"
+},
+"user" : {
+    "setStatus": "Status",
+  "lookingForJob": "I am looking for a job",
+  "notLookingForJob": "I'm not looking for jobs",
+  "share": "Share",
+  "message": "Message"
 }
 
 }

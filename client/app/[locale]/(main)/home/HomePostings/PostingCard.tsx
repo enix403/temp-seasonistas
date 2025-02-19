@@ -55,6 +55,9 @@ export function PostingCard({
     <UserOwnedCard
       user={posting?.poster}
       title={posting?.title}
+      companyCountry={posting?.companyCountry}
+      startTime={posting?.startTime}
+      endTime={posting?.endTime}
       subtitle={posting?.description}
       tag={isBestMatch && t('bestMatch')}
       withFavouriteToggle

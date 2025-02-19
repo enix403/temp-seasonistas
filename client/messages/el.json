@@ -29,6 +29,7 @@
         "allJobs": "Όλες οι Δουλειές",
         "proposals": "Προτάσεις",
         "saved": "Αποθηκευμένα",
+        "all_applications": "Όλες οι Αιτήσεις",
         "filters": "Φίλτρα",
         "sort": "Ταξινόμηση",
         "jobTitlePlaceholder": "Τίτλος εργασίας, λέξεις-κλειδιά ή εταιρεία",
@@ -42,11 +43,13 @@
         "message": "Μήνυμα",
         "bestMatch": "Καλύτερη Αντιστοιχία",
         "alreadyApplied": "Ήδη Εφαρμοσμένο",
-        "apply": "Εφαρμογή"
+        "apply": "Εφαρμογή",
+        "start_time": "Ώρα Έναρξης",
+        "end_time": "Ώρα Λήξης"
     },
     "filters":{
         "location": "Τοποθεσία",
-        "locationPlaceholder": "Λονδίνο",
+        "locationPlaceholder": "Πόλη, Νησί ή Ταχυδρομικός Κώδικας",
         "radius": "Ακτίνα γύρω από τον επιλεγμένο προορισμό",
         "category": "Κατηγορία",
         "chooseCategory": "Επιλέξτε κατηγορία",
@@ -350,5 +353,12 @@
   "addCard": "Προσθήκη κάρτας",
   "logout": "Αποσύνδεση",
   "registerLogin": "Εγγραφή / Σύνδεση"
+},
+"user" : {
+    "setStatus": "Ορισμός κατάστασης",
+  "lookingForJob": "Αναζητώ εργασία",
+  "notLookingForJob": "Δεν αναζητώ εργασία",
+  "share": "Κοινοποίηση",
+  "message": "Μήνυμα"
 }
 }
