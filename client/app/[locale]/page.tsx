@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function ClientRoot() {
-  const t  = useTranslations("IndexPage");
+  const t  = useTranslations("indexPage");
   const router = useRouter()
 
   useEffect(() => {
