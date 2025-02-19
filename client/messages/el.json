@@ -371,6 +371,13 @@
     "sendResetLink": "Αποστολή συνδέσμου επαναφοράς",
     "resetLinkSent": "Ο σύνδεσμος επαναφοράς κωδικού έχει σταλεί στο email σας",
     "failedToSendLink": "Αποτυχία αποστολής συνδέσμου επαναφοράς",
-    "rememberedPassword": "Θυμηθήκατε τον κωδικό σας;"
+    "rememberedPassword": "Θυμηθήκατε τον κωδικό σας;",
+    "resetPassword": "Επαναφορά Κωδικού",
+    "resetPasswordDescription": "Εισάγετε τον νέο σας κωδικό παρακάτω",
+    "newPassword": "Νέος Κωδικός",
+    "confirmPassword": "Επιβεβαίωση Κωδικού",
+    "passwordsDoNotMatch": "Οι κωδικοί δεν ταιριάζουν",
+    "passwordResetSuccess": "Ο κωδικός άλλαξε με επιτυχία",
+    "passwordResetFailed": "Αποτυχία αλλαγής κωδικού"
   }
 }
