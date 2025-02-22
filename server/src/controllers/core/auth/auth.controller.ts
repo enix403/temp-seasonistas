@@ -11,6 +11,7 @@ import { comparePassword, hashPassword } from './hashing';
 import { reply } from 'controllers/core/app-reply';
 import joi from 'joi';
 import { customJoi, validateJoi } from 'middleware/validateJoi';
+import { validateAge } from 'utils/helpers';
 
 export const router = express.Router();
 
@@ -52,7 +53,6 @@ router.post(
     return reply(res, { token, user });
   }),
 );
-
 
 function validatePasswordStrength(password: any) {
   const passwordSchema = joi.string()
@@ -97,6 +97,9 @@ router.post(
   ),
   ah(async (req, res) => {
     const { email, password, role, ...restData } = req.body;
+
+    const checkAge = validateAge(restData.dateOfBirth);
+    if (checkAge < 18) throw new ApplicationError('You must be at least 18 years old');
 
     const strengthError = validatePasswordStrength(password);
     if (strengthError) throw new ApplicationError(strengthError);
