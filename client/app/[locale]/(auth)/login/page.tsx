@@ -10,17 +10,23 @@ import HeroImg from "~/app/assets/auth-hero.jpg";
 import { apiRoutes } from "~/app/api-routes";
 import { useAuthState } from "~/app/providers/auth-state";
 import { Button } from "~/components/Button/Button";
+import { useTranslations } from 'next-intl';
 
 import { AuthInput, Note, PasswordInput } from "../common";
+import Link from "next/link";
 
 function LoginFormContent() {
   const [loading, setLoading] = useState(false);
-  const [ registerUrl, setRegisterUrl ] = useState("");
+  const [registerUrl, setRegisterUrl] = useState("");
+  const [forgotPasswordUrl, setForgotPasswordUrl] = useState("");
   const { register, handleSubmit } = useForm<any>();
+  const t = useTranslations('auth');
+
 
   useEffect(() => {
     const locale = localStorage.getItem("locale") || "en";
     setRegisterUrl(`/${locale}/register`);
+    setForgotPasswordUrl(`/${locale}/forgot-password`);
   }, []);
 
   const authState = useAuthState();
@@ -49,6 +55,12 @@ function LoginFormContent() {
       <div className="space-y-4 mt-5">
         <AuthInput {...register("email")} label="Email" required />
         <PasswordInput {...register("password")} label="Password" required />
+        <Link 
+            href={forgotPasswordUrl}
+            className="block text-right text-sm text-blue-600 hover:text-blue-700 mt-2"
+          >
+            {t('forgotPassword')}
+          </Link>
       </div>
 
       <Button type="submit" fullWidth className="mt-6" loading={loading}>

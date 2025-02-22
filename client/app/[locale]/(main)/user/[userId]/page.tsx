@@ -11,9 +11,13 @@ import {
   TabPanel,
   Chip,
   Spinner,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
 } from "@material-tailwind/react";
 import Link from "next/link";
-import { IconMail, IconMap2, IconPhoneCall } from "@tabler/icons-react";
+import { IconMail, IconMap2, IconPhoneCall,IconBriefcase  } from "@tabler/icons-react";
 
 import { Button } from "~/components/Button/Button";
 import { repeatNode } from "~/app/utils/markup";
@@ -53,6 +57,51 @@ export default function UserProfile() {
     <>
       <>{status === "ok" && user && <Contents user={user} />}</>
     </>
+  );
+}
+
+function StatusButton({ className }: { className?: string }) {
+  const t = useTranslations('user');
+  const [status, setStatus] = useState<'looking' | 'notLooking' | null>(null);
+
+  const handleStatusChange = async (newStatus: 'looking' | 'notLooking') => {
+    setStatus(newStatus);
+    // TODO: Add API call to update user status
+  };
+
+  return (
+    <Menu>
+      <MenuHandler>
+        <Button 
+          fullRounded 
+          className={className}
+          color={status === 'looking' ? 'green' : status === 'notLooking' ? 'gray' : 'blue'}
+        >
+          <div className="flex items-center gap-2">
+            <IconBriefcase className="w-4 h-4" />
+            {status === 'looking' 
+              ? t('lookingForJob')
+              : status === 'notLooking'
+              ? t('notLookingForJob')
+              : t('setStatus')}
+          </div>
+        </Button>
+      </MenuHandler>
+      <MenuList className="min-w-[180px]">
+        <MenuItem
+          onClick={() => handleStatusChange('looking')}
+          className="gap-2 text-green-500"
+        >
+          {t('lookingForJob')}
+        </MenuItem>
+        <MenuItem
+          onClick={() => handleStatusChange('notLooking')}
+          className="gap-2 text-gray-500"
+        >
+          {t('notLookingForJob')}
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 }
 
@@ -150,12 +199,14 @@ function Contents({ user }: any) {
 
               {/* Buttons */}
               <div className="mt-4 flex space-x-4">
-                <ConnectButton user={user} />
+              <StatusButton />
+                {/* <ConnectButton user={user} /> */}
                 <Link href={msgUrl}>
                   <Button variant="outlined" fullRounded className="">
                   {t('message')}
                   </Button>
                 </Link>
+                <Button fullRounded variant="outlined">Share</Button>
               </div>
             </CardBody>
           </Card>
@@ -187,7 +238,7 @@ function Contents({ user }: any) {
                       {user.email}
                     </a>
                   </p>
-                  <p className="text-gray-700 py-4">
+                  {/* <p className="text-gray-700 py-4">
                     <p className="font-bold text-xl text-blue-400 flex gap-x-2 items-center mb-3">
                       <IconMap2 size={28} />
                       <span>Home address:</span>
@@ -196,7 +247,7 @@ function Contents({ user }: any) {
                       92 Miles Drive, Newark, NJ 07103, California, United
                       States of America
                     </p>
-                  </p>
+                  </p> */}
                   <p className="text-gray-700 py-4">
                     <p className="font-bold text-xl text-pink-400 flex gap-x-2 items-center mb-3">
                       <IconPhoneCall size={28} />
