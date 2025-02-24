@@ -23,6 +23,10 @@ const getDateFromFilter = (filter: string): Date | null => {
 // GET /api/job/search
 export async function searchJobController(req: Request, res: Response) {
   const {
+    // pagination
+    page = "0",
+    pagelen = "1000",
+    // filters
     category,
     jobType,
     datePosted,
@@ -137,13 +141,25 @@ export async function searchJobController(req: Request, res: Response) {
   } else if (sortBy === 'datePosted') {
     // Sort by datePosted (recent first)
     sort = { postedAt: -1 };
+  } else {
+    sort = { _id: 1 };
   }
+
+  const pageNumber = Math.max(parseInt(page as string, 10), 0);
+  const pageSize = Math.max(parseInt(pagelen as string, 10), 1);
 
   const postings = await JobPostingModel.find(filters)
     .sort(sort)
+    .skip(pageNumber * pageSize)
+    .limit(pageSize)
     .populate('poster');
 
-  return reply(res, postings);
+  const nextPageExists = (await JobPostingModel.countDocuments(filters)) > (pageNumber + 1) * pageSize;
+
+  return reply(res, {
+    ...(nextPageExists && { nextPage: pageNumber + 1 }),
+    data: postings,
+  });
 }
 
 /* ----------------------------------- */

@@ -19,18 +19,15 @@ import { Filters } from "./filters/Filters";
 import { HomePostings } from "./HomePostings/HomePostings";
 import { HomeProfiles } from "./HomeProfiles/HomeProfiles";
 import { useFilterController } from "./filters/ctrl";
-import { useTranslations } from 'next-intl';
-
+import { useTranslations } from "next-intl";
 
 function PageTitle(props: DivProps) {
-  const t = useTranslations('home');
+  const t = useTranslations("home");
   return (
     <div {...props}>
-      <h1 className="font-semibold text-3xl">
-        {t('marketingLandingPage')}
-      </h1>
+      <h1 className="font-semibold text-3xl">{t("marketingLandingPage")}</h1>
       <p className="text-2xl mt-1.5">
-        <span className="text-teal">28 {t('invitesLeft')}</span>
+        <span className="text-teal">28 {t("invitesLeft")}</span>
       </p>
     </div>
   );
@@ -41,7 +38,7 @@ function PrimaryTabButton({
   label,
   icon,
   selected,
-  onClick
+  onClick,
 }: {
   shortLabel: string;
   label: string;
@@ -72,7 +69,7 @@ function PrimaryTabs({
   setActiveTab,
 }: DivProps & { activeTab?: string; setActiveTab?: (_: string) => void }) {
   let viewMode = useViewMode();
-  const t = useTranslations('home');
+  const t = useTranslations("home");
 
   return (
     <div
@@ -90,22 +87,22 @@ function PrimaryTabs({
         )}
       >
         <PrimaryTabButton
-          shortLabel={t('allProfiles')}
-          label={viewMode === "employer" ? t('allProfiles') : t('allJobs')}
+          shortLabel={t("allProfiles")}
+          label={viewMode === "employer" ? t("allProfiles") : t("allJobs")}
           icon={<PIconBriefcase />}
           selected={activeTab === "one"}
           onClick={() => setActiveTab?.("one")}
         />
         <PrimaryTabButton
-          shortLabel={t('proposals')}
-          label={t('proposals')}
+          shortLabel={t("proposals")}
+          label={t("proposals")}
           icon={<PIconPlus />}
           selected={activeTab === "two"}
           onClick={() => setActiveTab?.("two")}
         />
         <PrimaryTabButton
-          shortLabel={t('saved')}
-          label={t('saved')}
+          shortLabel={t("saved")}
+          label={t("saved")}
           icon={<PIconEye />}
           selected={activeTab === "three"}
           onClick={() => setActiveTab?.("three")}
@@ -123,7 +120,7 @@ function SearchControls({
 
   const filterCtrl = useFilterController(onFilter);
   const { register } = filterCtrl;
-  const t = useTranslations('home');
+  const t = useTranslations("home");
 
   return (
     <div {...props}>
@@ -134,7 +131,7 @@ function SearchControls({
             {...register("title")}
             size={1}
             className="flex-1 outline-none"
-            placeholder={t('jobTitlePlaceholder')}
+            placeholder={t("jobTitlePlaceholder")}
           />
         </div>
         <Button
@@ -144,14 +141,14 @@ function SearchControls({
           onClick={() => setShowFilters((x) => !x)}
         >
           <IconAdjustmentsHorizontal />
-          {t('filters')}
+          {t("filters")}
         </Button>
         <div className="flex items-center gap-x-2.5">
-        {t('sort')}:
+          {t("sort")}:
           <Select selectProps={register("sort")}>
-            <option value="datePosted">{t('datePosted')}</option>
-            <option value="popularity">{t('popularity')}</option>
-            <option value="high-low">{t('salaryHighLow')}</option>
+            <option value="datePosted">{t("datePosted")}</option>
+            <option value="popularity">{t("popularity")}</option>
+            <option value="high-low">{t("salaryHighLow")}</option>
           </Select>
         </div>
       </div>
@@ -163,7 +160,7 @@ function SearchControls({
 export default function HomeProposalsPage() {
   const viewMode = useViewMode();
   const [filters, setFilters] = useState<any>({});
-  const t = useTranslations('home');
+  const t = useTranslations("home");
 
   const [activeTab, setActiveTab] = useState("one");
 
@@ -172,13 +169,17 @@ export default function HomeProposalsPage() {
       <div className="app-container py-8 w-full">
         <div className="hidden md:block flex-1">
           <PageTitle />
-          <PrimaryTabs className="mt-5" activeTab={activeTab} setActiveTab={setActiveTab} />
+          <PrimaryTabs
+            className="mt-5"
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
           <SearchControls onFilter={setFilters} className="mt-4" />
         </div>
         {/* <div className="md:hidden block flex-1"> */}
-          {/* <PrimaryTabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
-          {/* <PageTitle className="mt-4" /> */}
-          {/* <SearchControls onFilter={setFilters} className="mt-4" /> */}
+        {/* <PrimaryTabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
+        {/* <PageTitle className="mt-4" /> */}
+        {/* <SearchControls onFilter={setFilters} className="mt-4" /> */}
         {/* </div> */}
 
         <div className="mt-4 grid wl:grid-cols-2 gap-6">
@@ -188,9 +189,6 @@ export default function HomeProposalsPage() {
             <HomePostings activeTab={activeTab} filters={filters} />
           )}
         </div>
-        <Button variant="outlined" className="mx-auto mt-8 mb-4" fullRounded>
-        {t('loadMore')}
-        </Button>
       </div>
     </AppLayout>
   );
