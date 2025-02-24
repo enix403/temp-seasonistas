@@ -158,6 +158,7 @@ const seedDatabase = async () => {
 
 async function main() {
   await seedDatabase();
+  console.log('\nDone!');
 }
 
 connectMongoDB()

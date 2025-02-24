@@ -106,7 +106,6 @@ function Contents({ pageTitle }: TopNavProps) {
                     {t('changeCurrency')}
                     <span className="text-xs font-bold">EUR</span>
                   </MenuItem>
-                  <MenuItem>{t('addCard')}</MenuItem>
                   <MenuItem
                     onClick={() => {
                       const locale = localStorage.getItem("locale") || "en";
