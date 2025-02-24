@@ -10,6 +10,7 @@ import { ApplicationError, NotFound } from 'controllers/core/errors';
 import { UserModel } from 'db/models/user';
 import { JobInvitationModel } from 'db/models/jobInvitation';
 import { PostingFavouriteMarkModel } from 'db/models/favouriteMark';
+import { NotificationModel } from 'db/models/notification';
 
 export const router = express.Router();
 
@@ -111,6 +112,11 @@ router.post(
     });
 
     await invitation.save();
+
+    await NotificationModel.create({
+      userId: employeeId,
+      message: 'You received a new job invitation.',
+    });
 
     return reply.msg(res, 'Invited successfully', { invitation });
   }),
