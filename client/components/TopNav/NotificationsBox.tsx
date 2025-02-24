@@ -63,9 +63,8 @@ function NotificationsList({
   );
 }
 
-export function NotificationsBox() {
-  const queryClient = useQueryClient();
 
+export function NotificationsBox() {
   // Fetch notifications
   const { data: notifications = [], isLoading } = useQuery({
     queryKey: ["notifications"],

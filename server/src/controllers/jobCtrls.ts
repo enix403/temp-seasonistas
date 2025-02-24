@@ -4,6 +4,7 @@ import { JobPostingModel } from 'db/models/jobPosting';
 import { JobApplicationModel } from 'db/models/jobApplication';
 import { ApplicationError, NotFound } from 'controllers/core/errors';
 import { reply } from 'controllers/core/app-reply';
+import { NotificationModel } from 'db/models/notification';
 
 const getDateFromFilter = (filter: string): Date | null => {
   const now = new Date();
@@ -141,8 +142,14 @@ export async function searchJobController(req: Request, res: Response) {
     sort = { _id: 1 };
   }
 
-  const pageNumber = Math.max(parseInt(req.query.page as string || "0", 10), 0);
-  const pageSize = Math.max(parseInt(req.query.pagelen as string || "1000", 10), 1);
+  const pageNumber = Math.max(
+    parseInt((req.query.page as string) || '0', 10),
+    0,
+  );
+  const pageSize = Math.max(
+    parseInt((req.query.pagelen as string) || '1000', 10),
+    1,
+  );
 
   const postings = await JobPostingModel.find(filters)
     .sort(sort)
@@ -150,7 +157,9 @@ export async function searchJobController(req: Request, res: Response) {
     .limit(pageSize)
     .populate('poster');
 
-  const nextPageExists = (await JobPostingModel.countDocuments(filters)) > (pageNumber + 1) * pageSize;
+  const nextPageExists =
+    (await JobPostingModel.countDocuments(filters)) >
+    (pageNumber + 1) * pageSize;
 
   return reply(res, {
     ...(nextPageExists && { nextPage: pageNumber + 1 }),
@@ -203,6 +212,11 @@ export async function applyJobController(req: Request, res: Response) {
   });
 
   await application.save();
+
+  await NotificationModel.create({
+    userId: posting.posterId,
+    message: 'You received a new job application',
+  });
 
   return reply(res, {
     message: 'Application submitted successfully',
