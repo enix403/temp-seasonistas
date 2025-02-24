@@ -9,22 +9,31 @@ export const router = express.Router();
 
 // Fetch notifications for a logged-in user
 router.get(
-  '/api/notif/:userId',
+  '/api/notif',
+  requireAuthenticated(),
   ah(async (req, res) => {
     const notifs = await NotificationModel.find({
-      userId: req.params.userId,
+      userId: req.user!._id,
     }).sort({ createdAt: -1 });
 
     return reply(res, notifs);
   }),
 );
 
-// Mark notification as read
+// Mark notifications as read
 router.patch(
-  '/api/notif/read/:id',
+  '/api/notif/mark-read',
+  requireAuthenticated(),
   ah(async (req, res) => {
-    await NotificationModel.findByIdAndUpdate(req.params.id, { isRead: true });
+    const { notificationIds } = req.body;
+    await NotificationModel.updateMany(
+      {
+        _id: { $in: notificationIds },
+        userId: req.user!._id,
+      },
+      { isRead: true },
+    );
+
     return reply(res);
   }),
 );
-

@@ -34,6 +34,7 @@ import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { List } from "@material-tailwind/react";
 import { repeatNode } from "~/app/utils/markup";
+import { NotificationsBox } from "./NotificationsBox";
 
 export interface TopNavProps {
   pageTitle?: string;
@@ -160,32 +161,6 @@ function Contents({ pageTitle }: TopNavProps) {
   );
 }
 
-function NotificationsBox() {
-  return (
-    <Menu>
-      <MenuHandler>
-        <IconButton variant="text">
-          <IconBellFilled />
-        </IconButton>
-      </MenuHandler>
-      <MenuList className="px-0">
-        <h2 className="text-xl font-extrabold pl-4 pt-2">Notifications</h2>
-        <List className="max-h-80 outline-none">
-          {repeatNode(16, () => (
-            <ListItem ripple={false} className="py-3">
-              <p className="max-w-72">
-                A user wanted to send you a friend request
-              </p>
-              <ListItemSuffix>
-                <IconCircleFilled size={12} color="#fcba03" className="ml-10" />
-              </ListItemSuffix>
-            </ListItem>
-          ))}
-        </List>
-      </MenuList>
-    </Menu>
-  );
-}
 
 export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
   const pathname = usePathname();

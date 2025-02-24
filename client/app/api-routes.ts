@@ -196,6 +196,7 @@ function wq<Q = string | Record<string, any> | URLSearchParams>(
 
 // prettier-ignore
 export const apiRoutes = {
+
   /* ========================== */
   /* ========== Auth ========== */
   /* ========================== */
@@ -206,6 +207,12 @@ export const apiRoutes = {
   /* =========== Me =========== */
   /* ========================== */
   getMe: jsonDecl(`/api/me`),
+
+  /* ========================== */
+  /* =========== Me =========== */
+  /* ========================== */
+  getNotifications: jsonDecl(`/api/notif`),
+  markNotificationsRead: payloadDecl(`/api/notif/mark-read`, { method: 'PATCH' }),
 
   /* ========================= */
   /* ======= Community ======= */
