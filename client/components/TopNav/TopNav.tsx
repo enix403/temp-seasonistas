@@ -44,15 +44,12 @@ function capitalize(str: string | undefined) {
 const drawerAtom = atom(false);
 
 function Contents({ pageTitle }: TopNavProps) {
-  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const setDrawerOpen = useSetAtom(drawerAtom);
   const setLanguageDrawerOpen = useSetAtom(languageDrawerAtom);
   const setCurrencyDrawerOpen = useSetAtom(currencyDrawerAtom);
 
-  const { userId, userRole, logout } = useAuthState();
-  // TODO: store user name in store
-  //const { user } = useCurrentUser(userId);
+  const { user, logout } = useAuthState();
 
   const t = useTranslations('topNav');
   const locale = useLocale();
