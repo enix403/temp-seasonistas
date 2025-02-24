@@ -1,13 +1,12 @@
 "use client";
 
 import { produce } from "immer";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
 
 import { apiRoutes } from "~/app/api-routes";
 import { PostingCard } from "./PostingCard";
-import { toParams } from "~/app/utils/collections";
 import { useTranslations } from "next-intl";
 import { Button } from "~/components/Button/Button";
 
@@ -42,8 +41,6 @@ export function HomePostings({
   const isLoading = favsQuery.isLoading || postingsQuery.isLoading;
   const postingPages = postingsQuery.data?.pages || [];
   const serverPostingFavouriteMarks = favsQuery.data;
-
-  console.log("postingPages", postingPages);
 
   const [favouriteIds, setFavouriteIds] = useState<any[]>([]);
 

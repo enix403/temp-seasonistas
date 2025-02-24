@@ -112,7 +112,8 @@ Authorization: Bearer {{accessToken}}
 # -------------------------
 # @name QueryCommunity
 GET {{baseUrl}}/community
-  ?searchTerm=user
+  ?userType=employee
+  &pagelen=4
 Authorization: Bearer {{accessToken}}
 
 ###
@@ -210,7 +211,7 @@ Authorization: Bearer {{accessToken}}
 # -------------------------
 # @name QueryAllPostings
 # GET {{baseUrl}}/job/search?pagelen=2&page=2
-GET {{baseUrl}}/job/search
+GET {{baseUrl}}/job/search?pagelen=1
 Authorization: Bearer {{accessToken}}
 
 ###
