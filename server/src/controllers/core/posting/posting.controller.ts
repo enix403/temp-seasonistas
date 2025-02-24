@@ -131,10 +131,12 @@ router.post(
     }),
   ),
   ah(async (req, res) => {
+    const invitedByUserId = req.user!._id;
     const { employeeId } = req.body;
 
     const existing = await JobInvitationModel.findOne({
       employeeId,
+      invitedByUserId
     });
 
     const invited = Boolean(existing);
