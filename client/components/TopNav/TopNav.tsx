@@ -9,7 +9,7 @@ import { US } from "country-flag-icons/react/3x2";
 import Drawer from "react-modern-drawer";
 import Image from "next/image";
 
-import { IconButton } from "@material-tailwind/react";
+import { IconButton, ListItem, ListItemSuffix, Typography } from "@material-tailwind/react";
 import {
   Menu,
   MenuHandler,
@@ -19,7 +19,7 @@ import {
 
 import clsx from "clsx";
 import Link from "next/link";
-import { IconMenu2, IconX } from "@tabler/icons-react";
+import { IconBellFilled, IconCircle, IconCircleFilled, IconMenu2, IconX } from "@tabler/icons-react";
 import { Button } from "../Button/Button";
 
 import { atom, useAtom, useSetAtom } from "jotai";
@@ -31,7 +31,9 @@ import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
 import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations, useLocale } from "next-intl";
+import { List } from "@material-tailwind/react";
+import { repeatNode } from "~/app/utils/markup";
 
 export interface TopNavProps {
   pageTitle?: string;
@@ -51,7 +53,7 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { user, logout } = useAuthState();
 
-  const t = useTranslations('topNav');
+  const t = useTranslations("topNav");
   const locale = useLocale();
 
   let loggedIn = true;
@@ -69,6 +71,8 @@ function Contents({ pageTitle }: TopNavProps) {
                   <MessageIcon className="w-5" />
                 </IconButton>
               </Link>
+
+              <NotificationsBox />
 
               <Menu>
                 <MenuHandler>
@@ -93,14 +97,14 @@ function Contents({ pageTitle }: TopNavProps) {
                     onClick={() => setLanguageDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    {t('changeLanguage')}
+                    {t("changeLanguage")}
                     <US title="United States" className="w-5" />
                   </MenuItem>
                   <MenuItem
                     onClick={() => setCurrencyDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    {t('changeCurrency')}
+                    {t("changeCurrency")}
                     <span className="text-xs font-bold">EUR</span>
                   </MenuItem>
                   <MenuItem
@@ -110,7 +114,7 @@ function Contents({ pageTitle }: TopNavProps) {
                       router.push("login");
                     }}
                   >
-                    {t('logout')}
+                    {t("logout")}
                   </MenuItem>
                   {/* ======= */}
                 </MenuList>
@@ -119,7 +123,7 @@ function Contents({ pageTitle }: TopNavProps) {
           ) : (
             <Link href="login" locale={locale} className="hidden ph:block">
               <Button className="!px-4 !py-1.5 text-sm">
-                {t('registerLogin')}
+                {t("registerLogin")}
               </Button>
             </Link>
           )}
@@ -142,7 +146,7 @@ function Contents({ pageTitle }: TopNavProps) {
             "wl:flex hidden"
           )}
         >
-          <AllLinks/>
+          <AllLinks />
         </div>
         <h1 className="text-2xl font-semibold wl:hidden max-ph:hidden block">
           {pageTitle}
@@ -156,6 +160,33 @@ function Contents({ pageTitle }: TopNavProps) {
   );
 }
 
+function NotificationsBox() {
+  return (
+    <Menu>
+      <MenuHandler>
+        <IconButton variant="text">
+          <IconBellFilled />
+        </IconButton>
+      </MenuHandler>
+      <MenuList className="px-0">
+        <h2 className="text-xl font-extrabold pl-4 pt-2">Notifications</h2>
+        <List className="max-h-80 outline-none">
+          {repeatNode(16, () => (
+            <ListItem ripple={false} className="py-3">
+              <p className="max-w-72">
+                A user wanted to send you a friend request
+              </p>
+              <ListItemSuffix>
+                <IconCircleFilled size={12} color="#fcba03" className="ml-10" />
+              </ListItemSuffix>
+            </ListItem>
+          ))}
+        </List>
+      </MenuList>
+    </Menu>
+  );
+}
+
 export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useAtom(drawerAtom);
@@ -164,7 +195,7 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
     setIsOpen(false);
   }, [pathname, setIsOpen]);
 
-  const t = useTranslations('topNav');
+  const t = useTranslations("topNav");
   const locale = useLocale();
 
   return (
@@ -190,12 +221,12 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
         </div>
 
         <div className="flex flex-col gap-y-3 mt-8 hover:[&>a]:underline text-xl">
-          <AllLinks/>
+          <AllLinks />
         </div>
 
         {!loggedIn && (
           <Link href="auth" locale={locale} className="block mt-8">
-            <Button className="!px-4d !py-2d">{t('registerLogin')}</Button>
+            <Button className="!px-4d !py-2d">{t("registerLogin")}</Button>
           </Link>
         )}
       </Drawer>

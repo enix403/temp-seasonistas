@@ -11,6 +11,7 @@ import { router as meRouter } from 'controllers/core/me/me.controller';
 import { router as postingRouter } from 'controllers/core/posting/posting.controller';
 import { router as uploadingRouter } from 'controllers/core/uploading/uploading.controller';
 import { router as chatRouter } from 'controllers/core/chat/chat.controller';
+import { router as notificationRouter } from 'controllers/core/notif/notif.controller';
 
 export function createRootRouter() {
   const router = express.Router();
@@ -26,7 +27,7 @@ export function createRootRouter() {
   router.use(userRouter);
   router.use(jobRouter);
   router.use(statRouter);
-  
+  router.use(notificationRouter);
 
   return router;
 }
