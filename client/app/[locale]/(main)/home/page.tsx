@@ -26,9 +26,6 @@ function PageTitle(props: DivProps) {
   return (
     <div {...props}>
       <h1 className="font-semibold text-3xl">{t("marketingLandingPage")}</h1>
-      <p className="text-2xl mt-1.5">
-        <span className="text-teal">28 {t("invitesLeft")}</span>
-      </p>
     </div>
   );
 }
