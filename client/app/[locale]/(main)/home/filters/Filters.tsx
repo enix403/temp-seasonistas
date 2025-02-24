@@ -112,7 +112,7 @@ export function Filters({
   filterCtrl: FilterController;
 }) {
   const viewMode = useViewMode();
-  const t = useTranslations('home');
+  const t = useTranslations('filters');
 
   let { register } = filterCtrl;
 
@@ -224,8 +224,8 @@ export function Filters({
               />
             </div>
           </Filter>
-          
-          
+
+
         </>
       )}
     </FilterList>
