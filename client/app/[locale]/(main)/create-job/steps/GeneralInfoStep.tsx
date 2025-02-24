@@ -119,22 +119,6 @@ export function GeneralInfoStep({
           </div>
         </div>
       </StepForm>
-
-      <hr className="mt-10" />
-
-      <h1 className="font-semibold text-2xl text-center md:text-left mt-6">
-      {t('previousJobs')}
-      </h1>
-      <h4 className="mt-1 text-black/70 text-center md:text-left">
-      {t('reusePastJob')}
-      </h4>
-
-      <div className="mt-4 grid wl:grid-cols-2 gap-6">
-        <ProposalTemplateCard />
-        <ProposalTemplateCard />
-        <ProposalTemplateCard />
-        <ProposalTemplateCard />
-      </div>
     </>
   );
 }
