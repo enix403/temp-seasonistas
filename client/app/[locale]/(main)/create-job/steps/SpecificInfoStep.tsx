@@ -218,7 +218,7 @@ export function SpecificInfoStep({
           <div className="pt-6">
             <div className="flex gap-x-3">
               <Button onClick={onCancel} variant="outlined" fullRounded>
-              {t('cancel')}
+              {t('back')}
               </Button>
               <Button type="submit" fullRounded>
               {t('next')}
