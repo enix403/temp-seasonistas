@@ -86,7 +86,7 @@ export function QuestionsStep({
         <div className="pt-6">
           <div className="flex gap-x-3">
             <Button onClick={onCancel} variant="outlined" fullRounded>
-            {t('back')}
+            {t('cancel')}
             </Button>
             <Button onClick={onNext} fullRounded>
             {t('next')}
