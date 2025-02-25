@@ -12,6 +12,7 @@ import {
   getAllUsersController,
   banUserController,
   markAccountApprovalController,
+  sendContactMessage,
 } from 'controllers/userCtrls';
 
 export const router = express.Router();
@@ -174,5 +175,10 @@ router.patch(
   requireAuthenticated(['admin']),
   validateJoi(accountApprovalSchema),
   markAccountApprovalController,
+);
+
+router.post(
+  '/api/me/send-contact-message',
+  sendContactMessage,
 );
 
