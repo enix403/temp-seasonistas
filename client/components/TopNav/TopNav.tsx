@@ -146,7 +146,7 @@ function Contents({ pageTitle }: TopNavProps) {
             "wl:flex hidden"
           )}
         >
-          <AllLinks/>
+          <AllLinks />
         </div>
         <h1 className="text-2xl font-semibold wl:hidden max-ph:hidden block">
           {pageTitle}
@@ -194,7 +194,7 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
         </div>
 
         <div className="flex flex-col gap-y-3 mt-8 hover:[&>a]:underline text-xl">
-          <AllLinks/>
+          <AllLinks />
         </div>
 
         {!loggedIn && (

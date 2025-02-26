@@ -116,10 +116,9 @@ function FormSection() {
         toast.success("Email sent");
 
       } catch (error) {
+        console.log(error);
+
         toast.error("Failed to send email");
-
-
-
       }
     }
   };

@@ -8,13 +8,13 @@ import { useLocale, useTranslations } from "next-intl";
 function AppLink(props: ComponentProps<typeof Link>) {
   const pathname = usePathname();
   const locale = useLocale();
-  
+
   return (
     <Link
-    {...props}
-    href={`/${locale}${props.href}`} // Correct locale-based URL
-    className={clsx(pathname === props.href && "text-teal")}
-  />
+      {...props}
+      href={`/${locale}${props.href}`} // Correct locale-based URL
+      className={clsx(pathname === props.href && "text-teal")}
+    />
   );
 }
 
@@ -35,6 +35,7 @@ export function AllLinks() {
       <AppLink href={`/services`}>{t("services")}</AppLink>
       <AppLink href={`/about`}>{t("aboutUs")}</AppLink>
       <AppLink href={`/contact`}>{t("contactUs")}</AppLink>
+      <AppLink href={`/profile`}>{t("profile")}</AppLink>
     </>
   );
 }

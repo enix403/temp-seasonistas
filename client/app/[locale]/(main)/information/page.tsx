@@ -61,7 +61,7 @@ function InformationPageContent() {
         {/* Title */}
         <h1 className="text-4xl text-center">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
-          {t('information')}
+            {t('information')}
             <TitleMark className="absolute w-32 top-full -left-5 dd -translate-y-2.5" />
           </span>
           {/* <span className="font-normal"> we are</span> */}
@@ -69,18 +69,18 @@ function InformationPageContent() {
 
         {/* Subtitle */}
         <p className="text-center text-xl font-normal text-black/50 mt-6 max-w-2xl mx-auto">
-        {t('informationDescription')}
+          {t('informationDescription')}
         </p>
       </div>
       <div className="app-container max-w-5xl w-full pt-8">
         <InfoStepper />
-        </div>
-        <JobBanner />
+      </div>
+      <JobBanner />
 
-        <div className="app-container max-w-5xl w-full pt-8">
+      <div className="app-container max-w-5xl w-full pt-8">
         <h1 className="text-4xl text-center mt-14 mb-8">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
-          {t('frequently')}
+            {t('frequently')}
             <TitleMark className="absolute w-32 top-full -left-5 dd -translate-y-2.5" />
           </span>
           <span className="font-normal"> {t('askedQuestions')}</span>
