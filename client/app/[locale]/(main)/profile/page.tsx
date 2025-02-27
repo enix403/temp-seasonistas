@@ -19,7 +19,7 @@ const ProfilePageContent: React.FC = () => {
 
 
 
-    const { user } = useAuthState()
+    const { user, login, token } = useAuthState()
     const [name, setName] = useState<string>(user?.fullName);
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
@@ -52,6 +52,9 @@ const ProfilePageContent: React.FC = () => {
             toast.error("No file selected.");
         }
     };
+    useEffect(() => {
+        setName(user?.fullName || "")
+    }, [user]);
 
     const router = useRouter()
     const handleProfileSave = async () => {
@@ -63,8 +66,10 @@ const ProfilePageContent: React.FC = () => {
 
         try {
             await apiRoutes.updateProfile({ fullName: name })
+            login(token ?? "", { ...user, fullName: name });
             toast.success("Profile successfully updated");
-            router.refresh()
+            router.refresh();
+
         } catch (error) {
             if (error instanceof Error) {
                 toast.error(error.message);
