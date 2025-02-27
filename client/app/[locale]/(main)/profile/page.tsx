@@ -11,22 +11,11 @@ import { useAuthState } from "~/app/providers/auth-state";
 import { Button } from "~/components/Button/Button";
 
 
-interface Profile {
-    id: string;
-    name: string;
-    email: string;
-    image: string;
-    accountType: string;
-    jobDescriptions?: string[];
-    subscription?: string;
-    createdAt?: string;
-}
+
 
 const ProfilePageContent: React.FC = () => {
 
 
-    const { user } = useAuthState()
-    console.log(user);
 
     const [name, setName] = useState<string>("");
     const [oldPassword, setOldPassword] = useState<string>("");
@@ -83,9 +72,8 @@ const ProfilePageContent: React.FC = () => {
 
     };
 
+    const { user } = useAuthState()
 
-    if (!user)
-        return <div>Loading..</div>
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="app-container max-w-5xl w-full mb-12">
@@ -138,8 +126,8 @@ const ProfilePageContent: React.FC = () => {
                             />
                         </div>
                         <div className="">
-                            <h2 className="text-3xl font-semibold text-gray-900">{user.fullName}</h2>
-                            <p className="text-2xl text-gray-500">{user.email}</p>
+                            <h2 className="text-3xl font-semibold text-gray-900">{user?.fullName}</h2>
+                            <p className="text-2xl text-gray-500">{user?.email}</p>
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -149,7 +137,7 @@ const ProfilePageContent: React.FC = () => {
                             </label>
                             <input
                                 type="text"
-                                value={user.fullName}
+                                value={user?.fullName}
                                 onChange={(e) => setName(e.target.value)}
                                 className="w-full border border-gray-300 text-gray-700 rounded-md p-2"
                             />

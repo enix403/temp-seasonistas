@@ -30,7 +30,7 @@ import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useEffect, useState } from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import { useTranslations, useLocale } from 'next-intl';
 
 export interface TopNavProps {
@@ -40,6 +40,18 @@ export interface TopNavProps {
 function capitalize(str: string | undefined) {
   console.log(str);
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+}
+function AppLink(props: ComponentProps<typeof Link>) {
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  return (
+    <Link
+      {...props}
+      href={`/${locale}${props.href}`} // Correct locale-based URL
+      className={clsx(pathname === props.href && "text-teal")}
+    />
+  );
 }
 
 const drawerAtom = atom(false);
@@ -55,6 +67,7 @@ function Contents({ pageTitle }: TopNavProps) {
   // TODO: store user name in store
 
   const t = useTranslations('topNav');
+  const tnav = useTranslations('navigation');
   const locale = useLocale();
 
   let loggedIn = true;
@@ -92,13 +105,11 @@ function Contents({ pageTitle }: TopNavProps) {
                     </h2>
                   </div>
                   {/* ======= */}
-                  <MenuItem
-                    onClick={() => setLanguageDrawerOpen(true)}
+                  {userId && <MenuItem
                     className="flex justify-between items-center"
                   >
-                    {t('changeLanguage')}
-                    <US title="United States" className="w-5" />
-                  </MenuItem>
+                    <AppLink href={`/profile`}>{tnav("profile")}</AppLink>
+                  </MenuItem>}
                   <MenuItem
                     onClick={() => setCurrencyDrawerOpen(true)}
                     className="flex justify-between items-center"
@@ -169,6 +180,7 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
   }, [pathname, setIsOpen]);
 
   const t = useTranslations('topNav');
+
   const locale = useLocale();
 
   return (

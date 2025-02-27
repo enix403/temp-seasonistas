@@ -35,7 +35,7 @@ export function AllLinks() {
       <AppLink href={`/services`}>{t("services")}</AppLink>
       <AppLink href={`/about`}>{t("aboutUs")}</AppLink>
       <AppLink href={`/contact`}>{t("contactUs")}</AppLink>
-      <AppLink href={`/profile`}>{t("profile")}</AppLink>
+
     </>
   );
 }
