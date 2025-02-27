@@ -17,6 +17,8 @@ export function validateJoi(schema: Joi.ObjectSchema) {
     });
     if (error) {
       delete error['_original'];
+      console.log(error);
+
       return res.status(400).json(error);
     }
     next();

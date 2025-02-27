@@ -18,7 +18,7 @@ import {
 export const router = express.Router();
 
 const profileUpdateSchema = Joi.object({
-  name: Joi.string().optional(),
+  fullName: Joi.string().optional(),
   email: Joi.string().email().optional(),
   phoneNumber: Joi.string().optional(),
   bio: Joi.string().optional(),

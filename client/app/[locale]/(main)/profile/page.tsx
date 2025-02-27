@@ -9,6 +9,8 @@ import { AppLayout } from "~/components/AppLayout/AppLayout";
 import { TitleMark } from "~/components/decorations";
 import { useAuthState } from "~/app/providers/auth-state";
 import { Button } from "~/components/Button/Button";
+import { apiRoutes } from "~/app/api-routes";
+import { useRouter } from "next/navigation";
 
 
 
@@ -17,7 +19,8 @@ const ProfilePageContent: React.FC = () => {
 
 
 
-    const [name, setName] = useState<string>("");
+    const { user } = useAuthState()
+    const [name, setName] = useState<string>(user?.fullName);
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
 
@@ -44,35 +47,50 @@ const ProfilePageContent: React.FC = () => {
                 return;
             }
 
-            handleProfileSave(file);
+            handleProfileSave();
         } else {
             toast.error("No file selected.");
         }
     };
 
-    const handleProfileSave = async (file?: File) => {
+    const router = useRouter()
+    const handleProfileSave = async () => {
         if (!name || name.trim() === '') {
             toast.error("Please enter a valid user name");
             return;
         }
-        const formdata = new FormData()
         setLoading(true)
-        if (file)
-            formdata.append('image', file)
-        formdata.append("name", name)
 
-
+        try {
+            await apiRoutes.updateProfile({ fullName: name })
+            toast.success("Profile successfully updated");
+            router.refresh()
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("An unknown error occurred");
+            }
+        }
     };
 
 
 
 
     const handlePasswordSave = async () => {
+        try {
+            await apiRoutes.updatePassword({ oldPassword, newPassword })
+            toast.success("Password successfully updated");
 
-
+        } catch (error) {
+            if (error instanceof Error) {
+                toast.error(error.message);
+            } else {
+                toast.error("An unknown error occurred");
+            }
+        }
     };
 
-    const { user } = useAuthState()
 
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
@@ -137,7 +155,7 @@ const ProfilePageContent: React.FC = () => {
                             </label>
                             <input
                                 type="text"
-                                value={user?.fullName}
+                                value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="w-full border border-gray-300 text-gray-700 rounded-md p-2"
                             />

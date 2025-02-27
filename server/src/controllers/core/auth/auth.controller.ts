@@ -12,6 +12,8 @@ import { reply } from 'controllers/core/app-reply';
 import joi from 'joi';
 import { customJoi, validateJoi } from 'middleware/validateJoi';
 import { validateAge } from 'utils/helpers';
+import { requireAuthenticated } from 'middleware/authMiddleware';
+import { log } from 'winston';
 
 export const router = express.Router();
 
@@ -78,47 +80,36 @@ function validatePasswordStrength(password: any) {
   return null;
 }
 
-router.post(
-  '/api/auth/register',
+router.patch(
+  '/api/auth/update-password',
+  requireAuthenticated(),
   validateJoi(
     joi.object({
-      email: joi.string().required(),
-      password: joi.string().required(),
-      role: joi.string().valid('employer', 'employee').required(),
-
-      fullName: joi.string().required(),
-      dateOfBirth: joi.date(),
-
-      companyPhone: customJoi.optionalString(),
-      companyPersonName: customJoi.optionalString(),
-      companyIndustry: customJoi.optionalString(),
-      companyArea: customJoi.optionalString(),
+      newPassword: joi.string().required(),
+      oldPassword: joi.string().required(),
     }),
   ),
   ah(async (req, res) => {
-    const { email, password, role, ...restData } = req.body;
+    const { oldPassword, newPassword } = req.body;
 
-    const checkAge = validateAge(restData.dateOfBirth);
-    if (checkAge < 18) throw new ApplicationError('You must be at least 18 years old');
 
-    const strengthError = validatePasswordStrength(password);
+
+
+
+    let user = await UserModel.findById(req.user!._id)
+    if (
+      user == null ||
+      !(await comparePassword(oldPassword, user.passwordHash || ''))
+    ) {
+      throw new ApplicationError("Please provide correct old password", 401);
+    }
+    const strengthError = validatePasswordStrength(newPassword);
     if (strengthError) throw new ApplicationError(strengthError);
-
-    const existingUser = await UserModel.findOne({ email });
-    if (existingUser) throw new ApplicationError('Email already registered');
-
-    const passwordHash = await hashPassword(password);
-
-    let user = new UserModel({
-      ...restData,
-      email,
-      passwordHash,
-      role,
-    });
-
-    user = await user.save();
+    const newHashedPassword = await hashPassword(newPassword)
+    user.passwordHash = newHashedPassword
+    await user.save()
     const token = await createToken(user);
-
     return reply(res, { token, user });
+
   }),
 );

@@ -201,11 +201,14 @@ export const apiRoutes = {
   /* ========================== */
   login: payloadDecl(`/api/auth/login`),
   register: payloadDecl(`/api/auth/register`),
+  updatePassword: payloadDecl(`/api/auth/update-password`, { method: "PATCH" }),
+
 
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
   getMe: jsonDecl(`/api/me`),
+  updateProfile: payloadDecl(`/api/me/profile`, { method: "PATCH" }),
   contactUs: payloadDecl(`/api/me/send-contact-message`, { method: "POST" }),
 
   /* ========================= */
