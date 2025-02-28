@@ -51,16 +51,20 @@ export default function Community() {
   const queryParams = useMemo(
     () => ({
       searchTerm,
+      // TODO: use actual pagination
+      pagelen: 100000,
     }),
     [searchTerm]
   );
 
-  const { isLoading, data: community } = useQuery<any[]>({
+  let { isLoading, data: community } = useQuery<any>({
     queryKey: ["getCommunity", queryParams],
     queryFn: () => apiRoutes.getCommunity(queryParams),
     initialData: [],
     placeholderData: [],
   });
+
+  community = community?.data || [];
 
   // const isLoading = isCommunityLoading || isFriendsLoading;
 
