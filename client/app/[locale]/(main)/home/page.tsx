@@ -90,25 +90,18 @@ function PrimaryTabs({
           onClick={() => setActiveTab?.("one")}
         />
         <PrimaryTabButton
-          shortLabel={t('proposals')}
-          label={t('proposals')}
-          icon={<IconBooks />}
+          shortLabel={t('saved')}
+          label={t('saved')}
+          icon={<IconHeart />}
           selected={activeTab === "two"}
           onClick={() => setActiveTab?.("two")}
         />
         <PrimaryTabButton
-          shortLabel={t('saved')}
-          label={t('saved')}
-          icon={<IconHeart />}
+          shortLabel={t('jobsApplied')}
+          label={t('jobsApplied')}
+          icon={<IconNotebook />}
           selected={activeTab === "three"}
           onClick={() => setActiveTab?.("three")}
-        />
-        <PrimaryTabButton
-          shortLabel={t('all_applications')}
-          label={t('all_applications')}
-          icon={<IconNotebook />}
-          selected={activeTab === "four"}
-          onClick={() => setActiveTab?.("four")}
         />
       </div>
     </div>

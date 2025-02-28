@@ -80,7 +80,7 @@ export function HomePostings({
   function filterPosting(posting: any) {
     const isFavourite = favouriteIds.includes(posting["_id"]);
     return Boolean(
-      posting["isActive"] && (activeTab === "three" ? isFavourite : true)
+      posting["isActive"] && (activeTab === "two" ? isFavourite : true)
     );
   }
 
@@ -102,6 +102,12 @@ export function HomePostings({
               (posting) =>
                 filterPosting(posting) && (
                   <PostingCard
+                    // TODO: currently an awkward hack since
+                    //    the application status is only calculated
+                    //    internally in PostingCard itself
+                    shouldBeVisible={(applied) => {
+                      return activeTab === "three" ? applied : true;
+                    }}
                     key={posting._id}
                     posting={posting}
                     isFavourite={favouriteIds.includes(posting["_id"])}
