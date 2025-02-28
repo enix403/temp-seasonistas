@@ -4,7 +4,7 @@ import { PropsWithChildren, useLayoutEffect } from "react";
 import { getAuthState, useAuthState } from "./auth-state";
 import { usePathname, useRouter } from "next/navigation";
 
-const isProtected = (route: string) => !route.includes("/login") && !route.includes("/register");
+const isProtected = (route: string) => !route.includes("/login") && !route.includes("/register") && !route.includes("/reset-password") && !route.includes("/forgot-password");
 
 export default function AuthGuard({ children }: PropsWithChildren) {
   const router = useRouter();

@@ -145,7 +145,7 @@ router.post(
       { expiresIn: '1h' },
     );
 
-    const resetLink = `https://seasonistas.com/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.FRONTEND_URL}/en/reset-password?token=${resetToken}`;
     const emailHtml = getPasswordResetTemplate(resetLink);
 
     sendEmail(email, 'Forgot Password Request', emailHtml);

@@ -9,66 +9,67 @@ import { useRouter, useSearchParams } from "next/navigation";
 import HeroImg from "~/app/assets/auth-hero.jpg";
 import { apiRoutes } from "~/app/api-routes";
 import { Button } from "~/components/Button/Button";
-import { useTranslations } from 'next-intl';
-import { Note, PasswordInput } from "../common";
+import { useTranslations } from "next-intl";
+import { PasswordInput } from "../common";
 
 function ResetPasswordContent() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const { push } = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get('token');
-  
-  const { register, handleSubmit, watch } = useForm<{
+  const token = searchParams.get("token");
+  const locale = localStorage.getItem("locale") || "en";
+
+  const { register, handleSubmit } = useForm<{
     password: string;
     confirmPassword: string;
   }>();
-  const t = useTranslations('auth');
+  const t = useTranslations("auth");
 
   async function handleResetPassword(payload: any) {
-    // if (payload.password !== payload.confirmPassword) {
-    //   toast.error(t('passwordsDoNotMatch'));
-    //   return;
-    // }
+    if (payload.password !== payload.confirmPassword) {
+      toast.error(t("passwordsDoNotMatch"));
+      return;
+    }
 
-    // setLoading(true);
-    // try {
-    //   await apiRoutes.resetPassword({
-    //     token,
-    //     password: payload.password
-    //   });
-    //   toast.success(t('passwordResetSuccess'));
-    //   router.push('/login');
-    // } catch (error) {
-    //   toast.error(t('passwordResetFailed'));
-    // } finally {
-    //   setLoading(false);
-    // }
-}
+    setLoading(true);
+    try {
+      await apiRoutes.resetPassword({
+        token,
+        newPassword: payload.password,
+      });
+      toast.success(t("passwordResetSuccess"));
+      push(`/${locale}/login`);
+    } catch (error) {
+      toast.error(t("passwordResetFailed"));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(handleResetPassword)}>
       <h1 className="text-4xl font-semibold text-center md:text-left">
-        {t('resetPassword')}
+        {t("resetPassword")}
       </h1>
       <p className="text-black/60 font-medium text-lg mt-3.5 text-center md:text-left">
-        {t('resetPasswordDescription')}
+        {t("resetPasswordDescription")}
       </p>
 
       <div className="space-y-4 mt-5">
-        <PasswordInput 
-          {...register("password")} 
-          label={t('newPassword')} 
-          required 
+        <PasswordInput
+          {...register("password")}
+          label={t("newPassword")}
+          required
         />
-        <PasswordInput 
-          {...register("confirmPassword")} 
-          label={t('confirmPassword')} 
-          required 
+        <PasswordInput
+          {...register("confirmPassword")}
+          label={t("confirmPassword")}
+          required
         />
       </div>
 
       <Button type="submit" fullWidth className="mt-6" loading={loading}>
-        {t('resetPassword')}
+        {t("resetPassword")}
       </Button>
     </form>
   );
@@ -82,12 +83,11 @@ export default function ResetPassword() {
           <ResetPasswordContent />
         </div>
       </div>
-      
       <div className="max-w-[60%] hidden md:block p-3">
         <Image
-         alt=""
-         src={HeroImg}
-         className="h-full rounded-3xl object-cover object-[center_top]"
+          alt=""
+          src={HeroImg}
+          className="h-full rounded-3xl object-cover object-[center_top]"
         />
       </div>
     </div>

@@ -1,35 +1,29 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
 import HeroImg from "~/app/assets/auth-hero.jpg";
 import { apiRoutes } from "~/app/api-routes";
 import { Button } from "~/components/Button/Button";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 import { AuthInput, Note } from "../common";
-import Link from "next/link";
 
 function ForgotPasswordContent() {
   const [loading, setLoading] = useState(false);
-  const [loginUrl, setLoginUrl] = useState("");
   const { register, handleSubmit } = useForm<any>();
-  const t = useTranslations('auth');
-
-  useEffect(() => {
-    const locale = localStorage.getItem("locale") || "en";
-    setLoginUrl(`/${locale}/login`);
-  }, []);
+  const t = useTranslations("auth");
+  const locale = localStorage.getItem("locale") || "en";
 
   async function handleForgotPassword(payload: any) {
     setLoading(true);
     try {
-    //   await apiRoutes.forgotPassword(payload);
-      toast.success(t('resetLinkSent'));
+      await apiRoutes.forgotPassword(payload);
+      toast.success(t("resetLinkSent"));
     } catch (error) {
-      toast.error(t('failedToSendLink'));
+      toast.error(t("failedToSendLink"));
     } finally {
       setLoading(false);
     }
@@ -38,29 +32,29 @@ function ForgotPasswordContent() {
   return (
     <form onSubmit={handleSubmit(handleForgotPassword)}>
       <h1 className="text-4xl font-semibold text-center md:text-left">
-        {t('forgotPassword')}
+        {t("forgotPassword")}
       </h1>
       <p className="text-black/60 font-medium text-lg mt-3.5 text-center md:text-left">
-        {t('forgotPasswordDescription')}
+        {t("forgotPasswordDescription")}
       </p>
 
       <div className="space-y-4 mt-5">
-        <AuthInput 
-          {...register("email")} 
-          label={t('email')} 
+        <AuthInput
+          {...register("email")}
+          label={t("email")}
           type="email"
-          required 
+          required
         />
       </div>
 
       <Button type="submit" fullWidth className="mt-6" loading={loading}>
-        {t('sendResetLink')}
+        {t("sendResetLink")}
       </Button>
 
       <Note
-        label={t('rememberedPassword')}
-        linkLabel={t('login')}
-        linkHref={loginUrl}
+        label={t("rememberedPassword")}
+        linkLabel={t("login")}
+        linkHref={`/${locale}/login`}
       />
     </form>
   );
@@ -74,12 +68,12 @@ export default function ForgotPassword() {
           <ForgotPasswordContent />
         </div>
       </div>
-      
+
       <div className="max-w-[60%] hidden md:block p-3">
         <Image
-         alt=""
-         src={HeroImg}
-         className="h-full rounded-3xl object-cover object-[center_top]"
+          alt=""
+          src={HeroImg}
+          className="h-full rounded-3xl object-cover object-[center_top]"
         />
       </div>
     </div>
