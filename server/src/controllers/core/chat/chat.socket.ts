@@ -1,4 +1,6 @@
 import { ChatMessageModel, ConversationModel } from 'db/models/chat';
+import { NotificationModel } from 'db/models/notification';
+import { UserModel } from 'db/models/user';
 import { Server, Socket } from 'socket.io';
 import logger from 'utils/logger';
 
@@ -32,19 +34,46 @@ export function handleChatConnection(socket: Socket, io: Server) {
 
       await conversation.save();
 
-      const { participants } = conversation;
-
       // broadcast to all users other than the sender
-      const broadcastTo = participants
+      const broadcastTo = conversation.participants
         .map((id) => id.toString())
         .filter((p) => p !== senderId);
 
+      // Live broadcast message to other users
       io.to(broadcastTo).emit('receiveMessage', {
         conversationId,
         message,
       });
+
+      // Send message notification to other users
+      notifyMessage(content, senderId, broadcastTo);
     } catch (err) {
       console.error('Error sending message:', err);
     }
   });
+}
+
+async function notifyMessage(
+  content: string,
+  senderId: any,
+  broadcastTo: any[],
+) {
+  const sender = await UserModel.findById(senderId);
+  if (!sender) return;
+
+  const msgPreview = truncateLongContent(content);
+
+  broadcastTo.forEach(async (userId) => {
+    await NotificationModel.create({
+      userId: userId,
+      message: `You have a new message from ${sender.fullName}: "${msgPreview}"`,
+    });
+  });
+}
+
+function truncateLongContent(str) {
+  if (str.length > 10) {
+    return str.slice(0, 10) + '...';
+  }
+  return str;
 }
