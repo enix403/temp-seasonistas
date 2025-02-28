@@ -31,10 +31,12 @@ function Message({
   side,
   user,
   message,
+  allowModifications = false,
 }: {
   side: "left" | "right";
   user: any;
   message: any;
+  allowModifications?: boolean;
 }) {
   const content = message.content;
   const date = new Date(message["sentAt"]);
@@ -75,29 +77,31 @@ function Message({
         </p>
         <div className="flex justify-between">
           <span className="text-sm font-normal text-gray-500">Delivered</span>
-          <Menu>
-            <MenuHandler>
-              <button>
-                <RiMore2Line />
-              </button>
-            </MenuHandler>
-            <MenuList>
-              <MessageEditBox
-                messageId={message["_id"]}
-                initialContent={message.content}
-                onEditComplete={(newMessage) => {
-                  setFinalMessage(newMessage);
-                }}
-              />
-              {/* ======= */}
-              <MessageDeleteBox
-                messageId={message["_id"]}
-                onDelete={() => {
-                  ctrl.removeMessage(message["_id"]);
-                }}
-              />
-            </MenuList>
-          </Menu>
+          {allowModifications && (
+            <Menu>
+              <MenuHandler>
+                <button>
+                  <RiMore2Line />
+                </button>
+              </MenuHandler>
+              <MenuList>
+                <MessageEditBox
+                  messageId={message["_id"]}
+                  initialContent={message.content}
+                  onEditComplete={(newMessage) => {
+                    setFinalMessage(newMessage);
+                  }}
+                />
+                {/* ======= */}
+                <MessageDeleteBox
+                  messageId={message["_id"]}
+                  onDelete={() => {
+                    ctrl.removeMessage(message["_id"]);
+                  }}
+                />
+              </MenuList>
+            </Menu>
+          )}
         </div>
       </div>
     </div>
@@ -293,6 +297,7 @@ export function MessageList({
               side={isCurrentUser ? "right" : "left"}
               user={messageSender}
               message={message}
+              allowModifications={isCurrentUser}
             />
           );
         })}
