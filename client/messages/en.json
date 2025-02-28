@@ -17,7 +17,8 @@
     "information": "Information",
     "services": "Services",
     "aboutUs": "About us",
-    "contactUs": "Contact us"
+    "contactUs": "Contact us",
+    "profile": "Profile"
   },
   "home": {
     "pageTitle": "Proposals",
@@ -26,6 +27,7 @@
     "allJobs": "All Jobs",
     "proposals": "Proposals",
     "saved": "Saved",
+    "all_applications": "All Applications",
     "filters": "Filters",
     "sort": "Sort",
     "jobTitlePlaceholder": "Job title, keywords or company",
@@ -39,11 +41,13 @@
     "message": "Message",
     "bestMatch": "Best Match",
     "alreadyApplied": "Already Applied",
-    "apply": "Apply"
+    "apply": "Apply now",
+    "start_time": "Start time",
+    "end_time": "End time"
   },
   "filters": {
     "location": "Location",
-    "locationPlaceholder": "Athens",
+    "locationPlaceholder": "Location",
     "radius": "Radius around selected destination",
     "category": "Category",
     "chooseCategory": "Choose a category",
@@ -344,7 +348,36 @@
   "topNav": {
     "changeLanguage": "Change language",
     "changeCurrency": "Change currency",
+    "addCard": "Add card",
     "logout": "Logout",
     "registerLogin": "Register / Login"
+  },
+  "user": {
+    "setStatus": "Status",
+    "lookingForJob": "I am looking for a job",
+    "notLookingForJob": "I'm not looking for jobs",
+    "share": "Share",
+    "message": "Message"
+  },
+  "auth": {
+    "login": "Login",
+    "loginDescription": "Login to enjoy the feature of Seasonistas",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "forgotPasswordDescription": "Enter your email address and we'll send you a link to reset your password",
+    "sendResetLink": "Send Reset Link",
+    "resetLinkSent": "Password reset link has been sent to your email",
+    "failedToSendLink": "Failed to send reset link",
+    "rememberedPassword": "Remember your password?",
+    "resetPassword": "Reset Password",
+    "resetPasswordDescription": "Enter your new password below",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordResetSuccess": "Password has been reset successfully",
+    "passwordResetFailed": "Failed to reset password"
   }
 }

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
 import { UserModel } from 'db/models/user';
+import Email from 'utils/email';
 
 // GET /api/me/profile
 export async function getCurrentUserProfileController(
@@ -79,4 +80,20 @@ export async function markAccountApprovalController(
   // user.approvalStatus = approvalStatus;
   await user.save();
   res.json({ message: `User account ${approvalStatus} successfully` });
+}
+
+// POST /api/me/send-contact-message
+export async function sendContactMessage(
+  req: Request,
+  res: Response,
+) {
+
+  if (!process.env.ADMIN_NAME || !process.env.ADMIN_EMAIL)
+    return res.status(500).json({ message: "Please add the envs ADMIN_NAME and ADMIN_EMAIL" })
+  try {
+    await new Email({ name: process.env.ADMIN_NAME, email: process.env.ADMIN_EMAIL, from: req.body.email }).sendContactUsMail(req.body)
+  } catch (error) {
+    return res.status(500).json({ message: "Error sending email" })
+  }
+  res.json({ message: `Email sent` });
 }

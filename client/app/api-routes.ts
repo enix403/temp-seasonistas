@@ -202,11 +202,15 @@ export const apiRoutes = {
   /* ========================== */
   login: payloadDecl(`/api/auth/login`),
   register: payloadDecl(`/api/auth/register`),
+  updatePassword: payloadDecl(`/api/auth/update-password`, { method: "PATCH" }),
+
 
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
   getMe: jsonDecl(`/api/me`),
+  updateProfile: payloadDecl(`/api/me/profile`, { method: "PATCH" }),
+  contactUs: payloadDecl(`/api/me/send-contact-message`, { method: "POST" }),
 
   /* ========================== */
   /* =========== Me =========== */
@@ -247,7 +251,7 @@ export const apiRoutes = {
   deleteJob: payloadDecl((jobId: string) => `/api/job/${jobId}`, { method: "DELETE" }),
   applyToJob: payloadDecl(`/api/job/apply`),
   updateJobStatus: payloadDecl((jobId: string) => `/api/job/${jobId}/update-status`, { method: "PATCH" }),
-  updateApplDecision: payloadDecl((applId: string) => `/api/job/application/${applId}/update-decision`,{ method: "PATCH" }),
+  updateApplDecision: payloadDecl((applId: string) => `/api/job/application/${applId}/update-decision`, { method: "PATCH" }),
   markApplInterested: payloadDecl((applId: string) => `/api/job/application/${applId}/mark-interested`, { method: "PATCH" }),
   inviteEmployee: payloadDecl(`/api/invite-employee`),
 

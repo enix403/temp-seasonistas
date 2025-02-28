@@ -9,7 +9,7 @@ import { US } from "country-flag-icons/react/3x2";
 import Drawer from "react-modern-drawer";
 import Image from "next/image";
 
-import { IconButton, ListItem, ListItemSuffix, Typography } from "@material-tailwind/react";
+import { IconButton } from "@material-tailwind/react";
 import {
   Menu,
   MenuHandler,
@@ -19,7 +19,7 @@ import {
 
 import clsx from "clsx";
 import Link from "next/link";
-import { IconBellFilled, IconCircle, IconCircleFilled, IconMenu2, IconX } from "@tabler/icons-react";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import { Button } from "../Button/Button";
 
 import { atom, useAtom, useSetAtom } from "jotai";
@@ -29,19 +29,29 @@ import { languageDrawerAtom } from "../AppLayout/LanguageDrawer";
 import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
-import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import { List } from "@material-tailwind/react";
-import { repeatNode } from "~/app/utils/markup";
 import { NotificationsBox } from "./NotificationsBox";
+import { ComponentProps, useEffect } from "react";
+import { useTranslations, useLocale } from 'next-intl';
 
 export interface TopNavProps {
   pageTitle?: string;
 }
 
 function capitalize(str: string | undefined) {
+  console.log(str);
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+}
+function AppLink(props: ComponentProps<typeof Link>) {
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  return (
+    <Link
+      {...props}
+      href={`/${locale}${props.href}`} // Correct locale-based URL
+      className={clsx(pathname === props.href && "text-teal")}
+    />
+  );
 }
 
 const drawerAtom = atom(false);
@@ -52,9 +62,11 @@ function Contents({ pageTitle }: TopNavProps) {
   const setLanguageDrawerOpen = useSetAtom(languageDrawerAtom);
   const setCurrencyDrawerOpen = useSetAtom(currencyDrawerAtom);
 
-  const { user, logout } = useAuthState();
+  const { userRole, user, logout } = useAuthState();
 
-  const t = useTranslations("topNav");
+  const t = useTranslations('topNav');
+  const tnav = useTranslations('navigation');
+
   const locale = useLocale();
 
   let loggedIn = true;
@@ -90,10 +102,15 @@ function Contents({ pageTitle }: TopNavProps) {
                   <div className="px-4 pt-2 pb-4 text-center space-y-2">
                     <h1 className="text-lg text-black">{user?.fullName}</h1>
                     <h2 className="text-sm text-gray-line-3/80 font-bold">
-                      {capitalize(user?.role)}
+                      {capitalize(userRole)}
                     </h2>
                   </div>
                   {/* ======= */}
+                  <MenuItem
+                    className="flex justify-between items-center"
+                  >
+                    <AppLink href={`/profile`}>{tnav("profile")}</AppLink>
+                  </MenuItem>
                   <MenuItem
                     onClick={() => setLanguageDrawerOpen(true)}
                     className="flex justify-between items-center"

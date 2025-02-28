@@ -26,6 +26,7 @@
     "allJobs": "Όλες οι Δουλειές",
     "proposals": "Προτάσεις",
     "saved": "Αποθηκευμένα",
+    "all_applications": "Όλες οι Αιτήσεις",
     "filters": "Φίλτρα",
     "sort": "Ταξινόμηση",
     "jobTitlePlaceholder": "Τίτλος εργασίας, λέξεις-κλειδιά ή εταιρεία",
@@ -39,11 +40,13 @@
     "message": "Μήνυμα",
     "bestMatch": "Καλύτερη Αντιστοιχία",
     "alreadyApplied": "Ήδη Εφαρμοσμένο",
-    "apply": "Εφαρμογή"
+    "apply": "Εφαρμογή",
+    "start_time": "Ώρα Έναρξης",
+    "end_time": "Ώρα Λήξης"
   },
   "filters": {
     "location": "Τοποθεσία",
-    "locationPlaceholder": "Λονδίνο",
+    "locationPlaceholder": "Πόλη, Νησί ή Ταχυδρομικός Κώδικας",
     "radius": "Ακτίνα γύρω από τον επιλεγμένο προορισμό",
     "category": "Κατηγορία",
     "chooseCategory": "Επιλέξτε κατηγορία",
@@ -344,7 +347,36 @@
   "topNav": {
     "changeLanguage": "Αλλαγή γλώσσας",
     "changeCurrency": "Αλλαγή νομίσματος",
+    "addCard": "Προσθήκη κάρτας",
     "logout": "Αποσύνδεση",
     "registerLogin": "Εγγραφή / Σύνδεση"
+  },
+  "user": {
+    "setStatus": "Ορισμός κατάστασης",
+    "lookingForJob": "Αναζητώ εργασία",
+    "notLookingForJob": "Δεν αναζητώ εργασία",
+    "share": "Κοινοποίηση",
+    "message": "Μήνυμα"
+  },
+  "auth": {
+    "login": "Σύνδεση",
+    "loginDescription": "Συνδεθείτε για να απολαύσετε τα χαρακτηριστικά του Seasonistas",
+    "email": "Email",
+    "password": "Κωδικός",
+    "forgotPassword": "Ξεχάσατε τον κωδικό;",
+    "noAccount": "Δεν έχετε λογαριασμό;",
+    "signUp": "Εγγραφή",
+    "forgotPasswordDescription": "Εισάγετε τη διεύθυνση email σας και θα σας στείλουμε ένα σύνδεσμο για επαναφορά του κωδικού πρόσβασης",
+    "sendResetLink": "Αποστολή συνδέσμου επαναφοράς",
+    "resetLinkSent": "Ο σύνδεσμος επαναφοράς κωδικού έχει σταλεί στο email σας",
+    "failedToSendLink": "Αποτυχία αποστολής συνδέσμου επαναφοράς",
+    "rememberedPassword": "Θυμηθήκατε τον κωδικό σας;",
+    "resetPassword": "Επαναφορά Κωδικού",
+    "resetPasswordDescription": "Εισάγετε τον νέο σας κωδικό παρακάτω",
+    "newPassword": "Νέος Κωδικός",
+    "confirmPassword": "Επιβεβαίωση Κωδικού",
+    "passwordsDoNotMatch": "Οι κωδικοί δεν ταιριάζουν",
+    "passwordResetSuccess": "Ο κωδικός άλλαξε με επιτυχία",
+    "passwordResetFailed": "Αποτυχία αλλαγής κωδικού"
   }
 }

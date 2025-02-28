@@ -12,6 +12,8 @@ import {
 import { FormLabel } from "~/components/FormLabel/FormLabel";
 import { combineVisualProps } from "~/components/VisualComponent";
 import { useTranslations } from 'next-intl';
+import { apiRoutes } from "~/app/api-routes";
+import toast from "react-hot-toast";
 
 function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
   // Determine the appropriate link
@@ -106,11 +108,18 @@ function FormSection() {
     return !Object.values(newErrors).includes(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted successfully!", formData);
-      // Submit form logic here
+      try {
+        await apiRoutes.contactUs(formData)
+        toast.success("Email sent");
+
+      } catch (error) {
+        console.log(error);
+
+        toast.error("Failed to send email");
+      }
     }
   };
 

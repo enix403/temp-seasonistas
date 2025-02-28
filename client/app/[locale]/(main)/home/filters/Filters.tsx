@@ -153,11 +153,9 @@ export function Filters({
           <Filter label={t('salary')}>
             <div className="flex gap-x-4">
               <RichInput
-                icon={<IconMathEqualGreater size={17} />}
                 inputProps={{ placeholder: t('minSalary') }}
               />
               <RichInput
-                icon={<IconMathEqualLower size={17} />}
                 inputProps={{ placeholder: t('maxSalary') }}
               />
             </div>

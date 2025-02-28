@@ -12,12 +12,13 @@ import {
   getAllUsersController,
   banUserController,
   markAccountApprovalController,
+  sendContactMessage,
 } from 'controllers/userCtrls';
 
 export const router = express.Router();
 
 const profileUpdateSchema = Joi.object({
-  name: Joi.string().optional(),
+  fullName: Joi.string().optional(),
   email: Joi.string().email().optional(),
   phoneNumber: Joi.string().optional(),
   bio: Joi.string().optional(),
@@ -174,5 +175,10 @@ router.patch(
   requireAuthenticated(['admin']),
   validateJoi(accountApprovalSchema),
   markAccountApprovalController,
+);
+
+router.post(
+  '/api/me/send-contact-message',
+  sendContactMessage,
 );
 

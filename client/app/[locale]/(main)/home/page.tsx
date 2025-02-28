@@ -5,10 +5,9 @@ import { Fragment, ReactNode, useEffect, useState } from "react";
 import { DivProps } from "react-html-props";
 import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { IconAdjustmentsHorizontal, IconSearch } from "@tabler/icons-react";
-
-import PIconBriefcase from "~/app/assets/p-briefcase.svg";
-import PIconPlus from "~/app/assets/p-plus.svg";
+import { IconUsers, IconBooks, IconHeart, IconNotebook } from "@tabler/icons-react";
 import PIconEye from "~/app/assets/p-eye.svg";
+
 
 import { AppLayout } from "~/components/AppLayout/AppLayout";
 import { Button } from "~/components/Button/Button";
@@ -84,25 +83,32 @@ function PrimaryTabs({
         )}
       >
         <PrimaryTabButton
-          shortLabel={t("allProfiles")}
-          label={viewMode === "employer" ? t("allProfiles") : t("allJobs")}
-          icon={<PIconBriefcase />}
+          shortLabel={t('allProfiles')}
+          label={viewMode === "employer" ? t('allProfiles') : t('allJobs')}
+          icon={<IconUsers />}
           selected={activeTab === "one"}
           onClick={() => setActiveTab?.("one")}
         />
         <PrimaryTabButton
-          shortLabel={t("proposals")}
-          label={t("proposals")}
-          icon={<PIconPlus />}
+          shortLabel={t('proposals')}
+          label={t('proposals')}
+          icon={<IconBooks />}
           selected={activeTab === "two"}
           onClick={() => setActiveTab?.("two")}
         />
         <PrimaryTabButton
-          shortLabel={t("saved")}
-          label={t("saved")}
-          icon={<PIconEye />}
+          shortLabel={t('saved')}
+          label={t('saved')}
+          icon={<IconHeart />}
           selected={activeTab === "three"}
           onClick={() => setActiveTab?.("three")}
+        />
+        <PrimaryTabButton
+          shortLabel={t('all_applications')}
+          label={t('all_applications')}
+          icon={<IconNotebook />}
+          selected={activeTab === "four"}
+          onClick={() => setActiveTab?.("four")}
         />
       </div>
     </div>
