@@ -38,8 +38,6 @@ router.post(
     const userId = req.user!._id;
     const { receiverId } = req.body;
 
-    // const insertParticipants = [userId, receiverId].sort();
-
     // ====
     const conversation = await ConversationModel.findOneAndUpdate(
       {
@@ -79,5 +77,31 @@ router.post(
     });
   }),
 );
+
+router.patch(
+  '/api/chat/update-message',
+  requireAuthenticated(),
+  validateJoi(
+    Joi.object({
+      messageId: customJoi.id(),
+      content: Joi.string(),
+    }),
+  ),
+  ah(async (req, res) => {
+    const userId = req.user!._id;
+    const { messageId, content } = req.body;
+
+    await ChatMessageModel.updateMany(
+      {
+        _id: messageId,
+        senderId: userId,
+      },
+      { content },
+    );
+
+    return reply(res, "ok");
+  }),
+);
+
 
 export default router;

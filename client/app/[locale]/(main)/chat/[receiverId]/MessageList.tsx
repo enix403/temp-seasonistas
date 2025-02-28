@@ -24,6 +24,7 @@ import { Button } from "~/components/Button/Button";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IconTrash } from "@tabler/icons-react";
+import { apiRoutes } from "~/app/api-routes";
 
 function Message({
   side,
@@ -34,7 +35,14 @@ function Message({
   user: any;
   message: any;
 }) {
+  const content = message.content;
   const date = new Date(message["sentAt"]);
+
+  const [finalMessage, setFinalMessage] = useState(content);
+
+  useEffect(() => {
+    setFinalMessage(content);
+  }, [content, setFinalMessage]);
 
   return (
     <div
@@ -60,35 +68,43 @@ function Message({
           </span>
         </div>
         <p className="text-sm font-normal py-2.5 text-gray-900">
-          {message.content}
+          {finalMessage}
         </p>
         <div className="flex justify-between">
           <span className="text-sm font-normal text-gray-500">Delivered</span>
-          <MessageOptions content={message.content} />
+          <Menu>
+            <MenuHandler>
+              <button>
+                <RiMore2Line />
+              </button>
+            </MenuHandler>
+            <MenuList>
+              <MessageEditBox
+                messageId={message["_id"]}
+                initialContent={message.content}
+                onEditComplete={(newMessage) => {
+                  setFinalMessage(newMessage);
+                }}
+              />
+              {/* ======= */}
+              <MessageDeleteBox />
+            </MenuList>
+          </Menu>
         </div>
       </div>
     </div>
   );
 }
 
-function MessageOptions({ content }: { content: string }) {
-  return (
-    <Menu>
-      <MenuHandler>
-        <button>
-          <RiMore2Line />
-        </button>
-      </MenuHandler>
-      <MenuList>
-        <MessageEditBox initialContent={content} />
-        {/* ======= */}
-        <MessageDeleteBox />
-      </MenuList>
-    </Menu>
-  );
-}
-
-function MessageEditBox({ initialContent }: { initialContent: string }) {
+function MessageEditBox({
+  messageId,
+  initialContent,
+  onEditComplete,
+}: {
+  messageId: string;
+  initialContent: string;
+  onEditComplete?: (content: string) => void;
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -102,10 +118,25 @@ function MessageEditBox({ initialContent }: { initialContent: string }) {
     setValue("content", initialContent);
   }, [initialContent, open, setValue]);
 
-  function onSubmit(values: any): void {
-    console.log(values);
-    setOpen(false);
-    toast.success("Message updated successfully");
+  async function onSubmit(values: any) {
+    let { content } = values;
+
+    apiRoutes
+      .updateMessage({
+        messageId,
+        content,
+      })
+      .then(() => {
+        onEditComplete?.(content);
+        toast.success("Message updated successfully");
+      })
+      .catch((err) => {
+        toast.error("Failed to update message");
+        console.log(err);
+      })
+      .finally(() => {
+        setOpen(false);
+      });
   }
 
   return (
