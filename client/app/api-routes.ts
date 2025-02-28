@@ -269,6 +269,7 @@ export const apiRoutes = {
   getConversations: jsonDecl(`/api/chat/conversations`),
   resumeConversationSingle: payloadDecl(`/api/chat/resume-conv-single`),
   updateMessage: payloadDecl(`/api/chat/update-message`, { method: "PATCH" }),
+  deleteMessage: payloadDecl(`/api/chat/delete-message`, { method: "DELETE" }),
 
 } as const;
 

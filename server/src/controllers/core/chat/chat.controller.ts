@@ -104,4 +104,27 @@ router.patch(
 );
 
 
+router.delete(
+  '/api/chat/delete-message',
+  requireAuthenticated(),
+  validateJoi(
+    Joi.object({
+      messageId: customJoi.id(),
+    }),
+  ),
+  ah(async (req, res) => {
+    const userId = req.user!._id;
+    const { messageId } = req.body;
+
+    await ChatMessageModel.deleteOne(
+      {
+        _id: messageId,
+        senderId: userId,
+      },
+    );
+
+    return reply(res, "ok");
+  }),
+);
+
 export default router;

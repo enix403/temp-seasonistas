@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IconTrash } from "@tabler/icons-react";
 import { apiRoutes } from "~/app/api-routes";
+import { useMessageCtrl } from "./msg-ctrl";
 
 function Message({
   side,
@@ -43,6 +44,8 @@ function Message({
   useEffect(() => {
     setFinalMessage(content);
   }, [content, setFinalMessage]);
+
+  const ctrl = useMessageCtrl();
 
   return (
     <div
@@ -87,7 +90,12 @@ function Message({
                 }}
               />
               {/* ======= */}
-              <MessageDeleteBox />
+              <MessageDeleteBox
+                messageId={message["_id"]}
+                onDelete={() => {
+                  ctrl.removeMessage(message["_id"]);
+                }}
+              />
             </MenuList>
           </Menu>
         </div>
@@ -174,13 +182,32 @@ function MessageEditBox({
   );
 }
 
-export function MessageDeleteBox() {
+export function MessageDeleteBox({
+  messageId,
+  onDelete,
+}: {
+  messageId: string;
+  onDelete?: () => void;
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
   function onConfirm() {
-    setOpen(false);
-    toast.success("Message deleted successfully");
+    apiRoutes
+      .deleteMessage({
+        messageId,
+      })
+      .then(() => {
+        onDelete?.();
+        toast.success("Message deleted successfully");
+      })
+      .catch((err) => {
+        toast.error("Failed to delete message");
+        console.log(err);
+      })
+      .finally(() => {
+        setOpen(false);
+      });
   }
 
   return (

@@ -1,13 +1,22 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, {
+  memo,
+  createContext,
+  useContext,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { io, type Socket } from "socket.io-client";
 
 import { ActiveChatWindow } from "./ActiveChatWindow";
 import { useAuthState } from "~/app/providers/auth-state";
 import { API_BASE_URL, apiRoutes } from "~/app/api-routes";
 import { useFocusConv, useRegisterConv } from "../covn-list";
+import { produce } from "immer";
+import { MessageControllerContext } from "./msg-ctrl";
 
 function useSocket() {
   const { userId } = useAuthState();
@@ -119,7 +128,20 @@ const ChatWindow = memo(({ receiverId }: { receiverId: string }) => {
   );
 
   return (
-    <>
+    <MessageControllerContext.Provider
+      value={{
+        removeMessage(messageId: string) {
+          setMessages(
+            produce((draft) => {
+              const index = draft.findIndex((message) => message["_id"] === messageId);
+              if (index !== -1) {
+                draft.splice(index, 1);
+              }
+            })
+          );
+        },
+      }}
+    >
       {conversation ? (
         <ActiveChatWindow
           conversation={conversation}
@@ -127,7 +149,7 @@ const ChatWindow = memo(({ receiverId }: { receiverId: string }) => {
           sendMessage={sendMessage}
         />
       ) : null}
-    </>
+    </MessageControllerContext.Provider>
   );
 });
 
