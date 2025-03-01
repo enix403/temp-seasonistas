@@ -83,7 +83,7 @@ router.post(
   validateJoi(
     joi.object({
       email: joi.string().required(),
-      password: joi.string().required(),
+      password: joi.string().required().min(8).max(30),
       role: joi.string().valid('employer', 'employee').required(),
 
       fullName: joi.string().required(),
@@ -145,7 +145,7 @@ router.post(
       { expiresIn: '1h' },
     );
 
-    const resetLink = `https://seasonistas.com/reset-password?token=${resetToken}`;
+    const resetLink = `${process.env.FRONTEND_URL}/en/reset-password?token=${resetToken}`;
     const emailHtml = getPasswordResetTemplate(resetLink);
 
     sendEmail(email, 'Forgot Password Request', emailHtml);
