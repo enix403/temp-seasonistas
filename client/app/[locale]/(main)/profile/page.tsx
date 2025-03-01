@@ -4,7 +4,18 @@ import { useEffect, useRef, useState } from "react";
 
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Chip, Input, Radio, Textarea } from "@material-tailwind/react";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Chip,
+  Dialog,
+  Input,
+  Radio,
+  Switch,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
@@ -14,6 +25,7 @@ import { Button } from "~/components/Button/Button";
 import { apiRoutes } from "~/app/api-routes";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
 import { produce } from "immer";
+import clsx from "clsx";
 
 function ProfilePictureUpdater({ disabled = false }: { disabled?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -250,6 +262,111 @@ function UpdateBioSection({
   );
 }
 
+function AddExperienceModal({
+  addingNew = false,
+  initialData,
+  onEditComplete,
+}: {
+  addingNew?: boolean;
+  initialData?: any;
+  onEditComplete?: (payload) => void;
+}) {
+  let [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
+
+  const { register, watch, handleSubmit } = useForm();
+  const currentlyActive = watch("currentlyActive", false);
+
+  open = true;
+
+  return (
+    <>
+      <Button onClick={handleOpen} variant="light" className="mt-4">
+        Add New Experience
+      </Button>
+
+      <Dialog
+        size="xl"
+        open={open}
+        handler={handleOpen}
+        className="bg-transparent shadow-none"
+      >
+        <Card className="mx-auto w-full max-w-[48rem]">
+          <form>
+            <CardBody className="flex flex-col gap-4">
+              <Typography variant="h4" color="blue-gray">
+                Add New Experience
+              </Typography>
+
+              <Typography className="-mb-2" variant="h6">
+                Title
+              </Typography>
+              <Input {...register("title")} label="Title" size="lg" />
+
+              <Typography className="-mb-2" variant="h6">
+                Company
+              </Typography>
+              <Input {...register("company")} label="Company" size="lg" />
+
+              <Typography className="-mb-2" variant="h6">
+                Description
+              </Typography>
+              <Textarea
+                {...register("description")}
+                label="Description"
+                size="lg"
+              />
+
+              <div className="flex gap-x-4">
+                <div className="flex-1">
+                  <Typography className="mb-2.5" variant="h6">
+                    Start Date
+                  </Typography>
+                  <Input
+                    {...register("startDate")}
+                    type="date"
+                    label="Start Date"
+                    size="lg"
+                  />
+                </div>
+                <div className="flex-1">
+                  <Typography
+                    className={clsx(
+                      "mb-2.5",
+                      currentlyActive && "text-gray-300"
+                    )}
+                    variant="h6"
+                  >
+                    End Date
+                  </Typography>
+                  <Input
+                    className={clsx(currentlyActive && "opacity-30")}
+                    {...register("endDate")}
+                    type="date"
+                    label="End Date"
+                    size="lg"
+                    disabled={currentlyActive}
+                  />
+                  <div className="mt-3 flex justify-end">
+                    <Switch
+                      {...register("currentlyActive")}
+                      label="Currently Working"
+                    />
+                    ;
+                  </div>
+                </div>
+              </div>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <Button fullWidth>Add Experience</Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </Dialog>
+    </>
+  );
+}
+
 function UpdateSkillsSection({
   user,
   userLoading,
@@ -351,10 +468,12 @@ function UpdateSkillsSection({
           <Button>Delete</Button>
         </div>
       </div> */}
-
+      {/*
       <Button variant="light" className="mt-4">
         Add New Experience
-      </Button>
+      </Button> */}
+
+      <AddExperienceModal />
 
       <hr className="mt-8" />
       <Button

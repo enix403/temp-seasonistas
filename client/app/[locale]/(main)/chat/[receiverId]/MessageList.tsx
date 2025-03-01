@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 
-import { Avatar, DialogBody, DialogHeader } from "@material-tailwind/react";
+import { Avatar } from "@material-tailwind/react";
 import { RiMore2Line } from "react-icons/ri";
 import {
   Menu,
@@ -11,12 +11,10 @@ import {
   MenuItem,
   Dialog,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   Typography,
   Input,
-  Checkbox,
 } from "@material-tailwind/react";
 
 import { useAuthState } from "~/app/providers/auth-state";
