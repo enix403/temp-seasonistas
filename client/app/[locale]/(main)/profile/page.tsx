@@ -118,7 +118,7 @@ function UpdateNameSection({
         <div className="flex flex-col">
           <div className="w-full">
             <label className="block text-lg font-medium text-gray-700 mb-1">
-              Username
+              Full Name
             </label>
             <input
               type="text"
@@ -139,6 +139,112 @@ function UpdateNameSection({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function UpdateBioSection({
+  user,
+  userLoading,
+  onUpdate,
+}: {
+  user: any;
+  userLoading: boolean;
+  onUpdate: () => void;
+}) {
+  const { register, handleSubmit, setValue } = useForm();
+
+  useEffect(() => {
+    setValue("bio", user?.["bio"] || "");
+    setValue("gender", user?.["gender"] || "");
+
+    setValue("addressCountry", user?.["addressCountry"] || "");
+    setValue("addressCity", user?.["addressCity"] || "");
+    setValue("addressArea", user?.["addressArea"] || "");
+    setValue("addressZip", user?.["addressZip"] || "");
+  }, [user]);
+
+  const [loading, setLoading] = useState(false);
+
+  function onSubmit(payload) {
+    payload = {
+      ...payload,
+      bio: payload.bio || "",
+    };
+
+    setLoading(true);
+    apiRoutes
+      .updateProfile(payload)
+      .then(() => {
+        toast.success("Bio updated");
+        onUpdate();
+      })
+      .catch(() => {
+        toast.error("Failed to update bio");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">Update Bio</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
+        <Textarea {...register("bio")} label="Bio" />
+
+        <label className="block text-lg font-medium text-black mt-5">
+          Gender
+        </label>
+        <div className="flex gap-4">
+          <Radio
+            {...register("gender")}
+            value="male"
+            label="Male"
+            color="green"
+          />
+          <Radio
+            {...register("gender")}
+            value="female"
+            label="Female"
+            color="green"
+          />
+          <Radio
+            {...register("gender")}
+            value="notSpecified"
+            label="Rather Not Say"
+            color="green"
+            defaultChecked
+          />
+        </div>
+
+        <label className="block text-lg font-medium text-black mt-5">
+          Address
+        </label>
+        <div className="mt-2">
+          <Input {...register("addressCountry")} label="Address Country" />
+        </div>
+        <div className="mt-2">
+          <Input {...register("addressCity")} label="Address City" />
+        </div>
+        <div className="mt-2">
+          <Input {...register("addressArea")} label="Address Area" />
+        </div>
+        <div className="mt-2">
+          <Input {...register("addressZip")} label="Address Zip" />
+        </div>
+
+        <label className="block text-lg font-medium text-black mt-5">
+          Phone
+        </label>
+        <div className="mt-2">
+          <Input {...register("phone")} label="Phone" />
+        </div>
+
+        <Button className="mt-4" loading={loading || userLoading}>
+          Update Bio
+        </Button>
+      </form>
     </div>
   );
 }
@@ -248,82 +354,6 @@ function UpdatePasswordSection() {
   );
 }
 
-function UpdateBioSection({
-  user,
-  userLoading,
-  onUpdate,
-}: {
-  user: any;
-  userLoading: boolean;
-  onUpdate: () => void;
-}) {
-  const { register, handleSubmit, setValue } = useForm();
-
-  useEffect(() => {
-    setValue("bio", user?.["bio"] || "");
-    setValue("gender", user?.["gender"] || "");
-  }, [user]);
-
-  const [loading, setLoading] = useState(false);
-
-  function onSubmit(payload) {
-    let { bio = "", gender } = payload;
-    console.log(gender);
-
-    setLoading(true);
-    apiRoutes
-      .updateProfile({ bio, gender })
-      .then(() => {
-        toast.success("Bio updated");
-        onUpdate();
-      })
-      .catch(() => {
-        toast.error("Failed to update bio");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
-
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">Update Bio</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
-        <Textarea {...register("bio")} label="Bio" />
-
-        <label className="block text-lg font-medium text-black mt-5">
-          Gender
-        </label>
-        <div className="flex gap-4">
-          <Radio
-            {...register("gender")}
-            value="male"
-            label="Male"
-            color="green"
-          />
-          <Radio
-            {...register("gender")}
-            value="female"
-            label="Female"
-            color="green"
-          />
-          <Radio
-            {...register("gender")}
-            value="notSpecified"
-            label="Rather Not Say"
-            color="green"
-            defaultChecked
-          />
-        </div>
-
-        <Button className="mt-4" loading={loading || userLoading}>
-          Update Bio
-        </Button>
-      </form>
-    </div>
-  );
-}
-
 function UpdateSections() {
   const { user, isLoading, refreshUser } = useCurrentUser();
 
@@ -334,12 +364,12 @@ function UpdateSections() {
         userLoading={isLoading}
         onUpdate={refreshUser}
       />
-      <UpdatePasswordSection />
       <UpdateBioSection
         user={user}
         userLoading={isLoading}
         onUpdate={refreshUser}
       />
+      <UpdatePasswordSection />
     </>
   );
 }

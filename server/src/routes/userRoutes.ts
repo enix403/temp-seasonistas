@@ -60,13 +60,13 @@ router.get(
 router.patch(
   '/api/me/profile',
   requireAuthenticated(),
-  validateJoi(Joi.object({
+  /* validateJoi(Joi.object({
     fullName: Joi.string().optional(),
     email: Joi.string().email().optional(),
     phoneNumber: Joi.string().optional(),
     bio: Joi.string().allow("").optional(),
     gender: Joi.string().optional(),
-  })),
+  })), */
   updateCurrentUserProfileController,
 );
 
