@@ -83,7 +83,7 @@ router.post(
   validateJoi(
     joi.object({
       email: joi.string().required(),
-      password: joi.string().required(),
+      password: joi.string().required().min(8).max(30),
       role: joi.string().valid('employer', 'employee').required(),
 
       fullName: joi.string().required(),
