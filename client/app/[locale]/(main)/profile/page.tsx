@@ -28,7 +28,7 @@ import { useCurrentUser } from "~/app/hooks/useCurrentUser";
 import { produce } from "immer";
 import clsx from "clsx";
 import { IconX } from "@tabler/icons-react";
-import { format } from "date-fns";
+import { renderExpDurationString } from "~/app/utils/misc";
 
 function ProfilePictureUpdater({ disabled = false }: { disabled?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -178,6 +178,8 @@ function UpdateBioSection({
     setValue("addressCity", user?.["addressCity"] || "");
     setValue("addressArea", user?.["addressArea"] || "");
     setValue("addressZip", user?.["addressZip"] || "");
+
+    setValue("phone", user?.["phone"] || "");
   }, [user]);
 
   const [loading, setLoading] = useState(false);
@@ -419,19 +421,6 @@ function ExperienceModal({
   );
 }
 
-function renderExpDurationString(exp) {
-  let { startDate, endDate, currentlyActive } = exp;
-
-  const displayFormat = "MMM yyyy";
-
-  const startStr = format(new Date(startDate), displayFormat);
-  const endStr =
-    !currentlyActive && endDate
-      ? format(new Date(endDate), displayFormat)
-      : "Present";
-
-  return `${startStr} - ${endStr}`;
-}
 
 function UpdateSkillsSection({
   user,

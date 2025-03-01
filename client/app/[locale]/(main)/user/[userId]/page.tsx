@@ -34,6 +34,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useResumableAction } from "~/app/hooks/useResumableAction";
 import { reportedCall } from "~/app/utils/promises";
 import { useTranslations } from "next-intl";
+import { renderExpDurationString } from "~/app/utils/misc";
 
 export default function UserProfile() {
   const { userId } = useParams<{ userId: string }>();
@@ -199,11 +200,17 @@ function Contents({ user }: any) {
 
             {/* User Info */}
             <CardBody className="pt-16">
-              <h1 className="text-2xl font-semibold">{user.fullName}</h1>
-              <p className="text-gray-600">Software Developer at XYZ Corp</p>
+              <h1 className="text-2xl font-semibold">{user?.fullName}</h1>
+              {/* <p className="text-gray-600">Software Developer at XYZ Corp</p> */}
               <p className="text-gray-600">
-                San Francisco, California, United States
+                {/* prettier-ignore */}
+                {[
+                  user?.addressArea,
+                  user?.addressCity,
+                  user?.addressCountry,
+                ].filter(Boolean).join(", ")}
               </p>
+
               <p className="mt-2 text-sm text-gray-500">
                 {connectionCount} connection(s)
               </p>
@@ -231,7 +238,6 @@ function Contents({ user }: any) {
                 <Tab value="profile">Profile</Tab>
                 <Tab value="about">About</Tab>
                 <Tab value="experience">Experience</Tab>
-                <Tab value="education">Education</Tab>
                 <Tab value="skills">Skills</Tab>
               </TabsHeader>
 
@@ -267,17 +273,10 @@ function Contents({ user }: any) {
                         <span>Phone number:</span>
                       </p>
                       <a
-                        href="tel:+00123456789"
+                        href="#"
                         className="text-blue-500 hover:underline cursor-pointer"
                       >
-                        +00 123 456 789
-                      </a>
-                      /
-                      <a
-                        href="tel:+12345678"
-                        className="text-blue-500 hover:underline cursor-pointer"
-                      >
-                        +12 345 678
+                        {user?.phone}
                       </a>
                     </p>
                   </div>
@@ -285,53 +284,31 @@ function Contents({ user }: any) {
                 <TabPanel value="about">
                   <div>
                     <h2 className="text-xl font-semibold mb-4">About</h2>
-                    <p className="text-red-700">
-                      Experienced software developer with a passion for building
-                      scalable web applications and working with modern
-                      JavaScript frameworks. Proficient in full-stack
-                      development.
-                    </p>
+                    <p className="text-red-700">{user?.bio}</p>
                   </div>
                 </TabPanel>
                 <TabPanel value="experience">
                   <div>
                     <h2 className="text-xl font-semibold mb-4">Experience</h2>
-                    <div className="mb-4">
-                      <h3 className="font-semibold">Software Developer</h3>
-                      <p className="text-gray-600">XYZ Corp</p>
-                      <p className="text-gray-500 text-sm">
-                        Jan 2020 - Present · 3 yrs
-                      </p>
-                      <p className="text-gray-700">
-                        Working on building web applications using React,
-                        Node.js, and GraphQL.
-                      </p>
-                    </div>
-                    <div className="mb-4">
-                      <h3 className="font-semibold">Junior Developer</h3>
-                      <p className="text-gray-600">ABC Inc.</p>
-                      <p className="text-gray-500 text-sm">
-                        Jun 2018 - Dec 2019 · 1 yr 6 mos
-                      </p>
-                      <p className="text-gray-700">
-                        Assisted in developing internal tools and dashboards for
-                        monitoring company-wide metrics.
-                      </p>
-                    </div>
+                    {(user?.experiences || []).map((exp) => (
+                      <div key={exp["_id"]} className="mb-6">
+                        <h3 className="font-semibold">{exp.title}</h3>
+                        <p className="text-gray-600">{exp.company}</p>
+                        <p className="text-gray-500 text-sm">
+                          {renderExpDurationString(exp)}
+                        </p>
+                        <p className="text-gray-700">{exp.description}</p>
+                      </div>
+                    ))}
                   </div>
-                </TabPanel>
-                <TabPanel value="education">
-                  <div></div>
                 </TabPanel>
                 <TabPanel value="skills">
                   <div>
                     <h2 className="text-xl font-semibold mb-4">Skills</h2>
                     <div className="flex flex-wrap gap-2">
-                      <Chip value="JavaScript" color="green" />
-                      <Chip value="React" color="green" />
-                      <Chip value="Node.js" color="green" />
-                      <Chip value="GraphQL" color="green" />
-                      <Chip value="Tailwind CSS" color="green" />
+                      {(user?.skills || []).map((skill, index) => (
+                        <Chip key={index} value={skill} color="green" />
+                      ))}
                     </div>
                   </div>
                 </TabPanel>
