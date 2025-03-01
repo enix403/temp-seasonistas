@@ -38,7 +38,6 @@ export interface TopNavProps {
 }
 
 function capitalize(str: string | undefined) {
-  console.log(str);
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
 }
 function AppLink(props: ComponentProps<typeof Link>) {

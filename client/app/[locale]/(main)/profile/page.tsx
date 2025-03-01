@@ -73,7 +73,7 @@ function UpdateNameSection({
   userLoading: boolean;
   onUpdate: () => void;
 }) {
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -334,6 +334,29 @@ function UpdateSkillsSection({
         <Button loading={loading || userLoading}>Add Skill</Button>
       </form>
 
+      <h2 className="text-xl font-semibold text-gray-900 mt-6 mb-2">
+        Update Experience
+      </h2>
+
+      {/* <div className="mb-6">
+        <h3 className="font-semibold">Software Developer</h3>
+        <p className="text-gray-600">XYZ Corp</p>
+        <p className="text-gray-500 text-sm">Jan 2020 - Present · 3 yrs</p>
+        <p className="text-gray-700">
+          Working on building web applications using React, Node.js, and
+          GraphQL.
+        </p>
+        <div className="flex gap-x-4 mt-2">
+          <Button>Edit</Button>
+          <Button>Delete</Button>
+        </div>
+      </div> */}
+
+      <Button variant="light" className="mt-4">
+        Add New Experience
+      </Button>
+
+      <hr className="mt-8" />
       <Button
         onClick={updateInfo}
         className="mt-4"
@@ -475,7 +498,7 @@ function UpdateSections() {
   );
 }
 
-export default function ProfilePage() {
+function ProfilePage() {
   return (
     <AppLayout>
       <div className="p-6 bg-gray-50 min-h-screen">
@@ -498,3 +521,5 @@ export default function ProfilePage() {
     </AppLayout>
   );
 }
+
+export default ProfilePage;

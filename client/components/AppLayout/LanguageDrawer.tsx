@@ -1,26 +1,26 @@
-'use client';  // Required for hooks in App Router
+"use client"; // Required for hooks in App Router
 import "react-modern-drawer/dist/index.css";
 import Drawer from "react-modern-drawer";
 import React from "react";
 import { Button, Typography, IconButton } from "@material-tailwind/react";
 import { atom, useAtom } from "jotai";
 import { Select } from "~/components/Select/Select";
-import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';  
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "next/navigation";
 
 export const languageDrawerAtom = atom(false);
 
 export function LanguageDrawer() {
-  const t = useTranslations('common');
+  const t = useTranslations("common");
   const router = useRouter();
   const pathname = usePathname(); // Get current route
   const [isOpen, setIsOpen] = useAtom(languageDrawerAtom);
   const close = () => setIsOpen(false);
 
   const changeLanguage = (lng: string) => {
-    const newPath = `/${lng}${pathname.replace(/^\/[a-z]{2}/, '')}`;
-    localStorage.setItem('locale', lng);
-    router.push(newPath); 
+    const newPath = `/${lng}${pathname.replace(/^\/[a-z]{2}/, "")}`;
+    localStorage.setItem("locale", lng);
+    router.push(newPath);
     close();
   };
 
@@ -36,7 +36,7 @@ export function LanguageDrawer() {
     >
       <div className="flex items-center justify-between px-4 pb-2">
         <Typography variant="h5" color="blue-gray">
-          {t('changeLanguage')}
+          {t("changeLanguage")}
         </Typography>
         <IconButton variant="text" color="blue-gray" onClick={close}>
           <svg
@@ -47,23 +47,31 @@ export function LanguageDrawer() {
             stroke="currentColor"
             className="h-5 w-5"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </IconButton>
       </div>
       <div className="flex flex-col gap-6 p-4">
         <Typography variant="h6" color="blue-gray" className="-mb-3">
-          {t('selectYourLanguage')}
+          {t("selectYourLanguage")}
         </Typography>
         <Select
-          value={localStorage.getItem('locale') || 'en'}
+          value={
+            typeof localStorage !== "undefined"
+              ? localStorage.getItem("locale") || "en"
+              : "en"
+          }
           onChange={(e) => changeLanguage(e.target.value)}
         >
-          <option value="en">{t('english')}</option>
-          <option value="el">{t('greek')}</option>
+          <option value="en">{t("english")}</option>
+          <option value="el">{t("greek")}</option>
         </Select>
-          
-        <Button onClick={close}>{t('confirm')}</Button>
+
+        <Button onClick={close}>{t("confirm")}</Button>
       </div>
     </Drawer>
   );
