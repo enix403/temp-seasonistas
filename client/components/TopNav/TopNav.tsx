@@ -31,7 +31,7 @@ import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
 import { NotificationsBox } from "./NotificationsBox";
 import { ComponentProps, useEffect } from "react";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations, useLocale } from "next-intl";
 
 export interface TopNavProps {
   pageTitle?: string;
@@ -64,8 +64,8 @@ function Contents({ pageTitle }: TopNavProps) {
 
   const { userRole, user, logout } = useAuthState();
 
-  const t = useTranslations('topNav');
-  const tnav = useTranslations('navigation');
+  const t = useTranslations("topNav");
+  const tnav = useTranslations("navigation");
 
   const locale = useLocale();
 
@@ -106,11 +106,11 @@ function Contents({ pageTitle }: TopNavProps) {
                     </h2>
                   </div>
                   {/* ======= */}
-                  <MenuItem
-                    className="flex justify-between items-center"
-                  >
-                    <AppLink href={`/profile`}>{tnav("profile")}</AppLink>
-                  </MenuItem>
+                  <AppLink href={`/profile`}>
+                    <MenuItem className="flex justify-between items-center">
+                      {tnav("profile")}
+                    </MenuItem>
+                  </AppLink>
                   <MenuItem
                     onClick={() => setLanguageDrawerOpen(true)}
                     className="flex justify-between items-center"
@@ -177,7 +177,6 @@ function Contents({ pageTitle }: TopNavProps) {
     </>
   );
 }
-
 
 export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
   const pathname = usePathname();

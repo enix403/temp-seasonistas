@@ -17,13 +17,6 @@ import {
 
 export const router = express.Router();
 
-const profileUpdateSchema = Joi.object({
-  fullName: Joi.string().optional(),
-  email: Joi.string().email().optional(),
-  phoneNumber: Joi.string().optional(),
-  bio: Joi.string().optional(),
-});
-
 /**
  * @swagger
  * /api/me/profile:
@@ -67,7 +60,12 @@ router.get(
 router.patch(
   '/api/me/profile',
   requireAuthenticated(),
-  validateJoi(profileUpdateSchema),
+  validateJoi(Joi.object({
+    fullName: Joi.string().optional(),
+    email: Joi.string().email().optional(),
+    phoneNumber: Joi.string().optional(),
+    bio: Joi.string().allow("").optional(),
+  })),
   updateCurrentUserProfileController,
 );
 
