@@ -3,6 +3,17 @@ import "react-modern-drawer/dist/index.css";
 import Logo from "./assets/logo-big.png";
 import MessageIcon from "./assets/message.svg";
 // import ProfileImage from "~/app/assets/profile-1.webp";
+import { 
+  IconSettings, 
+  IconMoon, 
+  IconBell, 
+  IconLock, 
+  IconHelp,
+  IconCreditCard,
+  IconKey,
+  IconUser,
+  IconLogout
+} from "@tabler/icons-react";
 
 import { US } from "country-flag-icons/react/3x2";
 
@@ -55,6 +66,7 @@ function Contents({ pageTitle }: TopNavProps) {
   // TODO: store user name in store
 
   const t = useTranslations('topNav');
+  const tSettings = useTranslations('settings');
   const locale = useLocale();
 
   let loggedIn = true;
@@ -72,7 +84,66 @@ function Contents({ pageTitle }: TopNavProps) {
                   <MessageIcon className="w-5" />
                 </IconButton>
               </Link>
+              <Menu placement="bottom-end">
+  <MenuHandler>
+    <button>
+      <IconSettings className="w-6 h-6 text-gray-600 hover:text-gray-800 transition-colors" />
+    </button>
+  </MenuHandler>
+  <MenuList className="min-w-[240px]">
+    {/* General Settings */}
+    <MenuItem className="flex items-center gap-2">
+      <IconMoon className="w-4 h-4" />
+      {tSettings('display.title')}
+    </MenuItem>
+    <MenuItem className="flex items-center gap-2">
+      <IconBell className="w-4 h-4" />
+      {tSettings('notifications.title')}
+    </MenuItem>
 
+    {/* Privacy and Security */}
+    <hr className="my-2" />
+    <MenuItem className="flex items-center gap-2">
+      <IconLock className="w-4 h-4" />
+      {tSettings('privacy.title')}
+    </MenuItem>
+    <MenuItem className="flex items-center gap-2">
+      <IconKey className="w-4 h-4" />
+      {tSettings('twoFactor.title')}
+    </MenuItem>
+
+    {/* Help & Support */}
+    <hr className="my-2" />
+    <MenuItem className="flex items-center gap-2">
+      <IconHelp className="w-4 h-4" />
+      {tSettings('help.title')}
+    </MenuItem>
+
+    {/* Account Settings */}
+    <hr className="my-2" />
+    <MenuItem className="flex items-center gap-2">
+      <IconUser className="w-4 h-4" />
+      {tSettings('account.title')}
+    </MenuItem>
+    <MenuItem className="flex items-center gap-2">
+      <IconCreditCard className="w-4 h-4" />
+      {tSettings('payment.title')}
+    </MenuItem>
+
+    {/* Logout */}
+    <hr className="my-2" />
+    <MenuItem 
+      className="flex items-center gap-2 text-red-500"
+      onClick={() => {
+        logout();
+        router.push(`/${locale}/login`);
+      }}
+    >
+      <IconLogout className="w-4 h-4" />
+      {tSettings('logout')}
+    </MenuItem>
+  </MenuList>
+</Menu>
               <Menu>
                 <MenuHandler>
                   <button>
@@ -119,6 +190,7 @@ function Contents({ pageTitle }: TopNavProps) {
                   {/* ======= */}
                 </MenuList>
               </Menu>
+
             </>
           ) : (
             <Link href="login" locale={locale} className="hidden ph:block">
