@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -264,22 +264,40 @@ function UpdateBioSection({
   );
 }
 
+function extractDateFromISO(isoString: string | undefined | null) {
+  return isoString?.split("T")[0] ?? "";
+}
+
 function ExperienceModal({
   addingNew = false,
   initialData,
   onEditComplete,
+  children,
 }: {
   addingNew?: boolean;
   initialData?: any;
   onEditComplete?: (payload) => Promise<void>;
-}) {
+} & PropsWithChildren) {
   let [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
 
-  const { register, watch, handleSubmit } = useForm();
+  const { register, watch, handleSubmit, setValue, reset } = useForm();
   const currentlyActive = watch("currentlyActive", false);
 
   let [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      reset();
+    }
+
+    setValue("title", initialData?.["title"] ?? "");
+    setValue("company", initialData?.["company"] ?? "");
+    setValue("description", initialData?.["description"] ?? "");
+    setValue("startDate", extractDateFromISO(initialData?.["startDate"]));
+    setValue("endDate", extractDateFromISO(initialData?.["endDate"]));
+    setValue("currentlyActive", initialData?.["currentlyActive"] ?? false);
+  }, [open, initialData]);
 
   const onSubmit = (payload) => {
     onEditComplete?.(payload)
@@ -297,9 +315,7 @@ function ExperienceModal({
 
   return (
     <>
-      <Button onClick={handleOpen} variant="light" className="mt-4">
-        {addingNew ? "Add New " : "Edit "} Experience
-      </Button>
+      <div onClick={handleOpen}>{children}</div>
 
       <Dialog
         size="xl"
@@ -312,7 +328,7 @@ function ExperienceModal({
             <CardBody className="flex flex-col gap-4">
               <div className="flex justify-between items-center">
                 <Typography variant="h4" color="blue-gray">
-                  Add New Experience
+                  {addingNew ? "Add New " : "Edit "} Experience
                 </Typography>
                 <IconButton
                   color="blue-gray"
@@ -327,18 +343,24 @@ function ExperienceModal({
               <Typography className="-mb-2" variant="h6">
                 Title
               </Typography>
-              <Input {...register("title")} label="Title" size="lg" />
+              <Input required {...register("title")} label="Title" size="lg" />
 
               <Typography className="-mb-2" variant="h6">
                 Company
               </Typography>
-              <Input {...register("company")} label="Company" size="lg" />
+              <Input
+                required
+                {...register("company")}
+                label="Company"
+                size="lg"
+              />
 
               <Typography className="-mb-2" variant="h6">
                 Description
               </Typography>
               <Textarea
                 {...register("description")}
+                required
                 label="Description"
                 size="lg"
               />
@@ -350,6 +372,7 @@ function ExperienceModal({
                   </Typography>
                   <Input
                     {...register("startDate")}
+                    required
                     type="date"
                     label="Start Date"
                     size="lg"
@@ -483,34 +506,64 @@ function UpdateSkillsSection({
         Update Experience
       </h2>
 
-      {/* <div className="mb-6">
-        <h3 className="font-semibold">Software Developer</h3>
-        <p className="text-gray-600">XYZ Corp</p>
-        <p className="text-gray-500 text-sm">Jan 2020 - Present · 3 yrs</p>
-        <p className="text-gray-700">
-          Working on building web applications using React, Node.js, and
-          GraphQL.
-        </p>
-        <div className="flex gap-x-4 mt-2">
-          <Button>Edit</Button>
-          <Button>Delete</Button>
+      {(user?.experiences || []).map((exp) => (
+        <div key={exp["_id"]} className="mb-6">
+          <h3 className="font-semibold">{exp.title}</h3>
+          <p className="text-gray-600">{exp.company}</p>
+          <p className="text-gray-500 text-sm">Jan 2020 - Present · 3 yrs</p>
+          <p className="text-gray-700">{exp.description}</p>
+          <div className="flex gap-x-4 mt-2">
+            <ExperienceModal
+              addingNew={false}
+              initialData={exp}
+              onEditComplete={async (updatedExp) => {
+                console.log(updatedExp);
+                const prevExperiences = user?.experiences || [];
+
+                const updatedExperiences = prevExperiences.map((prevExp) =>
+                  prevExp["_id"] === exp["_id"] ? updatedExp : prevExp
+                );
+
+                const payload = {
+                  experiences: updatedExperiences,
+                };
+
+                await apiRoutes.updateProfile(payload);
+                onUpdate();
+              }}
+            >
+              <Button>Edit</Button>
+            </ExperienceModal>
+            <Button>Delete</Button>
+          </div>
         </div>
-      </div> */}
-      {/*
-      <Button variant="light" className="mt-4">
-        Add New Experience
-      </Button> */}
+      ))}
 
       <ExperienceModal
         addingNew={true}
-        onEditComplete={async (data) => {
-          console.log(data);
+        onEditComplete={async (newExp) => {
+          console.log(newExp);
+          const experiences = user?.experiences || [];
+
+          const payload = {
+            experiences: [...experiences, newExp],
+          };
+
+          await apiRoutes.updateProfile(payload);
+          onUpdate();
         }}
-      />
+      >
+        <Button variant="light" className="mt-4">
+          Add New Experience
+        </Button>
+      </ExperienceModal>
 
       <hr className="mt-8" />
       <Button
-        onClick={updateInfo}
+        // onClick={updateInfo}
+        onClick={() => {
+          console.log(user.experiences);
+        }}
         className="mt-4"
         loading={loading || userLoading}
       >
