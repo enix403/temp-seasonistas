@@ -48,4 +48,5 @@ declare module "@material-tailwind/react" {
   export interface DialogProps extends CorrectPlaceholder, CorrectCrossOrigin {}
   export interface DialogHeaderProps extends CorrectPlaceholder, CorrectCrossOrigin {}
   export interface DialogBodyProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface RadioProps extends CorrectPlaceholder, CorrectCrossOrigin {}
 }

@@ -65,6 +65,7 @@ router.patch(
     email: Joi.string().email().optional(),
     phoneNumber: Joi.string().optional(),
     bio: Joi.string().allow("").optional(),
+    gender: Joi.string().optional(),
   })),
   updateCurrentUserProfileController,
 );

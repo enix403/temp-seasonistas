@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Input, Textarea } from "@material-tailwind/react";
+import { Input, Radio, Textarea } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
@@ -257,23 +257,22 @@ function UpdateBioSection({
   userLoading: boolean;
   onUpdate: () => void;
 }) {
-  const { register, handleSubmit, setValue } = useForm({
-    defaultValues: {
-      bio: user?.["bio"] ?? "",
-    },
-  });
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
     setValue("bio", user?.["bio"] || "");
+    setValue("gender", user?.["gender"] || "");
   }, [user]);
 
   const [loading, setLoading] = useState(false);
 
-  function onSubmit({ bio }) {
-    bio = bio || "";
+  function onSubmit(payload) {
+    let { bio = "", gender } = payload;
+    console.log(gender);
+
     setLoading(true);
     apiRoutes
-      .updateProfile({ bio })
+      .updateProfile({ bio, gender })
       .then(() => {
         toast.success("Bio updated");
         onUpdate();
@@ -289,9 +288,37 @@ function UpdateBioSection({
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <h2 className="text-xl font-semibold text-gray-900 mb-4">Update Bio</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-1/2">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
         <Textarea {...register("bio")} label="Bio" />
-        <Button loading={loading || userLoading}>Update Bio</Button>
+
+        <label className="block text-lg font-medium text-black mt-5">
+          Gender
+        </label>
+        <div className="flex gap-4">
+          <Radio
+            {...register("gender")}
+            value="male"
+            label="Male"
+            color="green"
+          />
+          <Radio
+            {...register("gender")}
+            value="female"
+            label="Female"
+            color="green"
+          />
+          <Radio
+            {...register("gender")}
+            value="notSpecified"
+            label="Rather Not Say"
+            color="green"
+            defaultChecked
+          />
+        </div>
+
+        <Button className="mt-4" loading={loading || userLoading}>
+          Update Bio
+        </Button>
       </form>
     </div>
   );
