@@ -10,6 +10,7 @@ import {
   CardFooter,
   Chip,
   Dialog,
+  IconButton,
   Input,
   Radio,
   Switch,
@@ -26,6 +27,7 @@ import { apiRoutes } from "~/app/api-routes";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
 import { produce } from "immer";
 import clsx from "clsx";
+import { IconX } from "@tabler/icons-react";
 
 function ProfilePictureUpdater({ disabled = false }: { disabled?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -262,14 +264,14 @@ function UpdateBioSection({
   );
 }
 
-function AddExperienceModal({
+function ExperienceModal({
   addingNew = false,
   initialData,
   onEditComplete,
 }: {
   addingNew?: boolean;
   initialData?: any;
-  onEditComplete?: (payload) => void;
+  onEditComplete?: (payload) => Promise<void>;
 }) {
   let [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
@@ -277,12 +279,26 @@ function AddExperienceModal({
   const { register, watch, handleSubmit } = useForm();
   const currentlyActive = watch("currentlyActive", false);
 
-  open = true;
+  let [loading, setLoading] = useState(false);
+
+  const onSubmit = (payload) => {
+    onEditComplete?.(payload)
+      .then(() => {
+        toast.success("Experience saved");
+        setOpen(false);
+      })
+      .catch(() => {
+        toast.error("Failed to save experience");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <>
       <Button onClick={handleOpen} variant="light" className="mt-4">
-        Add New Experience
+        {addingNew ? "Add New " : "Edit "} Experience
       </Button>
 
       <Dialog
@@ -292,11 +308,21 @@ function AddExperienceModal({
         className="bg-transparent shadow-none"
       >
         <Card className="mx-auto w-full max-w-[48rem]">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <CardBody className="flex flex-col gap-4">
-              <Typography variant="h4" color="blue-gray">
-                Add New Experience
-              </Typography>
+              <div className="flex justify-between items-center">
+                <Typography variant="h4" color="blue-gray">
+                  Add New Experience
+                </Typography>
+                <IconButton
+                  color="blue-gray"
+                  size="sm"
+                  variant="text"
+                  onClick={() => setOpen(false)}
+                >
+                  <IconX />
+                </IconButton>
+              </div>
 
               <Typography className="-mb-2" variant="h6">
                 Title
@@ -358,7 +384,9 @@ function AddExperienceModal({
               </div>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button fullWidth>Add Experience</Button>
+              <Button loading={loading} fullWidth>
+                Save Experience
+              </Button>
             </CardFooter>
           </form>
         </Card>
@@ -473,7 +501,12 @@ function UpdateSkillsSection({
         Add New Experience
       </Button> */}
 
-      <AddExperienceModal />
+      <ExperienceModal
+        addingNew={true}
+        onEditComplete={async (data) => {
+          console.log(data);
+        }}
+      />
 
       <hr className="mt-8" />
       <Button
