@@ -279,7 +279,7 @@ function ExperienceModal({
 }: {
   addingNew?: boolean;
   initialData?: any;
-  onEditComplete?: (payload) => Promise<void>;
+  onEditComplete: (payload) => Promise<void>;
 } & PropsWithChildren) {
   let [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
@@ -303,7 +303,7 @@ function ExperienceModal({
   }, [open, initialData]);
 
   const onSubmit = (payload) => {
-    onEditComplete?.(payload)
+    onEditComplete(payload)
       .then(() => {
         toast.success("Experience saved");
         setOpen(false);
