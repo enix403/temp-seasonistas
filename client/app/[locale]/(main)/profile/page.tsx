@@ -28,6 +28,7 @@ import { useCurrentUser } from "~/app/hooks/useCurrentUser";
 import { produce } from "immer";
 import clsx from "clsx";
 import { IconX } from "@tabler/icons-react";
+import { format } from "date-fns";
 
 function ProfilePictureUpdater({ disabled = false }: { disabled?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -418,6 +419,20 @@ function ExperienceModal({
   );
 }
 
+function renderExpDurationString(exp) {
+  let { startDate, endDate, currentlyActive } = exp;
+
+  const displayFormat = "MMM yyyy";
+
+  const startStr = format(new Date(startDate), displayFormat);
+  const endStr =
+    !currentlyActive && endDate
+      ? format(new Date(endDate), displayFormat)
+      : "Present";
+
+  return `${startStr} - ${endStr}`;
+}
+
 function UpdateSkillsSection({
   user,
   userLoading,
@@ -510,19 +525,23 @@ function UpdateSkillsSection({
         <div key={exp["_id"]} className="mb-6">
           <h3 className="font-semibold">{exp.title}</h3>
           <p className="text-gray-600">{exp.company}</p>
-          <p className="text-gray-500 text-sm">Jan 2020 - Present · 3 yrs</p>
+          <p className="text-gray-500 text-sm">
+            {renderExpDurationString(exp)}
+          </p>
           <p className="text-gray-700">{exp.description}</p>
           <div className="flex gap-x-4 mt-2">
             <ExperienceModal
               addingNew={false}
               initialData={exp}
               onEditComplete={async (updatedExp) => {
-                console.log(updatedExp);
                 const prevExperiences = user?.experiences || [];
 
                 const updatedExperiences = prevExperiences.map((prevExp) =>
                   prevExp["_id"] === exp["_id"] ? updatedExp : prevExp
                 );
+
+                console.log(updatedExp);
+                console.log(updatedExperiences);
 
                 const payload = {
                   experiences: updatedExperiences,
