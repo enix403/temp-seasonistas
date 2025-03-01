@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useMemo, useState } from "react";
 import { Button } from "~/components/Button/Button";
 import { UserOwnedCard } from "~/components/UserOwnedCard";
 import { apiRoutes } from "~/app/api-routes";
@@ -23,6 +23,7 @@ import {
 } from "@material-tailwind/react";
 import { IconX } from "@tabler/icons-react";
 import toast from "react-hot-toast";
+import { produce } from "immer";
 
 export function PostingCard({
   posting,
@@ -52,12 +53,16 @@ export function PostingCard({
     isLoading,
     execute: apply,
   } = useResumableAction({
-    executeFn: async (isApplied) => {
+    executeFn: async (isApplied, answers: string[]) => {
       if (!isApplied) {
+        const questions = posting?.questions || [];
         await reportedCall(
           apiRoutes.applyToJob({
             postingId: postingId,
-            answers: [],
+            answers: questions.map((question, index) => ({
+              question,
+              answer: answers[index],
+            })),
           })
         );
       }
@@ -97,8 +102,9 @@ export function PostingCard({
         <>
           <AskApplicationQuestionsModal
             posting={posting}
-            questions={posting?.questions || []}
-            onComplete={async () => {}}
+            onComplete={async (answers) => {
+              apply(answers);
+            }}
           >
             <Button
               fullRounded
@@ -122,26 +128,42 @@ export function PostingCard({
 
 function AskApplicationQuestionsModal({
   posting,
-  questions,
   onComplete,
   children,
 }: {
   posting: any;
-  questions: string[];
   onComplete: (answers: string[]) => Promise<void>;
 } & PropsWithChildren) {
   let [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const [loading, setLoading] = useState(false);
 
+  const questions = useMemo(() => posting?.questions || [], [posting]);
+  const [answers, setAnswers] = useState<string[]>([]);
+
   useEffect(() => {
-    if (!open) {
-      // TODO: reset form
-    }
+    setAnswers(questions.map((_) => ""));
   }, [open, questions]);
 
-  const onSubmit = (payload) => {
-    onComplete(payload)
+  function handleAnswerChange(value: string, index: number) {
+    setAnswers(
+      produce((draft) => {
+        draft[index] = value;
+      })
+    );
+  }
+
+  const onSubmit = () => {
+    console.log(answers);
+
+    if (answers.findIndex((a) => a.length == 0) !== -1) {
+      toast.error("Answer all the questions");
+      return;
+    }
+
+    setLoading(true);
+
+    onComplete(answers)
       .then(() => {
         setOpen(false);
       })
@@ -180,7 +202,7 @@ function AskApplicationQuestionsModal({
               Answer the following questions to apply
             </Typography>
 
-            {(posting?.questions || []).map((qs) => (
+            {questions.map((qs, index) => (
               <>
                 <Typography className="-mb-2 mt-4" variant="h6">
                   {qs}
@@ -189,20 +211,17 @@ function AskApplicationQuestionsModal({
                   required
                   label="Anwser"
                   size="lg"
+                  value={answers[index] || ""}
+                  onChange={(event) =>
+                    handleAnswerChange(event.target.value || "", index)
+                  }
                 />
               </>
             ))}
-
           </CardBody>
           <CardFooter className="pt-0">
-            <Button
-              onClick={() => {
-                console.log(posting);
-              }}
-              loading={loading}
-              fullWidth
-            >
-              Apply
+            <Button onClick={onSubmit} loading={loading} fullWidth>
+              Send Application
             </Button>
           </CardFooter>
         </Card>
