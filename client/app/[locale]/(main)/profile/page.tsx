@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { MdOutlineAddAPhoto } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Input, Radio, Textarea } from "@material-tailwind/react";
+import { Chip, Input, Radio, Textarea } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +13,7 @@ import { TitleMark } from "~/components/decorations";
 import { Button } from "~/components/Button/Button";
 import { apiRoutes } from "~/app/api-routes";
 import { useCurrentUser } from "~/app/hooks/useCurrentUser";
+import { produce } from "immer";
 
 function ProfilePictureUpdater({ disabled = false }: { disabled?: boolean }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -249,6 +250,101 @@ function UpdateBioSection({
   );
 }
 
+function UpdateSkillsSection({
+  user,
+  userLoading,
+  onUpdate,
+}: {
+  user: any;
+  userLoading: boolean;
+  onUpdate: () => void;
+}) {
+  const [skills, setSkills] = useState<string[]>([]);
+
+  useEffect(() => {
+    setSkills(user?.["skills"] || []);
+  }, [user]);
+
+  const [loading, setLoading] = useState(false);
+
+  function updateInfo() {
+    const payload = { skills };
+
+    setLoading(true);
+    apiRoutes
+      .updateProfile(payload)
+      .then(() => {
+        toast.success("Updated");
+        onUpdate();
+      })
+      .catch(() => {
+        toast.error("Failed to update");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  const { register, reset, handleSubmit } = useForm();
+
+  function handleAddSkill(payload) {
+    const { newSkill } = payload;
+    if (!newSkill) return;
+
+    setSkills(
+      produce((draft) => {
+        if (draft.indexOf(newSkill) !== -1) return;
+
+        draft.push(newSkill);
+      })
+    );
+
+    reset();
+  }
+
+  function removeSkill(index: number) {
+    setSkills(
+      produce((draft) => {
+        draft.splice(index, 1);
+      })
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        Update Skills
+      </h2>
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill, index) => (
+          <Chip
+            key={index}
+            value={skill}
+            color="green"
+            onClose={() => removeSkill(index)}
+          />
+        ))}
+      </div>
+
+      <form
+        onSubmit={handleSubmit(handleAddSkill)}
+        className="mt-4 flex items-center gap-4"
+      >
+        <Input {...register("newSkill")} size="lg" label="New Skill" />
+        <Button loading={loading || userLoading}>Add Skill</Button>
+      </form>
+
+      <Button
+        onClick={updateInfo}
+        className="mt-4"
+        loading={loading || userLoading}
+      >
+        Save
+      </Button>
+    </div>
+  );
+}
+
 function UpdatePasswordSection() {
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
@@ -365,6 +461,11 @@ function UpdateSections() {
         onUpdate={refreshUser}
       />
       <UpdateBioSection
+        user={user}
+        userLoading={isLoading}
+        onUpdate={refreshUser}
+      />
+      <UpdateSkillsSection
         user={user}
         userLoading={isLoading}
         onUpdate={refreshUser}
