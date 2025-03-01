@@ -379,5 +379,29 @@
     "passwordsDoNotMatch": "Οι κωδικοί δεν ταιριάζουν",
     "passwordResetSuccess": "Ο κωδικός άλλαξε με επιτυχία",
     "passwordResetFailed": "Αποτυχία αλλαγής κωδικού"
-  }
+  },
+    "settings": {
+      "display": {
+        "title": "Ρυθμίσεις Εμφάνισης"
+      },
+      "notifications": {
+        "title": "Ρυθμίσεις Ειδοποιήσεων"
+      },
+      "privacy": {
+        "title": "Απόρρητο & Ασφάλεια"
+      },
+      "twoFactor": {
+        "title": "Έλεγχος Ταυτότητας Δύο Παραγόντων"
+      },
+      "help": {
+        "title": "Βοήθεια & Υποστήριξη"
+      },
+      "account": {
+        "title": "Ρυθμίσεις Λογαριασμού"
+      },
+      "payment": {
+        "title": "Ρυθμίσεις Πληρωμών"
+      },
+      "logout": "Αποσύνδεση"
+    }
 }
