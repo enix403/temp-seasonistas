@@ -540,9 +540,6 @@ function UpdateSkillsSection({
                   prevExp["_id"] === exp["_id"] ? updatedExp : prevExp
                 );
 
-                console.log(updatedExp);
-                console.log(updatedExperiences);
-
                 const payload = {
                   experiences: updatedExperiences,
                 };
@@ -553,7 +550,33 @@ function UpdateSkillsSection({
             >
               <Button>Edit</Button>
             </ExperienceModal>
-            <Button>Delete</Button>
+            <Button
+              onClick={() => {
+                const prevExperiences = user?.experiences || [];
+
+                const payload = {
+                  experiences: prevExperiences.filter(
+                    (prevExp) => prevExp["_id"] !== exp["_id"]
+                  ),
+                };
+
+                setLoading(true);
+                apiRoutes
+                  .updateProfile(payload)
+                  .then(() => {
+                    toast.success("Updated");
+                    onUpdate();
+                  })
+                  .catch(() => {
+                    toast.error("Failed to update");
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
+              }}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       ))}
@@ -561,7 +584,6 @@ function UpdateSkillsSection({
       <ExperienceModal
         addingNew={true}
         onEditComplete={async (newExp) => {
-          console.log(newExp);
           const experiences = user?.experiences || [];
 
           const payload = {
@@ -579,10 +601,7 @@ function UpdateSkillsSection({
 
       <hr className="mt-8" />
       <Button
-        // onClick={updateInfo}
-        onClick={() => {
-          console.log(user.experiences);
-        }}
+        onClick={updateInfo}
         className="mt-4"
         loading={loading || userLoading}
       >
