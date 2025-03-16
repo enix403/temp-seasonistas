@@ -3,11 +3,11 @@ import "react-modern-drawer/dist/index.css";
 import Logo from "./assets/logo-big.png";
 import MessageIcon from "./assets/message.svg";
 // import ProfileImage from "~/app/assets/profile-1.webp";
-import { 
-  IconSettings, 
-  IconMoon, 
-  IconBell, 
-  IconLock, 
+import {
+  IconSettings,
+  IconMoon,
+  IconBell,
+  IconLock,
   IconHelp,
   IconCreditCard,
   IconKey,
@@ -40,33 +40,44 @@ import { languageDrawerAtom } from "../AppLayout/LanguageDrawer";
 import { currencyDrawerAtom } from "../AppLayout/CurrencyDrawer";
 import { useAuthState } from "~/app/providers/auth-state";
 import { usePathname, useRouter } from "next/navigation";
-import { useCurrentUser } from "~/app/hooks/useCurrentUser";
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from 'next-intl';
+import { NotificationsBox } from "./NotificationsBox";
+import { ComponentProps, useEffect } from "react";
+import { useTranslations, useLocale } from "next-intl";
 
 export interface TopNavProps {
   pageTitle?: string;
 }
 
 function capitalize(str: string | undefined) {
-  console.log(str);
   return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
+}
+function AppLink(props: ComponentProps<typeof Link>) {
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  return (
+    <Link
+      {...props}
+      href={`/${locale}${props.href}`} // Correct locale-based URL
+      className={clsx(pathname === props.href && "text-teal")}
+    />
+  );
 }
 
 const drawerAtom = atom(false);
 
 function Contents({ pageTitle }: TopNavProps) {
-  const [user, setUser] = useState<any>(null);
   const router = useRouter();
   const setDrawerOpen = useSetAtom(drawerAtom);
   const setLanguageDrawerOpen = useSetAtom(languageDrawerAtom);
   const setCurrencyDrawerOpen = useSetAtom(currencyDrawerAtom);
 
-  const { userId, userRole, logout } = useAuthState();
-  // TODO: store user name in store
+  const { userRole, user, logout } = useAuthState();
 
   const t = useTranslations('topNav');
   const tSettings = useTranslations('settings');
+  const tnav = useTranslations("navigation");
+
   const locale = useLocale();
 
   let loggedIn = true;
@@ -132,7 +143,7 @@ function Contents({ pageTitle }: TopNavProps) {
 
     {/* Logout */}
     <hr className="my-2" />
-    <MenuItem 
+    <MenuItem
       className="flex items-center gap-2 text-red-500"
       onClick={() => {
         logout();
@@ -144,6 +155,8 @@ function Contents({ pageTitle }: TopNavProps) {
     </MenuItem>
   </MenuList>
 </Menu>
+              <NotificationsBox />
+
               <Menu>
                 <MenuHandler>
                   <button>
@@ -163,21 +176,25 @@ function Contents({ pageTitle }: TopNavProps) {
                     </h2>
                   </div>
                   {/* ======= */}
+                  <AppLink href={`/profile`}>
+                    <MenuItem className="flex justify-between items-center">
+                      {tnav("profile")}
+                    </MenuItem>
+                  </AppLink>
                   <MenuItem
                     onClick={() => setLanguageDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    {t('changeLanguage')}
+                    {t("changeLanguage")}
                     <US title="United States" className="w-5" />
                   </MenuItem>
                   <MenuItem
                     onClick={() => setCurrencyDrawerOpen(true)}
                     className="flex justify-between items-center"
                   >
-                    {t('changeCurrency')}
+                    {t("changeCurrency")}
                     <span className="text-xs font-bold">EUR</span>
                   </MenuItem>
-                  <MenuItem>{t('addCard')}</MenuItem>
                   <MenuItem
                     onClick={() => {
                       const locale = localStorage.getItem("locale") || "en";
@@ -185,7 +202,7 @@ function Contents({ pageTitle }: TopNavProps) {
                       router.push("login");
                     }}
                   >
-                    {t('logout')}
+                    {t("logout")}
                   </MenuItem>
                   {/* ======= */}
                 </MenuList>
@@ -195,7 +212,7 @@ function Contents({ pageTitle }: TopNavProps) {
           ) : (
             <Link href="login" locale={locale} className="hidden ph:block">
               <Button className="!px-4 !py-1.5 text-sm">
-                {t('registerLogin')}
+                {t("registerLogin")}
               </Button>
             </Link>
           )}
@@ -218,7 +235,7 @@ function Contents({ pageTitle }: TopNavProps) {
             "wl:flex hidden"
           )}
         >
-          <AllLinks/>
+          <AllLinks />
         </div>
         <h1 className="text-2xl font-semibold wl:hidden max-ph:hidden block">
           {pageTitle}
@@ -240,11 +257,11 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
     setIsOpen(false);
   }, [pathname, setIsOpen]);
 
-  const t = useTranslations('topNav');
+  const t = useTranslations("topNav");
   const locale = useLocale();
 
   return (
-    <Drawer 
+    <Drawer
       open={isOpen}
       onClose={() => setIsOpen(false)}
       direction="right"
@@ -256,9 +273,9 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
       <div className="flex flex-col h-full">
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-gray-200">
-          <Image 
-            alt="Logo" 
-            src={Logo} 
+          <Image
+            alt="Logo"
+            src={Logo}
             className="h-8 w-auto transition-transform hover:scale-105"
           />
           <IconButton
@@ -281,8 +298,8 @@ export function MobileDrawer({ loggedIn }: { loggedIn: boolean }) {
         {!loggedIn && (
           <div className="p-4 border-t border-gray-200">
             <Link href="auth" locale={locale} className="block">
-              <Button 
-                className="w-full py-2.5 px-4 text-center font-medium 
+              <Button
+                className="w-full py-2.5 px-4 text-center font-medium
                           transition-all duration-200 hover:opacity-90"
               >
                 {t('registerLogin')}

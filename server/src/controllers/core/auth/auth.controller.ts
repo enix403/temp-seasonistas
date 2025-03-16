@@ -11,6 +11,7 @@ import { comparePassword, hashPassword } from './hashing';
 import { reply } from 'controllers/core/app-reply';
 import joi from 'joi';
 import { customJoi, validateJoi } from 'middleware/validateJoi';
+import { requireAuthenticated } from 'middleware/authMiddleware';
 import {
   getPasswordResetTemplate,
   sendEmail,
@@ -120,6 +121,35 @@ router.post(
     user = await user.save();
     const token = await createToken(user);
 
+    return reply(res, { token, user });
+  }),
+);
+
+router.patch(
+  '/api/auth/update-password',
+  requireAuthenticated(),
+  validateJoi(
+    joi.object({
+      newPassword: joi.string().required(),
+      oldPassword: joi.string().required(),
+    }),
+  ),
+  ah(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    let user = await UserModel.findById(req.user!._id);
+    if (
+      user == null ||
+      !(await comparePassword(oldPassword, user.passwordHash || ''))
+    ) {
+      throw new ApplicationError('Please provide correct old password', 401);
+    }
+    const strengthError = validatePasswordStrength(newPassword);
+    if (strengthError) throw new ApplicationError(strengthError);
+    const newHashedPassword = await hashPassword(newPassword);
+    user.passwordHash = newHashedPassword;
+    await user.save();
+    const token = await createToken(user);
     return reply(res, { token, user });
   }),
 );

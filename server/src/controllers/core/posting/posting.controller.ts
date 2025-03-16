@@ -10,6 +10,7 @@ import { ApplicationError, NotFound } from 'controllers/core/errors';
 import { UserModel } from 'db/models/user';
 import { JobInvitationModel } from 'db/models/jobInvitation';
 import { PostingFavouriteMarkModel } from 'db/models/favouriteMark';
+import { NotificationModel } from 'db/models/notification';
 
 export const router = express.Router();
 
@@ -73,6 +74,24 @@ router.get(
 
 /* ========================== */
 
+router.get(
+  '/api/candidate-posting-application/:postingId',
+  requireAuthenticated(['employee']),
+  ah(async (req, res) => {
+    const { postingId } = req.params;
+    const employeeId = req.user!._id;
+
+    const appl = await JobApplicationModel.findOne({
+      employeeId,
+      postingId,
+    });
+
+    return reply(res, appl);
+  }),
+);
+
+/* ========================== */
+
 router.post(
   '/api/invite-employee',
   requireAuthenticated(['employer']),
@@ -112,6 +131,11 @@ router.post(
 
     await invitation.save();
 
+    await NotificationModel.create({
+      userId: employeeId,
+      message: 'You received a new job invitation.',
+    });
+
     return reply.msg(res, 'Invited successfully', { invitation });
   }),
 );
@@ -125,10 +149,12 @@ router.post(
     }),
   ),
   ah(async (req, res) => {
+    const invitedByUserId = req.user!._id;
     const { employeeId } = req.body;
 
     const existing = await JobInvitationModel.findOne({
       employeeId,
+      invitedByUserId
     });
 
     const invited = Boolean(existing);

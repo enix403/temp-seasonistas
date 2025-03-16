@@ -87,6 +87,7 @@ export function useAuthState() {
     login,
     logout,
     isLoggedIn: Boolean(stateData?.token),
+    token: stateData?.token,
     ...(stateData || {}),
     // token: stateData?.token,
     // userRole: stateData?.userRole,

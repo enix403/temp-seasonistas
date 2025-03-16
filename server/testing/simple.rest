@@ -35,7 +35,7 @@ POST {{baseUrl}}/auth/register
 POST {{baseUrl}}/auth/login
 
 {
-  "email": "employee2@gmail.com",
+  "email": "employee1@gmail.com",
   "password": "pass"
 }
 
@@ -112,7 +112,8 @@ Authorization: Bearer {{accessToken}}
 # -------------------------
 # @name QueryCommunity
 GET {{baseUrl}}/community
-  ?searchTerm=user
+  ?userType=employee
+  &pagelen=4
 Authorization: Bearer {{accessToken}}
 
 ###
@@ -209,7 +210,8 @@ Authorization: Bearer {{accessToken}}
 ###
 # -------------------------
 # @name QueryAllPostings
-GET {{baseUrl}}/job/search
+# GET {{baseUrl}}/job/search?pagelen=2&page=2
+GET {{baseUrl}}/job/search?pagelen=1
 Authorization: Bearer {{accessToken}}
 
 ###

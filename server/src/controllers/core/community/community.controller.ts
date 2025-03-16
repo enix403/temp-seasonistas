@@ -16,6 +16,8 @@ router.get(
   requireAuthenticated(),
   validateJoi(
     joi.object({
+      page: joi.string(),
+      pagelen: joi.string(),
       searchTerm: joi.string().allow(''),
       location: joi.string(),
       jobType: joi.string(),
@@ -51,9 +53,27 @@ router.get(
       query = { ...query, role };
     }
 
-    const users = await UserModel.find(query);
+    const pageNumber = Math.max(
+      parseInt((req.query.page as string) || '0', 10),
+      0,
+    );
+    const pageSize = Math.max(
+      parseInt((req.query.pagelen as string) || '1000', 10),
+      1,
+    );
 
-    return reply(res, users);
+    const users = await UserModel.find(query)
+      .sort({ _id: 1 })
+      .skip(pageNumber * pageSize)
+      .limit(pageSize);
+
+    const nextPageExists =
+      (await UserModel.countDocuments(query)) > (pageNumber + 1) * pageSize;
+
+    return reply(res, {
+      ...(nextPageExists && { nextPage: pageNumber + 1 }),
+      data: users,
+    });
   }),
 );
 

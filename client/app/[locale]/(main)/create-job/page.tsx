@@ -166,35 +166,35 @@ export default function CreateJobPage() {
       food: values["food"],
       transport: values["transport"],
 
-      companyName: values["companyName"],
-      companyUsername: values["companyUsername"],
-      companyDescription: values["companyDescription"],
-      companyWebsite: values["companyWebsite"],
-      // companyLogoImageId: "", // Will be set below
-      companyCountry: values["companyCountry"],
-      companyCity: values["companyCity"],
-      companyArea: values["companyArea"],
-      companyZip: values["companyZip"],
-      companyMapAddress: values["companyMapAddress"],
+      // companyName: values["companyName"],
+      // companyUsername: values["companyUsername"],
+      // companyDescription: values["companyDescription"],
+      // companyWebsite: values["companyWebsite"],
+      // // companyLogoImageId: "", // Will be set below
+      // companyCountry: values["companyCountry"],
+      // companyCity: values["companyCity"],
+      // companyArea: values["companyArea"],
+      // companyZip: values["companyZip"],
+      // companyMapAddress: values["companyMapAddress"],
 
       questions: qsBank
         .get()
         .map((qItem) => qItem.question)
         .filter((s) => s.length > 0),
 
-      postedAt: values["postedAt"],
+      // postedAt: values["postedAt"],
     };
 
     console.log("Posting: ", payload);
-    const companyLogoFileList: FileList = values["companyLogo"];
-    const companyLogoFile = companyLogoFileList[0];
+    // const companyLogoFileList: FileList = values["companyLogo"];
+    // const companyLogoFile = companyLogoFileList[0];
 
-    if (companyLogoFile) {
-      let uploadRecord = await apiRoutes.uploadImage(companyLogoFile);
-      console.log("uploadRecord: ", uploadRecord);
-      const companyLogoImageId = uploadRecord["_id"];
-      payload["companyLogoImageId"] = companyLogoImageId;
-    }
+    // if (companyLogoFile) {
+    //   let uploadRecord = await apiRoutes.uploadImage(companyLogoFile);
+    //   console.log("uploadRecord: ", uploadRecord);
+    //   const companyLogoImageId = uploadRecord["_id"];
+    //   payload["companyLogoImageId"] = companyLogoImageId;
+    // }
 
     setLoading(true);
     try {
@@ -214,14 +214,14 @@ export default function CreateJobPage() {
   let steps = [
     GeneralInfoStep,
     SpecificInfoStep,
-    CompanyInfoStep,
+    // CompanyInfoStep,
     QuestionsStep,
   ];
 
   let StepComponent = steps[pageIndex];
 
   if (isDev) {
-    // StepComponent = CompanyInfoStep;
+    StepComponent = QuestionsStep;
   }
 
   let progressView = (

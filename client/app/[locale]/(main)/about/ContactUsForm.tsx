@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { AppLayout } from "~/components/AppLayout/AppLayout";
@@ -7,11 +7,13 @@ import clsx from "clsx";
 import {
   IconBrandInstagram,
   IconMailFilled,
-  IconPhoneFilled
+  IconPhoneFilled,
 } from "@tabler/icons-react";
 import { FormLabel } from "~/components/FormLabel/FormLabel";
 import { combineVisualProps } from "~/components/VisualComponent";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { apiRoutes } from "~/app/api-routes";
+import toast from "react-hot-toast";
 
 function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
   // Determine the appropriate link
@@ -30,7 +32,12 @@ function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
 
   return (
     <div className="flex flex-col items-center max-w-sm">
-      <div className={clsx("border-black/20 border w-14 h-14 flex items-center justify-center", "rounded-full")}>
+      <div
+        className={clsx(
+          "border-black/20 border w-14 h-14 flex items-center justify-center",
+          "rounded-full"
+        )}
+      >
         <Icon size={27} className="text-teal" />
       </div>
       {href ? (
@@ -50,28 +57,31 @@ function ContactInfoBlock({ Icon, title }: { Icon: any; title: string }) {
 }
 
 function TopSection() {
-  const t = useTranslations('contact');
+  const t = useTranslations("contact");
 
   return (
     <>
-      <h1 className='text-4xl text-center'>
-        <span className='font-bold text-teal mr-1 relative bg-bdlue-600'>
-          {t('send')}
+      <h1 className="text-4xl text-center">
+        <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
+          {t("send")}
         </span>
       </h1>
-      <p className='text-center text-xl font-normal text-black/50 mt-6 max-w-xl mx-auto'>
-        {t('askUs')}
+      <p className="text-center text-xl font-normal text-black/50 mt-6 max-w-xl mx-auto">
+        {t("askUs")}
       </p>
-      <div className='flex justify-center gap-x-10 sm:gap-x-20 gap-y-12 mt-12'>
-        <ContactInfoBlock Icon={IconBrandInstagram} title='@Seasonistas' />
-        <ContactInfoBlock Icon={IconMailFilled} title='Seasonistas' />
-        <ContactInfoBlock Icon={IconPhoneFilled} title='+92 311 9293 45' />
+      <div className="flex justify-center gap-x-10 sm:gap-x-20 gap-y-12 mt-12">
+        <ContactInfoBlock Icon={IconBrandInstagram} title="@Seasonistas" />
+        <ContactInfoBlock Icon={IconMailFilled} title="Seasonistas" />
+        <ContactInfoBlock Icon={IconPhoneFilled} title="+92 311 9293 45" />
       </div>
     </>
   );
 }
 
-const ContactInput = ({ hasError, ...props }: { hasError: boolean } & React.InputHTMLAttributes<HTMLInputElement>) => (
+const ContactInput = ({
+  hasError,
+  ...props
+}: { hasError: boolean } & React.InputHTMLAttributes<HTMLInputElement>) => (
   <input
     {...combineVisualProps(props, {
       className: clsx(
@@ -83,7 +93,7 @@ const ContactInput = ({ hasError, ...props }: { hasError: boolean } & React.Inpu
 );
 
 function FormSection() {
-  const t = useTranslations('contact');
+  const t = useTranslations("contact");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -106,65 +116,81 @@ function FormSection() {
     return !Object.values(newErrors).includes(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted successfully!", formData);
-      // Submit form logic here
+      try {
+        await apiRoutes.contactUs(formData);
+        toast.success("Email sent");
+      } catch (error) {
+        console.log(error);
+
+        toast.error("Failed to send email");
+      }
     }
   };
 
   return (
-    <section className='mt-16'>
+    <section className="mt-16">
       <form onSubmit={handleSubmit}>
-        <div className='flex max-md:flex-col gap-y-12 gap-x-12'>
-          <FormLabel className='flex-1' label={t('yourName')}>
+        <div className="flex max-md:flex-col gap-y-12 gap-x-12">
+          <FormLabel className="flex-1" label={t("yourName")}>
             <ContactInput
               hasError={errors.name}
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               required
-              placeholder={t('enterYourName')}
+              placeholder={t("enterYourName")}
             />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{t('requiredField')}</p>}
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{t("requiredField")}</p>
+            )}
           </FormLabel>
-          <FormLabel className='flex-1' label={t('emailAddress')}>
+          <FormLabel className="flex-1" label={t("emailAddress")}>
             <ContactInput
               hasError={errors.email}
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               required
-              placeholder={t('enterYourEmailAddress')}
+              placeholder={t("enterYourEmailAddress")}
             />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{t('requiredField')}</p>}
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{t("requiredField")}</p>
+            )}
           </FormLabel>
         </div>
-        <FormLabel label={t('yourMessage')} className='mt-8'>
+        <FormLabel label={t("yourMessage")} className="mt-8">
           <ContactInput
             hasError={errors.message}
             value={formData.message}
-            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
             required
-            placeholder={t('enterYourMessage')}
+            placeholder={t("enterYourMessage")}
           />
-          {errors.message && <p className="text-red-500 text-sm mt-1">{t('requiredField')}</p>}
+          {errors.message && (
+            <p className="text-red-500 text-sm mt-1">{t("requiredField")}</p>
+          )}
         </FormLabel>
 
-        <Button type="submit" className='mx-auto mt-16' fullRounded>
-          {t('submit')}
+        <Button type="submit" className="mx-auto mt-16" fullRounded>
+          {t("submit")}
         </Button>
       </form>
     </section>
   );
 }
 
-export default function ContactUs() {
+export function ContactUsForm() {
   return (
-    <AppLayout>
-      <div className='app-container w-full pt-14 pb-20'>
-        <TopSection />
-        <FormSection />
-      </div>
-    </AppLayout>
+    <div className="app-container w-full pt-14 pb-20">
+      <TopSection />
+      <FormSection />
+    </div>
   );
 }

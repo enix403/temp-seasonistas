@@ -38,8 +38,6 @@ router.post(
     const userId = req.user!._id;
     const { receiverId } = req.body;
 
-    // const insertParticipants = [userId, receiverId].sort();
-
     // ====
     const conversation = await ConversationModel.findOneAndUpdate(
       {
@@ -77,6 +75,55 @@ router.post(
       conversation,
       messages,
     });
+  }),
+);
+
+router.patch(
+  '/api/chat/update-message',
+  requireAuthenticated(),
+  validateJoi(
+    Joi.object({
+      messageId: customJoi.id(),
+      content: Joi.string(),
+    }),
+  ),
+  ah(async (req, res) => {
+    const userId = req.user!._id;
+    const { messageId, content } = req.body;
+
+    await ChatMessageModel.updateMany(
+      {
+        _id: messageId,
+        senderId: userId,
+      },
+      { content },
+    );
+
+    return reply(res, "ok");
+  }),
+);
+
+
+router.delete(
+  '/api/chat/delete-message',
+  requireAuthenticated(),
+  validateJoi(
+    Joi.object({
+      messageId: customJoi.id(),
+    }),
+  ),
+  ah(async (req, res) => {
+    const userId = req.user!._id;
+    const { messageId } = req.body;
+
+    await ChatMessageModel.deleteOne(
+      {
+        _id: messageId,
+        senderId: userId,
+      },
+    );
+
+    return reply(res, "ok");
   }),
 );
 

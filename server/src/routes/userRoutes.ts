@@ -12,16 +12,10 @@ import {
   getAllUsersController,
   banUserController,
   markAccountApprovalController,
+  sendContactMessage,
 } from 'controllers/userCtrls';
 
 export const router = express.Router();
-
-const profileUpdateSchema = Joi.object({
-  name: Joi.string().optional(),
-  email: Joi.string().email().optional(),
-  phoneNumber: Joi.string().optional(),
-  bio: Joi.string().optional(),
-});
 
 /**
  * @swagger
@@ -66,7 +60,13 @@ router.get(
 router.patch(
   '/api/me/profile',
   requireAuthenticated(),
-  validateJoi(profileUpdateSchema),
+  /* validateJoi(Joi.object({
+    fullName: Joi.string().optional(),
+    email: Joi.string().email().optional(),
+    phoneNumber: Joi.string().optional(),
+    bio: Joi.string().allow("").optional(),
+    gender: Joi.string().optional(),
+  })), */
   updateCurrentUserProfileController,
 );
 
@@ -174,5 +174,10 @@ router.patch(
   requireAuthenticated(['admin']),
   validateJoi(accountApprovalSchema),
   markAccountApprovalController,
+);
+
+router.post(
+  '/api/me/send-contact-message',
+  sendContactMessage,
 );
 

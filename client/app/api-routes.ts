@@ -196,6 +196,7 @@ function wq<Q = string | Record<string, any> | URLSearchParams>(
 
 // prettier-ignore
 export const apiRoutes = {
+
   /* ========================== */
   /* ========== Auth ========== */
   /* ========================== */
@@ -203,11 +204,20 @@ export const apiRoutes = {
   register: payloadDecl(`/api/auth/register`),
   forgotPassword: payloadDecl(`/api/auth/forgot-password`),
   resetPassword: payloadDecl(`/api/auth/reset-password`),
+  updatePassword: payloadDecl(`/api/auth/update-password`, { method: "PATCH" }),
 
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
   getMe: jsonDecl(`/api/me`),
+  updateProfile: payloadDecl(`/api/me/profile`, { method: "PATCH" }),
+  contactUs: payloadDecl(`/api/me/send-contact-message`, { method: "POST" }),
+
+  /* ========================== */
+  /* =========== Me =========== */
+  /* ========================== */
+  getNotifications: jsonDecl(`/api/notif`),
+  markNotificationsRead: payloadDecl(`/api/notif/mark-read`, { method: 'PATCH' }),
 
   /* ========================= */
   /* ======= Community ======= */
@@ -236,13 +246,14 @@ export const apiRoutes = {
   getJobApplicants: jsonDecl((jobId: string) => `/api/job/${jobId}/applicants`),
   isPostingApplied: jsonDecl((postingId: string) => `/api/is-posting-applied/${postingId}`),
   isEmployeeInvited: payloadDecl(`/api/is-employee-invited`),
+  getCandidatePostingApplication: jsonDecl((postingId: string) => `/api/candidate-posting-application/${postingId}`),
 
   // Mutations
   postJob: payloadDecl(`/api/job/post`),
   deleteJob: payloadDecl((jobId: string) => `/api/job/${jobId}`, { method: "DELETE" }),
   applyToJob: payloadDecl(`/api/job/apply`),
   updateJobStatus: payloadDecl((jobId: string) => `/api/job/${jobId}/update-status`, { method: "PATCH" }),
-  updateApplDecision: payloadDecl((applId: string) => `/api/job/application/${applId}/update-decision`,{ method: "PATCH" }),
+  updateApplDecision: payloadDecl((applId: string) => `/api/job/application/${applId}/update-decision`, { method: "PATCH" }),
   markApplInterested: payloadDecl((applId: string) => `/api/job/application/${applId}/mark-interested`, { method: "PATCH" }),
   inviteEmployee: payloadDecl(`/api/invite-employee`),
 
@@ -259,6 +270,8 @@ export const apiRoutes = {
 
   getConversations: jsonDecl(`/api/chat/conversations`),
   resumeConversationSingle: payloadDecl(`/api/chat/resume-conv-single`),
+  updateMessage: payloadDecl(`/api/chat/update-message`, { method: "PATCH" }),
+  deleteMessage: payloadDecl(`/api/chat/delete-message`, { method: "DELETE" }),
 
 } as const;
 

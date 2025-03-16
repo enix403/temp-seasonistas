@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
-export function useResumableAction({
+export function useResumableAction<ExecuteProps extends any[]>({
   executeFn,
   hydrateFn,
   hydrateDeps = [],
   defaultIsDone = false,
 }: {
-  executeFn: (currentDone: boolean) => boolean | Promise<boolean>;
+  executeFn: (currentDone: boolean, ...executeProps: ExecuteProps) => boolean | Promise<boolean>;
   hydrateFn: () => boolean | Promise<boolean>;
   hydrateDeps?: any[];
   defaultIsDone?: boolean;
@@ -33,11 +33,11 @@ export function useResumableAction({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...hydrateDeps]);
 
-  const execute = useCallback(async () => {
+  const execute = useCallback(async (...executeProps: ExecuteProps) => {
     setIsExecuting(true);
     let result: boolean | undefined = undefined;
     try {
-      result = await executeFn(isDone);
+      result = await executeFn(isDone, ...executeProps);
     } catch {}
 
     if (result !== undefined) {

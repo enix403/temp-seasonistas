@@ -45,4 +45,9 @@ declare module "@material-tailwind/react" {
   export interface TextareaProps extends CorrectPlaceholder {}
   export interface CheckboxProps extends CorrectPlaceholder, CorrectCrossOrigin {}
   export interface SpinnerProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface DialogProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface DialogHeaderProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface DialogBodyProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface RadioProps extends CorrectPlaceholder, CorrectCrossOrigin {}
+  export interface PopoverContentProps extends CorrectPlaceholder, CorrectCrossOrigin {}
 }

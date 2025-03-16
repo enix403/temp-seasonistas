@@ -24,6 +24,7 @@ import { OurTeam } from "./OurTeam";
 import { IconBrandInstagram, IconMailFilled } from "@tabler/icons-react";
 import './About.css';
 import { useTranslations } from 'next-intl';
+import { ContactUsForm } from "./ContactUsForm";
 
 
 function ContactInfoBlock({ Icon, title, href }: { Icon: any; title: string; href: string }) {
@@ -124,7 +125,7 @@ function TopSection() {
         </h1>
 
         {/* Subtitle */}
-        <p className="text-center text-xl font-normal text-black/50 mt-6 mx-auto">
+        <p className="text-justify text-xl font-normal text-black/50 mt-6 mx-auto">
           {t('weAreDescription')}
         </p>
       </div>
@@ -140,11 +141,11 @@ function TopSection() {
         </div>
 
         {/* About text */}
-        <h1 className="text-3xl font-semibold mt-12 text-center md:text-left">
+        <h1 className="text-3xl font-semibold mt-12 text-justify md:text-left">
         {t('aboutSeasonistas')}
         </h1>
 
-        <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
+        <section className="space-y-8 mt-4 text-black/50 text-md text-justify md:text-left">
           <p>
             {t('aboutSeasonistasDescription1')}
           </p>
@@ -156,12 +157,12 @@ function TopSection() {
         {t('ourMission')}
         </h1>
 
-        <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
+        <section className="space-y-8 mt-4 text-black/50 text-md text-justify md:text-left">
           <p>
           {t('ourMissionDescription1')}
           </p>
           <p>
-          {t('ourMissionDescription2')}          
+          {t('ourMissionDescription2')}
           </p>
         </section>
 
@@ -169,7 +170,7 @@ function TopSection() {
         {t('ourValues')}
         </h1>
 
-        <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
+        <section className="space-y-8 mt-4 text-black/50 text-md text-justify md:text-left">
           <p>
           {t('ourValuesDescription')}
           <ul className="circle-bullets">
@@ -178,7 +179,7 @@ function TopSection() {
             <li>{t('growth')}</li>
           </ul>
           </p>
-         
+
         </section>
       </div>
     </>
@@ -235,7 +236,7 @@ function BottomSection() {
       </h1>
 
       {/* Subtitle */}
-      <p className="text-center text-xl font-normal text-black/50 mt-6 mx-auto">
+      <p className="text-justify text-xl font-normal text-black/50 mt-6 mx-auto">
         {t('whatWeDoDescription')}
       </p>
 
@@ -250,7 +251,7 @@ function BottomSection() {
       {t('socialResponsibility')}
       </h1>
 
-      <section className="space-y-8 mt-4 text-black/50 text-md text-center md:text-left">
+      <section className="space-y-8 mt-4 text-black/50 text-md text-justify md:text-left">
         <p>
         {t('socialResponsibilityDescription1')}
         </p>
@@ -263,19 +264,19 @@ function BottomSection() {
       </section>
 
       {/* Follow */}
-      <h1 className="text-xl font-semibold mt-12 text-center">Follow us At</h1>
+      {/* <h1 className="text-xl font-semibold mt-12 text-center">Follow us At</h1>
       <div className="flex justify-center gap-x-10 sm:gap-x-20 gap-y-12 mt-4">
-        <ContactInfoBlock 
-          Icon={IconBrandInstagram} 
-          title="@seasonistas" 
+        <ContactInfoBlock
+          Icon={IconBrandInstagram}
+          title="@seasonistas"
           href="https://www.instagram.com/seasonistas"
         />
-        <ContactInfoBlock 
-          Icon={IconMailFilled} 
-          title="info@seasonistas.com" 
+        <ContactInfoBlock
+          Icon={IconMailFilled}
+          title="info@seasonistas.com"
           href="mailto:info@seasonistas.com"
         />
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -288,7 +289,8 @@ export default function AboutUs() {
     <AppLayout>
       <TopSection />
       <BottomSection />
-      <div className="app-container w-full pb-20">
+      <ContactUsForm />
+      {/* <div className="app-container w-full pb-20">
         <h1 className="text-4xl text-center mt-12 mb-8">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
           {t('frequently')}
@@ -336,7 +338,7 @@ export default function AboutUs() {
             },
           ]}
         />
-      </div>
+      </div> */}
     </AppLayout>
   );
 }

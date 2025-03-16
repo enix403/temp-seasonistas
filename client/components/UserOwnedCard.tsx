@@ -3,11 +3,11 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import { Avatar, Badge, IconButton } from "@material-tailwind/react";
 import { IconHeartFilled } from "@tabler/icons-react";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const formatDateTime = (date: string) => {
   return new Date(date).toLocaleString();
-}
+};
 
 export function UserOwnedCard({
   user,
@@ -37,7 +37,7 @@ export function UserOwnedCard({
   layout?: "default" | "centered";
 }) {
   let isCentered = layout === "centered";
-const t = useTranslations('home');
+  const t = useTranslations("home");
   return (
     <div
       className={clsx(
@@ -79,20 +79,20 @@ const t = useTranslations('home');
             {tag}
           </div>
         )}
-{/* 
+        {/*
         {withFavouriteToggle && ( */}
-          <div className="absolute right-0 top-0">
-            <IconButton
-              variant="text"
-              onClick={() => setIsFavourite?.(!isFavourite)}
-            >
-              <IconHeartFilled
-                className={clsx(
-                  isFavourite ? "text-x-ctrl-purple" : "text-gray-600/30"
-                )}
-              />
-            </IconButton>
-          </div>
+        <div className="absolute right-0 top-0">
+          <IconButton
+            variant="text"
+            onClick={() => setIsFavourite?.(!isFavourite)}
+          >
+            <IconHeartFilled
+              className={clsx(
+                isFavourite ? "text-x-ctrl-purple" : "text-gray-600/30"
+              )}
+            />
+          </IconButton>
+        </div>
         {/* )} */}
       </header>
 
@@ -114,7 +114,6 @@ const t = useTranslations('home');
         </h3>
       )}
 
-
       {subtitle && (
         <p className={clsx("text-black/70 mt-1", isCentered && "text-center")}>
           {subtitle}
@@ -127,19 +126,19 @@ const t = useTranslations('home');
         </p>
       )}
 
-{(startTime || endTime) && (
-        <div className={clsx("text-black/50 mt-1", isCentered && "text-center")}>
+      {(startTime || endTime) && (
+        <div
+          className={clsx("text-black/50 mt-1", isCentered && "text-center")}
+        >
           <p className="flex items-center gap-2">
             {startTime && (
               <span>
-               <b>{t("start_time")}:</b> {formatDateTime(startTime)}
+                <b>{t("start_time")}:</b> {formatDateTime(startTime)}
               </span>
             )}
-            {startTime && endTime && (
-              <span className="text-black/30">•</span>
-            )}
-            </p>
-            <p className="flex items-center gap-2">
+            {startTime && endTime && <span className="text-black/30">•</span>}
+          </p>
+          <p className="flex items-center gap-2">
             {endTime && (
               <span>
                 <b>{t("end_time")}:</b> {formatDateTime(endTime)}

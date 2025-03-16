@@ -4,6 +4,7 @@ import { JobPostingModel } from 'db/models/jobPosting';
 import { JobApplicationModel } from 'db/models/jobApplication';
 import { ApplicationError, NotFound } from 'controllers/core/errors';
 import { reply } from 'controllers/core/app-reply';
+import { NotificationModel } from 'db/models/notification';
 
 const getDateFromFilter = (filter: string): Date | null => {
   const now = new Date();
@@ -137,13 +138,33 @@ export async function searchJobController(req: Request, res: Response) {
   } else if (sortBy === 'datePosted') {
     // Sort by datePosted (recent first)
     sort = { postedAt: -1 };
+  } else {
+    sort = { _id: 1 };
   }
+
+  const pageNumber = Math.max(
+    parseInt((req.query.page as string) || '0', 10),
+    0,
+  );
+  const pageSize = Math.max(
+    parseInt((req.query.pagelen as string) || '1000', 10),
+    1,
+  );
 
   const postings = await JobPostingModel.find(filters)
     .sort(sort)
+    .skip(pageNumber * pageSize)
+    .limit(pageSize)
     .populate('poster');
 
-  return reply(res, postings);
+  const nextPageExists =
+    (await JobPostingModel.countDocuments(filters)) >
+    (pageNumber + 1) * pageSize;
+
+  return reply(res, {
+    ...(nextPageExists && { nextPage: pageNumber + 1 }),
+    data: postings,
+  });
 }
 
 /* ----------------------------------- */
@@ -191,6 +212,11 @@ export async function applyJobController(req: Request, res: Response) {
   });
 
   await application.save();
+
+  await NotificationModel.create({
+    userId: posting.posterId,
+    message: 'You received a new job application',
+  });
 
   return reply(res, {
     message: 'Application submitted successfully',
@@ -242,7 +268,7 @@ export async function postJobController(req: Request, res: Response) {
   const jobData = req.body;
   const job = new JobPostingModel({
     ...jobData,
-    postedAt: jobData['postedAt'] || new Date(),
+    postedAt: new Date(),
     expireAt: undefined, // No expiry for now
     isActive: true,
     posterId: req.user!._id,

@@ -94,7 +94,10 @@ export function ActiveChatWindow({
   return (
     <div className={clsx("flex-1", "md:max-h-[80vh]", "relative bg-[#e0dcdc]")}>
       <ChatHeader conversation={conversation} />
-      <MessageList messages={messages} conversation={conversation} />
+      <MessageList
+        messages={messages}
+        conversation={conversation}
+      />
       <NewMessageInput sendMessage={sendMessage} />
     </div>
   );

@@ -1,14 +1,14 @@
 "use client";
 
 import { produce } from "immer";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { Spinner } from "@material-tailwind/react";
 
 import { apiRoutes } from "~/app/api-routes";
 import { PostingCard } from "./PostingCard";
-import { toParams } from "~/app/utils/collections";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
+import { Button } from "~/components/Button/Button";
 
 export function HomePostings({
   filters,
@@ -17,7 +17,7 @@ export function HomePostings({
   filters: any;
   activeTab: string;
 }) {
-  const t = useTranslations('home');
+  const t = useTranslations("home");
   const favsQuery = useQuery<any[] | null>({
     queryKey: ["getPostingFavourites"],
     queryFn: () => apiRoutes.getPostingFavourites(),
@@ -25,20 +25,21 @@ export function HomePostings({
     placeholderData: null,
   });
 
-  const filterQueryString = useMemo(
-    () => toParams(filters).toString(),
-    [filters]
-  );
-
-  const postingsQuery = useQuery<any[]>({
-    queryKey: ["searchJobs", filterQueryString],
-    queryFn: () => apiRoutes.searchJobs(filterQueryString),
-    initialData: [],
-    placeholderData: [],
+  const postingsQuery = useInfiniteQuery<any>({
+    queryKey: ["homePostings"],
+    queryFn: async ({ pageParam = 0 }) => {
+      return apiRoutes.searchJobs({
+        ...filters,
+        pagelen: 6,
+        page: pageParam,
+      });
+    },
+    getNextPageParam: (lastPageData) => lastPageData.nextPage,
+    initialPageParam: 0,
   });
 
   const isLoading = favsQuery.isLoading || postingsQuery.isLoading;
-  const postings = postingsQuery.data;
+  const postingPages = postingsQuery.data?.pages || [];
   const serverPostingFavouriteMarks = favsQuery.data;
 
   const [favouriteIds, setFavouriteIds] = useState<any[]>([]);
@@ -79,7 +80,7 @@ export function HomePostings({
   function filterPosting(posting: any) {
     const isFavourite = favouriteIds.includes(posting["_id"]);
     return Boolean(
-      posting["isActive"] && (activeTab === "three" ? isFavourite : true)
+      posting["isActive"] && (activeTab === "two" ? isFavourite : true)
     );
   }
 
@@ -88,26 +89,49 @@ export function HomePostings({
       {isLoading ? (
         <div className="flex items-center gap-x-2 py-3">
           <Spinner color="green" />
-          <span>{t('loading')}</span>
+          <span>{t("loading")}</span>
         </div>
-      ) : postings.length === 0 ? (
+      ) : postingPages.length === 0 ? (
         <div className="flex items-center gap-x-2 py-3">
           <span>No saved data is here.</span>
         </div>
       ) : (
-        postings.map(
-          (posting) =>
-            filterPosting(posting) && (
-              <PostingCard
-                key={posting._id}
-                posting={posting}
-                isFavourite={favouriteIds.includes(posting["_id"])}
-                setIsFavourite={(isFavourite) =>
-                  markFavourite(posting, isFavourite)
-                }
-              />
+        <>
+          {postingPages.map(({ data: postings }) =>
+            postings.map(
+              (posting) =>
+                filterPosting(posting) && (
+                  <PostingCard
+                    // TODO: currently an awkward hack since
+                    //    the application status is only calculated
+                    //    internally in PostingCard itself
+                    shouldBeVisible={(applied) => {
+                      return activeTab === "three" ? applied : true;
+                    }}
+                    key={posting._id}
+                    posting={posting}
+                    isFavourite={favouriteIds.includes(posting["_id"])}
+                    setIsFavourite={(isFavourite) =>
+                      markFavourite(posting, isFavourite)
+                    }
+                  />
+                )
             )
-        )
+          )}
+          {postingsQuery.isFetchingNextPage || postingsQuery.hasNextPage ? (
+            <div className="col-span-2 flex justify-center">
+              <Button
+                variant="outlined"
+                loading={postingsQuery.isFetchingNextPage}
+                className="mt-8 mb-4"
+                fullRounded
+                onClick={() => postingsQuery.fetchNextPage()}
+              >
+                {t("loadMore")}
+              </Button>
+            </div>
+          ) : null}
+        </>
       )}
     </>
   );

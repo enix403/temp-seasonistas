@@ -31,6 +31,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={urbanist.className}>
         <Toaster
+          containerStyle={{zIndex: 99999}}
           toastOptions={{
             style: {
               borderRadius: "10px",
