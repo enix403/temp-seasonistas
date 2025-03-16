@@ -24,6 +24,7 @@ import { OurTeam } from "./OurTeam";
 import { IconBrandInstagram, IconMailFilled } from "@tabler/icons-react";
 import './About.css';
 import { useTranslations } from 'next-intl';
+import { ContactUsForm } from "./ContactUsForm";
 
 
 function ContactInfoBlock({ Icon, title, href }: { Icon: any; title: string; href: string }) {
@@ -263,7 +264,7 @@ function BottomSection() {
       </section>
 
       {/* Follow */}
-      <h1 className="text-xl font-semibold mt-12 text-center">Follow us At</h1>
+      {/* <h1 className="text-xl font-semibold mt-12 text-center">Follow us At</h1>
       <div className="flex justify-center gap-x-10 sm:gap-x-20 gap-y-12 mt-4">
         <ContactInfoBlock
           Icon={IconBrandInstagram}
@@ -275,7 +276,7 @@ function BottomSection() {
           title="info@seasonistas.com"
           href="mailto:info@seasonistas.com"
         />
-      </div>
+      </div> */}
     </div>
   );
 }
@@ -288,7 +289,8 @@ export default function AboutUs() {
     <AppLayout>
       <TopSection />
       <BottomSection />
-      <div className="app-container w-full pb-20">
+      <ContactUsForm />
+      {/* <div className="app-container w-full pb-20">
         <h1 className="text-4xl text-center mt-12 mb-8">
           <span className="font-bold text-teal mr-1 relative bg-bdlue-600">
           {t('frequently')}
@@ -336,7 +338,7 @@ export default function AboutUs() {
             },
           ]}
         />
-      </div>
+      </div> */}
     </AppLayout>
   );
 }
