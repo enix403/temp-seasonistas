@@ -221,7 +221,7 @@ export default function CreateJobPage() {
   let StepComponent = steps[pageIndex];
 
   if (isDev) {
-    // StepComponent = CompanyInfoStep;
+    StepComponent = QuestionsStep;
   }
 
   let progressView = (
