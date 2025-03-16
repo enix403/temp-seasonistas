@@ -108,7 +108,6 @@ export function PostingCard({
           >
             <Button
               fullRounded
-              // onClick={() => apply()}
               loading={isApplying}
               disabled={isLoading || isApplied}
             >

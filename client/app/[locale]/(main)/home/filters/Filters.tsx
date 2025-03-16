@@ -21,7 +21,7 @@ import {
 import { RichInput } from "~/components/Input/Input";
 import { Button } from "~/components/Button/Button";
 import { Select } from "~/components/Select/Select";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 // app/(main)/create-job/steps/GeneralInfoStep.tsx
 import allJobs from "../../create-job/jobs.json";
@@ -112,28 +112,29 @@ export function Filters({
   filterCtrl: FilterController;
 }) {
   const viewMode = useViewMode();
-  const t = useTranslations('filters');
+  const t = useTranslations("filters");
 
   let { register } = filterCtrl;
 
   return (
     <FilterList className={className}>
-      <Filter label={t('location')}>
+      <Filter label={t("location")}>
         <RichInput
           icon={<IconMapPin size={17} />}
           inputProps={{
             ...register("location"),
-            placeholder:  t('locationPlaceholder'),
+            placeholder: t("locationPlaceholder"),
           }}
         />
-        <p className="text-black/80 text-sm mt-3 mb-3">
+        {/* Remove the radius since location is text based for now */}
+        {/* <p className="text-black/80 text-sm mt-3 mb-3">
         {t('radius')}
         </p>
         <RangeSlider />
 
         <Button fullRounded className="mx-auto">
           100 km
-        </Button>
+        </Button> */}
       </Filter>
       {viewMode === "employee" && (
         <>
@@ -150,71 +151,70 @@ export function Filters({
               ))}
             </Select>
           </Filter>
-          <Filter label={t('salary')}>
+          <Filter label={t("salary")}>
+            <div className="space-y-2.5 mb-4">
+              <SwitchOption defaultChecked label={"Monthly"} />
+              <SwitchOption defaultChecked label={"Daily"} />
+              <SwitchOption defaultChecked label={"Hourly"} />
+            </div>
             <div className="flex gap-x-4">
-              <RichInput
-                inputProps={{ placeholder: t('minSalary') }}
-              />
-              <RichInput
-                inputProps={{ placeholder: t('maxSalary') }}
-              />
+              <RichInput inputProps={{ placeholder: t("minSalary") }} />
+              <RichInput inputProps={{ placeholder: t("maxSalary") }} />
             </div>
           </Filter>
-          <Filter label={t('jobType')}>
+          <Filter label={t("jobType")}>
             <div className="space-y-2.5">
               <SwitchOption
                 {...register("jobType.fullTime")}
-                label={t('fullTime')}
+                label={t("fullTime")}
               />
               <SwitchOption
                 {...register("jobType.partTime")}
-                label={t('partTime')}
+                label={t("partTime")}
               />
               <SwitchOption
                 {...register("jobType.internship")}
-                label={t('internship')}
+                label={t("internship")}
               />
               <SwitchOption
                 {...register("jobType.specificDates")}
-                label={t('temporary')}
+                label={t("temporary")}
               />
             </div>
           </Filter>
-          <Filter label={t('experienceLevel')}>
+          <Filter label={t("experienceLevel")}>
             <div className="space-y-2.5">
               <SwitchOption
                 {...register("expLevelRequired.entry")}
-                label={t('entryLevel')}
+                label={t("entryLevel")}
               />
               <SwitchOption
                 {...register("expLevelRequired.mid")}
-                label={t('midLevel')}
+                label={t("midLevel")}
               />
               <SwitchOption
                 {...register("expLevelRequired.senior")}
-                label={t('seniorLevel')}
+                label={t("seniorLevel")}
               />
             </div>
           </Filter>
-          <Filter label={t('datePosted')}>
+          <Filter label={t("datePosted")}>
             <div className="space-y-2.5">
               <SwitchOption {...register("datePosted.all")} label="All" />
               <SwitchOption
                 {...register("datePosted.lastHour")}
-                label={t('lastDay')}
+                label={t("lastDay")}
               />
               <SwitchOption
                 {...register("datePosted.last24Hours")}
-                label={t('lastWeek')}
+                label={t("lastWeek")}
               />
               <SwitchOption
                 {...register("datePosted.last7Days")}
-                label={t('lastMonth')}
+                label={t("lastMonth")}
               />
             </div>
           </Filter>
-
-
         </>
       )}
     </FilterList>
