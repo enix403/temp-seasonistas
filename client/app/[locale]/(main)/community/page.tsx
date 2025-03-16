@@ -108,14 +108,14 @@ export default function Community() {
                 <option>Internship</option>
               </Select>
             </FormLabel> */}
-            <FormLabel inline label="Search For" className="flex-1">
+            <FormLabel inline label="Show me" className="flex-1">
               <Select
                 value={roleFilter}
                 onChange={(event) => setRoleFilter(event.target.value)}
                 className="flex-1"
               >
                 <option value="">{t('all')}</option>
-                <option value="employee">{t('peoples')}</option>
+                <option value="employee">{t('individuals')}</option>
                 <option value="employer">{t('businesses')}</option>
               </Select>
             </FormLabel>
