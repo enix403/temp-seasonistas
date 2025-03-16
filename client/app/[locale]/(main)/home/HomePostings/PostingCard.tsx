@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AskApplicationQuestionsModal } from "./AskApplicationQuestionsModal";
 import { ApplicationDetailModel } from "./ApplicationDetailModel";
+import { PostingDetailModal } from "./PostingDetailModal";
 
 export function PostingCard({
   posting,
@@ -74,7 +75,15 @@ export function PostingCard({
   return (
     <UserOwnedCard
       user={posting?.poster}
-      title={posting?.title}
+      title={
+        <>
+          <PostingDetailModal posting={posting}>
+            <span className="hover:underline hover:text-teal cursor-pointer">
+              {posting?.title}
+            </span>
+          </PostingDetailModal>
+        </>
+      }
       companyCountry={posting?.companyCountry}
       startTime={posting?.startTime}
       endTime={posting?.endTime}
