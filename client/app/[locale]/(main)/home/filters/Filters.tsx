@@ -195,15 +195,6 @@ export function Filters({
                 label={t('seniorLevel')}
               />
             </div>
-
-            <Button
-              variant="text"
-              fullRounded
-              className="mt-3 !gap-x-2 text-teal"
-            >
-              <IconCirclePlusFilled size={20} />
-              {t('viewMore')}
-            </Button>
           </Filter>
           <Filter label={t('datePosted')}>
             <div className="space-y-2.5">
