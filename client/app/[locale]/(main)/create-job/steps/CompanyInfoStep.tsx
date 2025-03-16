@@ -2,7 +2,7 @@ import { Button } from "~/components/Button/Button";
 import { Input, TextArea } from "~/components/Input/Input";
 import { FormLabel } from "~/components/FormLabel/FormLabel";
 import { StepForm, StepProps } from "./common";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const fileLogo = (
   <svg
@@ -26,7 +26,7 @@ const fileLogo = (
 function LogoInput({ register, watch, reset }: any) {
   const watchedFile = watch("companyLogo");
   const isUploaded = watchedFile && watchedFile[0];
-  const t = useTranslations('createJob');
+  const t = useTranslations("createJob");
 
   return (
     <div>
@@ -37,7 +37,7 @@ function LogoInput({ register, watch, reset }: any) {
         {fileLogo}
         {/* Line 1 */}
         <h2 className="text-center text-gray-400 text-xs leading-4">
-        {t('logoRequirements')}
+          {t("logoRequirements")}
         </h2>
         {/* Line 3 */}
         {/* <h4 className="text-center text-gray-900 text-sm font-medium leading-snug">
@@ -53,7 +53,7 @@ function LogoInput({ register, watch, reset }: any) {
                 {...register("companyLogo")}
               />
               <div className="flex w-30 h-10 px-4 flex-col bg-teal rounded-full shadow text-white font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">
-              {t('chooseFile')}
+                {t("chooseFile")}
               </div>
             </label>
           </div>
@@ -67,7 +67,7 @@ function LogoInput({ register, watch, reset }: any) {
                 reset({ companyLogo: undefined });
               }}
             >
-              {t('uploaded')}
+              {t("uploaded")}
             </Button>
           </div>
         )}
@@ -85,45 +85,45 @@ export function CompanyInfoStep({
   watch,
   reset,
 }: StepProps) {
-  const t = useTranslations('createJob');
+  const t = useTranslations("createJob");
   return (
     <>
       <h1 className="font-semibold text-2xl text-center md:text-left">
-      {t('companyInformation')}
+        {t("companyInformation")}
       </h1>
 
       {progressView}
 
       <StepForm onNext={onNext}>
         <div className="bg-teal/5 p-7 mt-7 rounded-xl space-y-6">
-          <FormLabel showAsterik label={t('companyName')}>
+          <FormLabel showAsterik label={t("companyName")}>
             <Input
               {...register("companyName")}
               required
-              placeholder={t('enterCompanyName')}
+              placeholder={t("enterCompanyName")}
             />
           </FormLabel>
 
-          <FormLabel showAsterik label={t('username')}>
+          <FormLabel showAsterik label={t("username")}>
             <Input
               {...register("companyUsername")}
               required
-              placeholder={t('enterUsername')}
+              placeholder={t("enterUsername")}
             />
           </FormLabel>
 
-          <FormLabel label={t('companyDescription')}>
+          <FormLabel label={t("companyDescription")}>
             <TextArea
               {...register("companyDescription")}
-              placeholder={t('enterCompanyDescription')}
+              placeholder={t("enterCompanyDescription")}
               className="h-20"
             />
           </FormLabel>
 
-          <FormLabel label={t('website')}>
+          <FormLabel label={t("website")}>
             <Input
               {...register("companyWebsite")}
-              placeholder={t('enterCompanyWebsite')}
+              placeholder={t("enterCompanyWebsite")}
             />
           </FormLabel>
 
@@ -131,65 +131,65 @@ export function CompanyInfoStep({
 
           <div className="flex gap-4 flex-col md:flex-row">
             <div className="flex-1">
-              <FormLabel showAsterik label={t('country')}>
+              <FormLabel showAsterik label={t("country")}>
                 <Input
                   {...register("companyCountry")}
                   required
-                  placeholder={t('enterCountry')}
+                  placeholder={t("enterCountry")}
                 />
               </FormLabel>
             </div>
             <div className="flex-1">
-              <FormLabel showAsterik label={t('cityIsland')}>
+              <FormLabel showAsterik label={t("cityIsland")}>
                 <Input
                   {...register("companyCity")}
                   required
-                  placeholder={t('enterCityIsland')}
+                  placeholder={t("enterCityIsland")}
                 />
               </FormLabel>
             </div>
           </div>
 
-          <FormLabel showAsterik label={t('area')}>
+          <FormLabel showAsterik label={t("area")}>
             <TextArea
               {...register("companyArea")}
               required
-              placeholder={t('enterArea')}
+              placeholder={t("enterArea")}
               className="h-20"
             />
           </FormLabel>
 
           <div className="flex gap-4 flex-col md:flex-row">
-            <FormLabel label={t('findOnMap')} className="flex-[2]">
+            <FormLabel label={t("findOnMap")} className="flex-[2]">
               <Input
                 {...register("companyMapAddress")}
-                placeholder={t('enterCompleteAddress')}
+                placeholder={t("enterCompleteAddress")}
               />
             </FormLabel>
-            <FormLabel label={t('postalCode')} showAsterik className="flex-1">
+            <FormLabel label={t("postalCode")} showAsterik className="flex-1">
               <Input
                 {...register("companyZip")}
                 required
-                placeholder={t('enterPostalCode')}
+                placeholder={t("enterPostalCode")}
               />
             </FormLabel>
           </div>
 
-          <FormLabel label={t('datePosted')}>
+          <FormLabel label={t("datePosted")}>
             <Input
               {...register("postedAt")}
               type="date"
-              placeholder={t('selectDatePosted')}
+              placeholder={t("selectDatePosted")}
             />
           </FormLabel>
 
           <div className="pt-6">
             <div className="flex gap-x-3">
               <Button onClick={onCancel} variant="outlined" fullRounded>
-              {t('back')}
+                {t("back")}
               </Button>
               <Button type="submit" fullRounded>
-              {t('next')}
+                {t("next")}
               </Button>
             </div>
           </div>

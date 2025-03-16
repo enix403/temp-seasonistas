@@ -168,19 +168,19 @@ const jobPostingSchema = Joi.object({
     .valid('required', 'notRequired', 'mopedProvided', 'carProvided')
     .required(),
 
-  companyName: Joi.string().allow('').optional(),
-  companyUsername: Joi.string().allow('').optional(),
-  companyDescription: Joi.string().allow('').optional(),
-  companyWebsite: Joi.string().allow('').optional(),
-  companyLogoImageId: Joi.string().hex().length(24).optional(),
-  companyCountry: Joi.string().allow('').optional(),
-  companyCity: Joi.string().allow('').optional(),
-  companyArea: Joi.string().allow('').optional(),
-  companyZip: Joi.string().allow('').optional(),
-  companyMapAddress: Joi.string().allow('').optional(),
+  // companyName: Joi.string().allow('').optional(),
+  // companyUsername: Joi.string().allow('').optional(),
+  // companyDescription: Joi.string().allow('').optional(),
+  // companyWebsite: Joi.string().allow('').optional(),
+  // companyLogoImageId: Joi.string().hex().length(24).optional(),
+  // companyCountry: Joi.string().allow('').optional(),
+  // companyCity: Joi.string().allow('').optional(),
+  // companyArea: Joi.string().allow('').optional(),
+  // companyZip: Joi.string().allow('').optional(),
+  // companyMapAddress: Joi.string().allow('').optional(),
 
   questions: Joi.array().items(Joi.string()).optional(),
-  postedAt: Joi.date().allow('').optional(),
+  // postedAt: Joi.date().allow('').optional(),
 });
 
 router.post(
