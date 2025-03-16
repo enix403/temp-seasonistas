@@ -245,6 +245,7 @@ export const apiRoutes = {
   getJobApplicants: jsonDecl((jobId: string) => `/api/job/${jobId}/applicants`),
   isPostingApplied: jsonDecl((postingId: string) => `/api/is-posting-applied/${postingId}`),
   isEmployeeInvited: payloadDecl(`/api/is-employee-invited`),
+  getCandidatePostingApplication: jsonDecl((postingId: string) => `/api/candidate-posting-application/${postingId}`),
 
   // Mutations
   postJob: payloadDecl(`/api/job/post`),
