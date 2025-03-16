@@ -74,6 +74,24 @@ router.get(
 
 /* ========================== */
 
+router.get(
+  '/api/candidate-posting-application/:postingId',
+  requireAuthenticated(['employee']),
+  ah(async (req, res) => {
+    const { postingId } = req.params;
+    const employeeId = req.user!._id;
+
+    const appl = await JobApplicationModel.findOne({
+      employeeId,
+      postingId,
+    });
+
+    return reply(res, appl);
+  }),
+);
+
+/* ========================== */
+
 router.post(
   '/api/invite-employee',
   requireAuthenticated(['employer']),

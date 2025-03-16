@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useMemo, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { Button } from "~/components/Button/Button";
 
 import {
@@ -8,7 +8,6 @@ import {
   Dialog,
   IconButton,
   Spinner,
-  Textarea,
   Typography,
 } from "@material-tailwind/react";
 import { IconX } from "@tabler/icons-react";
@@ -70,7 +69,25 @@ export function ApplicationDetailModel({
               <div className="flex justify-center py-5">
                 <Spinner className="size-20" />
               </div>
-            ) : null}
+            ) : (
+              <>
+                <div className="text-lg">
+                  <span className="font-bold mr-1">Status:</span>
+                  {application?.decision}
+                </div>
+                <h1 className="font-bold text-xl">Questions and answers</h1>
+                <div className="space-y-4">
+                  {application?.answers.map(({ question, answer }, index) => (
+                    <div key={question}>
+                      <p className="text-lg font-bold">
+                        {index + 1}. {question}
+                      </p>
+                      <p className="text-lg">{answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </CardBody>
           <CardFooter className="pt-0">
             <Button onClick={() => setOpen(false)} fullWidth>
