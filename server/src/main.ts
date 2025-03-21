@@ -12,7 +12,7 @@ import { createRootRouter } from 'routes';
 import { ApplicationError } from 'controllers/core/errors';
 
 import { handleChatConnection } from 'controllers/core/chat/chat.socket';
-import { createSocketServer } from 'controllers/core/socket-server';;
+import { createSocketServer } from 'controllers/core/socket-server';
 
 function createApp() {
   const app = express();
@@ -23,8 +23,9 @@ function createApp() {
     next();
   });
 
-  const allowedOrigins = ['https://seasonistas.com','https://www.seasonistas.com' ,'http://localhost:3000'];
-  app.use(cors({ origin: allowedOrigins, credentials: true }));
+  // const allowedOrigins = ['https://seasonistas.com','https://www.seasonistas.com' ,'http://localhost:3000'];
+  // app.use(cors({ origin: allowedOrigins, credentials: true }));
+  app.use(cors());
   app.use(express.json());
 
   app.use(createRootRouter());
@@ -43,16 +44,13 @@ function createApp() {
       res: express.Response,
       next: express.NextFunction,
     ) => {
-
       if (err instanceof ApplicationError) {
         return err.sendResponse(res);
       }
 
       if (err) {
         logger.error(`500 - Server Error - ${err.message}`);
-        res
-          .status(500)
-          .json({ message: 'An internal server error occurred' });
+        res.status(500).json({ message: 'An internal server error occurred' });
 
         throw err;
       }
