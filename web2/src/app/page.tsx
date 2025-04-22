@@ -16,6 +16,7 @@ import {
   Shield
 } from "lucide-react";
 import { BlurFade } from "@/components/magicui/blur-fade";
+import { TextAnimate } from "@/components/magicui/text-animate";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -30,6 +31,7 @@ function Hero() {
     <>
       <div
         className={clsx(
+          "min-h-screen",
           "py-20 pb-0",
           "px-6 md:px-10 lg:px-20",
           "text-[#DBDBDB]",
@@ -118,9 +120,14 @@ function AboutUs() {
             About Us
           </div>
 
-          <h1 className='text-[#1E1E1E] max-md:text-4xl'>
+          <TextAnimate
+            animation='slideUp'
+            as='h1'
+            className='text-[#1E1E1E] max-md:text-4xl'
+          >
             Connecting you is our job
-          </h1>
+          </TextAnimate>
+
           <h3>Connecting Seasonal Talent with Opportunity</h3>
           <div className='text-lg font-normal text-[#49565A]'>
             <p>
@@ -203,7 +210,7 @@ function HowItWorks() {
             professional journey'
           />
         </BlurFade>
-        <BlurFade delay={0.20 * 2} duration={0.25} inView>
+        <BlurFade delay={0.2 * 2} duration={0.25} inView>
           <StepCard
             num='02'
             title='Create your work profile'
