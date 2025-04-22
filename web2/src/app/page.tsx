@@ -33,9 +33,9 @@ function Hero() {
         Hire Smart Faster
       </div>
 
-      <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-80'>
+      <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
         {/* Main Text */}
-        <h1 className='mt-4 text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-semibold text-white'>
+        <h1 className='mt-4 text-4xl font-semibold leading-[105%] text-white sm:text-5xl md:text-6xl xl:text-7xl'>
           <HeroShadow>Finding</HeroShadow>{" "}
           <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
             Seasonal
