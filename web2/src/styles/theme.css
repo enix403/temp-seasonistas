@@ -2,6 +2,8 @@
 :root {
   /* --radius: 0.625rem; */
   --radius: 0.5rem;
+
+  --spacing-hero: 5rem;
 }
 
 /* (Default) light theme */
