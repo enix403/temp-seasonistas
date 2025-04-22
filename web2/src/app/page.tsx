@@ -17,7 +17,7 @@ function Hero() {
   return (
     <div
       className={clsx(
-        "min-h-screen py-20",
+        "py-20",
         "px-6 md:px-10 lg:px-20",
         "text-[#DBDBDB]",
         "bg-[#022127]",
@@ -53,9 +53,9 @@ function Hero() {
           </AuroraText>{" "}
           <HeroShadow>Made</HeroShadow>
           <br />
-          {/* <SparklesText> */}
-          <HeroShadow>Simple</HeroShadow>
-          {/* </SparklesText> */}
+          <SparklesText>
+            <HeroShadow>Simple</HeroShadow>
+          </SparklesText>
         </h1>
 
         <div className='space-y-5'>
@@ -67,6 +67,10 @@ function Hero() {
           <Button size='lg'>Get Started Now</Button>
         </div>
       </div>
+
+      <div className='bg-white/10 rounded-xl mt-9 border-[0.5px] border-[#80D6E2]/30 p-6'>
+          <img src='/hero-mobile.png' className='w-full' />
+        </div>
     </div>
   );
 }
@@ -75,6 +79,11 @@ export default function Home() {
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
       <Hero />
+      {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
+        <div className='bg-red-400 p-6'>
+          <img src='/hero-mobile.png' className='w-full' />
+        </div>
+      </div> */}
     </div>
   );
 }
