@@ -1,9 +1,13 @@
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { CloudLightning } from "lucide-react";
 import { PropsWithChildren } from "react";
+import { useMeasure } from "@uidotdev/usehooks";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -14,10 +18,12 @@ function HeroShadow({ children }: PropsWithChildren) {
 }
 
 function Hero() {
+  const [ref, { width, height }] = useMeasure();
+
   return (
     <div
       className={clsx(
-        "py-20",
+        "py-20 pb-0",
         "px-6 md:px-10 lg:px-20",
         "text-[#DBDBDB]",
         "bg-[#022127]",
@@ -68,9 +74,22 @@ function Hero() {
         </div>
       </div>
 
-      <div className='bg-white/10 rounded-xl mt-9 border-[0.5px] border-[#80D6E2]/30 p-6'>
-          <img src='/hero-mobile.png' className='w-full' />
+      {/* <div className='relative'>
+        <div
+          className={clsx(
+            "mx-auto mt-14 max-w-7xl rounded-t-xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-6 pb-0",
+            "absolute"
+          )}
+        >
+          <img src='/hero-mobile.png' className='invisible w-full' />
+          <div className='absolute top-0 left-0 h-1/2 w-full'>
+            <img
+              src='/hero-mobile.png'
+              className='h-full w-full object-cover object-top'
+            />
+          </div>
         </div>
+      </div> */}
     </div>
   );
 }
