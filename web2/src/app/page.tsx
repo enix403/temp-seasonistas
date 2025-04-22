@@ -89,11 +89,27 @@ function AboutUs() {
   return (
     <div className={clsx("py-10", "lg:sx-24 px-8 md:px-14")}>
       <div className='mx-auto flex max-w-7xl flex-col items-start gap-y-12 md:flex-row md:gap-x-14 lg:gap-x-28'>
-        <div className='flex-1 max-md:w-full max-md:px-8 max-md:order-1'>
+        <div className='flex-1 max-md:order-1 max-md:w-full max-md:px-8'>
           <img src='/about-us.png' className='w-full max-w-full' />
         </div>
 
-        <div className='flex-1 shrink-0 space-y-4'>
+        <div className='flex-1 shrink-0 space-y-4 md:pt-5'>
+          <div
+            className={clsx(
+              "w-fit rounded-full border border-[#E2E8EA] bg-white/[0.06] px-5 py-2",
+              "flex items-center gap-x-3 text-sm"
+            )}
+          >
+            <span className='text-[#2062A6]'>
+              <CloudLightning
+                fill='currentColor'
+                size={20}
+                stroke='currentColor'
+              />
+            </span>
+            About Us
+          </div>
+
           <h1 className='max-md:text-4xl'>Connecting you is our job</h1>
           <h3>Connecting Seasonal Talent with Opportunity</h3>
           <div className='text-lg font-normal text-[#49565A]'>
