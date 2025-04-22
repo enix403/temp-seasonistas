@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import React, { memo } from "react";
 
 interface AuroraTextProps {
@@ -14,7 +15,7 @@ export const AuroraText = memo(
     children,
     className = "",
     colors = ["#FF0080", "#7928CA", "#0070F3", "#38bdf8"],
-    speed = 1,
+    speed = 1
   }: AuroraTextProps) => {
     const gradientStyle = {
       backgroundImage: `linear-gradient(135deg, ${colors.join(", ")}, ${
@@ -22,22 +23,25 @@ export const AuroraText = memo(
       })`,
       WebkitBackgroundClip: "text",
       WebkitTextFillColor: "transparent",
-      animationDuration: `${10 / speed}s`,
+      animationDuration: `${10 / speed}s`
     };
 
     return (
-      <span className={`relative inline-block ${className}`}>
-        <span className="sr-only">{children}</span>
-        <span
-          className="relative animate-aurora bg-[length:200%_auto] bg-clip-text text-transparent"
-          style={gradientStyle}
-          aria-hidden="true"
-        >
-          {children}
-        </span>
+      // <span className={`relative inline-block ${className}`}>
+      //   <span className="sr-only">{children}</span>
+      <span
+        className={clsx(
+          "relative animate-aurora bg-[length:200%_auto] bg-clip-text text-transparent",
+          className
+        )}
+        style={gradientStyle}
+        aria-hidden='true'
+      >
+        {children}
       </span>
+      // </span>
     );
-  },
+  }
 );
 
 AuroraText.displayName = "AuroraText";

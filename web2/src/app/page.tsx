@@ -13,22 +13,15 @@ export default function Home() {
         "bg-[#022127] text-white"
       )}
     >
-      <h1 className='mt-32 text-6xl leading-16 font-semibold'>
+      <h1 className='mt-32 text-7xl leading-20 font-medium'>
         Finding{" "}
-        <AnimatedGradientText
-          speed={0.5}
-          stops={[
-            { color: "#81A7EB", position: "0%" },
-            { color: "#956ED4", position: "19%" },
-            { color: "#FE605D", position: "41%" },
-            { color: "#F3C44D", position: "75%" },
-            { color: "#81A7EB", position: "100%" },
-          ]}
-        >
-          Seasonal Work
-        </AnimatedGradientText>{" "}
+        <AuroraText className="font-semibold" colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
+          Seasonal
+          <br /> Work
+        </AuroraText>{" "}
         Made
-        <br /> Simple
+        <br />
+        <SparklesText>Simple</SparklesText>
       </h1>
     </div>
   );
