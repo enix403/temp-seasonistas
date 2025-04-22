@@ -15,6 +15,7 @@ import {
   Briefcase,
   Shield
 } from "lucide-react";
+import { BlurFade } from "@/components/magicui/blur-fade";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -192,32 +193,40 @@ function HowItWorks() {
         How It Works
       </h1>
 
-      <div className='mt-8 grid gap-6 md:grid-cols-2 max-w-6xl mx-auto'>
+      <div className='mx-auto mt-8 grid max-w-6xl gap-6 md:grid-cols-2'>
         {/* Step 1 */}
-        <StepCard
-          num='01'
-          title='Sign Up or Login'
-          desc='Create an account or login with an existing profile to begin your
+        <BlurFade delay={0.15 * 1} duration={0.25} inView>
+          <StepCard
+            num='01'
+            title='Sign Up or Login'
+            desc='Create an account or login with an existing profile to begin your
             professional journey'
-        />
-        <StepCard
-          num='02'
-          title='Create your work profile'
-          desc='Build your professional identity with skills, experience, and
+          />
+        </BlurFade>
+        <BlurFade delay={0.20 * 2} duration={0.25} inView>
+          <StepCard
+            num='02'
+            title='Create your work profile'
+            desc='Build your professional identity with skills, experience, and
             portfolio details'
-        />
-        <StepCard
-          num='03'
-          title='Apply for a job or post an opening'
-          desc='Search for opportunities as a job seeker or list vacancies as an
+          />
+        </BlurFade>
+        <BlurFade delay={0.15 * 3} duration={0.25} inView>
+          <StepCard
+            num='03'
+            title='Apply for a job or post an opening'
+            desc='Search for opportunities as a job seeker or list vacancies as an
             employer'
-        />
-        <StepCard
-          num='04'
-          title='Connect and start working'
-          desc='Initiate collaborations and embark on new professional adventures
+          />
+        </BlurFade>
+        <BlurFade delay={0.15 * 4} duration={0.25} inView>
+          <StepCard
+            num='04'
+            title='Connect and start working'
+            desc='Initiate collaborations and embark on new professional adventures
             with trusted partners'
-        />
+          />
+        </BlurFade>
       </div>
     </div>
   );
