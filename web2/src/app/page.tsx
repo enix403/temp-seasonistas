@@ -15,10 +15,10 @@ function HeroShadow({ children }: PropsWithChildren) {
 
 function Hero() {
   return (
-    <div className='min-h-screen bg-[#022127] px-(--spacing-hero) py-20 text-white'>
+    <div className='min-h-screen bg-[#022127] px-(--spacing-hero) py-20 text-[#DBDBDB]'>
       <div
         className={clsx(
-          "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2 text-[#DBDBDB]",
+          "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2",
           "flex items-center gap-x-3 text-sm"
         )}
       >
@@ -27,18 +27,29 @@ function Hero() {
         </span>
         Hire Smart Faster
       </div>
-      <h1 className='mt-4 text-6xl leading-16 font-semibold'>
-        <HeroShadow>Finding</HeroShadow>{" "}
-        <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
-          Seasonal
-          <br /> Work
-        </AuroraText>{" "}
-        <HeroShadow>Made</HeroShadow>
-        <br />
-        <SparklesText>
-          <HeroShadow>Simple</HeroShadow>
-        </SparklesText>
-      </h1>
+      <div className='flex items-start justify-between'>
+        <h1 className='mt-4 text-6xl leading-16 font-semibold text-white'>
+          <HeroShadow>Finding</HeroShadow>{" "}
+          <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
+            Seasonal
+            <br /> Work
+          </AuroraText>{" "}
+          <HeroShadow>Made</HeroShadow>
+          <br />
+          <SparklesText>
+            <HeroShadow>Simple</HeroShadow>
+          </SparklesText>
+        </h1>
+
+        <div className='space-y-5'>
+          <p className='mt-6 max-w-md text-xl'>
+            Seasonistas is a platform that connects seasonal workers and
+            employers across Greece, helping them find the ideal job or the
+            right person for their team.
+          </p>
+          <Button size='lg'>Get Started Now</Button>
+        </div>
+      </div>
     </div>
   );
 }

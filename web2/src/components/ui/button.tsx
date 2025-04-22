@@ -78,7 +78,7 @@ const Button = React.forwardRef<
   (
     {
       className,
-      variant,
+      variant = "default",
       effect,
       size,
       icon: Icon,
