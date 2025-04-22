@@ -5,7 +5,7 @@ import { AuroraText } from "@/components/magicui/aurora-text";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import { Button } from "@/components/ui/button";
 import clsx from "clsx";
-import { CloudLightning } from "lucide-react";
+import { CloudLightning, Wifi } from "lucide-react";
 import { PropsWithChildren } from "react";
 import {
   ChevronDown,
@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { TextAnimate } from "@/components/magicui/text-animate";
+
+import { ShineBorder } from "@/components/magicui/shine-border";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -49,7 +51,7 @@ function Hero() {
         <div
           className={clsx(
             "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2",
-            "flex items-center gap-x-3 text-sm"
+            "relative flex items-center gap-x-3 text-sm"
           )}
         >
           <span className='text-[#2062A6]'>
@@ -147,11 +149,12 @@ function AboutUs() {
   );
 }
 
-function StepCard({ title, desc, num }: any) {
+function StepCard({ title, desc, num, Icon }: any) {
   return (
     <div className='relative rounded-[24px] border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-8'>
       <div className='mb-4 flex items-start'>
-        <UserPlus className='mr-3 h-8 w-8 text-teal-400' />
+        {/* <UserPlus className='mr-3 h-8 w-8 text-teal-400' /> */}
+        <Icon className='mr-3 h-8 w-8 text-teal-400' />
         <span className='outlined-text absolute top-8 right-8 text-4xl font-bold'>
           {num}
         </span>
@@ -183,9 +186,11 @@ function HowItWorks() {
         <div
           className={clsx(
             "w-fit rounded-full border border-[#E2E8EA] bg-white/[0.06] px-5 py-2",
-            "flex items-center gap-x-3 text-sm"
+            "relative flex items-center gap-x-3 text-sm"
           )}
         >
+          <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
+
           <span className='text-[#2062A6]'>
             <CloudLightning
               fill='currentColor'
@@ -205,6 +210,7 @@ function HowItWorks() {
         <BlurFade delay={0.15 * 1} duration={0.25} inView>
           <StepCard
             num='01'
+            Icon={UserPlus}
             title='Sign Up or Login'
             desc='Create an account or login with an existing profile to begin your
             professional journey'
@@ -213,6 +219,7 @@ function HowItWorks() {
         <BlurFade delay={0.2 * 2} duration={0.25} inView>
           <StepCard
             num='02'
+            Icon={User}
             title='Create your work profile'
             desc='Build your professional identity with skills, experience, and
             portfolio details'
@@ -221,6 +228,7 @@ function HowItWorks() {
         <BlurFade delay={0.15 * 3} duration={0.25} inView>
           <StepCard
             num='03'
+            Icon={Briefcase}
             title='Apply for a job or post an opening'
             desc='Search for opportunities as a job seeker or list vacancies as an
             employer'
@@ -229,6 +237,7 @@ function HowItWorks() {
         <BlurFade delay={0.15 * 4} duration={0.25} inView>
           <StepCard
             num='04'
+            Icon={Wifi}
             title='Connect and start working'
             desc='Initiate collaborations and embark on new professional adventures
             with trusted partners'
