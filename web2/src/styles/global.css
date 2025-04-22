@@ -136,6 +136,12 @@ body {
   overflow: hidden;
 }
 
+.outlined-text {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-color: #fff;
+}
+
 @layer base {
   h1 {
     @apply text-[3.75rem] leading-[120%] font-medium;

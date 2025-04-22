@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { CloudLightning } from "lucide-react";
 import { PropsWithChildren } from "react";
-import { ChevronDown, Rocket, UserPlus, User, Briefcase, Shield } from "lucide-react"
+import {
+  ChevronDown,
+  Rocket,
+  UserPlus,
+  User,
+  Briefcase,
+  Shield
+} from "lucide-react";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -132,6 +139,21 @@ function AboutUs() {
   );
 }
 
+function StepCard({ title, desc, num }: any) {
+  return (
+    <div className='relative rounded-[24px] border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-8'>
+      <div className='mb-4 flex items-start'>
+        <UserPlus className='mr-3 h-8 w-8 text-teal-400' />
+        <span className='outlined-text absolute top-8 right-8 text-4xl font-bold'>
+          {num}
+        </span>
+      </div>
+      <h3 className='text-xl font-bold'>{title}</h3>
+      <p className='mt-4 font-normal text-[#85A3AB]'>{desc}</p>
+    </div>
+  );
+}
+
 function HowItWorks() {
   return (
     <div
@@ -139,73 +161,63 @@ function HowItWorks() {
         "py-20",
         "px-8 md:px-14 lg:px-24",
         "text-[#DBDBDB]",
-        "bg-[#022127]"
+        "bg-[#022127]",
+        "relative"
       )}
     >
-      <h1 className='text-center text-white max-md:text-4xl'>How It Works</h1>
+      <div
+        className={clsx(
+          "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-10 blur-[1000px]",
+          "-translate-x-1/2 -translate-y-1/2"
+        )}
+      ></div>
+      <div className='flex justify-center'>
+        <div
+          className={clsx(
+            "w-fit rounded-full border border-[#E2E8EA] bg-white/[0.06] px-5 py-2",
+            "flex items-center gap-x-3 text-sm"
+          )}
+        >
+          <span className='text-[#2062A6]'>
+            <CloudLightning
+              fill='currentColor'
+              size={20}
+              stroke='currentColor'
+            />
+          </span>
+          Our Work
+        </div>
+      </div>
+      <h1 className='mt-6 text-center text-white max-md:text-4xl'>
+        How It Works
+      </h1>
 
-      <div className='grid gap-6 md:grid-cols-2'>
+      <div className='mt-8 grid gap-6 md:grid-cols-2 max-w-6xl mx-auto'>
         {/* Step 1 */}
-        <div className='relative rounded-lg bg-[#002a30] p-8'>
-          <div className='mb-4 flex items-start'>
-            <UserPlus className='mr-3 h-8 w-8 text-teal-400' />
-            <h3 className='text-xl font-bold'>Sign Up or Login</h3>
-            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
-              01
-            </span>
-          </div>
-          <p className='text-gray-300'>
-            Create an account or login with an existing profile to begin your
-            professional journey
-          </p>
-        </div>
-
-        {/* Step 2 */}
-        <div className='relative rounded-lg bg-[#002a30] p-8'>
-          <div className='mb-4 flex items-start'>
-            <User className='mr-3 h-8 w-8 text-teal-400' />
-            <h3 className='text-xl font-bold'>Create your work profile</h3>
-            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
-              02
-            </span>
-          </div>
-          <p className='text-gray-300'>
-            Build your professional identity with skills, experience, and
-            portfolio details
-          </p>
-        </div>
-
-        {/* Step 3 */}
-        <div className='relative rounded-lg bg-[#002a30] p-8'>
-          <div className='mb-4 flex items-start'>
-            <Briefcase className='mr-3 h-8 w-8 text-teal-400' />
-            <h3 className='text-xl font-bold'>
-              Apply for a job or post an opening
-            </h3>
-            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
-              03
-            </span>
-          </div>
-          <p className='text-gray-300'>
-            Search for opportunities as a job seeker or list vacancies as an
-            employer
-          </p>
-        </div>
-
-        {/* Step 4 */}
-        <div className='relative rounded-lg bg-[#002a30] p-8'>
-          <div className='mb-4 flex items-start'>
-            <Shield className='mr-3 h-8 w-8 text-teal-400' />
-            <h3 className='text-xl font-bold'>Connect and start working</h3>
-            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
-              04
-            </span>
-          </div>
-          <p className='text-gray-300'>
-            Initiate collaborations and embark on new professional adventures
-            with trusted partners
-          </p>
-        </div>
+        <StepCard
+          num='01'
+          title='Sign Up or Login'
+          desc='Create an account or login with an existing profile to begin your
+            professional journey'
+        />
+        <StepCard
+          num='02'
+          title='Create your work profile'
+          desc='Build your professional identity with skills, experience, and
+            portfolio details'
+        />
+        <StepCard
+          num='03'
+          title='Apply for a job or post an opening'
+          desc='Search for opportunities as a job seeker or list vacancies as an
+            employer'
+        />
+        <StepCard
+          num='04'
+          title='Connect and start working'
+          desc='Initiate collaborations and embark on new professional adventures
+            with trusted partners'
+        />
       </div>
     </div>
   );
