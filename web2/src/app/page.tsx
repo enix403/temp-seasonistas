@@ -21,76 +21,105 @@ function Hero() {
   const [ref, { width, height }] = useMeasure();
 
   return (
-    <div
-      className={clsx(
-        "py-20 pb-0",
-        "px-6 md:px-10 lg:px-20",
-        "text-[#DBDBDB]",
-        "bg-[#022127]",
-        "relative"
-        // <div class="relative h-full w-full bg-neutral-900"></div>
-      )}
-    >
+    <>
       <div
         className={clsx(
-          "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-5 blur-[1000px]",
-          "-translate-x-1/2 -translate-y-1/2"
-        )}
-      ></div>
-      <div
-        className={clsx(
-          "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2",
-          "flex items-center gap-x-3 text-sm"
+          "py-20 pb-0",
+          "px-6 md:px-10 lg:px-20",
+          "text-[#DBDBDB]",
+          "bg-[#022127]",
+          "relative"
+          // <div class="relative h-full w-full bg-neutral-900"></div>
         )}
       >
-        <span className='text-[#2062A6]'>
-          <CloudLightning fill='currentColor' size={20} stroke='currentColor' />
-        </span>
-        Hire Smart Faster
-      </div>
-
-      <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
-        {/* Main Text */}
-        <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
-          <HeroShadow>Finding</HeroShadow>{" "}
-          <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
-            Seasonal
-            <br /> Work
-          </AuroraText>{" "}
-          <HeroShadow>Made</HeroShadow>
-          <br />
-          <SparklesText>
-            <HeroShadow>Simple</HeroShadow>
-          </SparklesText>
-        </h1>
-
-        <div className='space-y-5'>
-          <p className='mt-6 max-w-md text-lg md:text-xl'>
-            Seasonistas is a platform that connects seasonal workers and
-            employers across Greece, helping them find the ideal job or the
-            right person for their team.
-          </p>
-          <Button size='lg'>Get Started Now</Button>
-        </div>
-      </div>
-
-      {/* <div className='relative'>
         <div
           className={clsx(
-            "mx-auto mt-14 max-w-7xl rounded-t-xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-6 pb-0",
-            "absolute"
+            "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-5 blur-[1000px]",
+            "-translate-x-1/2 -translate-y-1/2"
+          )}
+        ></div>
+        <div
+          className={clsx(
+            "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2",
+            "flex items-center gap-x-3 text-sm"
           )}
         >
-          <img src='/hero-mobile.png' className='invisible w-full' />
-          <div className='absolute top-0 left-0 h-1/2 w-full'>
-            <img
-              src='/hero-mobile.png'
-              className='h-full w-full object-cover object-top'
+          <span className='text-[#2062A6]'>
+            <CloudLightning
+              fill='currentColor'
+              size={20}
+              stroke='currentColor'
             />
+          </span>
+          Hire Smart Faster
+        </div>
+
+        <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
+          {/* Main Text */}
+          <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
+            <HeroShadow>Finding</HeroShadow>{" "}
+            <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
+              Seasonal
+              <br /> Work
+            </AuroraText>{" "}
+            <HeroShadow>Made</HeroShadow>
+            <br />
+            <SparklesText>
+              <HeroShadow>Simple</HeroShadow>
+            </SparklesText>
+          </h1>
+
+          <div className='space-y-5'>
+            <p className='mt-6 max-w-md text-lg md:text-xl'>
+              Seasonistas is a platform that connects seasonal workers and
+              employers across Greece, helping them find the ideal job or the
+              right person for their team. {width} {height}
+            </p>
+            <Button size='lg'>Get Started Now</Button>
           </div>
         </div>
-      </div> */}
-    </div>
+
+        {/* Fake for measure only */}
+        <div className='invisible relative'>
+          <div
+            className={clsx(
+              "mx-auto mt-14 w-full max-w-7xl rounded-t-xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 px-6",
+              "absolute"
+            )}
+          >
+            <img src='/hero-mobile.png' className='invisible w-full' />
+            <div className='absolute top-0 left-0 h-1/2 w-full'>
+              <img
+                ref={ref}
+                src='/hero-mobile.png'
+                className='h-full w-full object-cover object-top'
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className='' style={{ height: height ?? 0 }}></div>
+      </div>
+      <div
+        className='relative flex px-6 md:px-10 lg:px-20'
+        style={{ translate: `0 -${height}px` }}
+      >
+        <div
+          className={clsx(
+            "absolute w-full max-w-7xl rounded-t-xl border-[0.5px] border-[#80D6E2]/30 bg-white/10"
+          )}
+          style={{ height: height ?? 0 }}
+        ></div>
+
+        <div className='mx-auto max-w-7xl d flex-1 px-6 pt-6'>
+          <img
+            src='/hero-mobile.png'
+            className='w-full object-cover object-top'
+          />
+        </div>
+        {/*  */}
+      </div>
+    </>
   );
 }
 
@@ -98,6 +127,7 @@ export default function Home() {
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
       <Hero />
+      <p>Hello</p>
       {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
         <div className='bg-red-400 p-6'>
           <img src='/hero-mobile.png' className='w-full' />
