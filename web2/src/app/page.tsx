@@ -15,7 +15,16 @@ export default function Home() {
     >
       <h1 className='mt-32 text-6xl leading-16 font-semibold'>
         Finding{" "}
-        <AnimatedGradientText speed={0.5} colorFrom='#FE605D' colorTo='#81A7EB'>
+        <AnimatedGradientText
+          speed={0.5}
+          stops={[
+            { color: "#81A7EB", position: "0%" },
+            { color: "#956ED4", position: "19%" },
+            { color: "#FE605D", position: "41%" },
+            { color: "#F3C44D", position: "75%" },
+            { color: "#81A7EB", position: "100%" },
+          ]}
+        >
           Seasonal Work
         </AnimatedGradientText>{" "}
         Made
@@ -23,11 +32,4 @@ export default function Home() {
       </h1>
     </div>
   );
-}
-
-{
-  /* <AnimatedGradientText speed={0.5} colorFrom='#FE605D' colorTo='#81A7EB'> */
-}
-{
-  /* <AnimatedGradientText speed={0.5} colorFrom='#81A7EB' colorTo='#FE605D'> */
 }
