@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import clsx from "clsx";
 import { CloudLightning } from "lucide-react";
 import { PropsWithChildren } from "react";
-import { useMeasure } from "@uidotdev/usehooks";
+import { ChevronDown, Rocket, UserPlus, User, Briefcase, Shield } from "lucide-react"
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -110,7 +110,9 @@ function AboutUs() {
             About Us
           </div>
 
-          <h1 className='max-md:text-4xl'>Connecting you is our job</h1>
+          <h1 className='text-[#1E1E1E] max-md:text-4xl'>
+            Connecting you is our job
+          </h1>
           <h3>Connecting Seasonal Talent with Opportunity</h3>
           <div className='text-lg font-normal text-[#49565A]'>
             <p>
@@ -130,11 +132,91 @@ function AboutUs() {
   );
 }
 
+function HowItWorks() {
+  return (
+    <div
+      className={clsx(
+        "py-20",
+        "px-8 md:px-14 lg:px-24",
+        "text-[#DBDBDB]",
+        "bg-[#022127]"
+      )}
+    >
+      <h1 className='text-center text-white max-md:text-4xl'>How It Works</h1>
+
+      <div className='grid gap-6 md:grid-cols-2'>
+        {/* Step 1 */}
+        <div className='relative rounded-lg bg-[#002a30] p-8'>
+          <div className='mb-4 flex items-start'>
+            <UserPlus className='mr-3 h-8 w-8 text-teal-400' />
+            <h3 className='text-xl font-bold'>Sign Up or Login</h3>
+            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
+              01
+            </span>
+          </div>
+          <p className='text-gray-300'>
+            Create an account or login with an existing profile to begin your
+            professional journey
+          </p>
+        </div>
+
+        {/* Step 2 */}
+        <div className='relative rounded-lg bg-[#002a30] p-8'>
+          <div className='mb-4 flex items-start'>
+            <User className='mr-3 h-8 w-8 text-teal-400' />
+            <h3 className='text-xl font-bold'>Create your work profile</h3>
+            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
+              02
+            </span>
+          </div>
+          <p className='text-gray-300'>
+            Build your professional identity with skills, experience, and
+            portfolio details
+          </p>
+        </div>
+
+        {/* Step 3 */}
+        <div className='relative rounded-lg bg-[#002a30] p-8'>
+          <div className='mb-4 flex items-start'>
+            <Briefcase className='mr-3 h-8 w-8 text-teal-400' />
+            <h3 className='text-xl font-bold'>
+              Apply for a job or post an opening
+            </h3>
+            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
+              03
+            </span>
+          </div>
+          <p className='text-gray-300'>
+            Search for opportunities as a job seeker or list vacancies as an
+            employer
+          </p>
+        </div>
+
+        {/* Step 4 */}
+        <div className='relative rounded-lg bg-[#002a30] p-8'>
+          <div className='mb-4 flex items-start'>
+            <Shield className='mr-3 h-8 w-8 text-teal-400' />
+            <h3 className='text-xl font-bold'>Connect and start working</h3>
+            <span className='absolute top-8 right-8 text-3xl font-bold text-[#003a40]'>
+              04
+            </span>
+          </div>
+          <p className='text-gray-300'>
+            Initiate collaborations and embark on new professional adventures
+            with trusted partners
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
       <Hero />
       <AboutUs />
+      <HowItWorks />
       {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
         <div className='bg-red-400 p-6'>
           <img src='/hero-mobile.png' className='w-full' />
