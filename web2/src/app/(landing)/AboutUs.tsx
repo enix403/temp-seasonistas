@@ -6,9 +6,9 @@ import { TextAnimate } from "@/components/magicui/text-animate";
 
 import { RoundPill } from "./RoundPill";
 
-export function AboutUs() {
+export function AboutUs({ className }: { className?: string }) {
   return (
-    <div className={clsx("py-10", "lg:sx-24 px-8 md:px-14")}>
+    <div className={clsx("py-10", "lg:sx-24 px-8 md:px-14", className)}>
       <div className='mx-auto flex max-w-7xl flex-col items-start gap-y-12 md:flex-row md:gap-x-14 lg:gap-x-28'>
         <div className='flex-1 max-md:order-1 max-md:w-full max-md:px-8'>
           <img src='/about-us.png' className='w-full max-w-full' />

@@ -9,6 +9,7 @@ import { PropsWithChildren } from "react";
 import { HowItWorks } from "./HowItWorks";
 import { RoundPill } from "./RoundPill";
 import { AboutUs } from "./AboutUs";
+import { useMeasure } from "@uidotdev/usehooks";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -18,12 +19,33 @@ function HeroShadow({ children }: PropsWithChildren) {
   );
 }
 
+function PartialImage({ src, amount = 0.5 }: { src: string; amount?: number }) {
+  const [ref, { height }] = useMeasure();
+  return (
+    <>
+      <div className='relative'>
+        <img
+          ref={ref}
+          src={src}
+          className='pointer-events-none invisible absolute top-0 left-0 w-full max-w-full'
+        />
+        <div
+          className='w-full max-w-full overflow-y-visible'
+          style={{ height: (height ?? 0) * amount }}
+        >
+          <img src={src} className='w-full max-w-full' />
+        </div>
+      </div>
+    </>
+  );
+}
+
 function Hero() {
   return (
     <>
       <div
         className={clsx(
-          "min-h-screen",
+          // "min-h-[200vh]",
           "py-20 pb-0",
           "px-6 md:px-10 lg:px-20",
           "text-[#DBDBDB]",
@@ -66,7 +88,8 @@ function Hero() {
           </div>
         </div>
 
-        <div className='h-10' />
+        {/* <div className='h-10' /> */}
+        <PartialImage src='/hero-pc.png' />
 
         {/* <img src='/hero-mobile.png' className='w-full' /> */}
       </div>
@@ -78,7 +101,7 @@ export default function Home() {
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
       <Hero />
-      <AboutUs />
+      <AboutUs className="pt-72" />
       <HowItWorks />
       {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
         <div className='bg-red-400 p-6'>
