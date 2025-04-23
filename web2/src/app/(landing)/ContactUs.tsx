@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Zap } from "lucide-react";
 import { RoundPill } from "./RoundPill";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
 
 export function ContactUs() {
   const [formData, setFormData] = useState({
@@ -79,102 +80,108 @@ export function ContactUs() {
 
         {/* Right Column - Contact Form */}
         <div className='flex-1'>
-          <div className='rounded-3xl bg-white p-8 shadow-xl'>
-            <h3 className='mb-6 text-xl font-bold'>Contact us</h3>
+          <BackgroundGradient className='rounded-[24px] bg-white' containerClassName="p-0.5">
+            <div className='rounded-3xl bg-white p-8 shadow-xl'>
+              <h3 className='mb-6 text-xl font-bold'>Contact us</h3>
 
-            <form onSubmit={handleSubmit}>
-              <div className='mb-6 grid grid-cols-1 gap-4 md:grid-cols-2'>
-                <div>
+              <form onSubmit={handleSubmit}>
+                <div className='mb-6 grid grid-cols-1 gap-4 md:grid-cols-2'>
+                  <div>
+                    <label
+                      htmlFor='name'
+                      className='mb-1 block text-sm font-medium text-gray-700'
+                    >
+                      Name*
+                    </label>
+                    <Input
+                      id='name'
+                      name='name'
+                      placeholder='Enter Name'
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor='phone'
+                      className='mb-1 block text-sm font-medium text-gray-700'
+                    >
+                      Phone number
+                    </label>
+                    <Input
+                      id='phone'
+                      name='phone'
+                      placeholder='Enter Number'
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor='email'
+                      className='mb-1 block text-sm font-medium text-gray-700'
+                    >
+                      Email*
+                    </label>
+                    <Input
+                      id='email'
+                      name='email'
+                      type='email'
+                      placeholder='Enter Email'
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor='subject'
+                      className='mb-1 block text-sm font-medium text-gray-700'
+                    >
+                      Subject
+                    </label>
+                    <Input
+                      id='subject'
+                      name='subject'
+                      placeholder='Enter Subject'
+                      value={formData.subject}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className='mb-6'>
                   <label
-                    htmlFor='name'
+                    htmlFor='message'
                     className='mb-1 block text-sm font-medium text-gray-700'
                   >
-                    Name*
+                    Your Message
                   </label>
-                  <Input
-                    id='name'
-                    name='name'
-                    placeholder='Enter Name'
-                    value={formData.name}
+                  <Textarea
+                    id='message'
+                    name='message'
+                    placeholder='Description'
+                    rows={6}
+                    value={formData.message}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
-                <div>
-                  <label
-                    htmlFor='phone'
-                    className='mb-1 block text-sm font-medium text-gray-700'
-                  >
-                    Phone number
-                  </label>
-                  <Input
-                    id='phone'
-                    name='phone'
-                    placeholder='Enter Number'
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor='email'
-                    className='mb-1 block text-sm font-medium text-gray-700'
-                  >
-                    Email*
-                  </label>
-                  <Input
-                    id='email'
-                    name='email'
-                    type='email'
-                    placeholder='Enter Email'
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor='subject'
-                    className='mb-1 block text-sm font-medium text-gray-700'
-                  >
-                    Subject
-                  </label>
-                  <Input
-                    id='subject'
-                    name='subject'
-                    placeholder='Enter Subject'
-                    value={formData.subject}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              <div className='mb-6'>
-                <label
-                  htmlFor='message'
-                  className='mb-1 block text-sm font-medium text-gray-700'
+                <Button
+                  type='submit'
+                  className='w-full'
+                  disabled={isSubmitting}
                 >
-                  Your Message
-                </label>
-                <Textarea
-                  id='message'
-                  name='message'
-                  placeholder='Description'
-                  rows={6}
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <Button type='submit' className='w-full' disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send"}
-              </Button>
-            </form>
-          </div>
+                  {isSubmitting ? "Sending..." : "Send"}
+                </Button>
+              </form>
+            </div>
+          </BackgroundGradient>
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import { UserPlus, User, Briefcase } from "lucide-react";
 import { BlurFade } from "@/components/magicui/blur-fade";
 
 import { RoundPill } from "./RoundPill";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 function StepCard({ title, desc, num, Icon }: any) {
   return (
