@@ -14,7 +14,14 @@ import { useMeasure, useWindowScroll } from "@uidotdev/usehooks";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "@/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -176,7 +183,7 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
 
   return (
     <header
-      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] transition-all duration-100 max-md:bg-[#022127] md:fixed ${
+      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] md:transition-all duration-100 max-md:bg-[#022127] md:fixed ${
         scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
       }`}
     >
@@ -231,7 +238,11 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
                 side='left'
                 className='w-[300px] border-r border-[#002a30] bg-[#001a1e] px-4 text-white'
               >
-                <div className='flex h-full flex-col'>
+                <SheetHeader>
+                  <div className='sr-only'>
+                    <SheetTitle>Nav Sheet</SheetTitle>
+                    <SheetDescription>Nav Sheet</SheetDescription>
+                  </div>
                   <div className='mt-4 mb-8'>
                     <img
                       src='/logo-big.png'
@@ -239,7 +250,8 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
                       className='h-10 w-auto'
                     />
                   </div>
-
+                </SheetHeader>
+                <div className='flex h-full flex-col'>
                   <nav className='flex flex-col space-y-4'>
                     <Link
                       href='/'
