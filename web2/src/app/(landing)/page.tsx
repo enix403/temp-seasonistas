@@ -19,28 +19,7 @@ function HeroShadow({ children }: PropsWithChildren) {
   );
 }
 
-function PartialImage({ src, amount = 0.5 }: { src: string; amount?: number }) {
-  const [ref, { height }] = useMeasure();
-  return (
-    <>
-      <div className='relative'>
-        <img
-          ref={ref}
-          src={src}
-          className='pointer-events-none invisible absolute top-0 left-0 w-full max-w-full'
-        />
-        <div
-          className='w-full max-w-full overflow-y-visible'
-          style={{ height: (height ?? 0) * amount }}
-        >
-          <img src={src} className='w-full max-w-full' />
-        </div>
-      </div>
-    </>
-  );
-}
-
-function Hero() {
+function Hero({ children }: PropsWithChildren) {
   return (
     <>
       <div
@@ -88,20 +67,42 @@ function Hero() {
           </div>
         </div>
 
-        {/* <div className='h-10' /> */}
-        <PartialImage src='/hero-pc.png' />
-
-        {/* <img src='/hero-mobile.png' className='w-full' /> */}
+        {children}
       </div>
     </>
   );
 }
 
 export default function Home() {
+  const [ref, { height }] = useMeasure();
+  const amount = 0.5;
+  const remaining = 1 - amount;
+
+  const src = "/hero-pc.png";
+
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
-      <Hero />
-      <AboutUs className="pt-72" />
+      <Hero>
+        <div className='relative mx-auto max-w-7xl d p-10'>
+          <img
+            ref={ref}
+            src={src}
+            className='pointer-events-none invisible absolute top-0 left-0 w-full max-w-full'
+          />
+          <div
+            className='w-full max-w-full overflow-y-visible'
+            style={{ height: (height ?? 0) * amount }}
+          >
+            <img src={src} className='w-full max-w-full' />
+          </div>
+        </div>
+      </Hero>
+      <AboutUs
+        style={{
+          paddingTop: (height ?? 0) * remaining
+        }}
+        className='mt-20 mb-36'
+      />
       <HowItWorks />
       {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
         <div className='bg-red-400 p-6'>
