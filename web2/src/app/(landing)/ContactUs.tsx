@@ -83,7 +83,7 @@ export function ContactUs() {
 
         {/* Right Column - Contact Form */}
         <div className='flex-1'>
-          <div className='rounded-lg bg-white p-8 shadow-sm'>
+          <div className='rounded-3xl bg-white p-8 shadow-xl'>
             <h3 className='mb-6 text-xl font-bold'>Contact us</h3>
 
             <form onSubmit={handleSubmit}>
