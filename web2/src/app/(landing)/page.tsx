@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { TopNav } from "./TopNav";
 
 import { Check } from "lucide-react";
+import { PricingCard } from "./PricingCard";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -167,171 +168,72 @@ function Pricing() {
         </p>
       </div>
 
-      <div className='grid mt-10 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
-        {/* Starter Plan */}
-        <div className='flex flex-col rounded-3xl border p-6'>
-          <h3 className='mb-8 text-lg font-bold'>Starter Plan</h3>
-          <div className='mb-8'>
-            <div className='flex items-baseline'>
-              <span className='text-4xl font-bold'>$0</span>
-              <span className='ml-1 text-gray-500'>/ Per Month</span>
-            </div>
-            <p className='mt-6 text-gray-600'>
-              This package is ideal for individuals or tiny teams
-            </p>
-          </div>
-
-          <div className='mb-8 flex-grow space-y-3'>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>10 GB Storage</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>1 Year Support</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>500 Applications</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Basic Analytics</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Free Subdomain</span>
-            </div>
-          </div>
-
-          <Button variant='outline' className='w-full'>
-            Purchase Now
-          </Button>
-        </div>
-
-        {/* Basic Plan */}
-        <div className='flex flex-col rounded-3xl border p-6'>
-          <h3 className='mb-6 text-lg font-bold'>Basic Plan</h3>
-          <div className='mb-6'>
-            <div className='flex items-baseline'>
-              <span className='text-4xl font-bold'>$20</span>
-              <span className='ml-1 text-gray-500'>/ Per Month</span>
-            </div>
-            <p className='mt-4 text-gray-600'>
-              This package is ideal for small growing teams
-            </p>
-          </div>
-
-          <div className='mb-8 flex-grow space-y-3'>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>500 GB Storage</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>5 Year Support</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>600 Queries</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Basic Analytics</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Free Subdomain</span>
-            </div>
-          </div>
-
-          <Button variant='outline' className='w-full'>
-            Purchase Now
-          </Button>
-        </div>
-
-        {/* Enter Price Plan */}
-        <div className='flex flex-col rounded-3xl bg-[#001a1e] p-6 text-white'>
-          <h3 className='mb-6 text-lg font-bold'>Enter Price Plan</h3>
-          <div className='mb-6'>
-            <div className='flex items-baseline'>
-              <span className='text-4xl font-bold'>$46</span>
-              <span className='ml-1 text-gray-300'>/ Per Month</span>
-            </div>
-            <p className='mt-4 text-gray-300'>
-              This plan fits mid-size hiring companies
-            </p>
-          </div>
-
-          <div className='mb-8 flex-grow space-y-3'>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-400' />
-              <span>800 GB Storage</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-400' />
-              <span>10 Year Support</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-400' />
-              <span>800 Applications</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-400' />
-              <span>Full Analytics</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-400' />
-              <span>Free Subdomain</span>
-            </div>
-          </div>
-
-          <Button className='w-full bg-teal-500 hover:bg-teal-600'>
-            Purchase Now
-          </Button>
-        </div>
-
-        {/* Unlimited Plan */}
-        <div className='flex flex-col rounded-3xl border p-6'>
-          <h3 className='mb-6 text-lg font-bold'>Unlimited Plan</h3>
-          <div className='mb-6'>
-            <div className='flex items-baseline'>
-              <span className='text-4xl font-bold'>$90</span>
-              <span className='ml-1 text-gray-500'>/ Per Month</span>
-            </div>
-            <p className='mt-4 text-gray-600'>
-              This plan fits large teams or agencies
-            </p>
-          </div>
-
-          <div className='mb-8 flex-grow space-y-3'>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>1000 GB Disk Space</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Unlimited Support</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Unlimited Applications</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Full Analytics</span>
-            </div>
-            <div className='flex items-center'>
-              <Check className='mr-2 h-5 w-5 text-teal-500' />
-              <span>Free Subdomain</span>
-            </div>
-          </div>
-
-          <Button variant='outline' className='w-full'>
-            Purchase Now
-          </Button>
-        </div>
+      <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
+        {[
+          {
+            name: "Starter Plan",
+            price: "0",
+            description: "This package is ideal for individuals or tiny teams",
+            benefits: [
+              "10 GB Storage",
+              "1 Year Support",
+              "500 Applications",
+              "Basic Analytics",
+              "Free Subdomain"
+            ]
+          },
+          {
+            name: "Basic Plan",
+            price: "20",
+            description: "This package is ideal for small growing teams",
+            benefits: [
+              "500 GB Storage",
+              "5 Year Support",
+              "600 Queries",
+              "Basic Analytics",
+              "Free Subdomain"
+            ]
+          },
+          {
+            name: "Enter Price Plan",
+            price: "46",
+            description: "This plan fits mid-size hiring companies",
+            benefits: [
+              "800 GB Storage",
+              "10 Year Support",
+              "800 Applications",
+              "Full Analytics",
+              "Free Subdomain"
+            ],
+            isHighlighted: true
+          },
+          {
+            name: "Unlimited Plan",
+            price: "90",
+            description: "This plan fits large teams or agencies",
+            benefits: [
+              "1000 GB Disk Space",
+              "Unlimited Support",
+              "Unlimited Applications",
+              "Full Analytics",
+              "Free Subdomain"
+            ]
+          }
+        ].map((plan, index) => (
+          <PricingCard
+            key={index}
+            name={plan.name}
+            price={plan.price}
+            description={plan.description}
+            benefits={plan.benefits}
+            isHighlighted={plan.isHighlighted}
+          />
+        ))}
       </div>
+
+      {/* <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
+
+      </div> */}
     </section>
   );
 }
