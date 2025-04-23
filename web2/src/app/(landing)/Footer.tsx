@@ -126,6 +126,7 @@ export function Footer() {
               <div className='rounded-full bg-white p-2'>
                 <CreditCard className='h-5 w-5 text-gray-800' />
               </div>
+
               <div className='rounded-full bg-white p-2'>
                 <CreditCard className='h-5 w-5 text-gray-800' />
               </div>
