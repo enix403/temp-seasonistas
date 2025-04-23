@@ -11,23 +11,10 @@ import { RoundPill } from "./RoundPill";
 import { AboutUs } from "./AboutUs";
 import { useMeasure } from "@uidotdev/usehooks";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown, Menu } from "lucide-react";
+import { TopNav } from "./TopNav";
+
+import { Check } from "lucide-react";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -161,156 +148,190 @@ export default function Home() {
         className='mt-10 mb-24 md:mt-20 md:mb-36'
       />
       <HowItWorks />
+      <Pricing />
     </div>
   );
 }
 
 /* ================= */
 
-function TopNav({ scrollTop }: { scrollTop: number }) {
-  const [open, setOpen] = useState(false);
-  // const [scrolled, setScrolled] = useState(false);
-  const scrolled = scrollTop > 10;
-
+function Pricing() {
   return (
-    <header
-      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] duration-100 max-md:bg-[#022127] md:fixed md:transition-all ${
-        scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
-      }`}
-    >
-      <div className='px-6 md:px-10 lg:px-20'>
-        <div className='flex items-center justify-between'>
-          <div className='shrink-0'>
-            <img
-              src='/logo-big.png'
-              alt='Seasonistas Logo'
-              // width={40}
-              // height={40}
-              className='h-10 w-auto'
-            />
+    <section className='container mx-auto bg-white px-4 py-16 text-black'>
+      <div className='flex flex-col items-center gap-y-4'>
+        <RoundPill label='Pricing' />
+        <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>
+
+        <p className='max-w-md text-center text-gray-600'>
+          The pricing policy applies exclusively to professional accounts.
+        </p>
+      </div>
+
+      <div className='grid mt-10 grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
+        {/* Starter Plan */}
+        <div className='flex flex-col rounded-3xl border p-6'>
+          <h3 className='mb-8 text-lg font-bold'>Starter Plan</h3>
+          <div className='mb-8'>
+            <div className='flex items-baseline'>
+              <span className='text-4xl font-bold'>$0</span>
+              <span className='ml-1 text-gray-500'>/ Per Month</span>
+            </div>
+            <p className='mt-6 text-gray-600'>
+              This package is ideal for individuals or tiny teams
+            </p>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className='hidden items-center rounded-full bg-white/[0.06] hover:text-white md:flex'>
-            <Link
-              href='/'
-              className='rounded-full bg-white px-6 py-3 font-medium text-black'
-            >
-              Home
-            </Link>
-            <Link href='/about' className='px-4 py-3'>
-              About Us
-            </Link>
-            <Link href='/how-it-works' className='px-4 py-3'>
-              How It Works
-            </Link>
-            <Link href='/pricing' className='px-4 py-3'>
-              Pricing
-            </Link>
-            <Link href='/contact' className='px-4 py-3 pr-7'>
-              Contact Us
-            </Link>
-          </nav>
-
-          <div className='flex items-center gap-1'>
-            {/* Mobile Menu Button */}
-            <Sheet open={open} onOpenChange={setOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant='link'
-                  size='icon'
-                  className='text-white md:hidden'
-                >
-                  <Menu className='h-6 w-6' />
-                  <span className='sr-only'>Toggle menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side='left'
-                className='w-[300px] border-r border-[#002a30] bg-[#001a1e] px-4 text-white'
-              >
-                <SheetHeader>
-                  <div className='sr-only'>
-                    <SheetTitle>Nav Sheet</SheetTitle>
-                    <SheetDescription>Nav Sheet</SheetDescription>
-                  </div>
-                  <div className='mt-4 mb-8'>
-                    <img
-                      src='/logo-big.png'
-                      alt='Seasonistas Logo'
-                      className='h-10 w-auto'
-                    />
-                  </div>
-                </SheetHeader>
-                <div className='flex h-full flex-col'>
-                  <nav className='flex flex-col space-y-4'>
-                    <Link
-                      href='/'
-                      className='w-fit rounded-full bg-white px-6 py-2 font-medium text-black'
-                      onClick={() => setOpen(false)}
-                    >
-                      Home
-                    </Link>
-                    <Link
-                      href='/about'
-                      className='px-2 py-1 text-white hover:text-gray-200'
-                      onClick={() => setOpen(false)}
-                    >
-                      About Us
-                    </Link>
-                    <Link
-                      href='/how-it-works'
-                      className='px-2 py-1 text-white hover:text-gray-200'
-                      onClick={() => setOpen(false)}
-                    >
-                      How It Works
-                    </Link>
-                    <Link
-                      href='/pricing'
-                      className='px-2 py-1 text-white hover:text-gray-200'
-                      onClick={() => setOpen(false)}
-                    >
-                      Pricing
-                    </Link>
-                    <Link
-                      href='/contact'
-                      className='px-2 py-1 text-white hover:text-gray-200'
-                      onClick={() => setOpen(false)}
-                    >
-                      Contact Us
-                    </Link>
-                  </nav>
-
-                  <div className='mt-auto mb-8'>
-                    <Button className='w-full' onClick={() => setOpen(false)}>
-                      Login
-                    </Button>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant='link'
-                  className='flex items-center gap-1 text-inherit'
-                >
-                  English <ChevronDown className='h-4 w-4' />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align='end'>
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>Greek</DropdownMenuItem>
-                <DropdownMenuItem>Spanish</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Button className=''>Login</Button>
+          <div className='mb-8 flex-grow space-y-3'>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>10 GB Storage</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>1 Year Support</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>500 Applications</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Basic Analytics</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Free Subdomain</span>
+            </div>
           </div>
+
+          <Button variant='outline' className='w-full'>
+            Purchase Now
+          </Button>
+        </div>
+
+        {/* Basic Plan */}
+        <div className='flex flex-col rounded-3xl border p-6'>
+          <h3 className='mb-6 text-lg font-bold'>Basic Plan</h3>
+          <div className='mb-6'>
+            <div className='flex items-baseline'>
+              <span className='text-4xl font-bold'>$20</span>
+              <span className='ml-1 text-gray-500'>/ Per Month</span>
+            </div>
+            <p className='mt-4 text-gray-600'>
+              This package is ideal for small growing teams
+            </p>
+          </div>
+
+          <div className='mb-8 flex-grow space-y-3'>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>500 GB Storage</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>5 Year Support</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>600 Queries</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Basic Analytics</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Free Subdomain</span>
+            </div>
+          </div>
+
+          <Button variant='outline' className='w-full'>
+            Purchase Now
+          </Button>
+        </div>
+
+        {/* Enter Price Plan */}
+        <div className='flex flex-col rounded-3xl bg-[#001a1e] p-6 text-white'>
+          <h3 className='mb-6 text-lg font-bold'>Enter Price Plan</h3>
+          <div className='mb-6'>
+            <div className='flex items-baseline'>
+              <span className='text-4xl font-bold'>$46</span>
+              <span className='ml-1 text-gray-300'>/ Per Month</span>
+            </div>
+            <p className='mt-4 text-gray-300'>
+              This plan fits mid-size hiring companies
+            </p>
+          </div>
+
+          <div className='mb-8 flex-grow space-y-3'>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-400' />
+              <span>800 GB Storage</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-400' />
+              <span>10 Year Support</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-400' />
+              <span>800 Applications</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-400' />
+              <span>Full Analytics</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-400' />
+              <span>Free Subdomain</span>
+            </div>
+          </div>
+
+          <Button className='w-full bg-teal-500 hover:bg-teal-600'>
+            Purchase Now
+          </Button>
+        </div>
+
+        {/* Unlimited Plan */}
+        <div className='flex flex-col rounded-3xl border p-6'>
+          <h3 className='mb-6 text-lg font-bold'>Unlimited Plan</h3>
+          <div className='mb-6'>
+            <div className='flex items-baseline'>
+              <span className='text-4xl font-bold'>$90</span>
+              <span className='ml-1 text-gray-500'>/ Per Month</span>
+            </div>
+            <p className='mt-4 text-gray-600'>
+              This plan fits large teams or agencies
+            </p>
+          </div>
+
+          <div className='mb-8 flex-grow space-y-3'>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>1000 GB Disk Space</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Unlimited Support</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Unlimited Applications</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Full Analytics</span>
+            </div>
+            <div className='flex items-center'>
+              <Check className='mr-2 h-5 w-5 text-teal-500' />
+              <span>Free Subdomain</span>
+            </div>
+          </div>
+
+          <Button variant='outline' className='w-full'>
+            Purchase Now
+          </Button>
         </div>
       </div>
-    </header>
+    </section>
   );
 }
-
