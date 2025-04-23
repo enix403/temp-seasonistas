@@ -13,6 +13,7 @@ import { useContaineirScroll } from "@/hooks/useContaineirScroll";
 import { Hero } from "./Hero";
 import { ContactUs } from "./ContactUs";
 import { MobileAppSection } from "./MobileAppPromo";
+import { Footer } from "./Footer";
 
 function OverflowingHeroImage({ ref, height, amount }) {
   const src = "/hero-pc.png";
@@ -64,6 +65,7 @@ export default function Home() {
       <Pricing />
       <ContactUs />
       <MobileAppSection />
+      <Footer />
     </div>
   );
 }
