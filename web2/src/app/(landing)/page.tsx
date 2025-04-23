@@ -44,7 +44,7 @@ function Hero({ children }: PropsWithChildren) {
     <>
       <div
         className={clsx(
-          "py-20 pb-0",
+          "py-20 pb-0 max-md:pt-8",
           "px-6 md:px-10 lg:px-20",
           "text-[#DBDBDB]",
           "bg-[#022127]",
@@ -54,7 +54,8 @@ function Hero({ children }: PropsWithChildren) {
         <div
           className={clsx(
             "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-5 blur-[1000px]",
-            "-translate-x-1/2 -translate-y-1/2"
+            "-translate-x-1/2 -translate-y-1/2",
+            "pointer-events-none"
           )}
         ></div>
 
@@ -175,13 +176,13 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
 
   return (
     <header
-      className={`top-0 right-0 left-0 z-100 transition-all duration-100 md:fixed ${
-        scrolled ? "py-4 md:bg-[#022127]/95 md:shadow-xl" : "py-8"
+      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] transition-all duration-100 max-md:bg-[#022127] md:fixed ${
+        scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
       }`}
     >
       <div className='px-6 md:px-10 lg:px-20'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center gap-2'>
+          <div className='shrink-0'>
             <img
               src='/logo-big.png'
               alt='Seasonistas Logo'
@@ -192,58 +193,51 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className='hidden items-center space-x-6 md:flex'>
+          <nav className='hidden items-center rounded-full bg-white/[0.06] hover:text-white md:flex'>
             <Link
               href='/'
-              className='rounded-full bg-white px-6 py-2 font-medium text-black'
+              className='rounded-full bg-white px-6 py-3 font-medium text-black'
             >
               Home
             </Link>
-            <Link href='/about' className='text-white hover:text-gray-200'>
+            <Link href='/about' className='px-4 py-3'>
               About Us
             </Link>
-            <Link
-              href='/how-it-works'
-              className='text-white hover:text-gray-200'
-            >
+            <Link href='/how-it-works' className='px-4 py-3'>
               How It Works
             </Link>
-            <Link href='/pricing' className='text-white hover:text-gray-200'>
+            <Link href='/pricing' className='px-4 py-3'>
               Pricing
             </Link>
-            <Link href='/contact' className='text-white hover:text-gray-200'>
+            <Link href='/contact' className='px-4 py-3 pr-7'>
               Contact Us
             </Link>
           </nav>
 
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-1'>
             {/* Mobile Menu Button */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button variant='ghost' size='icon' className='md:hidden'>
+                <Button
+                  variant='link'
+                  size='icon'
+                  className='text-white md:hidden'
+                >
                   <Menu className='h-6 w-6' />
                   <span className='sr-only'>Toggle menu</span>
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side='left'
-                className='w-[300px] border-r border-[#002a30] bg-[#001a1e] text-white'
+                className='w-[300px] border-r border-[#002a30] bg-[#001a1e] px-4 text-white'
               >
                 <div className='flex h-full flex-col'>
-                  <div className='mt-4 mb-8 flex items-center gap-2'>
-                    <Image
-                      src='/logo.svg'
+                  <div className='mt-4 mb-8'>
+                    <img
+                      src='/logo-big.png'
                       alt='Seasonistas Logo'
-                      width={40}
-                      height={40}
                       className='h-10 w-auto'
                     />
-                    <div className='text-lg font-medium'>
-                      <span className='text-teal-400'>|</span> Seasonistas
-                      <div className='text-xs text-gray-400'>
-                        Platform for travelers with work impact
-                      </div>
-                    </div>
                   </div>
 
                   <nav className='flex flex-col space-y-4'>
@@ -285,10 +279,7 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
                   </nav>
 
                   <div className='mt-auto mb-8'>
-                    <Button
-                      className='w-full rounded-full bg-teal-500 text-white hover:bg-teal-600'
-                      onClick={() => setOpen(false)}
-                    >
+                    <Button className='w-full' onClick={() => setOpen(false)}>
                       Login
                     </Button>
                   </div>
@@ -299,8 +290,8 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant='ghost'
-                  className='flex items-center gap-1 text-white'
+                  variant='link'
+                  className='flex items-center gap-1 text-inherit'
                 >
                   English <ChevronDown className='h-4 w-4' />
                 </Button>
@@ -312,9 +303,7 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button className='rounded-full bg-teal-500 text-white hover:bg-teal-600'>
-              Login
-            </Button>
+            <Button className=''>Login</Button>
           </div>
         </div>
       </div>
