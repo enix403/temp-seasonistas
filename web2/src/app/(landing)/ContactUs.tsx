@@ -52,7 +52,7 @@ export function ContactUs() {
     <section className='container mx-auto px-4 py-16'>
       <div className='flex flex-col gap-12 lg:flex-row'>
         {/* Left Column */}
-        <div className='space-y-4 flex-1'>
+        <div className='flex-1 space-y-4'>
           <RoundPill label='Contact Us' />
 
           <h1 className='text-[#1E1E1E] max-md:text-4xl'>
@@ -67,17 +67,13 @@ export function ContactUs() {
           </p>
 
           <div className='flex items-center gap-4'>
-            <div className='rounded-2xl bg-[#1C3C4A]/5 p-4 shrink-0'>
+            <div className='shrink-0 rounded-2xl bg-[#1C3C4A]/5 p-4'>
               <Zap className='size-8 fill-primary stroke-primary' />
             </div>
             <div>
               <div className='text-sm text-gray-500'>Email</div>
               <div className='font-medium'>support@seasonaljob.com</div>
             </div>
-            {/* <div className='rounded-full bg-teal-100 p-2'>
-              <Zap className='h-5 w-5 text-teal-600' />
-            </div>
-             */}
           </div>
         </div>
 

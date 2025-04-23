@@ -13,7 +13,7 @@ export function RoundPill({
   return (
     <div
       className={clsx(
-        "w-fit rounded-full border bg-white/[0.06] px-5 py-2",
+        "w-fit rounded-full border bg-white/[0.06] px-5 py-2.5",
         "relative flex items-center gap-x-3 text-sm",
         className
       )}
