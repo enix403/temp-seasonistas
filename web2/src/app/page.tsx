@@ -28,6 +28,31 @@ function HeroShadow({ children }: PropsWithChildren) {
   );
 }
 
+function RoundPill({
+  label,
+  className
+}: {
+  label: string;
+  className?: string;
+}) {
+  // "w-fit rounded-full border  bg-white/[0.06] px-5 py-2",
+
+  return (
+    <div
+      className={clsx(
+        "w-fit rounded-full border bg-white/[0.06] px-5 py-2",
+        "relative flex items-center gap-x-3 text-sm",
+        className
+      )}
+    >
+      <span className='text-[#2062A6]'>
+        <CloudLightning fill='currentColor' size={20} stroke='currentColor' />
+      </span>
+      {label}
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <>
@@ -48,21 +73,8 @@ function Hero() {
             "-translate-x-1/2 -translate-y-1/2"
           )}
         ></div>
-        <div
-          className={clsx(
-            "w-fit rounded-full border border-[#3D5C64] bg-white/[0.06] px-5 py-2",
-            "relative flex items-center gap-x-3 text-sm"
-          )}
-        >
-          <span className='text-[#2062A6]'>
-            <CloudLightning
-              fill='currentColor'
-              size={20}
-              stroke='currentColor'
-            />
-          </span>
-          Hire Smart Faster
-        </div>
+
+        <RoundPill label='Hire Smart Faster' className='border-[#3D5C64]' />
 
         <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
           {/* Main Text */}
@@ -106,21 +118,7 @@ function AboutUs() {
         </div>
 
         <div className='flex-1 shrink-0 space-y-4 md:pt-5'>
-          <div
-            className={clsx(
-              "w-fit rounded-full border border-[#E2E8EA] bg-white/[0.06] px-5 py-2",
-              "flex items-center gap-x-3 text-sm"
-            )}
-          >
-            <span className='text-[#2062A6]'>
-              <CloudLightning
-                fill='currentColor'
-                size={20}
-                stroke='currentColor'
-              />
-            </span>
-            About Us
-          </div>
+          <RoundPill label='About Us' className='border-[#E2E8EA]' />
 
           <TextAnimate
             animation='slideUp'
@@ -182,25 +180,9 @@ function HowItWorks() {
           "-translate-x-1/2 -translate-y-1/2"
         )}
       ></div>
-      <div className='flex justify-center'>
-        <div
-          className={clsx(
-            "w-fit rounded-full border border-[#E2E8EA] bg-white/[0.06] px-5 py-2",
-            "relative flex items-center gap-x-3 text-sm"
-          )}
-        >
-          <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} />
 
-          <span className='text-[#2062A6]'>
-            <CloudLightning
-              fill='currentColor'
-              size={20}
-              stroke='currentColor'
-            />
-          </span>
-          Our Work
-        </div>
-      </div>
+      <RoundPill label='Our Work' className='mx-auto border-[#3D5C64]' />
+
       <h1 className='mt-6 text-center text-white max-md:text-4xl'>
         How It Works
       </h1>
