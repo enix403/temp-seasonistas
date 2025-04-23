@@ -9,10 +9,9 @@ import { PropsWithChildren, useRef } from "react";
 import { HowItWorks } from "./HowItWorks";
 import { RoundPill } from "./RoundPill";
 import { AboutUs } from "./AboutUs";
-import { useMeasure, useWindowScroll } from "@uidotdev/usehooks";
+import { useMeasure } from "@uidotdev/usehooks";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   Sheet,
@@ -28,15 +27,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {
-  ChevronDown,
-  Rocket,
-  UserPlus,
-  User,
-  Briefcase,
-  Shield,
-  Menu
-} from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 
 function HeroShadow({ children }: PropsWithChildren) {
   return (
@@ -183,7 +174,7 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
 
   return (
     <header
-      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] md:transition-all duration-100 max-md:bg-[#022127] md:fixed ${
+      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] duration-100 max-md:bg-[#022127] md:fixed md:transition-all ${
         scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
       }`}
     >
@@ -322,3 +313,4 @@ function TopNav({ scrollTop }: { scrollTop: number }) {
     </header>
   );
 }
+
