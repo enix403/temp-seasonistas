@@ -83,32 +83,35 @@ export default function Home() {
   return (
     <div className={clsx("max-h-full overflow-y-auto")}>
       <Hero>
-        <div className='relative mx-auto max-w-7xl d p-10'>
+        <div
+          className={clsx(
+            "relative mx-auto mt-16 max-w-7xl",
+            "rounded-t-2xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 px-7 pt-7"
+          )}
+        >
           <img
             ref={ref}
             src={src}
             className='pointer-events-none invisible absolute top-0 left-0 w-full max-w-full'
           />
-          <div
-            className='w-full max-w-full overflow-y-visible'
-            style={{ height: (height ?? 0) * amount }}
-          >
-            <img src={src} className='w-full max-w-full' />
-          </div>
+          {height ? (
+            <div
+              className='w-full max-w-full overflow-y-visible'
+              style={{ height: (height ?? 0) * amount }}
+            >
+              <img src={src} className='w-full max-w-full' />
+            </div>
+          ) : null}
         </div>
       </Hero>
       <AboutUs
         style={{
           paddingTop: (height ?? 0) * remaining
         }}
-        className='mt-20 mb-36'
+        className='mt-10 mb-24 md:mt-20 md:mb-36'
       />
       <HowItWorks />
-      {/*  <div className='relative -top-[25vw] px-6 md:px-10 lg:px-20'>
-        <div className='bg-red-400 p-6'>
-          <img src='/hero-mobile.png' className='w-full' />
-        </div>
-      </div> */}
+
     </div>
   );
 }
