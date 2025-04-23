@@ -8,7 +8,6 @@ import { PropsWithChildren } from "react";
 
 import { RoundPill } from "./RoundPill";
 
-
 function HeroShadow({ children }: PropsWithChildren) {
   return (
     <span className='text-shadow-[0px_4px_4px_rgba(0,0,0,0.25)]'>
@@ -46,7 +45,10 @@ export function Hero({ children }: PropsWithChildren) {
           {/* Main Text */}
           <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
             <HeroShadow>Finding</HeroShadow>{" "}
-            <AuroraText colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}>
+            <AuroraText
+              className='font-pjs font-bold'
+              colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}
+            >
               Seasonal
               <br /> Work
             </AuroraText>{" "}

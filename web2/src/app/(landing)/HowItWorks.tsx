@@ -2,11 +2,7 @@
 
 import clsx from "clsx";
 import { Wifi } from "lucide-react";
-import {
-  UserPlus,
-  User,
-  Briefcase
-} from "lucide-react";
+import { UserPlus, User, Briefcase } from "lucide-react";
 import { BlurFade } from "@/components/magicui/blur-fade";
 
 import { RoundPill } from "./RoundPill";
@@ -53,42 +49,42 @@ export function HowItWorks() {
 
       <div className='mx-auto mt-8 grid max-w-6xl gap-6 md:grid-cols-2'>
         {/* Step 1 */}
-        <BlurFade delay={0.15 * 1} duration={0.25} inView>
-          <StepCard
-            num='01'
-            Icon={UserPlus}
-            title='Sign Up or Login'
-            desc='Create an account or login with an existing profile to begin your
+        {/* <BlurFade delay={0.15 * 1} duration={0.25} inView> */}
+        <StepCard
+          num='01'
+          Icon={UserPlus}
+          title='Sign Up or Login'
+          desc='Create an account or login with an existing profile to begin your
             professional journey'
-          />
-        </BlurFade>
-        <BlurFade delay={0.2 * 2} duration={0.25} inView>
-          <StepCard
-            num='02'
-            Icon={User}
-            title='Create your work profile'
-            desc='Build your professional identity with skills, experience, and
+        />
+        {/* </BlurFade> */}
+        {/* <BlurFade delay={0.2 * 2} duration={0.25} inView> */}
+        <StepCard
+          num='02'
+          Icon={User}
+          title='Create your work profile'
+          desc='Build your professional identity with skills, experience, and
             portfolio details'
-          />
-        </BlurFade>
-        <BlurFade delay={0.15 * 3} duration={0.25} inView>
-          <StepCard
-            num='03'
-            Icon={Briefcase}
-            title='Apply for a job or post an opening'
-            desc='Search for opportunities as a job seeker or list vacancies as an
+        />
+        {/* </BlurFade> */}
+        {/* <BlurFade delay={0.15 * 3} duration={0.25} inView> */}
+        <StepCard
+          num='03'
+          Icon={Briefcase}
+          title='Apply for a job or post an opening'
+          desc='Search for opportunities as a job seeker or list vacancies as an
             employer'
-          />
-        </BlurFade>
-        <BlurFade delay={0.15 * 4} duration={0.25} inView>
-          <StepCard
-            num='04'
-            Icon={Wifi}
-            title='Connect and start working'
-            desc='Initiate collaborations and embark on new professional adventures
+        />
+        {/* </BlurFade> */}
+        {/* <BlurFade delay={0.15 * 4} duration={0.25} inView> */}
+        <StepCard
+          num='04'
+          Icon={Wifi}
+          title='Connect and start working'
+          desc='Initiate collaborations and embark on new professional adventures
             with trusted partners'
-          />
-        </BlurFade>
+        />
+        {/* </BlurFade> */}
       </div>
     </div>
   );

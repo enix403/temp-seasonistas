@@ -95,7 +95,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-graph-editor: "Quicksand Variable", sans-serif;
+  --font-pjs: var(--font-pjs), sans-serif;
 
   /* Colors */
   --color-background: var(--background);

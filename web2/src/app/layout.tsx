@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import localFont from "next/font/local";
 
 // import "@/app/globals.css";
 import "@/styles/global.css";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-pjs",
+  subsets: ["latin"]
+})
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -16,7 +22,7 @@ import "@/styles/global.css";
 // });
 
 /* prettier-ignore */
-export const metropolis = localFont({
+const metropolis = localFont({
   src: [
     {
       path: "../../public/fonts/metropolis/Metropolis-Thin.otf",
@@ -115,7 +121,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${metropolis.variable} antialiased`}>{children}</body>
+      <body className={`${metropolis.variable} ${plusJakartaSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }
