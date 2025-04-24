@@ -201,7 +201,7 @@ export function AvatarChanger({ initialImageSrc, onSave }: AvatarChangerProps) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Avatar className='h-24 w-24 border'>
+        <Avatar className='h-28 w-28 border'>
           <AvatarImage src={avatarSrc || undefined} />
           <AvatarFallback className='text-lg'>
             {avatarSrc ? "" : "N/A"}
@@ -318,12 +318,11 @@ export function AvatarChanger({ initialImageSrc, onSave }: AvatarChangerProps) {
                 )}
 
                 <div className='grid w-full gap-2'>
-                  <label
-                    htmlFor='picture'
-                    className='cursor-pointer rounded-md bg-primary px-4 py-2 text-center text-sm font-medium text-primary-foreground hover:bg-primary/90'
-                  >
-                    Choose file
-                  </label>
+                  <Button asChild>
+                    <label htmlFor='picture' className=''>
+                      Choose file
+                    </label>
+                  </Button>
                   <input
                     id='picture'
                     type='file'
