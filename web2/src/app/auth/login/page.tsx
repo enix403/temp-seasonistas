@@ -55,11 +55,14 @@ export default function Login() {
 
   return (
     <div className='flex h-full max-h-full flex-col overflow-hidden bg-muted font-pjs md:p-10'>
-      {/* <div className='flex flex-1-fix '> */}
-        <div className='flex flex-1 overflow-hidden rounded-3xl border border-border bg-white'>
-          <div className='w-full overflow-y-auto p-6 flex-1 sm:p-16'>
-
-            <Button variant="link" className="p-0 text-foreground" icon={ArrowLeftIcon}>
+      <div className='flex flex-1-fix flex-col'>
+        <div className='mx-auto flex w-full max-w-7xl overflow-hidden rounded-3xl border border-border bg-white'>
+          <div className='h-full max-h-full lg:max-w-1/2 flex-1 overflow-y-auto p-6 sm:p-16'>
+            <Button
+              variant='link'
+              className='p-0 text-foreground'
+              icon={ArrowLeftIcon}
+            >
               Back
             </Button>
 
@@ -136,15 +139,19 @@ export default function Login() {
                 <Link href='#'>Sign up</Link>
               </Button>
             </div>
+
+            {repeatNode(100, index => (
+              <p>{index}</p>
+            ))}
           </div>
-          <div className='flex-1 max-lg:hidden'>
-            <img
+          <div className='flex-1 shrink-0 max-lg:hidden'>
+            {/* <img
               src='/hero7.jpg'
               className='h-full w-full max-w-full object-cover'
-            />
+            /> */}
           </div>
         </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 }
