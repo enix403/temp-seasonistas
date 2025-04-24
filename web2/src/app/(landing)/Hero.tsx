@@ -18,59 +18,58 @@ function HeroShadow({ children }: PropsWithChildren) {
 
 export function Hero({ children }: PropsWithChildren) {
   return (
-    <>
+    <div
+      id='home'
+      className={clsx(
+        "py-20 pb-0 max-md:pt-8",
+        "px-6 md:px-10 lg:px-20",
+        "text-[#DBDBDB]",
+        "bg-[#022127]",
+        "relative"
+      )}
+    >
       <div
         className={clsx(
-          "py-20 pb-0 max-md:pt-8",
-          "px-6 md:px-10 lg:px-20",
-          "text-[#DBDBDB]",
-          "bg-[#022127]",
-          "relative"
+          "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-5 blur-[1000px]",
+          "-translate-x-1/2 -translate-y-1/2",
+          "pointer-events-none"
         )}
-      >
-        <div
-          className={clsx(
-            "absolute top-1/2 left-1/2 h-[95%] w-[60%] bg-[#dedddd] bg-[size:10%_10%] opacity-5 blur-[1000px]",
-            "-translate-x-1/2 -translate-y-1/2",
-            "pointer-events-none"
-          )}
-        ></div>
+      ></div>
 
-        {/* Padding below top bar */}
-        <div className='md:pt-20'></div>
+      {/* Padding below top bar */}
+      <div className='md:pt-20'></div>
 
-        <RoundPill label='Hire Smart Faster' className='border-[#3D5C64]' />
+      <RoundPill label='Hire Smart Faster' className='border-[#3D5C64]' />
 
-        <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
-          {/* Main Text */}
-          <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
-            <HeroShadow>Finding</HeroShadow>{" "}
-            <AuroraText
-              className='font-pjs font-bold'
-              colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}
-            >
-              Seasonal
-              <br /> Work
-            </AuroraText>{" "}
-            <HeroShadow>Made</HeroShadow>
-            <br />
-            <SparklesText>
-              <HeroShadow>Simple</HeroShadow>
-            </SparklesText>
-          </h1>
+      <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
+        {/* Main Text */}
+        <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
+          <HeroShadow>Finding</HeroShadow>{" "}
+          <AuroraText
+            className='font-pjs font-bold'
+            colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}
+          >
+            Seasonal
+            <br /> Work
+          </AuroraText>{" "}
+          <HeroShadow>Made</HeroShadow>
+          <br />
+          <SparklesText>
+            <HeroShadow>Simple</HeroShadow>
+          </SparklesText>
+        </h1>
 
-          <div className='space-y-5'>
-            <p className='mt-6 max-w-md text-lg md:text-xl'>
-              Seasonistas is a platform that connects seasonal workers and
-              employers across Greece, helping them find the ideal job or the
-              right person for their team.
-            </p>
-            <Button size='lg'>Get Started Now</Button>
-          </div>
+        <div className='space-y-5'>
+          <p className='mt-6 max-w-md text-lg md:text-xl'>
+            Seasonistas is a platform that connects seasonal workers and
+            employers across Greece, helping them find the ideal job or the
+            right person for their team.
+          </p>
+          <Button size='lg'>Get Started Now</Button>
         </div>
-
-        {children}
       </div>
-    </>
+
+      {children}
+    </div>
   );
 }
