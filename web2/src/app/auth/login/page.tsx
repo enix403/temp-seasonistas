@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { repeatNode } from "@/lib/utils";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, Scroll } from "lucide-react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ import Image from "next/image";
 import { Quote } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Testimonials } from "./Testimonials";
+import { ScrollTest } from "@/components/ScrollTest";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -32,7 +33,7 @@ export default function Login() {
     <div className='flex h-full max-h-full flex-col bg-white font-pjs md:p-10'>
       <div className='flex flex-1-fix flex-col'>
         <div
-          className='mx-auto flex w-full max-w-[88rem] overflow-hidden rounded-3xl border border-border bg-white'
+          className='mx-auto flex w-full flex-1-fix max-w-[88rem] overflow-hidden md:rounded-3xl border border-border bg-white'
           style={{
             boxShadow: "24px 16px 94.3px 0px rgba(0, 0, 0, 0.12)"
           }}
@@ -120,9 +121,6 @@ export default function Login() {
               </Button>
             </div>
 
-            {repeatNode(100, index => (
-              <p>{index}</p>
-            ))}
           </div>
           <div className='relative flex-1-fix shrink-0 max-lg:hidden'>
             <BrandSheet className='absolute inset-0 flex flex-col items-center px-16 py-6 pt-24 xl:px-20'>
@@ -133,7 +131,7 @@ export default function Login() {
                 win seasons with <br />
                 the right talent.
               </h1>
-              <Testimonials className="self-stretch mt-20 xl:mt-24" />
+              <Testimonials className='mt-20 self-stretch xl:mt-24' />
             </BrandSheet>
           </div>
         </div>
