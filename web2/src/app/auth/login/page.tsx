@@ -34,7 +34,7 @@ export default function Login() {
       }
     >
       <Button variant='outline' className='w-full' asChild>
-        <a href='#' className='mt-6'>
+        <a href='#'>
           {GoogleIcon}
           Sign in with Google
         </a>

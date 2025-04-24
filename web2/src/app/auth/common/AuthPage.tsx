@@ -38,7 +38,7 @@ export function AuthPage({
                 {title}
               </h1>
 
-              <p className='mt-1 max-w-md text-gray-600'>{subtitle}</p>
+              <p className='mt-1 max-w-md text-gray-600 mb-6'>{subtitle}</p>
 
               {children}
             </div>
