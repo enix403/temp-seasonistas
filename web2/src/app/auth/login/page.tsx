@@ -95,7 +95,7 @@ export default function Login() {
           className='px-0 py-0 font-bold text-foreground'
           effect='hoverUnderline'
         >
-          <Link href='#'>Sign up</Link>
+          <Link href='/auth/sign-up'>Sign up</Link>
         </Button>
       </div>
     </AuthPage>

@@ -32,19 +32,22 @@ export default function SignUp() {
         </>
       }
     >
-      <div className="mt-12" />
+      <div className='mt-12' />
+
       <UserTypeSelector
         selectedType={selectedType}
         onSelect={setSelectedType}
       />
+
       <Button
         className='mt-14 w-full'
         size='lg'
         effect='expandIcon'
         icon={ArrowRightIcon}
         iconPlacement='right'
+        asChild
       >
-        Continue
+        <Link href={`/auth/sign-up/prelim/${selectedType}`}>Continue</Link>
       </Button>
 
       <div className='mt-4 text-center text-sm text-[#475569]'>
@@ -55,7 +58,7 @@ export default function SignUp() {
           className='px-0 py-0 font-bold text-foreground'
           effect='hoverUnderline'
         >
-          <Link href='#'>Sign in</Link>
+          <Link href='/auth/login'>Sign in</Link>
         </Button>
       </div>
     </AuthPage>

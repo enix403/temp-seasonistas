@@ -140,8 +140,10 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                   </nav>
 
                   <div className='mt-auto mb-8'>
-                    <Button className='w-full' onClick={() => setOpen(false)}>
-                      Login
+                    <Button asChild className='w-full'>
+                      <Link href='/auth/login' onClick={() => setOpen(false)}>
+                        Login
+                      </Link>
                     </Button>
                   </div>
                 </div>
@@ -164,7 +166,9 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button className=''>Login</Button>
+            <Button asChild className='w-full'>
+              <Link href='/auth/login'>Login</Link>
+            </Button>
           </div>
         </div>
       </div>

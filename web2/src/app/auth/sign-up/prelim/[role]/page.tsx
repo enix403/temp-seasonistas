@@ -7,10 +7,10 @@ import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 
-import { AuthPage } from "../../common/AuthPage";
-import { AuthQuote } from "../../common/AuthQuote";
-import { AnimatedColorfulText } from "../../common/AnimatedColorfulText";
-import { Testimonials } from "../../common/Testimonials";
+import { AuthPage } from "../../../common/AuthPage";
+import { AuthQuote } from "../../../common/AuthQuote";
+import { AnimatedColorfulText } from "../../../common/AnimatedColorfulText";
+import { Testimonials } from "../../../common/Testimonials";
 
 import {
   PasswordInput,

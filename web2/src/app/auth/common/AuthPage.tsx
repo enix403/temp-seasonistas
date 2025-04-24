@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import { BrandSheet } from "./BrandSheet";
 import { PropsWithChildren, ReactNode } from "react";
+import Link from "next/link";
 
 export function AuthPage({
   title,
@@ -30,15 +31,16 @@ export function AuthPage({
                 variant='link'
                 className='p-0 text-foreground'
                 icon={ArrowLeftIcon}
+                asChild
               >
-                Back
+                <Link href='/'>Back</Link>
               </Button>
 
               <h1 className='mt-6 text-3xl font-semibold text-[#1E1E1E] max-md:text-xl'>
                 {title}
               </h1>
 
-              <p className='mt-1 max-w-md text-gray-600 mb-6'>{subtitle}</p>
+              <p className='mt-1 mb-6 max-w-md text-gray-600'>{subtitle}</p>
 
               {children}
             </div>
