@@ -1,8 +1,25 @@
-import { useForm } from "react-hook-form";
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
+
+import { useForm } from "react-hook-form";
+
+import { AuthPage } from "../../common/AuthPage";
+
+import {
+  PasswordInput,
+  PasswordInputWithStrength
+} from "@/components/form/PasswordInput";
+import { Form, FormField } from "@/components/ui/form";
+import { SimpleFormItem } from "@/components/form/SimpleFormItem";
+import { DatePicker } from "@/components/form/DatePicker";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+
+import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -13,9 +30,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  Form,
   FormControl,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage
@@ -68,19 +83,15 @@ const jobCategories: JobCategory[] = [
 
 interface FormValues {
   phone: string;
-  email: string;
-  dateOfBirth: Date | null;
   location: string;
   description: string;
   jobCategories: string[];
 }
 
-export function ProfileForm() {
+export default function CandiateInfo() {
   const form = useForm<FormValues>({
     defaultValues: {
       phone: "",
-      email: "",
-      dateOfBirth: null,
       location: "",
       description: "",
       jobCategories: ["hospitality", "construction2"] // Pre-selected categories
@@ -94,7 +105,10 @@ export function ProfileForm() {
   };
 
   return (
-    <div className='mx-auto max-w-3xl p-4'>
+    <AuthPage
+      title='Create an Account'
+      subtitle='Use your company email to hire and collaborate with your team.'
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
@@ -103,48 +117,12 @@ export function ProfileForm() {
               control={form.control}
               name='phone'
               rules={{
-                required: "Phone number is required",
-                pattern: {
-                  value: /^[0-9+\-\s()]+$/,
-                  message: "Please enter a valid phone number"
-                }
+                required: "Phone number is required"
               }}
               render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder='Contact phone'
-                      className='rounded-full'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Email Field */}
-            <FormField
-              control={form.control}
-              name='email'
-              rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Please enter a valid email address"
-                }
-              }}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder='Contact email'
-                      className='rounded-full'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SimpleFormItem>
+                  <Input placeholder='Contact phone' {...field} />
+                </SimpleFormItem>
               )}
             />
 
@@ -154,16 +132,9 @@ export function ProfileForm() {
               name='location'
               rules={{ required: "Location is required" }}
               render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      placeholder='Location (where he/she is based)'
-                      className='rounded-full'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                <SimpleFormItem>
+                  <Input placeholder='Location' {...field} />
+                </SimpleFormItem>
               )}
             />
           </div>
@@ -180,16 +151,13 @@ export function ProfileForm() {
               }
             }}
             render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Textarea
-                    placeholder='Enter Short Description'
-                    className='min-h-[120px] resize-none rounded-xl'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <SimpleFormItem>
+                <Textarea
+                  placeholder='Enter Short Description'
+                  className='min-h-[120px]'
+                  {...field}
+                />
+              </SimpleFormItem>
             )}
           />
 
@@ -205,50 +173,56 @@ export function ProfileForm() {
               </p>
             </div>
 
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            <div className='grid grid-cols-1 justify-items-stretch gap-4 md:grid-cols-2'>
               {jobCategories.map(category => (
                 <FormField
                   key={category.id}
                   control={form.control}
                   name='jobCategories'
                   render={({ field }) => (
-                    <FormItem className='flex flex-row items-start space-y-0 space-x-3 rounded-md border p-4'>
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value?.includes(category.id)}
-                          onCheckedChange={checked => {
-                            const updatedCategories = checked
-                              ? [...field.value, category.id]
-                              : field.value.filter(
-                                  value => value !== category.id
-                                );
-                            field.onChange(updatedCategories);
-                          }}
-                        />
-                      </FormControl>
-                      <div className='space-y-1 leading-none'>
-                        <FormLabel className='font-medium'>
-                          {category.label}
-                        </FormLabel>
-                        <p className='text-sm text-gray-500'>
-                          {category.description}
-                        </p>
-                      </div>
-                    </FormItem>
+                    <FormLabel>
+                      <FormItem className='flex h-full flex-row items-start space-y-0 space-x-1.5 rounded-xl border p-3.5'>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(category.id)}
+                            onCheckedChange={checked => {
+                              const updatedCategories = checked
+                                ? [...field.value, category.id]
+                                : field.value.filter(
+                                    value => value !== category.id
+                                  );
+                              field.onChange(updatedCategories);
+                            }}
+                          />
+                        </FormControl>
+                        <div className='space-y-1 leading-none'>
+                          <p className='font-medium'>{category.label}</p>
+                          <p className='text-sm text-gray-500'>
+                            {category.description}
+                          </p>
+                        </div>
+                      </FormItem>
+                    </FormLabel>
                   )}
                 />
               ))}
             </div>
           </div>
 
-          <Button
-            type='submit'
-            className='rounded-full bg-teal-500 px-8 hover:bg-teal-600'
-          >
-            Save Profile
-          </Button>
+          <div className='flex justify-end'>
+            <Button
+              type='submit'
+              className='mt-6 min-w-md'
+              size='lg'
+              effect='expandIcon'
+              icon={ArrowRightIcon}
+              iconPlacement='right'
+            >
+              Continue
+            </Button>
+          </div>
         </form>
       </Form>
-    </div>
+    </AuthPage>
   );
 }
