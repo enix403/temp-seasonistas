@@ -54,10 +54,15 @@ export default function Login() {
   const { register, handleSubmit } = useForm();
 
   return (
-    <div className='flex h-full max-h-full flex-col overflow-hidden bg-muted font-pjs md:p-10'>
+    <div className='flex h-full max-h-full flex-col bg-white font-pjs md:p-10'>
       <div className='flex flex-1-fix flex-col'>
-        <div className='mx-auto flex w-full max-w-7xl overflow-hidden rounded-3xl border border-border bg-white'>
-          <div className='h-full max-h-full lg:max-w-1/2 flex-1 overflow-y-auto p-6 sm:p-16'>
+        <div
+          className='mx-auto flex w-full max-w-7xl overflow-hidden rounded-3xl border border-border bg-white'
+          style={{
+            boxShadow: "24px 16px 94.3px 0px rgba(0, 0, 0, 0.12)"
+          }}
+        >
+          <div className='h-full max-h-full flex-1 overflow-y-auto p-6 sm:p-16 lg:max-w-1/2'>
             <Button
               variant='link'
               className='p-0 text-foreground'
@@ -66,7 +71,7 @@ export default function Login() {
               Back
             </Button>
 
-            <h1 className='text-3xl font-semibold text-[#1E1E1E] max-md:text-xl'>
+            <h1 className='mt-6 text-3xl font-semibold text-[#1E1E1E] max-md:text-xl'>
               Login into your Account
             </h1>
 
