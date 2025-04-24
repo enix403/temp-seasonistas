@@ -32,12 +32,13 @@ export default function SignUp() {
         </>
       }
     >
+      <div className="mt-12" />
       <UserTypeSelector
         selectedType={selectedType}
         onSelect={setSelectedType}
       />
       <Button
-        className='mt-8 w-full'
+        className='mt-14 w-full'
         size='lg'
         effect='expandIcon'
         icon={ArrowRightIcon}
