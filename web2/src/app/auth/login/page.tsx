@@ -15,6 +15,10 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
+import { BrandSheet } from "./BrandSheet";
+import { AnimatedColorfulText } from "./AnimatedColorfulText";
+import { SparklesText } from "@/components/magicui/sparkles-text";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
 const GoogleIcon = (
   <svg
@@ -57,7 +61,7 @@ export default function Login() {
     <div className='flex h-full max-h-full flex-col bg-white font-pjs md:p-10'>
       <div className='flex flex-1-fix flex-col'>
         <div
-          className='mx-auto flex w-full max-w-7xl overflow-hidden rounded-3xl border border-border bg-white'
+          className='mx-auto flex w-full max-w-[88rem] overflow-hidden rounded-3xl border border-border bg-white'
           style={{
             boxShadow: "24px 16px 94.3px 0px rgba(0, 0, 0, 0.12)"
           }}
@@ -149,11 +153,16 @@ export default function Login() {
               <p>{index}</p>
             ))}
           </div>
-          <div className='flex-1 shrink-0 max-lg:hidden'>
-            {/* <img
-              src='/hero7.jpg'
-              className='h-full w-full max-w-full object-cover'
-            /> */}
+          <div className='relative flex-1-fix shrink-0 max-lg:hidden'>
+            <BrandSheet className='absolute inset-0 flex flex-col items-center px-16 xl:px-20 py-6 pt-24'>
+              <h1 className='mt-4 text-center text-4xl leading-[125%] font-bold tracking-tight text-white xl:text-5xl'>
+                <AnimatedColorfulText>
+                  Sign up in just 2 minutes.
+                </AnimatedColorfulText>{" "}
+                win seasons with <br />
+                the right talent.
+              </h1>
+            </BrandSheet>
           </div>
         </div>
       </div>
