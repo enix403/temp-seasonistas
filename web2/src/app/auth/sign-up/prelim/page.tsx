@@ -19,6 +19,8 @@ import {
 import { Form, FormField } from "@/components/ui/form";
 import { SimpleFormItem } from "@/components/form/SimpleFormItem";
 import { DatePicker } from "@/components/form/DatePicker";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function SignUp() {
   const form = useForm({
@@ -28,7 +30,7 @@ export default function SignUp() {
       email: "",
       password: "",
       confirmPassword: "",
-      dateOfBirth: ""
+      dateOfBirth: "",
     },
     mode: "onBlur"
   });
@@ -125,6 +127,42 @@ export default function SignUp() {
             render={({ field }) => (
               <SimpleFormItem label='Confirm Password'>
                 <PasswordInput placeholder='Enter password again' {...field} />
+              </SimpleFormItem>
+            )}
+          />
+          <FormField
+            name='over18'
+            rules={{
+              validate: value => value === true || "Please confirm this"
+            }}
+            render={({ field }) => (
+              <SimpleFormItem>
+                <Label className='flex cursor-pointer items-center gap-2'>
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={value => field.onChange(value as any)}
+                  />
+                  <span>I am over 18 years old</span>
+                </Label>
+              </SimpleFormItem>
+            )}
+          />
+          <FormField
+            name='agreeTerms'
+            rules={{
+              validate: value => value === true || "Please confirm this"
+            }}
+            render={({ field }) => (
+              <SimpleFormItem>
+                <Label className='flex cursor-pointer items-center gap-2'>
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onCheckedChange={value => field.onChange(value as any)}
+                  />
+                  <span>I agree with privacy policy and terms.</span>
+                </Label>
               </SimpleFormItem>
             )}
           />
