@@ -133,7 +133,7 @@ export default function Login() {
                 win seasons with <br />
                 the right talent.
               </h1>
-              <Testimonials className="self-stretch mt-20" />
+              <Testimonials className="self-stretch mt-20 xl:mt-24" />
             </BrandSheet>
           </div>
         </div>
