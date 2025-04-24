@@ -169,7 +169,7 @@ export default function SignUp() {
 
           <Button
             type='submit'
-            className='mt-12 w-full'
+            className='mt-6 w-full'
             size='lg'
             effect='expandIcon'
             icon={ArrowRightIcon}
