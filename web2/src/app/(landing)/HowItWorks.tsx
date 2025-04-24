@@ -27,6 +27,7 @@ function StepCard({ title, desc, num, Icon }: any) {
 export function HowItWorks() {
   return (
     <div
+    id="how-it-works"
       className={clsx(
         "py-20",
         "px-8 md:px-14 lg:px-24",

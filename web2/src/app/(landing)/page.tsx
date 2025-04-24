@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 
 import { HowItWorks } from "./HowItWorks";
@@ -41,15 +43,15 @@ function OverflowingHeroImage({ ref, height, amount }) {
 }
 
 export default function Home() {
-  // const [ref, { height }] = useMeasure();
-  // const amount = 0.5;
-  // const remaining = 1 - amount;
+  const [ref, { height }] = useMeasure();
+  const amount = 0.5;
+  const remaining = 1 - amount;
 
-  // const [scrollRef, scrollTop] = useContaineirScroll();
+  const [scrollRef, scrollTop] = useContaineirScroll();
 
   return (
-    <div  className={clsx("max-h-full overflow-y-auto")}>
-      {/* <TopNav scrollTop={scrollTop} />
+    <div ref={scrollRef} className={clsx("max-h-full overflow-y-auto")}>
+      <TopNav scrollTop={scrollTop} />
       <Hero>
         <OverflowingHeroImage ref={ref} height={height} amount={amount} />
       </Hero>
@@ -58,7 +60,7 @@ export default function Home() {
           paddingTop: (height ?? 0) * remaining
         }}
         className='mt-10 mb-24 md:mt-20 md:mb-36'
-      /> */}
+      />
       <HowItWorks />
       <Pricing />
       <ContactUs />

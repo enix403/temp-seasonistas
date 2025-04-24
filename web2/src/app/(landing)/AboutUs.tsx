@@ -45,7 +45,7 @@ const Inner = memo(() => {
 
 export function AboutUs({ className, ...rest }: ComponentProps<"div">) {
   return (
-    <div {...rest} className={clsx("lg:sx-24 px-8 md:px-14", className)}>
+    <div {...rest} id="about-us" className={clsx("lg:sx-24 px-8 md:px-14", className)}>
       <Inner />
     </div>
   );

@@ -6,7 +6,7 @@ import { PricingCard } from "./PricingCard";
 
 export function Pricing() {
   return (
-    <section className='container mx-auto bg-white px-4 py-16 text-black'>
+    <section id="pricing" className='container mx-auto bg-white px-4 py-16 text-black'>
       <div className='flex flex-col items-center gap-y-4'>
         <RoundPill label='Pricing' />
         <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>

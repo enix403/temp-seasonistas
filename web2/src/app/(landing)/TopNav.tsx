@@ -20,6 +20,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Menu } from "lucide-react";
 
+// const links = [
+//   { label: "Home", href: "#home" },
+//   { label: "About Us", href: "#about-us" },
+//   { label: "How It Works", href: "#how-it-works" },
+//   { label: "Pricing", href: "#pricin" },
+//   { label: "Contact Us", href: "#home" }
+// ];
+
 export function TopNav({ scrollTop }: { scrollTop: number }) {
   const [open, setOpen] = useState(false);
   const scrolled = scrollTop > 10;
@@ -43,21 +51,21 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
           {/* Desktop Navigation */}
           <nav className='hidden items-center rounded-full bg-white/[0.06] hover:text-white md:flex'>
             <Link
-              href='/'
+              href='#home'
               className='rounded-full bg-white px-6 py-3 font-medium text-black'
             >
               Home
             </Link>
-            <Link href='/about' className='px-4 py-3'>
+            <Link href='#about-us' className='px-4 py-3'>
               About Us
             </Link>
-            <Link href='/how-it-works' className='px-4 py-3'>
+            <Link href='#how-it-works' className='px-4 py-3'>
               How It Works
             </Link>
-            <Link href='/pricing' className='px-4 py-3'>
+            <Link href='#pricing' className='px-4 py-3'>
               Pricing
             </Link>
-            <Link href='/contact' className='px-4 py-3 pr-7'>
+            <Link href='#contact-us' className='px-4 py-3 pr-7'>
               Contact Us
             </Link>
           </nav>
@@ -95,35 +103,35 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                 <div className='flex h-full flex-col'>
                   <nav className='flex flex-col space-y-4'>
                     <Link
-                      href='/'
+                      href='#home'
                       className='w-fit rounded-full bg-white px-6 py-2 font-medium text-black'
                       onClick={() => setOpen(false)}
                     >
                       Home
                     </Link>
                     <Link
-                      href='/about'
+                      href='#about-us'
                       className='px-2 py-1 text-white hover:text-gray-200'
                       onClick={() => setOpen(false)}
                     >
                       About Us
                     </Link>
                     <Link
-                      href='/how-it-works'
+                      href='#how-it-works'
                       className='px-2 py-1 text-white hover:text-gray-200'
                       onClick={() => setOpen(false)}
                     >
                       How It Works
                     </Link>
                     <Link
-                      href='/pricing'
+                      href='#pricing'
                       className='px-2 py-1 text-white hover:text-gray-200'
                       onClick={() => setOpen(false)}
                     >
                       Pricing
                     </Link>
                     <Link
-                      href='/contact'
+                      href='#contact-us'
                       className='px-2 py-1 text-white hover:text-gray-200'
                       onClick={() => setOpen(false)}
                     >
