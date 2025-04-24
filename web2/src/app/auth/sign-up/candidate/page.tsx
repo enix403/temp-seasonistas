@@ -108,7 +108,7 @@ export default function CandiateInfo() {
   return (
     <AuthPage
       title='Create an Account'
-      subtitle='Use your company email to hire and collaborate with your team.'
+      subtitle='Use the contact information you want users to use to contact you.'
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>

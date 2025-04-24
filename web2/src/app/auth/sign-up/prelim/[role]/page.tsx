@@ -21,8 +21,10 @@ import { SimpleFormItem } from "@/components/form/SimpleFormItem";
 import { DatePicker } from "@/components/form/DatePicker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { useParams } from "next/navigation";
 
-export default function SignUp() {
+export default function PrelimForm() {
+  const { role } = useParams<{ role: string }>();
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -30,7 +32,7 @@ export default function SignUp() {
       email: "",
       password: "",
       confirmPassword: "",
-      dateOfBirth: "",
+      dateOfBirth: ""
     },
     mode: "onBlur"
   });
@@ -174,8 +176,9 @@ export default function SignUp() {
             effect='expandIcon'
             icon={ArrowRightIcon}
             iconPlacement='right'
+            asChild
           >
-            Continue
+            <Link href={`/auth/sign-up/${role}`}>Continue</Link>
           </Button>
         </form>
       </Form>
