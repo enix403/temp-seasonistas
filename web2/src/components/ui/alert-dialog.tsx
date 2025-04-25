@@ -127,7 +127,6 @@ function AlertDialogAction({
 }: { loading?: boolean } & React.ComponentProps<
   typeof AlertDialogPrimitive.Action
 >) {
-
   if (loading) {
     children = <Spinner />;
   }

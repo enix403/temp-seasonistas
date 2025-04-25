@@ -7,7 +7,7 @@ import {
   TimePickerType,
   getArrowByType,
   getDateByType,
-  setDateByType,
+  setDateByType
 } from "./time-picker-utils";
 
 export interface TimePickerInputProps
@@ -94,7 +94,7 @@ const TimePickerInput = React.forwardRef<
 
         const newValue = calculateNewValue(e.key);
         if (flag) onRightFocus?.();
-        setFlag((prev) => !prev);
+        setFlag(prev => !prev);
         const tempDate = new Date(date);
         setDate(setDateByType(tempDate, newValue, picker, period));
       }
@@ -110,13 +110,13 @@ const TimePickerInput = React.forwardRef<
           className
         )}
         value={value || calculatedValue}
-        onChange={(e) => {
+        onChange={e => {
           e.preventDefault();
           onChange?.(e);
         }}
         type={type}
-        inputMode="decimal"
-        onKeyDown={(e) => {
+        inputMode='decimal'
+        onKeyDown={e => {
           onKeyDown?.(e);
           handleKeyDown(e);
         }}

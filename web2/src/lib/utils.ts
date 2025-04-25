@@ -39,7 +39,6 @@ export function toNumOrNull(
 export const delay = (ms: number) =>
   new Promise<void>(resolve => setTimeout(resolve, ms));
 
-
 export function unslashStart(str: string) {
   return str.replace(/^\/+/, "");
 }
@@ -47,5 +46,3 @@ export function unslashStart(str: string) {
 export function unslashEnd(str: string) {
   return str.replace(/\/+$/, "");
 }
-
-

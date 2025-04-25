@@ -81,7 +81,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     arcLength: 0.9,
     rings: 1,
     maxRings: 3,
-    ...globeConfig,
+    ...globeConfig
   };
 
   // Initialize globe only once
@@ -112,7 +112,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     globeConfig.globeColor,
     globeConfig.emissive,
     globeConfig.emissiveIntensity,
-    globeConfig.shininess,
+    globeConfig.shininess
   ]);
 
   // Build data when globe is initialized or when data changes
@@ -129,25 +129,25 @@ export function Globe({ globeConfig, data }: WorldProps) {
         order: arc.order,
         color: arc.color,
         lat: arc.startLat,
-        lng: arc.startLng,
+        lng: arc.startLng
       });
       points.push({
         size: defaultProps.pointSize,
         order: arc.order,
         color: arc.color,
         lat: arc.endLat,
-        lng: arc.endLng,
+        lng: arc.endLng
       });
     }
 
     // remove duplicates for same lat and lng
     const filteredPoints = points.filter(
       (v, i, a) =>
-        a.findIndex((v2) =>
+        a.findIndex(v2 =>
           ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"],
-          ),
-        ) === i,
+            k => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]
+          )
+        ) === i
     );
 
     globeRef.current
@@ -161,21 +161,21 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
     globeRef.current
       .arcsData(data)
-      .arcStartLat((d) => (d as { startLat: number }).startLat * 1)
-      .arcStartLng((d) => (d as { startLng: number }).startLng * 1)
-      .arcEndLat((d) => (d as { endLat: number }).endLat * 1)
-      .arcEndLng((d) => (d as { endLng: number }).endLng * 1)
+      .arcStartLat(d => (d as { startLat: number }).startLat * 1)
+      .arcStartLng(d => (d as { startLng: number }).startLng * 1)
+      .arcEndLat(d => (d as { endLat: number }).endLat * 1)
+      .arcEndLng(d => (d as { endLng: number }).endLng * 1)
       .arcColor((e: any) => (e as { color: string }).color)
-      .arcAltitude((e) => (e as { arcAlt: number }).arcAlt * 1)
+      .arcAltitude(e => (e as { arcAlt: number }).arcAlt * 1)
       .arcStroke(() => [0.32, 0.28, 0.3][Math.round(Math.random() * 2)])
       .arcDashLength(defaultProps.arcLength)
-      .arcDashInitialGap((e) => (e as { order: number }).order * 1)
+      .arcDashInitialGap(e => (e as { order: number }).order * 1)
       .arcDashGap(15)
       .arcDashAnimateTime(() => defaultProps.arcTime);
 
     globeRef.current
       .pointsData(filteredPoints)
-      .pointColor((e) => (e as { color: string }).color)
+      .pointColor(e => (e as { color: string }).color)
       .pointsMerge(true)
       .pointAltitude(0.0)
       .pointRadius(2);
@@ -186,7 +186,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
+        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
       );
   }, [
     isInitialized,
@@ -199,7 +199,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
     defaultProps.arcLength,
     defaultProps.arcTime,
     defaultProps.rings,
-    defaultProps.maxRings,
+    defaultProps.maxRings
   ]);
 
   // Handle rings animation with cleanup
@@ -212,15 +212,15 @@ export function Globe({ globeConfig, data }: WorldProps) {
       const newNumbersOfRings = genRandomNumbers(
         0,
         data.length,
-        Math.floor((data.length * 4) / 5),
+        Math.floor((data.length * 4) / 5)
       );
 
       const ringsData = data
         .filter((d, i) => newNumbersOfRings.includes(i))
-        .map((d) => ({
+        .map(d => ({
           lat: d.startLat,
           lng: d.startLng,
-          color: d.color,
+          color: d.color
         }));
 
       globeRef.current.ringsData(ringsData);
@@ -293,7 +293,7 @@ export function hexToRgb(hex: string) {
     ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
+        b: parseInt(result[3], 16)
       }
     : null;
 }

@@ -19,12 +19,12 @@ export function AnimatedGradientText({
   stops = [
     { color: "#ffaa40", position: "0%" },
     { color: "#9c40ff", position: "50%" },
-    { color: "#ffaa40", position: "100%" },
+    { color: "#ffaa40", position: "100%" }
   ],
   ...props
 }: AnimatedGradientTextProps) {
   const gradientStops = stops
-    .map((stop) =>
+    .map(stop =>
       stop.position ? `${stop.color} ${stop.position}` : stop.color
     )
     .join(", ");
@@ -34,13 +34,12 @@ export function AnimatedGradientText({
       style={
         {
           "--bg-size": `${speed * 300}%`,
-          "--gradient-stops": gradientStops,
+          "--gradient-stops": gradientStops
         } as React.CSSProperties
       }
       className={cn(
-        `inline animate-gradient bg-[linear-gradient(to_right,var(--gradient-stops))]
-         bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
-        className,
+        `inline animate-gradient bg-[linear-gradient(to_right,var(--gradient-stops))] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
+        className
       )}
       {...props}
     >
@@ -48,7 +47,6 @@ export function AnimatedGradientText({
     </span>
   );
 }
-
 
 // import { cn } from "@/lib/utils";
 // import { ComponentPropsWithoutRef } from "react";

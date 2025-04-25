@@ -31,7 +31,6 @@ export function DatePicker({
   onBlur?: () => void;
   disabled?: boolean;
 }) {
-
   const [date, setDate, isDateValid] = useDateTimeInputState({
     defaultValue,
     value,

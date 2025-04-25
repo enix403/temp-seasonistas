@@ -10,12 +10,12 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
+  CommandList
 } from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from "@/components/ui/popover";
 
 export interface Option {
@@ -83,7 +83,7 @@ export function AsyncSelect<T>({
   className,
   triggerClassName,
   noResultsMessage,
-  clearable = true,
+  clearable = true
 }: AsyncSelectProps<T>) {
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
@@ -122,7 +122,9 @@ export function AsyncSelect<T>({
         setOriginalOptions(data);
         setOptions(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch options');
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch options"
+        );
       } finally {
         setLoading(false);
       }
@@ -142,7 +144,9 @@ export function AsyncSelect<T>({
         setOriginalOptions(data);
         setOptions(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch options');
+        setError(
+          err instanceof Error ? err.message : "Failed to fetch options"
+        );
       } finally {
         setLoading(false);
       }
@@ -154,74 +158,83 @@ export function AsyncSelect<T>({
       fetchOptions();
     } else if (preload) {
       if (debouncedSearchTerm) {
-        setOptions(originalOptions.filter((option) => filterFn ? filterFn(option, debouncedSearchTerm) : true));
+        setOptions(
+          originalOptions.filter(option =>
+            filterFn ? filterFn(option, debouncedSearchTerm) : true
+          )
+        );
       } else {
         setOptions(originalOptions);
       }
     }
   }, [fetcher, debouncedSearchTerm, mounted, preload, filterFn]);
 
-  const handleSelect = useCallback((currentValue: string) => {
-    const newValue = clearable && currentValue === selectedValue ? "" : currentValue;
-    setSelectedValue(newValue);
-    setSelectedOption(options.find((option) => getOptionValue(option) === newValue) || null);
-    onChange(newValue);
-    setOpen(false);
-  }, [selectedValue, onChange, clearable, options, getOptionValue]);
+  const handleSelect = useCallback(
+    (currentValue: string) => {
+      const newValue =
+        clearable && currentValue === selectedValue ? "" : currentValue;
+      setSelectedValue(newValue);
+      setSelectedOption(
+        options.find(option => getOptionValue(option) === newValue) || null
+      );
+      onChange(newValue);
+      setOpen(false);
+    },
+    [selectedValue, onChange, clearable, options, getOptionValue]
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          role="combobox"
+          variant='outline'
+          role='combobox'
           aria-expanded={open}
           className={cn(
             "justify-between",
-            disabled && "opacity-50 cursor-not-allowed",
+            disabled && "cursor-not-allowed opacity-50",
             triggerClassName
           )}
           style={{ width: width }}
           disabled={disabled}
         >
-          {selectedOption ? (
-            getDisplayValue(selectedOption)
-          ) : (
-            placeholder
-          )}
-          <ChevronsUpDown className="opacity-50" size={10} />
+          {selectedOption ? getDisplayValue(selectedOption) : placeholder}
+          <ChevronsUpDown className='opacity-50' size={10} />
         </Button>
       </PopoverTrigger>
       <PopoverContent style={{ width: width }} className={cn("p-0", className)}>
         <Command shouldFilter={false}>
-          <div className="relative border-b w-full">
+          <div className='relative w-full border-b'>
             <CommandInput
               placeholder={`Search ${label.toLowerCase()}...`}
               value={searchTerm}
-              onValueChange={(value) => {
+              onValueChange={value => {
                 setSearchTerm(value);
               }}
             />
             {loading && options.length > 0 && (
-              <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center">
-                <Loader2 className="h-4 w-4 animate-spin" />
+              <div className='absolute top-1/2 right-2 flex -translate-y-1/2 transform items-center'>
+                <Loader2 className='h-4 w-4 animate-spin' />
               </div>
             )}
           </div>
           <CommandList>
             {error && (
-              <div className="p-4 text-destructive text-center">
-                {error}
-              </div>
+              <div className='p-4 text-center text-destructive'>{error}</div>
             )}
-            {loading && options.length === 0 && (
-              loadingSkeleton || <DefaultLoadingSkeleton />
-            )}
-            {!loading && !error && options.length === 0 && (
-              notFound || <CommandEmpty>{noResultsMessage ?? `No ${label.toLowerCase()} found.`}</CommandEmpty>
-            )}
+            {loading &&
+              options.length === 0 &&
+              (loadingSkeleton || <DefaultLoadingSkeleton />)}
+            {!loading &&
+              !error &&
+              options.length === 0 &&
+              (notFound || (
+                <CommandEmpty>
+                  {noResultsMessage ?? `No ${label.toLowerCase()} found.`}
+                </CommandEmpty>
+              ))}
             <CommandGroup>
-              {options.map((option) => (
+              {options.map(option => (
                 <CommandItem
                   key={getOptionValue(option)}
                   value={getOptionValue(option)}
@@ -231,7 +244,9 @@ export function AsyncSelect<T>({
                   <Check
                     className={cn(
                       "ml-auto h-3 w-3",
-                      selectedValue === getOptionValue(option) ? "opacity-100" : "opacity-0"
+                      selectedValue === getOptionValue(option)
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -247,13 +262,13 @@ export function AsyncSelect<T>({
 function DefaultLoadingSkeleton() {
   return (
     <CommandGroup>
-      {[1, 2, 3].map((i) => (
+      {[1, 2, 3].map(i => (
         <CommandItem key={i} disabled>
-          <div className="flex items-center gap-2 w-full">
-            <div className="h-6 w-6 rounded-full animate-pulse bg-muted" />
-            <div className="flex flex-col flex-1 gap-1">
-              <div className="h-4 w-24 animate-pulse bg-muted rounded" />
-              <div className="h-3 w-16 animate-pulse bg-muted rounded" />
+          <div className='flex w-full items-center gap-2'>
+            <div className='h-6 w-6 animate-pulse rounded-full bg-muted' />
+            <div className='flex flex-1 flex-col gap-1'>
+              <div className='h-4 w-24 animate-pulse rounded bg-muted' />
+              <div className='h-3 w-16 animate-pulse rounded bg-muted' />
             </div>
           </div>
         </CommandItem>

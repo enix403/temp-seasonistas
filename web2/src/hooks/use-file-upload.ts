@@ -392,7 +392,7 @@ export const useFileUpload = (
       handleDrop,
       handleFileChange,
       openFileDialog,
-      getInputProps,
+      getInputProps
     }
   ];
 };

@@ -1,4 +1,10 @@
-import { ChangeEvent, ComponentProps, useCallback, useLayoutEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ComponentProps,
+  useCallback,
+  useLayoutEffect,
+  useState
+} from "react";
 
 export function useWatchInput({
   value,

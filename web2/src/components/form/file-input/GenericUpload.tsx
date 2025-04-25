@@ -7,7 +7,8 @@ import {
   FileUploadItem,
   FileUploadItemDelete,
   FileUploadItemMetadata,
-  FileUploadItemPreview, FileUploadList,
+  FileUploadItemPreview,
+  FileUploadList,
   FileUploadTrigger
 } from "@/components/ui/file-upload";
 import { useMaybeControlled } from "@/hooks/useMaybeControlled";

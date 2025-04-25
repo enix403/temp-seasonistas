@@ -18,7 +18,7 @@
   --primary-foreground: #ffffff;
   /* --secondary: oklch(0.967 0.001 286.375); */
   /* --secondary-foreground: oklch(0.21 0.006 285.885); */
-  --secondary: #F3C44D;
+  --secondary: #f3c44d;
   --secondary-foreground: #000000;
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);
@@ -166,14 +166,14 @@
 
   --animate-shine: shine var(--duration) infinite linear;
   @keyframes shine {
-  0% {
-    background-position: 0% 0%;
+    0% {
+      background-position: 0% 0%;
     }
-  50% {
-    background-position: 100% 100%;
+    50% {
+      background-position: 100% 100%;
     }
-  to {
-    background-position: 0% 0%;
+    to {
+      background-position: 0% 0%;
     }
   }
 }

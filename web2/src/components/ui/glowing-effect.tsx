@@ -27,7 +27,7 @@ const GlowingEffect = memo(
     className,
     movementDuration = 2,
     borderWidth = 1,
-    disabled = true,
+    disabled = true
   }: GlowingEffectProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const lastPosition = useRef({ x: 0, y: 0 });
@@ -88,9 +88,9 @@ const GlowingEffect = memo(
           animate(currentAngle, newAngle, {
             duration: movementDuration,
             ease: [0.16, 1, 0.3, 1],
-            onUpdate: (value) => {
+            onUpdate: value => {
               element.style.setProperty("--start", String(value));
-            },
+            }
           });
         });
       },
@@ -105,7 +105,7 @@ const GlowingEffect = memo(
 
       window.addEventListener("scroll", handleScroll, { passive: true });
       document.body.addEventListener("pointermove", handlePointerMove, {
-        passive: true,
+        passive: true
       });
 
       return () => {
@@ -155,13 +155,13 @@ const GlowingEffect = memo(
                   #5a922c calc(50% / var(--repeating-conic-gradient-times)), 
                   #4c7894 calc(75% / var(--repeating-conic-gradient-times)),
                   #dd7bbb calc(100% / var(--repeating-conic-gradient-times))
-                )`,
+                )`
             } as React.CSSProperties
           }
           className={cn(
             "pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-opacity",
             glow && "opacity-100",
-            blur > 0 && "blur-[var(--blur)] ",
+            blur > 0 && "blur-[var(--blur)]",
             className,
             disabled && "!hidden"
           )}
@@ -170,9 +170,9 @@ const GlowingEffect = memo(
             className={cn(
               "glow",
               "rounded-[inherit]",
-              'after:content-[""] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))]',
+              'after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:rounded-[inherit] after:content-[""]',
               "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
-              "after:[background:var(--gradient)] after:[background-attachment:fixed]",
+              "after:[background-attachment:fixed] after:[background:var(--gradient)]",
               "after:opacity-[var(--active)] after:transition-opacity after:duration-300",
               "after:[mask-clip:padding-box,border-box]",
               "after:[mask-composite:intersect]",

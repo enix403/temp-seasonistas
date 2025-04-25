@@ -50,7 +50,7 @@ export function ContactUs() {
   };
 
   return (
-    <section id="contact-us" className='container mx-auto px-4 py-16'>
+    <section id='contact-us' className='container mx-auto px-4 py-16'>
       <div className='flex flex-col gap-12 lg:flex-row'>
         {/* Left Column */}
         <div className='flex-1 space-y-4'>
@@ -80,7 +80,10 @@ export function ContactUs() {
 
         {/* Right Column - Contact Form */}
         <div className='flex-1'>
-          <BackgroundGradient className='rounded-[24px] bg-white' containerClassName="p-0.5">
+          <BackgroundGradient
+            className='rounded-[24px] bg-white'
+            containerClassName='p-0.5'
+          >
             <div className='rounded-3xl bg-white p-8 shadow-xl'>
               <h3 className='mb-6 text-xl font-bold'>Contact us</h3>
 

@@ -138,7 +138,7 @@ export function Testimonials({ className, ...props }: ComponentProps<"div">) {
         </div>
 
         {/* Dots navigation */}
-        <div className='flex justify-end gap-2 mt-14'>
+        <div className='mt-14 flex justify-end gap-2'>
           {testimonials.map((_, index) => (
             <button
               key={index}

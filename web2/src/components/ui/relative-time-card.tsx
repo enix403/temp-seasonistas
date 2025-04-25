@@ -3,12 +3,12 @@
 import {
   HoverCard,
   HoverCardContent,
-  HoverCardTrigger,
+  HoverCardTrigger
 } from "@/components/ui/hover-card";
 import { cn } from "@/lib/utils";
 import type {
   HoverCardContentProps,
-  HoverCardProps,
+  HoverCardProps
 } from "@radix-ui/react-hover-card";
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
@@ -40,13 +40,13 @@ const triggerVariants = cva(
       variant: {
         default: "",
         muted: "text-foreground/50 hover:text-foreground/70",
-        ghost: "hover:underline",
-      },
+        ghost: "hover:underline"
+      }
     },
     defaultVariants: {
-      variant: "default",
-    },
-  },
+      variant: "default"
+    }
+  }
 );
 
 interface RelativeTimeCardProps
@@ -98,11 +98,11 @@ const RelativeTimeCard = React.forwardRef<
 
   const date = React.useMemo(
     () => (dateProp instanceof Date ? dateProp : new Date(dateProp)),
-    [dateProp],
+    [dateProp]
   );
 
   const [formattedTime, setFormattedTime] = React.useState<string>(() =>
-    date.toLocaleDateString(),
+    date.toLocaleDateString()
   );
 
   React.useEffect(() => {
@@ -137,7 +137,7 @@ const RelativeTimeCard = React.forwardRef<
                 day: "numeric",
                 year: "numeric",
                 hour: "2-digit",
-                minute: "2-digit",
+                minute: "2-digit"
               }).format(date)}
             </time>
           )}
@@ -151,24 +151,24 @@ const RelativeTimeCard = React.forwardRef<
         avoidCollisions={avoidCollisions}
         collisionBoundary={collisionBoundary}
         collisionPadding={collisionPadding}
-        className="flex w-full max-w-[420px] flex-col gap-2 p-3"
+        className='flex w-full max-w-[420px] flex-col gap-2 p-3'
       >
         <time
           dateTime={date.toISOString()}
-          className="text-muted-foreground text-sm"
+          className='text-sm text-muted-foreground'
         >
           {formattedTime}
         </time>
-        <div role="list" className="flex flex-col gap-1">
-          {timezones.map((timezone) => (
+        <div role='list' className='flex flex-col gap-1'>
+          {timezones.map(timezone => (
             <TimezoneCard
               key={timezone}
-              role="listitem"
+              role='listitem'
               date={date}
               timezone={timezone}
             />
           ))}
-          <TimezoneCard role="listitem" date={date} />
+          <TimezoneCard role='listitem' date={date} />
         </div>
       </HoverCardContent>
     </HoverCard>
@@ -190,8 +190,8 @@ const TimezoneCard = React.forwardRef<HTMLDivElement, TimezoneCardProps>(
         timezone ??
         new Intl.DateTimeFormat("en-US", { timeZoneName: "shortOffset" })
           .formatToParts(date)
-          .find((part) => part.type === "timeZoneName")?.value,
-      [date, timezone],
+          .find(part => part.type === "timeZoneName")?.value,
+      [date, timezone]
     );
 
     const { formattedDate, formattedTime } = React.useMemo(
@@ -200,17 +200,17 @@ const TimezoneCard = React.forwardRef<HTMLDivElement, TimezoneCardProps>(
           month: "long",
           day: "numeric",
           year: "numeric",
-          timeZone: timezone,
+          timeZone: timezone
         }).format(date),
         formattedTime: new Intl.DateTimeFormat("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
           hour12: true,
-          timeZone: timezone,
-        }).format(date),
+          timeZone: timezone
+        }).format(date)
       }),
-      [date, timezone],
+      [date, timezone]
     );
 
     return (
@@ -218,18 +218,18 @@ const TimezoneCard = React.forwardRef<HTMLDivElement, TimezoneCardProps>(
         aria-label={`Time in ${timezoneName}: ${formattedDate} ${formattedTime}`}
         {...cardProps}
         ref={forwardedRef}
-        className="grid grid-cols-[auto_1fr_auto] items-center gap-2 text-muted-foreground text-sm"
+        className='grid grid-cols-[auto_1fr_auto] items-center gap-2 text-sm text-muted-foreground'
       >
-        <span className="w-fit rounded bg-accent px-1 font-medium text-xs">
+        <span className='w-fit rounded bg-accent px-1 text-xs font-medium'>
           {timezoneName}
         </span>
         <time dateTime={date.toISOString()}>{formattedDate}</time>
-        <time className="tabular-nums" dateTime={date.toISOString()}>
+        <time className='tabular-nums' dateTime={date.toISOString()}>
           {formattedTime}
         </time>
       </div>
     );
-  },
+  }
 );
 TimezoneCard.displayName = "TimezoneCard";
 
