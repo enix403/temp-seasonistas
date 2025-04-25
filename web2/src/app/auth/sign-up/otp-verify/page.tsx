@@ -11,10 +11,18 @@ import { Testimonials } from "../../common/Testimonials";
 import { OTPInput } from "input-otp";
 
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
 
 function OTPInputWrapper() {
+  const ref = useRef<any>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  }, []);
+
   return (
     <OTPInput
+      ref={ref}
       containerClassName='flex items-center gap-3 has-disabled:opacity-50'
       minLength={5}
       maxLength={5}
@@ -25,11 +33,10 @@ function OTPInputWrapper() {
               key={index}
               className={cn(
                 "flex size-14 items-center justify-center rounded-full bg-[#ECF2F9] font-medium text-foreground shadow-xs transition-[color,box-shadow]",
-                { "z-10 border-ring ring-[3px] ring-ring/50": slot.isActive }
+                { "z-10 border-ring ring-[3px] ring-primary/50": slot.isActive }
               )}
             >
-              {/* {slot.char !== null && <div>{slot.char}</div>} */}
-              <div>{slot.char ?? "*"}</div>
+              {slot.char !== null && <div>{slot.char}</div>}
             </div>
           ))}
         </div>
