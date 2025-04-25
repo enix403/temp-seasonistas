@@ -8,13 +8,37 @@ import { AuthQuote } from "../../common/AuthQuote";
 import { AnimatedColorfulText } from "../../common/AnimatedColorfulText";
 import { Testimonials } from "../../common/Testimonials";
 
-import { Form } from "@/components/ui/form";
+import { OTPInput } from "input-otp";
+
+import { cn } from "@/lib/utils";
+
+function OTPInputWrapper() {
+  return (
+    <OTPInput
+      containerClassName='flex items-center gap-3 has-disabled:opacity-50'
+      minLength={5}
+      maxLength={5}
+      render={({ slots }) => (
+        <div className='flex gap-2'>
+          {slots.map((slot, index) => (
+            <div
+              key={index}
+              className={cn(
+                "flex size-14 items-center justify-center rounded-full bg-[#ECF2F9] font-medium text-foreground shadow-xs transition-[color,box-shadow]",
+                { "z-10 border-ring ring-[3px] ring-ring/50": slot.isActive }
+              )}
+            >
+              {/* {slot.char !== null && <div>{slot.char}</div>} */}
+              <div>{slot.char ?? "*"}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    />
+  );
+}
 
 export default function VerifyPage() {
-  const onSubmit = values => {
-    console.log(values);
-  };
-
   return (
     <AuthPage
       title='Enter OTP'
@@ -29,9 +53,14 @@ export default function VerifyPage() {
         </>
       }
     >
+      <OTPInputWrapper />
+
+      <Button className='mt-4' variant='ghost' effect='hoverUnderline'>
+        Resend OTP
+      </Button>
+
       <Button
-        type='submit'
-        className='mt-6 w-full'
+        className='mt-5 w-full'
         size='lg'
         effect='expandIcon'
         icon={ArrowRightIcon}
