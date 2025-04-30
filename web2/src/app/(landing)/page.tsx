@@ -50,7 +50,7 @@ export default function Home() {
   const [scrollRef, scrollTop] = useContaineirScroll();
 
   return (
-    <div ref={scrollRef} className={clsx("max-h-full overflow-y-auto")}>
+    <div ref={scrollRef} className={clsx("max-h-full overflow-y-auto scroll-smooth")}>
       <TopNav scrollTop={scrollTop} />
       <Hero>
         <OverflowingHeroImage ref={ref} height={height} amount={amount} />
