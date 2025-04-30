@@ -39,8 +39,8 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
       }`}
     >
       <div className='px-6 md:px-10 lg:px-20'>
-        <div className='flex items-center justify-between'>
-          <div className='shrink-0'>
+        <div className='sm:flex flex-wrap gap-y-2 items-center justify-between'>
+          <div className='shrink-0 pr-2'>
             <img
               src='/logo-big.png'
               alt='Seasonistas Logo'
@@ -70,7 +70,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
             </Link>
           </nav>
 
-          <div className='flex items-center gap-1'>
+          <div className='flex items-center gap-1 max-sm:mt-3'>
             {/* Mobile Menu Button */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
@@ -166,7 +166,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button asChild className='w-full'>
+            <Button asChild className='w-full max-sm:hidden'>
               <Link href='/auth/login'>Login</Link>
             </Button>
           </div>

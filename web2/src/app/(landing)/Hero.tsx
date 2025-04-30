@@ -21,7 +21,7 @@ export function Hero({ children }: PropsWithChildren) {
     <div
       id='home'
       className={clsx(
-        "py-20 pb-0 max-md:pt-8",
+        "py-28 pb-0 max-md:pt-8",
         "px-6 md:px-10 lg:px-20",
         "text-[#DBDBDB]",
         "bg-[#022127]",
