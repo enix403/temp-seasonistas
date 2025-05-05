@@ -73,7 +73,7 @@ export function ContactUs() {
             </div>
             <div>
               <div className='text-sm text-gray-500'>Email</div>
-              <div className='font-medium'>support@seasonaljob.com</div>
+              <div className='font-medium'>info@seasonistas.com</div>
             </div>
           </div>
         </div>

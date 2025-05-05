@@ -96,7 +96,7 @@ export function Footer() {
           <div>
             <h3 className='mb-6 text-xl font-semibold'>Get in Touch</h3>
             <ul className='space-y-3'>
-              <li className='text-gray-300'>support@seasonaljob.com</li>
+              <li className='text-gray-300'>info@seasonistas.com</li>
               <li className='text-gray-300'>
                 96 Dimitriou Gounari Street,
                 <br />

@@ -16,7 +16,7 @@ import { MobileAppSection } from "./MobileAppPromo";
 import { Footer } from "./Footer";
 
 function OverflowingHeroImage({ ref, height, amount }) {
-  const src = "/hero-pc.png";
+  const src = "/hero-new.jpg";
 
   return (
     <div
@@ -35,7 +35,7 @@ function OverflowingHeroImage({ ref, height, amount }) {
           className='w-full max-w-full overflow-y-visible'
           style={{ height: (height ?? 0) * amount }}
         >
-          <img src={src} className='w-full max-w-full' />
+          <img src={src} className='w-full max-w-full rounded-3xl' />
         </div>
       ) : null}
     </div>

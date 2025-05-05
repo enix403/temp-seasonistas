@@ -174,7 +174,6 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
               <DropdownMenuContent align='end'>
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Greek</DropdownMenuItem>
-                <DropdownMenuItem>Spanish</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
