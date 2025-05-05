@@ -22,7 +22,7 @@ function OverflowingHeroImage({ ref, height, amount }) {
     <div
       className={clsx(
         "relative mx-auto mt-16 max-w-7xl",
-        "rounded-t-2xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 px-7 pt-7"
+        "rounded-t-2xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-4 md:p-7 pb-0"
       )}
     >
       <img
@@ -35,7 +35,7 @@ function OverflowingHeroImage({ ref, height, amount }) {
           className='w-full max-w-full overflow-y-visible'
           style={{ height: (height ?? 0) * amount }}
         >
-          <img src={src} className='w-full max-w-full rounded-3xl' />
+          <img src={src} className='w-full max-w-full rounded-xl md:rounded-3xl' />
         </div>
       ) : null}
     </div>

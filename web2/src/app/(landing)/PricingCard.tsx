@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShineBorder } from "@/components/magicui/shine-border";
+import clsx from "clsx";
 
 interface PricingCardProps {
   name: string;
@@ -9,50 +10,6 @@ interface PricingCardProps {
   benefits: string[];
   isHighlighted?: boolean;
 }
-
-/*
-
-<div className='flex flex-col rounded-3xl border p-6'>
-<h3 className='mb-8 text-lg font-bold'>Starter Plan</h3>
-<div className='mb-8'>
-  <div className='flex items-baseline'>
-    <span className='text-4xl font-bold'>$0</span>
-    <span className='ml-1 text-gray-500'>/ Per Month</span>
-  </div>
-  <p className='mt-6 text-gray-600'>
-    This package is ideal for individuals or tiny teams
-  </p>
-</div>
-
-<div className='mb-8 flex-grow space-y-3'>
-  <div className='flex items-center'>
-    <Check className='mr-2 h-5 w-5 text-teal-500' />
-    <span>10 GB Storage</span>
-  </div>
-  <div className='flex items-center'>
-    <Check className='mr-2 h-5 w-5 text-teal-500' />
-    <span>1 Year Support</span>
-  </div>
-  <div className='flex items-center'>
-    <Check className='mr-2 h-5 w-5 text-teal-500' />
-    <span>500 Applications</span>
-  </div>
-  <div className='flex items-center'>
-    <Check className='mr-2 h-5 w-5 text-teal-500' />
-    <span>Basic Analytics</span>
-  </div>
-  <div className='flex items-center'>
-    <Check className='mr-2 h-5 w-5 text-teal-500' />
-    <span>Free Subdomain</span>
-  </div>
-</div>
-
-<Button variant='outline' className='w-full'>
-  Purchase Now
-</Button>
-</div>
-
-*/
 
 export function PricingCard({
   name,
@@ -89,10 +46,10 @@ export function PricingCard({
       <div className='mb-10 flex-grow space-y-3'>
         {benefits.map((benefit, index) => (
           <div key={index} className='flex items-center'>
-            <div className='mr-3 shrink-0 rounded-full bg-primary p-0.5 text-white'>
+            <div className={clsx('mr-3 shrink-0 rounded-full bg-primary p-0.5 text-white')}>
               <Check className='size-4' />
             </div>
-            <span>{benefit}</span>
+            <span className={clsx(isHighlighted && "font-semibold")}>{benefit}</span>
           </div>
         ))}
       </div>
