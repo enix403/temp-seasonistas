@@ -27,11 +27,11 @@ export function PricingCard({
       <h3 className='text-lg font-bold'>{name}</h3>
       <div className='mt-7'>
         <div className='flex items-baseline'>
-          <span className='text-4xl font-bold'>${price}</span>
+          <span className='text-4xl font-bold'>{price}</span>
           <span
             className={`${isHighlighted ? "text-gray-300" : "text-gray-500"} ml-1`}
           >
-            / Per Month
+            / Per Year
           </span>
         </div>
         <p
@@ -41,7 +41,7 @@ export function PricingCard({
         </p>
       </div>
 
-      <hr className='my-7 border-[#5B7486]/10' />
+      <hr className={clsx('my-7', isHighlighted ? "border-[#E3E4E5]/20": "border-[#5B7486]/10")} />
 
       <div className='mb-10 flex-grow space-y-3'>
         {benefits.map((benefit, index) => (

@@ -4,6 +4,79 @@ import { RoundPill } from "./RoundPill";
 
 import { PricingCard } from "./PricingCard";
 
+type PricingPlan = {
+  name: string;
+  price: number;
+  description: string;
+  benefits: string[];
+  isHighlighted?: boolean;
+};
+
+const pricingPlans: PricingPlan[] = [
+  {
+    name: "Basic",
+    price: 25,
+    description: "This package is ideal for individuals or tiny teams just getting started.",
+    benefits: [
+      "0–5 ads",
+      "CV Search",
+      "Search for Specialized CVs",
+      "Detailed Statistics",
+      "Access to chat",
+      "Video Interviews",
+      "Automatic notifications",
+      "Professional networking",
+    ],
+  },
+  {
+    name: "Standard",
+    price: 75,
+    description: "Perfect for small businesses looking to expand their reach affordably.",
+    benefits: [
+      "6–15 ads",
+      "CV Search",
+      "Search for Specialized CVs",
+      "Detailed Statistics",
+      "Access to chat",
+      "Video Interviews",
+      "Automatic notifications",
+      "Professional networking",
+    ],
+  },
+  {
+    name: "Premium",
+    price: 120,
+    description: "Designed for growing companies that need more capacity and insights.",
+    benefits: [
+      "16–30 ads",
+      "CV Search",
+      "Search for Specialized CVs",
+      "Detailed Statistics",
+      "Access to chat",
+      "Video Interviews",
+      "Automatic notifications",
+      "Professional networking",
+    ],
+    isHighlighted: true,
+  },
+  {
+    name: "Platinum",
+    price: 200,
+    description: "Our most comprehensive plan for enterprises with high-volume needs.",
+    benefits: [
+      "30+ ads",
+      "CV Search",
+      "Search for Specialized CVs",
+      "Detailed Statistics",
+      "Access to chat",
+      "Video Interviews",
+      "Automatic notifications",
+      "Professional networking",
+    ],
+  },
+];
+
+
 export function Pricing() {
   return (
     <section
@@ -20,61 +93,11 @@ export function Pricing() {
       </div>
 
       <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
-        {[
-          {
-            name: "Starter Plan",
-            price: "0",
-            description: "This package is ideal for individuals or tiny teams",
-            benefits: [
-              "10 GB Storage",
-              "1 Year Support",
-              "500 Applications",
-              "Basic Analytics",
-              "Free Subdomain"
-            ]
-          },
-          {
-            name: "Basic Plan",
-            price: "20",
-            description: "This package is ideal for small growing teams",
-            benefits: [
-              "500 GB Storage",
-              "5 Year Support",
-              "600 Queries",
-              "Basic Analytics",
-              "Free Subdomain"
-            ]
-          },
-          {
-            name: "Enter Price Plan",
-            price: "46",
-            description: "This plan fits mid-size hiring companies",
-            benefits: [
-              "800 GB Storage",
-              "10 Year Support",
-              "800 Applications",
-              "Full Analytics",
-              "Free Subdomain"
-            ],
-            isHighlighted: true
-          },
-          {
-            name: "Unlimited Plan",
-            price: "90",
-            description: "This plan fits large teams or agencies",
-            benefits: [
-              "1000 GB Disk Space",
-              "Unlimited Support",
-              "Unlimited Applications",
-              "Full Analytics",
-              "Free Subdomain"
-            ]
-          }
-        ].map((plan, index) => (
+        {pricingPlans.map((plan, index) => (
           <PricingCard
             key={index}
             name={plan.name}
-            price={plan.price}
+            price={`€${plan.price}`}
             description={plan.description}
             benefits={plan.benefits}
             isHighlighted={plan.isHighlighted}
