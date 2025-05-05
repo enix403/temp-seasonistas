@@ -41,7 +41,13 @@ export function Hero({ children }: PropsWithChildren) {
 
       <RoundPill label='Hire Smart Faster' className='border-[#3D5C64]' />
 
-      <div className='flex flex-col items-start gap-x-10 max-xl:justify-between md:flex-row xl:gap-x-60 2xl:gap-x-80'>
+      <div
+        className={clsx(
+          "flex flex-col items-start justify-between md:flex-row",
+          "gap-x-4"
+          // "gap-x-10 xl:gap-x-60 2xl:gap-x-80"
+        )}
+      >
         {/* Main Text */}
         <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
           <HeroShadow>Finding</HeroShadow>{" "}
