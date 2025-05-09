@@ -16,10 +16,3 @@ export function AnimatedColorfulText({
   );
 }
 
-/*
-
-rust
-golang
-
-
-*/

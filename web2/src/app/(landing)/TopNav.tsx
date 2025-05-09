@@ -59,7 +59,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
         <div className='flex-wrap items-center justify-between gap-y-2 sm:flex'>
           <div className='shrink-0 pr-2'>
             <img
-              src='/logo-big.png'
+              src='/logo-big.svg'
               alt='Seasonistas Logo'
               className='h-10 w-auto'
             />
@@ -111,7 +111,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                   </div>
                   <div className='mt-4 mb-8'>
                     <img
-                      src='/logo-big.png'
+                      src='/logo-big.svg'
                       alt='Seasonistas Logo'
                       className='h-10 w-auto'
                     />

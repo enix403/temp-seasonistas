@@ -39,8 +39,6 @@ export function Hero({ children }: PropsWithChildren) {
       {/* Padding below top bar */}
       <div className='md:pt-20'></div>
 
-      <RoundPill label='Hire Smart Faster' className='border-[#3D5C64]' />
-
       <div
         className={clsx(
           "flex flex-col items-start justify-between md:flex-row",
