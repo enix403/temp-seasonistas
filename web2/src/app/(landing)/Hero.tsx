@@ -58,9 +58,7 @@ export function Hero({ children }: PropsWithChildren) {
           </AuroraText>{" "}
           <HeroShadow>Made</HeroShadow>
           <br />
-          <SparklesText>
-            <HeroShadow>Simple</HeroShadow>
-          </SparklesText>
+          <HeroShadow>Simple</HeroShadow>
         </h1>
 
         <div className='space-y-5'>

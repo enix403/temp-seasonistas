@@ -6,12 +6,13 @@ import { TextAnimate } from "@/components/magicui/text-animate";
 
 import { RoundPill } from "./RoundPill";
 import { ComponentProps, memo } from "react";
+import Link from "next/link";
 
 const Inner = memo(() => {
   return (
     <div className='mx-auto flex max-w-7xl flex-col items-start gap-y-12 md:flex-row md:gap-x-14 lg:gap-x-28'>
-      <div className='flex-1 max-md:order-1 max-md:w-full max-md:px-8 max-sm:px-2'>
-        <img src='/about-us.png' className='w-full max-w-full' />
+      <div className='flex-1 overflow-hidden rounded-2xl max-md:order-1 max-md:w-full max-md:px-8 max-sm:px-2'>
+        <img src='/about-us-2.jpg' className='w-full max-w-full' />
       </div>
 
       <div className='flex-1 shrink-0 space-y-4 md:pt-5'>
@@ -37,7 +38,10 @@ const Inner = memo(() => {
             team.
           </p>
         </div>
-        <Button size='lg'>Get Started Now</Button>
+
+        <Button asChild size='lg'>
+          <Link href='/auth/login'>Get Started Now</Link>
+        </Button>
       </div>
     </div>
   );
@@ -45,10 +49,7 @@ const Inner = memo(() => {
 
 export function AboutUs({ className, ...rest }: ComponentProps<"div">) {
   return (
-    <div
-      {...rest}
-      className={clsx("lg:sx-24 px-8 md:px-14", className)}
-    >
+    <div {...rest} className={clsx("lg:sx-24 px-8 md:px-14", className)}>
       <Inner />
     </div>
   );

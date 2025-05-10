@@ -28,7 +28,7 @@ export default function SignUp() {
             <AnimatedColorfulText>Future-proof</AnimatedColorfulText> <br />
             your workforce
           </AuthQuote>
-          <Testimonials className='mt-20 xl:mt-24' />
+          {/* <Testimonials className='mt-20 xl:mt-24' /> */}
         </>
       }
     >

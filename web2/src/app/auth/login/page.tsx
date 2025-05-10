@@ -29,7 +29,7 @@ export default function Login() {
             win seasons with <br />
             the right talent.
           </AuthQuote>
-          <Testimonials className='mt-20 xl:mt-24' />
+          {/* <Testimonials className='mt-20 xl:mt-24' /> */}
         </>
       }
     >

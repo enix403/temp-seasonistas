@@ -50,7 +50,7 @@ export default function EmployerInfo() {
             <AnimatedColorfulText>Scale smarter</AnimatedColorfulText> with
             seasonal talent stay flexible.
           </AuthQuote>
-          <Testimonials className='mt-20 xl:mt-24' />
+          {/* <Testimonials className='mt-20 xl:mt-24' /> */}
         </>
       }
     >
