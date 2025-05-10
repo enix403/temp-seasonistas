@@ -84,7 +84,7 @@ export function Pricing() {
       className='container mx-auto bg-white px-4 py-16 text-black'
     >
       <div className='flex flex-col items-center gap-y-4'>
-        <RoundPill label='Pricing' />
+        {/* <RoundPill label='Pricing' /> */}
         <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>
 
         <p className='max-w-md text-center text-gray-600'>

@@ -15,7 +15,7 @@ const Inner = memo(() => {
       </div>
 
       <div className='flex-1 shrink-0 space-y-4 md:pt-5'>
-        <RoundPill label='About Us' className='border-[#E2E8EA]' />
+        {/* <RoundPill label='About Us' className='border-[#E2E8EA]' /> */}
 
         <TextAnimate
           animation='slideUp'
@@ -47,7 +47,6 @@ export function AboutUs({ className, ...rest }: ComponentProps<"div">) {
   return (
     <div
       {...rest}
-      id='about-us'
       className={clsx("lg:sx-24 px-8 md:px-14", className)}
     >
       <Inner />

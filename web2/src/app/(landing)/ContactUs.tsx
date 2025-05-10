@@ -54,7 +54,7 @@ export function ContactUs() {
       <div className='flex flex-col gap-12 lg:flex-row'>
         {/* Left Column */}
         <div className='flex-1 space-y-4'>
-          <RoundPill label='Contact Us' />
+          {/* <RoundPill label='Contact Us' /> */}
 
           <h1 className='text-[#1E1E1E] max-md:text-4xl'>
             Got Questions?

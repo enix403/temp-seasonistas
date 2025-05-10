@@ -44,7 +44,7 @@ export function HowItWorks() {
         )}
       ></div>
 
-      <RoundPill label='Our Work' className='mx-auto border-[#3D5C64]' />
+      {/* <RoundPill label='Our Work' className='mx-auto border-[#3D5C64]' /> */}
 
       <h1 className='mt-6 text-center text-white max-md:text-4xl'>
         How It Works

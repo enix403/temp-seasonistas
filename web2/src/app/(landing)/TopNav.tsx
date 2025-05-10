@@ -171,7 +171,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                   English <ChevronDown className='h-4 w-4' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align='end'>
+              <DropdownMenuContent align='end' className="z-[101]">
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Greek</DropdownMenuItem>
               </DropdownMenuContent>

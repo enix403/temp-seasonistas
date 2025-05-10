@@ -53,7 +53,7 @@ export function MobileAppSection() {
 
           {/* Right side - Content */}
           <div className='text-center md:w-1/2 md:text-left'>
-            <RoundPill label='Mobile App' />
+            {/* <RoundPill label='Mobile App' /> */}
 
             <h1 className='mt-4 text-[#1E1E1E] max-md:text-4xl'>
               Download Our Mobile App

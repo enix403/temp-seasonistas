@@ -22,7 +22,7 @@ function OverflowingHeroImage({ ref, height, amount }) {
     <div
       className={clsx(
         "relative mx-auto mt-16 max-w-7xl",
-        "rounded-t-2xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-4 md:p-7 pb-0"
+        "rounded-t-2xl border-[0.5px] border-[#80D6E2]/30 bg-white/10 p-4 pb-0 md:p-7"
       )}
     >
       <img
@@ -35,7 +35,15 @@ function OverflowingHeroImage({ ref, height, amount }) {
           className='w-full max-w-full overflow-y-visible'
           style={{ height: (height ?? 0) * amount }}
         >
-          <img src={src} className='w-full max-w-full rounded-xl md:rounded-3xl' />
+          <img
+            src={src}
+            className='w-full max-w-full rounded-xl md:rounded-3xl'
+          />
+          {/**
+           * Just so clicking on the "About Us" link scrolls to the correct
+           * position, which just so happens to be here.
+           * */}
+          <div id='about-us' className='h-0 w-0' />
         </div>
       ) : null}
     </div>
@@ -50,7 +58,10 @@ export default function Home() {
   const [scrollRef, scrollTop] = useContaineirScroll();
 
   return (
-    <div ref={scrollRef} className={clsx("max-h-full overflow-y-auto scroll-smooth")}>
+    <div
+      ref={scrollRef}
+      className={clsx("max-h-full overflow-y-auto scroll-smooth")}
+    >
       <TopNav scrollTop={scrollTop} />
       <Hero>
         <OverflowingHeroImage ref={ref} height={height} amount={amount} />

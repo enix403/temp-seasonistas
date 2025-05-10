@@ -101,7 +101,7 @@ export function Footer() {
           <div>
             <div className='mb-6'>
               <img
-                src='/logo-big.png'
+                src='/logo-big.svg'
                 alt='Seasonistas Logo'
                 className='h-10 w-auto'
               />
