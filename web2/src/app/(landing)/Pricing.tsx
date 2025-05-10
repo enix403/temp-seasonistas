@@ -88,7 +88,7 @@ export function Pricing() {
         <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>
 
         <p className='max-w-md text-center text-gray-600'>
-          The pricing policy applies exclusively to professional accounts.
+          The pricing policy applies exclusively to business accounts.
         </p>
       </div>
 
