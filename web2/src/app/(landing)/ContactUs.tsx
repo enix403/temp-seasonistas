@@ -50,7 +50,9 @@ export function ContactUs() {
   };
 
   return (
-    <section id='contact-us' className='container mx-auto px-4 py-16'>
+    <section className='container mx-auto px-4 py-16 relative'>
+      <div id="contact-us" className="absolute -top-12 left-1/2" />
+
       <div className='flex flex-col gap-12 lg:flex-row'>
         {/* Left Column */}
         <div className='flex-1 space-y-4'>

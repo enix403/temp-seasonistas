@@ -80,9 +80,9 @@ const pricingPlans: PricingPlan[] = [
 export function Pricing() {
   return (
     <section
-      id='pricing'
-      className='container mx-auto bg-white px-4 py-16 text-black'
+      className='container mx-auto bg-white px-4 py-16 text-black relative'
     >
+      <div id="pricing" className="absolute -top-12 left-1/2" />
       <div className='flex flex-col items-center gap-y-4'>
         {/* <RoundPill label='Pricing' /> */}
         <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>
