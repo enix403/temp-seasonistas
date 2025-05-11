@@ -11,7 +11,7 @@ import Link from "next/link";
 const Inner = memo(() => {
   return (
     <div className='mx-auto flex max-w-7xl flex-col items-start gap-y-12 md:flex-row md:gap-x-14 lg:gap-x-28'>
-      <div className='flex-1 overflow-hidden rounded-2xl max-md:order-1 max-md:w-full max-md:px-8 max-sm:px-2'>
+      <div className='flex-1 max-md:order-1 max-md:w-full max-md:px-8 max-sm:px-2'>
         <img src='/about-us-2.jpg' className='w-full max-w-full' />
       </div>
 
