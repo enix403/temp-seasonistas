@@ -19,16 +19,15 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Menu } from "lucide-react";
+import clsx from "clsx";
 
-// const links = [
-//   { label: "Home", href: "#home" },
-//   { label: "About Us", href: "#about-us" },
-//   { label: "How It Works", href: "#how-it-works" },
-//   { label: "Pricing", href: "#pricin" },
-//   { label: "Contact Us", href: "#home" }
-// ];
-
-export function TopNav({ scrollTop }: { scrollTop: number }) {
+export function TopNav({
+  scrollTop,
+  selectedSectionIndexFromScroll
+}: {
+  scrollTop: number;
+  selectedSectionIndexFromScroll: number;
+}) {
   const [open, setOpen] = useState(false);
   const scrolled = scrollTop > 10;
 
@@ -49,6 +48,14 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
     };
   };
 
+  const sectionLinks = [
+    { link: "#home", name: "Home" },
+    { link: "#about-us", name: "About Us" },
+    { link: "#how-it-works", name: "How It Works" },
+    { link: "#pricing", name: "Pricing" },
+    { link: "#contact-us", name: "Contact Us" }
+  ];
+
   return (
     <header
       className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] duration-100 max-md:bg-[#022127] md:fixed md:transition-all ${
@@ -66,25 +73,24 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className='hidden items-center rounded-full bg-white/[0.06] hover:text-white md:flex'>
-            <Link
-              href='#home'
-              className='rounded-full bg-white px-6 py-3 font-medium text-black'
-            >
-              Home
-            </Link>
-            <Link href='#about-us' className='px-4 py-3'>
-              About Us
-            </Link>
-            <Link href='#how-it-works' className='px-4 py-3'>
-              How It Works
-            </Link>
-            <Link href='#pricing' className='px-4 py-3'>
-              Pricing
-            </Link>
-            <Link href='#contact-us' className='px-4 py-3 pr-7'>
-              Contact Us
-            </Link>
+          <nav className='hidden items-center rounded-full bg-white/[0.06] md:flex'>
+            {sectionLinks.map(({ link, name }, index) => {
+              const selected = selectedSectionIndexFromScroll === index;
+              return (
+                <Link
+                  key={link}
+                  href={link}
+                  className={clsx(
+                    "px-6 py-3",
+                    selected
+                      ? "rounded-full bg-white font-medium text-black transition-all"
+                      : "hover:text-white"
+                  )}
+                >
+                  {name}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className='flex items-center gap-1 max-sm:mt-3'>
@@ -118,7 +124,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                   </div>
                 </SheetHeader>
                 <div className='flex h-full flex-col'>
-                  <nav className='flex flex-col space-y-4 [&_p]:hover:underline [&_p]:cursor-pointer'>
+                  <nav className='flex flex-col space-y-4 [&_p]:cursor-pointer [&_p]:hover:underline'>
                     <p
                       className='w-fit rounded-full bg-white px-6 py-2 font-medium text-black'
                       onClick={gotoSection("#home")}
@@ -171,7 +177,7 @@ export function TopNav({ scrollTop }: { scrollTop: number }) {
                   English <ChevronDown className='h-4 w-4' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align='end' className="z-[101]">
+              <DropdownMenuContent align='end' className='z-[101]'>
                 <DropdownMenuItem>English</DropdownMenuItem>
                 <DropdownMenuItem>Greek</DropdownMenuItem>
               </DropdownMenuContent>

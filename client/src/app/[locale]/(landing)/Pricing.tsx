@@ -82,6 +82,7 @@ interface PricingProps {
 export function Pricing({ isEmployee }: PricingProps) {
   return (
     <section
+      id="pricing-wrapper"
       className='container mx-auto bg-white px-4 py-16 text-black relative'
     >
       <div id="pricing" className="absolute -top-12 left-1/2" />
