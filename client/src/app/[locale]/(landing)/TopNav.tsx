@@ -58,9 +58,8 @@ export function TopNav({
 
   return (
     <header
-      className={`top-0 right-0 left-0 z-100 text-[#DBDBDB] duration-100 max-md:bg-[#022127] md:fixed md:transition-all ${
-        scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
-      }`}
+      className={`top-0 right-0 left-0 z-40 text-[#DBDBDB] duration-100 max-md:bg-[#022127] sticky md:fixed md:transition-all ${scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
+        }`}
     >
       <div className='px-6 md:px-10 lg:px-20'>
         <div className='flex-wrap items-center justify-between gap-y-2 sm:flex'>
@@ -93,7 +92,7 @@ export function TopNav({
             })}
           </nav>
 
-          <div className='flex items-center gap-1 max-sm:mt-3'>
+          <div className='flex z-50 items-center gap-1 max-sm:mt-3'>
             {/* Mobile Menu Button */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
@@ -157,13 +156,7 @@ export function TopNav({
                     </p>
                   </nav>
 
-                  <div className='mt-auto mb-8'>
-                    <Button asChild className='w-full'>
-                      <Link href='/auth/login' onClick={() => setOpen(false)}>
-                        Login
-                      </Link>
-                    </Button>
-                  </div>
+
                 </div>
               </SheetContent>
             </Sheet>
@@ -183,7 +176,7 @@ export function TopNav({
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button asChild className='w-full max-sm:hidden'>
+            <Button asChild className='w-full max-sm:w-1/3'>
               <Link href='/auth/login'>Login</Link>
             </Button>
           </div>
