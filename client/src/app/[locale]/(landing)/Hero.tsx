@@ -38,36 +38,37 @@ export function Hero({ children }: PropsWithChildren) {
 
       {/* Padding below top bar */}
       <div className='md:pt-20'></div>
+      <div className="w-full flex justify-center items-center">
+        <div
+          className={clsx(
+            "flex flex-col items-start justify-between md:flex-row",
+            "gap-x-4 max-w-7xl w-full"
+            // "gap-x-10 xl:gap-x-60 2xl:gap-x-80"
+          )}
+        >
+          {/* Main Text */}
+          <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl lg:text-7xl text-between-xl-2xl'>
+            <HeroShadow>Finding</HeroShadow>{" "}
+            <AuroraText
+              className='font-pjs font-bold'
+              colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}
+            >
+              Seasonal
+              <br /> Work
+            </AuroraText>{" "}
+            <HeroShadow>Made</HeroShadow>
+            <br />
+            <HeroShadow>Simple</HeroShadow>
+          </h1>
 
-      <div
-        className={clsx(
-          "flex flex-col items-start justify-between md:flex-row",
-          "gap-x-4"
-          // "gap-x-10 xl:gap-x-60 2xl:gap-x-80"
-        )}
-      >
-        {/* Main Text */}
-        <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl xl:text-7xl'>
-          <HeroShadow>Finding</HeroShadow>{" "}
-          <AuroraText
-            className='font-pjs font-bold'
-            colors={["#81A7EB", "#956ED4", "#FE605D", "#F3C44D"]}
-          >
-            Seasonal
-            <br /> Work
-          </AuroraText>{" "}
-          <HeroShadow>Made</HeroShadow>
-          <br />
-          <HeroShadow>Simple</HeroShadow>
-        </h1>
-
-        <div className='space-y-5'>
-          <p className='mt-6 max-w-md text-lg md:text-xl'>
-            Seasonistas is a platform that connects seasonal workers and
-            employers across Greece, helping them find the ideal job or the
-            right person for their team.
-          </p>
-          <Button size='lg'>Get Started Now</Button>
+          <div className='space-y-5'>
+            <p className='mt-6 max-w-md text-lg 2xl:text-xl'>
+              Seasonistas is a platform that connects seasonal workers and
+              employers across Greece, helping them find the ideal job or the
+              right person for their team.
+            </p>
+            <Button size='lg'>Get Started Now</Button>
+          </div>
         </div>
       </div>
 
