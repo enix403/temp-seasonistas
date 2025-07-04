@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 type Worker = {
     name: string
@@ -13,10 +14,11 @@ type Props = {
 }
 
 const WorkerProfileCard = ({ worker }: Props) => {
+    const router = useRouter()
     return (
-        <div className="w-full rounded-xl border border-gray-200 p-6 bg-white shadow-sm space-y-4">
+        <div className="w-full rounded-xl border cursor-pointer border-gray-200 p-6 bg-white shadow-sm space-y-4">
             {/* Header */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" onClick={() => router.push('/en/employer/view-profile/4')}>
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
                     <Image
                         src={worker.avatar}

@@ -17,6 +17,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import profileImage1 from "~/app/assets/Ellipse 4149.png";
 import Image from "next/image";
 import ProfileMenu from "./modals/ProfileMenu";
+import { useRouter } from "next/navigation";
 const RightBarCards = () => {
   const avatarUrl = "https://randomuser.me/api/portraits/men/32.jpg";
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,6 +30,8 @@ const RightBarCards = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const router = useRouter()
+
 
   const open = Boolean(anchorEl);
   return (
@@ -51,21 +54,23 @@ const RightBarCards = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Stack direction="row" spacing={1.5} alignItems="center">
-              <Image
-                src={profileImage1}
-                alt="Ali Haider"
-                style={{ width: 45, height: 45 }}
-              />
-              <Box>
-                <Typography fontWeight="bold" fontSize={14}>
-                  Ali Haider
-                </Typography>
-                <Typography fontSize={12} color="text.secondary">
-                  UI/UX Designer
-                </Typography>
-              </Box>
-            </Stack>
+            <div onClick={() => router.push('/en/employer/view-profile/4')} className="cursor-pointer">
+              <Stack direction="row" spacing={1.5} alignItems="center">
+                <Image
+                  src={profileImage1}
+                  alt="Ali Haider"
+                  style={{ width: 45, height: 45 }}
+                />
+                <Box>
+                  <Typography fontWeight="bold" fontSize={14}>
+                    Ali Haider
+                  </Typography>
+                  <Typography fontSize={12} color="text.secondary">
+                    UI/UX Designer
+                  </Typography>
+                </Box>
+              </Stack>
+            </div>
 
             <IconButton size="small" onClick={handleClick}>
               <MoreVertIcon fontSize="small" />

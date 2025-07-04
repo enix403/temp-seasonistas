@@ -215,3 +215,13 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@layer utilities {
+  @media (min-width: 1380px) {
+    .text-between-xl-2xl {
+      font-size: 5.4rem;
+      /* text-7xl = 4.5rem */
+      line-height: 1;
+    }
+  }
+}

@@ -21,7 +21,7 @@ import { SimpleFormItem } from "@/components/form/SimpleFormItem";
 import { DatePicker } from "@/components/form/DatePicker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function PrelimForm() {
   const { role } = useParams<{ role: string }>();
@@ -37,10 +37,13 @@ export default function PrelimForm() {
     mode: "onBlur"
   });
   const { getValues } = form;
+  const router = useRouter();
 
   const onSubmit = values => {
     console.log(values);
+    router.push(`/auth/sign-up/${role}`);
   };
+
 
   return (
     <AuthPage
@@ -176,9 +179,8 @@ export default function PrelimForm() {
             effect='expandIcon'
             icon={ArrowRightIcon}
             iconPlacement='right'
-            asChild
           >
-            <Link href={`/auth/sign-up/${role}`}>Continue</Link>
+            Continue
           </Button>
         </form>
       </Form>

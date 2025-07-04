@@ -121,8 +121,8 @@ const AllJobsSection = () => {
                             >
                                 Repost Job
                             </button>
-                            <button className="min-w-[130px] 2xl:min-w-[150px] w-fit  px-3 bg-[#559093] text-white py-1 rounded-full text-[10px] font-[600] leading-[19px]">
-                                View Applicant
+                            <button onClick={() => router.push(`/en/employer/application/${job.id}`)} className="min-w-[130px] 2xl:min-w-[150px] w-fit  px-3 bg-[#559093] text-white py-1 rounded-full text-[10px] font-[600] leading-[19px]">
+                                View Applicants
                             </button>
                         </div>
                     </div>
