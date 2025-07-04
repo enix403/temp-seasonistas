@@ -16,7 +16,7 @@ const ActiveJobCard = ({ id, title, date, description, tags, rate }: JobCardProp
 
     const handleView = () => {
         const jobSlug = title.toLowerCase().replace(/\s+/g, '-')
-        router.push(`/en/employer/application/${id}`)
+        router.push(`/en/employer/job-details/${id}`)
     }
 
     return (
