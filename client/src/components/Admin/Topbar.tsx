@@ -59,7 +59,7 @@ const Topbar = (props: Props) => {
                         className="rounded-full"
                     />
                     <div className="flex flex-col leading-tight">
-                        <span className="text-sm font-medium text-gray-800">John Kaon</span>
+                        <span className="text-sm font-medium text-gray-800">Anamoul Rouf</span>
                         <span className="text-xs text-gray-400">Artist</span>
                     </div>
                 </div>

@@ -46,7 +46,7 @@ const Topbar = (props: Props) => {
                 <div className="flex items-center gap-2 cursor-pointer" onClick={handleProfile}>
                     <Image src={userImg} alt="User" width={32} height={32} className="rounded-full" />
                     <div className="flex flex-col leading-tight">
-                        <span className="text-sm font-medium text-gray-800">John Kaon</span>
+                        <span className="text-sm font-medium text-gray-800">Anamoul Rouf</span>
                         <span className="text-xs text-gray-400">Artist</span>
                     </div>
                 </div>
