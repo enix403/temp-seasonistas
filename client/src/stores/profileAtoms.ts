@@ -33,3 +33,7 @@ export const companyProfileAtom = atom<CompanyProfileData>({
   headquarters: '',
   yearOfEstablishment: '',
 });
+
+export const aboutTextAtom = atom<string>(
+  'I am a passionate UI/UX & Product Designer, dedicated to creating intuitive, user-friendly, and visually compelling digital experiences...'
+);

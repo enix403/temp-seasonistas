@@ -67,7 +67,7 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
 
           <BasicInfoCard notEditable={notEditable} type={"individual"} />
 
-          <AboutUsCard notEditable={notEditable} type={"about"} />
+          <AboutUsCard notEditable={notEditable} type={"individual"} />
           <EducationCard notEditable={notEditable} />
           <ExperienceCard notEditable={notEditable} />
 

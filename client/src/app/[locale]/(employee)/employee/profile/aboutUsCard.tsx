@@ -7,15 +7,17 @@ import {
   Button,
 } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
+import { useAtom } from 'jotai';
+import { aboutTextAtom } from "@/stores/profileAtoms";
+
 interface AboutUsCardProps {
-  notEditable?: boolean
-  type: string
+  notEditable?: boolean;
+  type: "individual" | "company";
 }
+
 const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
   const [open, setOpen] = useState(false);
-  const [aboutText, setAboutText] = useState(
-    `I am a passionate UI/UX & Product Designer, dedicated to creating intuitive, user-friendly, and visually compelling digital experiences...`
-  );
+  const [aboutText, setAboutText] = useAtom(aboutTextAtom);
 
   const handleSave = (updatedText: string) => {
     setAboutText(updatedText);
@@ -40,7 +42,7 @@ const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
           mb={1}
         >
           <Typography variant="h6" fontWeight={600}>
-            {type === "about" ? "About" : "Overview"}
+            {type === "individual" ? "About" : "Overview"}
           </Typography>
           {!notEditable && <Button
             variant="outlined"
