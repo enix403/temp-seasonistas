@@ -28,6 +28,17 @@ export interface Education {
   description: string;
 }
 
+export interface Experience {
+  id: string;
+  role: string;
+  company: string;
+  location: string;
+  duration: string;
+  description: string;
+  logo: string;
+  isVerified?: boolean;
+}
+
 export const individualProfileAtom = atom<IndividualProfileData>({
   email: '',
   gender: '',
@@ -59,5 +70,28 @@ export const educationsAtom = atom<Education[]>([
     startYear: '2020',
     endYear: '2021',
     description: 'ShareTrip is the country\'s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...'
+  }
+]);
+
+export const experiencesAtom = atom<Experience[]>([
+  {
+    id: '1',
+    role: 'Sr. Product Designer',
+    company: 'SharTrip Inc.',
+    location: 'Dhaka, Bangladesh',
+    duration: 'January 2022 to Present',
+    description: 'ShareTrip is the country\'s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/ShareTrip_Logo.png',
+    isVerified: true
+  },
+  {
+    id: '2',
+    role: 'Product Designer',
+    company: 'Grameenphone',
+    location: 'Dhaka, Bangladesh',
+    duration: 'January 2022 to Present',
+    description: 'ShareTrip is the country\'s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...',
+    logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png',
+    isVerified: true
   }
 ]);

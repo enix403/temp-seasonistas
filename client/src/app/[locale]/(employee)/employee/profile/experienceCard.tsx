@@ -7,7 +7,6 @@ import {
   Avatar,
   IconButton,
   Button,
-  Grid,
   Divider,
   Stack,
   Link,
@@ -16,42 +15,44 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import AddExperienceModal from "./modals/AddExperienceModal";
-
-interface Experience {
-  role: string;
-  company: string;
-  location: string;
-  duration: string;
-  description: string;
-  logo: string;
-}
-
-const experiences: Experience[] = [
-  {
-    role: "Sr. Product Designer",
-    company: "SharTrip Inc.",
-    location: "Dhaka, Bangladesh",
-    duration: "January 2022 to Present",
-    description:
-      "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/ShareTrip_Logo.png",
-  },
-  {
-    role: "Product Designer",
-    company: "Grameenphone",
-    location: "Dhaka, Bangladesh",
-    duration: "January 2022 to Present",
-    description:
-      "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png",
-  },
-];
+import { useAtom } from 'jotai';
+import { experiencesAtom, type Experience } from "@/stores/profileAtoms";
 
 interface ExperienceCardProps {
   notEditable?: boolean;
 }
+
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+  const [experiences, setExperiences] = useAtom(experiencesAtom);
+  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
+
+  const handleDelete = (id: string) => {
+    setExperiences(prev => prev.filter(exp => exp.id !== id));
+  };
+
+  const handleEdit = (experience: Experience) => {
+    setEditingExperience(experience);
+    setOpenModal(true);
+  };
+
+  const handleSave = (experience: Experience) => {
+    if (editingExperience) {
+      // Update existing experience
+      setExperiences(prev => prev.map(exp =>
+        exp.id === editingExperience.id ? experience : exp
+      ));
+    } else {
+      // Add new experience
+      setExperiences(prev => [...prev, { ...experience, id: Date.now().toString() }]);
+    }
+    setOpenModal(false);
+    setEditingExperience(null);
+  };
+
+  const displayedExperiences = showAll ? experiences : experiences.slice(0, 1);
+  const remainingCount = experiences.length - 1;
 
   return (
     <Card
@@ -80,7 +81,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
               <Button
                 variant="outlined"
                 size="small"
-                onClick={() => setOpenModal(true)}
+                onClick={() => {
+                  setEditingExperience(null);
+                  setOpenModal(true);
+                }}
                 sx={{
                   borderRadius: "20px",
                   textTransform: "none",
@@ -92,7 +96,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                   py: 0.8,
                 }}
               >
-                Add Experiences
+                Add Experience
               </Button>
             </>
           }
@@ -102,18 +106,18 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
           Add experience to increase the chance of hiring
         </Typography>
 
-        {experiences.map((exp, idx) => (
-          <Box key={idx} mb={2}>
-            <Grid container spacing={1}>
-              <Grid size={{ xs: 12, md: 1 }}>
+        {displayedExperiences.map((exp, idx) => (
+          <Box key={exp.id} mb={2}>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+              <div className="md:col-span-1">
                 <Avatar
                   src={exp.logo}
                   alt={exp.company}
                   sx={{ width: 48, height: 48 }}
                   variant="circular"
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 11 }}>
+              </div>
+              <div className="md:col-span-11">
                 <Box
                   display="flex"
                   justifyContent="space-between"
@@ -121,14 +125,16 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                 >
                   <Typography fontWeight={600}>
                     {exp.role}{" "}
-                    <CheckCircleRoundedIcon
-                      sx={{
-                        fontSize: 16,
-                        color: "#00c292",
-                        ml: 0.5,
-                        verticalAlign: "middle",
-                      }}
-                    />
+                    {exp.isVerified && (
+                      <CheckCircleRoundedIcon
+                        sx={{
+                          fontSize: 16,
+                          color: "#00c292",
+                          ml: 0.5,
+                          verticalAlign: "middle",
+                        }}
+                      />
+                    )}
                   </Typography>
                   {!notEditable && <Box display="flex" gap={2}>
                     <Typography
@@ -139,9 +145,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                         cursor: "pointer",
                         "&:hover": { textDecoration: "underline" },
                       }}
-                      onClick={() => {
-                        // handle delete
-                      }}
+                      onClick={() => handleDelete(exp.id)}
                     >
                       Delete
                     </Typography>
@@ -154,9 +158,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                         cursor: "pointer",
                         "&:hover": { textDecoration: "underline" },
                       }}
-                      onClick={() => {
-                        // handle edit
-                      }}
+                      onClick={() => handleEdit(exp)}
                     >
                       Edit
                     </Typography>
@@ -176,8 +178,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                 >
                   {exp.location} &nbsp;&nbsp; {exp.duration}
                 </Typography>
-              </Grid>
-              <Grid size={{ xs: 12 }}>
+
                 <Typography
                   variant="body2"
                   sx={{ fontSize: 13.5, color: "#333" }}
@@ -190,28 +191,38 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                     See More
                   </Typography>
                 </Typography>
-              </Grid>
-            </Grid>
-            {idx < experiences.length - 1 && <Divider sx={{ my: 2 }} />}
+              </div>
+            </div>
+            {idx < displayedExperiences.length - 1 && <Divider sx={{ my: 2 }} />}
           </Box>
         ))}
-        <hr className="w-full mb-4" />
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: 15,
-            color: "#559093",
-            fontWeight: 600,
-            mt: 1,
-            cursor: "pointer",
-          }}
-        >
-          Show 2 More Experiences
-        </Typography>
+        {remainingCount > 0 && (
+          <>
+            <Divider sx={{ my: 2 }} />
+            <Typography
+              variant="body2"
+              onClick={() => setShowAll(!showAll)}
+              sx={{
+                fontSize: 15,
+                color: "#559093",
+                fontWeight: 600,
+                mt: 1,
+                cursor: "pointer",
+              }}
+            >
+              {showAll ? "Show Less" : `Show ${remainingCount} More Experience${remainingCount > 1 ? 's' : ''}`}
+            </Typography>
+          </>
+        )}
       </CardContent>
       <AddExperienceModal
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={() => {
+          setOpenModal(false);
+          setEditingExperience(null);
+        }}
+        onSave={handleSave}
+        experience={editingExperience}
       />
     </Card>
   );
