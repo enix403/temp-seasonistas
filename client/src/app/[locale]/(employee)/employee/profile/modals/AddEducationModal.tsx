@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -10,13 +10,48 @@ import {
   Box,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { type Education } from '@/stores/profileAtoms';
 
 interface AddEducationModalProps {
   open: boolean;
   onClose: () => void;
+  onSave: (education: Education) => void;
+  education: Education | null;
 }
 
-const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose }) => {
+const defaultEducation: Education = {
+  id: '',
+  instituteName: '',
+  logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/CalArts_logo.svg', // Default logo
+  courseName: '',
+  grade: '',
+  startYear: '',
+  endYear: '',
+  description: ''
+};
+
+const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose, onSave, education }) => {
+  const [formData, setFormData] = useState<Education>(defaultEducation);
+
+  useEffect(() => {
+    if (education) {
+      setFormData(education);
+    } else {
+      setFormData(defaultEducation);
+    }
+  }, [education, open]);
+
+  const handleChange = (field: keyof Education) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: event.target.value
+    }));
+  };
+
+  const handleSubmit = () => {
+    onSave(formData);
+  };
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth PaperProps={{
       sx: {
@@ -24,7 +59,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose }) 
       },
     }}>
       <DialogTitle sx={{ fontWeight: 'bold', px: 3, pt: 3 }}>
-        Add Education
+        {education ? 'Edit Education' : 'Add Education'}
         <IconButton onClick={onClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
           <CloseIcon />
         </IconButton>
@@ -36,41 +71,49 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose }) 
             placeholder="School"
             fullWidth
             size="small"
+            value={formData.instituteName}
+            onChange={handleChange('instituteName')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
           <TextField
-            placeholder="Degree"
+            placeholder="Course Name"
             fullWidth
             size="small"
+            value={formData.courseName}
+            onChange={handleChange('courseName')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
           <TextField
             placeholder="Grade"
             fullWidth
             size="small"
+            value={formData.grade}
+            onChange={handleChange('grade')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
           <TextField
-            label="Start Date"
-            type="date"
+            placeholder="Start Year"
             fullWidth
             size="small"
-            InputLabelProps={{ shrink: true }}
+            value={formData.startYear}
+            onChange={handleChange('startYear')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
           <TextField
-            label="End Date"
-            type="date"
+            placeholder="End Year"
             fullWidth
             size="small"
-            InputLabelProps={{ shrink: true }}
+            value={formData.endYear}
+            onChange={handleChange('endYear')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
           <TextField
             multiline
             minRows={4}
-            placeholder="Write Here Message"
+            placeholder="Description"
             fullWidth
+            value={formData.description}
+            onChange={handleChange('description')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
           />
           <Box display="flex" justifyContent="flex-end" gap={1}>
@@ -88,6 +131,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose }) 
             </Button>
             <Button
               variant="contained"
+              onClick={handleSubmit}
               sx={{
                 backgroundColor: '#4B8378',
                 borderRadius: 20,
