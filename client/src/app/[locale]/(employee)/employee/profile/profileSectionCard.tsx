@@ -6,49 +6,89 @@ import {
   CardContent,
   IconButton,
   Button,
-  Grid,
   Paper,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddSkillModal from "./modals/AddSkillModal";
 import AddSingleInputModal from "./modals/AddSingleInputModal";
+import { useAtom } from 'jotai';
+import { skillsAtom, interestsAtom, goalsAtom, type Skill, type Interest, type Goal } from "@/stores/profileAtoms";
+
 interface ProfileBarCardProps {
-  notEditable?: boolean
-  title: string
-  description: string
-  addText: string
-  data: any
-  footerText: string,
-  type,
+  notEditable?: boolean;
+  title: string;
+  description: string;
+  addText: string;
+  footerText: string;
+  type: "skill" | "interest" | "goal";
 }
+
 const ProfileSectionCard = ({
   title,
   description,
   addText,
-  data,
   footerText,
   type,
   notEditable
 }: ProfileBarCardProps) => {
   const [openSkillModal, setSkillModal] = useState(false);
-  const [openInterestModal, setInterestModal] = useState(false);
-  const [openGoalModal, setGoalModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [modalType, setModalType] = useState<"Goal" | "Interests">("Goal");
-  const handleOpen = (type: "Goal" | "Interests") => {
-    setModalType(type);
-    setOpenModal(true);
+  const [showAll, setShowAll] = useState(false);
+  const [editingItem, setEditingItem] = useState<Skill | Interest | Goal | null>(null);
+
+  // Get the appropriate atom based on type
+  const [skills, setSkills] = useAtom(skillsAtom);
+  const [interests, setInterests] = useAtom(interestsAtom);
+  const [goals, setGoals] = useAtom(goalsAtom);
+
+  const data = type === 'skill' ? skills : type === 'interest' ? interests : goals;
+  const setData = type === 'skill' ? setSkills : type === 'interest' ? setInterests : setGoals;
+
+  const handleDelete = (id: string) => {
+    setData(prev => prev.filter(item => item.id !== id));
   };
-  function check() {
-    if (type == "skill") {
+
+  const handleEdit = (item: Skill | Interest | Goal) => {
+    setEditingItem(item);
+    if (type === 'skill') {
       setSkillModal(true);
-    } else if (type == "interest") {
-      handleOpen("Interests");
-    } else if (type == "goal") {
-      handleOpen("Goal");
+    } else {
+      setOpenModal(true);
     }
-  }
+  };
+
+  const handleSave = (item: Skill | Interest | Goal) => {
+    if (editingItem) {
+      // Update existing item
+      setData(prev => prev.map(prevItem =>
+        prevItem.id === editingItem.id ? { ...item, id: editingItem.id } : prevItem
+      ));
+    } else {
+      // Add new item
+      setData(prev => [...prev, { ...item, id: Date.now().toString() }]);
+    }
+
+    if (type === 'skill') {
+      setSkillModal(false);
+    } else {
+      setOpenModal(false);
+    }
+    setEditingItem(null);
+  };
+
+  const handleAdd = () => {
+    setEditingItem(null);
+    if (type === 'skill') {
+      setSkillModal(true);
+    } else {
+      setOpenModal(true);
+    }
+  };
+
+  const displayedItems = showAll ? data : data.slice(0, 4);
+  const remainingCount = data.length - 4;
+
   return (
     <Card
       sx={{
@@ -60,7 +100,6 @@ const ProfileSectionCard = ({
       }}
     >
       <CardContent>
-        {/* Header */}
         <Box
           display="flex"
           justifyContent="space-between"
@@ -71,74 +110,70 @@ const ProfileSectionCard = ({
             {title}
           </Typography>
 
-          {!notEditable &&
-            <>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={() => check()}
-                sx={{
-                  borderRadius: "20px",
-                  textTransform: "none",
-                  fontWeight: 550,
-                  borderColor: "#EBECF0",
-                  color: "#000000",
-                  fontSize: "0.875rem",
-                  px: 3,
-                  py: 0.8,
-                }}
-              >
-                {addText}
-              </Button>
-            </>
-          }
+          {!notEditable && (
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={handleAdd}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8,
+              }}
+            >
+              {addText}
+            </Button>
+          )}
         </Box>
 
         <Typography variant="body2" sx={{ color: "#666", mb: 2, fontSize: 13 }}>
           {description}
         </Typography>
 
-        {/* Grid List */}
-        <Grid container spacing={2}>
-          {data.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6 }} key={index}>
-              <Paper
-                elevation={0}
-                sx={{
-                  border: "1px solid #eee",
-                  borderRadius: 2,
-                  p: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <Box>
-                  <Typography fontWeight={600}>{item.title}</Typography>
-                  {item.level && (
-                    <Typography
-                      variant="body2"
-                      sx={{ fontSize: 13, color: "#666" }}
-                    >
-                      {item.level}
-                    </Typography>
-                  )}
-                </Box>
-                {!notEditable && <Box display="flex" gap={1}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {displayedItems.map((item) => (
+            <Paper
+              key={item.id}
+              elevation={0}
+              sx={{
+                border: "1px solid #eee",
+                borderRadius: 2,
+                p: 2,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Box>
+                <Typography fontWeight={600}>{item.title}</Typography>
+                {'level' in item && (
+                  <Typography
+                    variant="body2"
+                    sx={{ fontSize: 13, color: "#666" }}
+                  >
+                    {(item as Skill).level}
+                  </Typography>
+                )}
+              </Box>
+              {!notEditable && (
+                <Box display="flex" gap={1}>
                   <Box
                     sx={{
                       width: 30,
                       height: 30,
                       borderRadius: 1,
-                      backgroundColor: "#888888", // gray background
+                      backgroundColor: "#888888",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       cursor: "pointer",
                     }}
-                    onClick={() => {
-                      // handle delete
-                    }}
+                    onClick={() => handleDelete(item.id)}
                   >
                     <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
                   </Box>
@@ -148,48 +183,58 @@ const ProfileSectionCard = ({
                       width: 30,
                       height: 30,
                       borderRadius: 1,
-                      backgroundColor: "#4e9a8e", // teal green background
+                      backgroundColor: "#4e9a8e",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       cursor: "pointer",
                     }}
-                    onClick={() => {
-                      // handle edit
-                    }}
+                    onClick={() => handleEdit(item)}
                   >
                     <EditIcon sx={{ color: "white", fontSize: 16 }} />
                   </Box>
-                </Box>}
-              </Paper>
-            </Grid>
+                </Box>
+              )}
+            </Paper>
           ))}
-        </Grid>
+        </div>
 
-        {/* Footer */}
-        <Typography
-          variant="body2"
-          sx={{
-            fontSize: 14,
-            color: "#559093",
-            fontWeight: 600,
-            mt: 2,
-            cursor: "pointer",
-          }}
-        >
-          {footerText}
-        </Typography>
+        {remainingCount > 0 && (
+          <Typography
+            variant="body2"
+            onClick={() => setShowAll(!showAll)}
+            sx={{
+              fontSize: 14,
+              color: "#559093",
+              fontWeight: 600,
+              mt: 2,
+              cursor: "pointer",
+            }}
+          >
+            {showAll ? "Show Less" : `${footerText} (${remainingCount})`}
+          </Typography>
+        )}
       </CardContent>
       <AddSkillModal
         open={openSkillModal}
-        onClose={() => setSkillModal(false)}
+        onClose={() => {
+          setSkillModal(false);
+          setEditingItem(null);
+        }}
+        onSave={handleSave}
+        skill={editingItem as Skill | null}
       />
       <AddSingleInputModal
         open={openModal}
-        onClose={() => setOpenModal(false)}
-        type={modalType}
+        onClose={() => {
+          setOpenModal(false);
+          setEditingItem(null);
+        }}
+        onSave={handleSave}
+        item={editingItem}
+        type={type === 'interest' ? 'interest' : 'goal'}
       />
-    </Card >
+    </Card>
   );
 };
 

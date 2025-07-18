@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -10,14 +10,33 @@ import {
   Box
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { type Interest, type Goal } from '@/stores/profileAtoms';
 
 interface AddSingleInputModalProps {
   open: boolean;
   onClose: () => void;
-  type: 'Goal' | 'Interests';
+  onSave: (item: Interest | Goal) => void;
+  item: Interest | Goal | null;
+  type: 'interest' | 'goal';
 }
 
-const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose, type }) => {
+const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose, onSave, item, type }) => {
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    if (item) {
+      setTitle(item.title);
+    } else {
+      setTitle('');
+    }
+  }, [item, open]);
+
+  const handleSubmit = () => {
+    onSave({ title } as Interest | Goal);
+  };
+
+  const displayType = type === 'interest' ? 'Interest' : 'Goal';
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth PaperProps={{
       sx: {
@@ -25,7 +44,7 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose
       },
     }}>
       <DialogTitle sx={{ fontWeight: 'bold', px: 3, pt: 3 }}>
-        Add {type}
+        {item ? `Edit ${displayType}` : `Add ${displayType}`}
         <IconButton onClick={onClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
           <CloseIcon />
         </IconButton>
@@ -34,9 +53,11 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2}>
           <TextField
-            placeholder={`Enter ${type}`}
+            placeholder={`Enter ${displayType}`}
             fullWidth
             size="small"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             sx={{
               '& .MuiOutlinedInput-root': {
                 borderRadius: 10,
@@ -48,7 +69,10 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose
               variant="outlined"
               onClick={onClose}
               sx={{
-                borderRadius: 20, textTransform: 'none', px: 3, borderColor: "gray",
+                borderRadius: 20,
+                textTransform: 'none',
+                px: 3,
+                borderColor: "gray",
                 color: "#000000",
                 height: '40px',
                 minWidth: '100px'
@@ -58,6 +82,8 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose
             </Button>
             <Button
               variant="contained"
+              onClick={handleSubmit}
+              disabled={!title.trim()}
               sx={{
                 backgroundColor: '#4B8378',
                 borderRadius: 20,

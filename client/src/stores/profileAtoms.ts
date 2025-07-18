@@ -43,6 +43,22 @@ export interface Experience {
   isVerified?: boolean;
 }
 
+export interface Skill {
+  id: string;
+  title: string;
+  level: string;
+}
+
+export interface Interest {
+  id: string;
+  title: string;
+}
+
+export interface Goal {
+  id: string;
+  title: string;
+}
+
 export const individualProfileAtom = atom<IndividualProfileData>({
   email: '',
   gender: '',
@@ -104,5 +120,40 @@ export const experiencesAtom = atom<Experience[]>([
     description: 'ShareTrip is the country\'s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...',
     logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png',
     isVerified: true
+  }
+]);
+
+export const skillsAtom = atom<Skill[]>([
+  {
+    id: '1',
+    title: 'UI/UX Design',
+    level: 'Expert'
+  },
+  {
+    id: '2',
+    title: 'Figma',
+    level: 'Advanced'
+  }
+]);
+
+export const interestsAtom = atom<Interest[]>([
+  {
+    id: '1',
+    title: 'Product Design'
+  },
+  {
+    id: '2',
+    title: 'User Research'
+  }
+]);
+
+export const goalsAtom = atom<Goal[]>([
+  {
+    id: '1',
+    title: 'Lead a design team'
+  },
+  {
+    id: '2',
+    title: 'Master design systems'
   }
 ]);

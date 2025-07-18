@@ -75,7 +75,7 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
             title="Skills"
             description="Add skills to increase the chance of hiring"
             addText="Add Skill"
-            data={skills}
+            // data={skills}
             type={"skill"}
             footerText="Show More Skill"
           />
@@ -83,7 +83,7 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
             title="Interests"
             description="Add your interests to let employers understand your passion areas"
             addText="Add Interests"
-            data={interests}
+            // data={interests}
             type={"interest"}
             footerText="Show More Interests"
           />
@@ -92,7 +92,7 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
             title="Goals"
             description="Mention your career goals to help employers align with your ambitions"
             addText="Add Goals"
-            data={goals}
+            // data={goals}
             type={"goal"}
             footerText="Show More Goals"
           />
