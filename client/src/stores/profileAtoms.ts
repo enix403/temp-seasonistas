@@ -23,8 +23,9 @@ export interface Education {
   logoUrl: string;
   courseName: string;
   grade: string;
-  startYear: string;
-  endYear: string;
+  startDate: string;
+  endDate: string | null;
+  isCurrentlyStudying: boolean;
   description: string;
 }
 
@@ -70,8 +71,9 @@ export const educationsAtom = atom<Education[]>([
     logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/CalArts_logo.svg',
     courseName: 'UX Design Fundamentals',
     grade: 'A+',
-    startYear: '2020',
-    endYear: '2021',
+    startDate: '2020-01-01',
+    endDate: '2021-12-31',
+    isCurrentlyStudying: false,
     description: 'ShareTrip is the country\'s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...'
   }
 ]);

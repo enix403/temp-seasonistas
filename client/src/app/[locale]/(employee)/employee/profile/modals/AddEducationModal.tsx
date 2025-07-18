@@ -8,6 +8,8 @@ import {
   Stack,
   Button,
   Box,
+  Checkbox,
+  FormControlLabel
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { type Education } from '@/stores/profileAtoms';
@@ -25,8 +27,9 @@ const defaultEducation: Education = {
   logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/59/CalArts_logo.svg', // Default logo
   courseName: '',
   grade: '',
-  startYear: '',
-  endYear: '',
+  startDate: '',
+  endDate: null,
+  isCurrentlyStudying: false,
   description: ''
 };
 
@@ -45,6 +48,14 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose, on
     setFormData(prev => ({
       ...prev,
       [field]: event.target.value
+    }));
+  };
+
+  const handleCurrentlyStudyingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      isCurrentlyStudying: event.target.checked,
+      endDate: event.target.checked ? null : prev.endDate
     }));
   };
 
@@ -91,22 +102,49 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose, on
             onChange={handleChange('grade')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.isCurrentlyStudying}
+                onChange={handleCurrentlyStudyingChange}
+                sx={{
+                  p: 0.5,
+                  color: "#559093",
+                  '&.Mui-checked': {
+                    color: "#559093",
+                  },
+                }}
+              />
+            }
+            label="I am currently studying here"
+            sx={{ fontSize: 13, ml: 0.5 }}
+          />
+
           <TextField
-            placeholder="Start Year"
-            fullWidth
+            type="date"
+            label="Start Date"
+            value={formData.startDate}
+            onChange={handleChange('startDate')}
             size="small"
-            value={formData.startYear}
-            onChange={handleChange('startYear')}
+            fullWidth
+            InputLabelProps={{ shrink: true }}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
           />
-          <TextField
-            placeholder="End Year"
-            fullWidth
-            size="small"
-            value={formData.endYear}
-            onChange={handleChange('endYear')}
-            sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
-          />
+
+          {!formData.isCurrentlyStudying && (
+            <TextField
+              type="date"
+              label="End Date"
+              value={formData.endDate || ''}
+              onChange={handleChange('endDate')}
+              size="small"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 10 } }}
+            />
+          )}
+
           <TextField
             multiline
             minRows={4}
@@ -116,12 +154,16 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({ open, onClose, on
             onChange={handleChange('description')}
             sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
           />
+
           <Box display="flex" justifyContent="flex-end" gap={1}>
             <Button
               variant="outlined"
               onClick={onClose}
               sx={{
-                borderRadius: 20, textTransform: 'none', px: 3, borderColor: "gray",
+                borderRadius: 20,
+                textTransform: 'none',
+                px: 3,
+                borderColor: "gray",
                 color: "#000000",
                 height: '40px',
                 minWidth: '100px'

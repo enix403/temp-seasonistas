@@ -4,14 +4,9 @@ import {
   Typography,
   Card,
   CardContent,
-  IconButton,
-  Button,
-  Grid,
-  Paper,
   Avatar,
-  Chip,
+  Button,
   Divider,
-  Stack,
 } from "@mui/material";
 import AddEducationModal from "./modals/AddEducationModal";
 import { useAtom } from 'jotai';
@@ -21,10 +16,23 @@ interface EducationCardProps {
   notEditable?: boolean;
 }
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+
+const getDuration = (education: Education) => {
+  const startDate = formatDate(education.startDate);
+  if (education.isCurrentlyStudying) {
+    return `${startDate} to Present`;
+  }
+  return `${startDate} to ${education.endDate ? formatDate(education.endDate) : ''}`;
+};
+
 const EducationCard = ({ notEditable }: EducationCardProps) => {
   const [openModal, setOpenModal] = useState(false);
-  const [educations, setEducations] = useAtom(educationsAtom);
   const [showAll, setShowAll] = useState(false);
+  const [educations, setEducations] = useAtom(educationsAtom);
   const [editingEducation, setEditingEducation] = useState<Education | null>(null);
 
   const handleDelete = (id: string) => {
@@ -101,11 +109,11 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
         </Typography>
 
         {/* Content */}
-        {displayedEducations.map((education) => (
-          <React.Fragment key={education.id}>
+        {displayedEducations.map((edu, idx) => (
+          <Box key={edu.id} mb={2}>
             <Box display="flex" mb={2}>
               <Avatar
-                src={education.logoUrl}
+                src={edu.logoUrl}
                 variant="square"
                 sx={{ width: 48, height: 48, mr: 2 }}
               />
@@ -116,7 +124,7 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
                   alignItems="center"
                 >
                   <Typography fontWeight={600}>
-                    {education.instituteName}
+                    {edu.instituteName}
                   </Typography>
                   {!notEditable && <Box display="flex" gap={2}>
                     <Typography
@@ -127,7 +135,7 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
                         cursor: "pointer",
                         "&:hover": { textDecoration: "underline" },
                       }}
-                      onClick={() => handleDelete(education.id)}
+                      onClick={() => handleDelete(edu.id)}
                     >
                       Delete
                     </Typography>
@@ -140,7 +148,7 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
                         cursor: "pointer",
                         "&:hover": { textDecoration: "underline" },
                       }}
-                      onClick={() => handleEdit(education)}
+                      onClick={() => handleEdit(edu)}
                     >
                       Edit
                     </Typography>
@@ -148,14 +156,14 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
                 </Box>
 
                 <Typography sx={{ fontSize: 13, color: "#333" }}>
-                  {education.courseName}
+                  {edu.courseName}
                 </Typography>
                 <Typography sx={{ fontSize: 13, color: "#555" }}>
-                  Grade: {education.grade} &nbsp;&nbsp;•&nbsp;&nbsp; {education.startYear} - {education.endYear}
+                  Grade: {edu.grade} &nbsp;&nbsp;•&nbsp;&nbsp; {getDuration(edu)}
                 </Typography>
 
                 <Typography sx={{ fontSize: 13.5, mt: 1.2, color: "#333" }}>
-                  {education.description}{" "}
+                  {edu.description}{" "}
                   <Typography
                     component="span"
                     sx={{ color: "#0073e6", fontWeight: 500 }}
@@ -165,24 +173,26 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
                 </Typography>
               </Box>
             </Box>
-            <Divider sx={{ my: 1 }} />
-          </React.Fragment>
+            {idx < displayedEducations.length - 1 && <Divider sx={{ my: 2 }} />}
+          </Box>
         ))}
-
         {remainingCount > 0 && (
-          <Typography
-            variant="body2"
-            onClick={() => setShowAll(!showAll)}
-            sx={{
-              fontSize: 14,
-              color: "#559093",
-              fontWeight: 600,
-              mt: 1,
-              cursor: "pointer",
-            }}
-          >
-            {showAll ? "Show Less" : `Show ${remainingCount} More Education`}
-          </Typography>
+          <>
+            <Divider sx={{ my: 2 }} />
+            <Typography
+              variant="body2"
+              onClick={() => setShowAll(!showAll)}
+              sx={{
+                fontSize: 14,
+                color: "#559093",
+                fontWeight: 600,
+                mt: 1,
+                cursor: "pointer",
+              }}
+            >
+              {showAll ? "Show Less" : `Show ${remainingCount} More Education${remainingCount > 1 ? 's' : ''}`}
+            </Typography>
+          </>
         )}
       </CardContent>
       <AddEducationModal
