@@ -5,16 +5,62 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { ApiReplyError, apiRoutes } from "@/app/api-routes";
+import { useAuthState } from "@/app/providers/auth-state";
 
 import { AuthPage } from "../common/AuthPage";
 import { AuthQuote } from "../common/AuthQuote";
 import { AnimatedColorfulText } from "../common/AnimatedColorfulText";
 import { Testimonials } from "../common/Testimonials";
 
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
 export default function Login() {
-  const { register, handleSubmit } = useForm();
+  const router = useRouter();
+  const { login } = useAuthState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await apiRoutes.login(data);
+      login(response.accessToken, response.user);
+
+      // Redirect based on user role
+      const role = response.user.role;
+      if (role === 'admin') {
+        router.push('/admin/dashboards/overview');
+      } else if (role === 'employer') {
+        router.push('/employer/home');
+      } else {
+        router.push('/employee/home');
+      }
+    } catch (err) {
+      if (ApiReplyError.check(err)) {
+        setError(err.errorMessage);
+      } else {
+        setError('An error occurred during login');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = '/api/auth/google';
+  };
 
   return (
     <AuthPage
@@ -33,11 +79,14 @@ export default function Login() {
         </>
       }
     >
-      <Button variant='outline' className='w-full' asChild>
-        <a href='#'>
-          {GoogleIcon}
-          Sign in with Google
-        </a>
+      <Button
+        variant='outline'
+        className='w-full'
+        onClick={handleGoogleLogin}
+        disabled={isLoading}
+      >
+        {GoogleIcon}
+        Sign in with Google
       </Button>
 
       <div className='relative my-6 text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border'>
@@ -46,21 +95,37 @@ export default function Login() {
         </span>
       </div>
 
-      <form onSubmit={handleSubmit(() => {})} className='grid gap-6'>
+      {error && (
+        <div className="text-sm text-red-500 mb-4 text-center">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)} className='grid gap-6'>
         <div className='grid gap-2'>
           <Label htmlFor='email'>Email</Label>
           <Input
             id='email'
             type='email'
             placeholder='Enter email'
-            {...register("email")}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address"
+              }
+            })}
+            disabled={isLoading}
           />
+          {errors.email && (
+            <span className="text-sm text-red-500">{errors.email.message}</span>
+          )}
         </div>
         <div className='grid gap-2'>
           <div className='flex items-center'>
             <Label htmlFor='password'>Password</Label>
             <Link
-              href='#'
+              href='/auth/forget-password'
               className='ml-auto text-xs underline-offset-4 hover:underline'
               tabIndex={-1}
             >
@@ -71,19 +136,26 @@ export default function Login() {
             id='password'
             type='password'
             placeholder='Enter password'
-            {...register("password")}
+            {...register("password", {
+              required: "Password is required",
+            })}
+            disabled={isLoading}
           />
+          {errors.password && (
+            <span className="text-sm text-red-500">{errors.password.message}</span>
+          )}
         </div>
         <Button
-          // loading={loginMut.isPending}
           type='submit'
           className='w-full'
           size='lg'
           effect='expandIcon'
           icon={ArrowRightIcon}
           iconPlacement='right'
+          disabled={isLoading}
+          loading={isLoading}
         >
-          Continue
+          {isLoading ? 'Logging in...' : 'Continue'}
         </Button>
       </form>
 
@@ -94,6 +166,7 @@ export default function Login() {
           variant='link'
           className='px-0 py-0 font-bold text-foreground'
           effect='hoverUnderline'
+          disabled={isLoading}
         >
           <Link href='/auth/sign-up'>Sign up</Link>
         </Button>

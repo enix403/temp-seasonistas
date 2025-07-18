@@ -199,95 +199,95 @@ export const apiRoutes = {
   /* ========================== */
   /* ========== Auth ========== */
   /* ========================== */
-  login: payloadDecl(`/api/auth/login`),
-  register: payloadDecl(`/api/auth/sign-up`),
-  verifyEmail: payloadDecl(`/api/auth/verify`),
-  forgotPasswordInit: payloadDecl(`/api/auth/forget-password/init`),
-  forgotPasswordCheck: payloadDecl(`/api/auth/forget-password/check`),
-  forgotPasswordSet: payloadDecl(`/api/auth/forget-password/set`),
-  getCurrentUser: jsonDecl(`/api/auth/me`),
-  updateCurrentUser: payloadDecl(`/api/auth/me`, { method: "PATCH" }),
-  updatePassword: payloadDecl(`/api/auth/update-password`, { method: "PATCH" }),
-  googleAuth: jsonDecl(`/api/auth/google`),
+  login: payloadDecl(`/auth/login`),
+  register: payloadDecl(`/auth/sign-up`),
+  verifyEmail: payloadDecl(`/auth/verify`),
+  forgotPasswordInit: payloadDecl(`/auth/forget-password/init`),
+  forgotPasswordCheck: payloadDecl(`/auth/forget-password/check`),
+  forgotPasswordSet: payloadDecl(`/auth/forget-password/set`),
+  getCurrentUser: jsonDecl(`/auth/me`),
+  updateCurrentUser: payloadDecl(`/auth/me`, { method: "PATCH" }),
+  updatePassword: payloadDecl(`/auth/update-password`, { method: "PATCH" }),
+  googleAuth: jsonDecl(`/auth/google`),
 
   /* ========================== */
   /* ========== User ========== */
   /* ========================== */
   // Queries
-  searchUsers: jsonDecl(wq`/api/users`),
-  getUser: jsonDecl((userId: string) => `/api/users/${userId}`),
+  searchUsers: jsonDecl(wq`/users`),
+  getUser: jsonDecl((userId: string) => `/users/${userId}`),
   // Mutations
-  createUser: payloadDecl(`/api/users`),
-  updateUser: payloadDecl((userId: string) => `/api/users/${userId}`, { method: "PATCH" }),
+  createUser: payloadDecl(`/users`),
+  updateUser: payloadDecl((userId: string) => `/users/${userId}`, { method: "PATCH" }),
 
   /* ========================== */
   /* ========== Jobs ========== */
   /* ========================== */
   // Queries
-  searchJobs: jsonDecl(wq`/api/jobs`),
-  getJob: jsonDecl((jobId: string) => `/api/jobs/${jobId}`),
+  searchJobs: jsonDecl(wq`/jobs`),
+  getJob: jsonDecl((jobId: string) => `/jobs/${jobId}`),
   // Mutations
-  postJob: payloadDecl(`/api/jobs`),
-  deleteJob: payloadDecl((jobId: string) => `/api/jobs/${jobId}`, { method: "DELETE" }),
+  postJob: payloadDecl(`/jobs`),
+  deleteJob: payloadDecl((jobId: string) => `/jobs/${jobId}`, { method: "DELETE" }),
 
   /* ========================== */
   /* ===== Applications ====== */
   /* ========================== */
   // Queries
-  searchApplications: jsonDecl(wq`/api/job-applications`),
-  getApplication: jsonDecl((applicationId: string) => `/api/job-applications/${applicationId}`),
+  searchApplications: jsonDecl(wq`/job-applications`),
+  getApplication: jsonDecl((applicationId: string) => `/job-applications/${applicationId}`),
   // Mutations
-  applyForJob: payloadDecl(`/api/job-applications`),
+  applyForJob: payloadDecl(`/job-applications`),
 
   /* ========================== */
   /* ====== Interviews ======= */
   /* ========================== */
   // Queries
-  searchInterviews: jsonDecl(wq`/api/interviews`),
-  getInterview: jsonDecl((interviewId: string) => `/api/interviews/${interviewId}`),
+  searchInterviews: jsonDecl(wq`/interviews`),
+  getInterview: jsonDecl((interviewId: string) => `/interviews/${interviewId}`),
   // Mutations
-  scheduleInterview: payloadDecl(`/api/interviews`),
+  scheduleInterview: payloadDecl(`/interviews`),
 
   /* ========================== */
   /* ======= Community ======= */
   /* ========================== */
   // Queries
-  searchCommunity: jsonDecl(wq`/api/community`),
-  getCommunityMember: jsonDecl((memberId: string) => `/api/community/${memberId}`),
+  searchCommunity: jsonDecl(wq`/community`),
+  getCommunityMember: jsonDecl((memberId: string) => `/community/${memberId}`),
 
   /* ========================== */
   /* ======= Bookmarks ======= */
   /* ========================== */
   // Queries
-  getBookmarks: jsonDecl(wq`/api/bookmarks`),
+  getBookmarks: jsonDecl(wq`/bookmarks`),
   // Mutations
-  addBookmark: payloadDecl(`/api/bookmarks`),
-  removeBookmark: payloadDecl((bookmarkId: string) => `/api/bookmarks/${bookmarkId}`, { method: "DELETE" }),
+  addBookmark: payloadDecl(`/bookmarks`),
+  removeBookmark: payloadDecl((bookmarkId: string) => `/bookmarks/${bookmarkId}`, { method: "DELETE" }),
 
   /* ========================== */
   /* ========== FAQs ========== */
   /* ========================== */
   // Queries
-  searchFAQs: jsonDecl(wq`/api/faqs`),
-  getAllFAQs: jsonDecl(`/api/faqs/all`),
+  searchFAQs: jsonDecl(wq`/faqs`),
+  getAllFAQs: jsonDecl(`/faqs/all`),
 
   /* ========================== */
   /* ======== Reports ======== */
   /* ========================== */
   // Queries
-  searchReports: jsonDecl(wq`/api/reports/admin/all`),
+  searchReports: jsonDecl(wq`/reports/admin/all`),
   // Mutations
-  createReport: payloadDecl(`/api/reports`),
+  createReport: payloadDecl(`/reports`),
 
   /* ========================== */
   /* ======== Uploads ======== */
   /* ========================== */
-  uploadImage: uploadDecl(`/api/upload/image`, { key: "image" }),
+  uploadImage: uploadDecl(`/upload/image`, { key: "image" }),
 
   /* ========================== */
   /* ======== Health ========= */
   /* ========================== */
-  healthCheck: jsonDecl(`/api/health`),
+  healthCheck: jsonDecl(`/health`),
 } as const;
 
 if (typeof window !== "undefined") {
