@@ -22,6 +22,19 @@ interface ExperienceCardProps {
   notEditable?: boolean;
 }
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+
+const getDuration = (experience: Experience) => {
+  const startDate = formatDate(experience.startDate);
+  if (experience.isCurrentlyWorking) {
+    return `${startDate} to Present`;
+  }
+  return `${startDate} to ${experience.endDate ? formatDate(experience.endDate) : ''}`;
+};
+
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
   const [openModal, setOpenModal] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -170,13 +183,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                   fontWeight={500}
                   color="text.secondary"
                 >
-                  {exp.company}
+                  {exp.company} • {exp.employmentType}
                 </Typography>
                 <Typography
                   variant="body2"
                   sx={{ fontSize: 13, color: "#555", mb: 1 }}
                 >
-                  {exp.location} &nbsp;&nbsp; {exp.duration}
+                  {exp.location} &nbsp;&nbsp; {getDuration(exp)}
                 </Typography>
 
                 <Typography
