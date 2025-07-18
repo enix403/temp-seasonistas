@@ -7,6 +7,8 @@ import localFont from "next/font/local";
 import "@/styles/global.css";
 import { NextIntlClientProvider } from "next-intl";
 
+import setupLocatorUI from "@locator/runtime";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-pjs",
   subsets: ["latin"]
@@ -21,6 +23,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 //   variable: "--font-geist-mono",
 //   subsets: ["latin"]
 // });
+
+
+if (process.env.NODE_ENV === "development") {
+  setupLocatorUI();
+}
 
 /* prettier-ignore */
 const metropolis = localFont({

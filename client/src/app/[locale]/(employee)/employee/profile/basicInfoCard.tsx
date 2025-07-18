@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Grid,
   Stack,
   Button,
 } from "@mui/material";
 import EditProfileModal from "./modals/EditProfileModal";
+import { useAtom } from 'jotai';
+import { individualProfileAtom, companyProfileAtom, type IndividualProfileData, type CompanyProfileData } from "@/stores/profileAtoms";
 
 interface BasicInfoCardProps {
   type: "individual" | "company";
@@ -15,7 +16,10 @@ interface BasicInfoCardProps {
 
 const BasicInfoCard: React.FC<BasicInfoCardProps> = ({ type, notEditable }: BasicInfoCardProps) => {
   const [open, setOpen] = useState(false);
-  const [modalType, setModalType] = useState<any>("")
+  const [modalType, setModalType] = useState<"individual" | "company">("individual");
+  const [individualProfile] = useAtom(individualProfileAtom);
+  const [companyProfile] = useAtom(companyProfileAtom);
+
   if (type === "individual") {
     return (
       <Box
@@ -40,7 +44,7 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({ type, notEditable }: Basi
           {!notEditable && <Button
             variant="outlined"
             size="small"
-            onClick={() => { setModalType("individual"), setOpen(true) }}
+            onClick={() => { setModalType("individual"); setOpen(true); }}
             sx={{
               borderRadius: "20px",
               textTransform: "none",
@@ -56,38 +60,38 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({ type, notEditable }: Basi
           </Button>}
         </Stack>
 
-        <Grid container spacing={4}>
-          <Grid size={{ xs: 12, md: 6 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
             <Typography variant="body2" color="text.secondary">
               Email Address
             </Typography>
-            <Typography fontWeight="bold">anamoulrouf.bd@gmail.com</Typography>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography fontWeight="bold">{individualProfile.email}</Typography>
+          </div>
+          <div>
             <Typography variant="body2" color="text.secondary">
               Gender
             </Typography>
-            <Typography fontWeight="bold">Male</Typography>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography fontWeight="bold">{individualProfile.gender}</Typography>
+          </div>
+          <div>
             <Typography variant="body2" color="text.secondary">
               Phone Number
             </Typography>
-            <Typography fontWeight="bold">+8801759693045</Typography>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography fontWeight="bold">{individualProfile.phoneNumber}</Typography>
+          </div>
+          <div>
             <Typography variant="body2" color="text.secondary">
               Location
             </Typography>
-            <Typography fontWeight="bold">Dhaka, Bangladesh</Typography>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography fontWeight="bold">{individualProfile.location}</Typography>
+          </div>
+          <div>
             <Typography variant="body2" color="text.secondary">
               Website
             </Typography>
-            <Typography fontWeight="bold">www.anamoulrouf.com</Typography>
-          </Grid>
-        </Grid>
+            <Typography fontWeight="bold">{individualProfile.website}</Typography>
+          </div>
+        </div>
 
         <EditProfileModal type={modalType} open={open} onClose={() => setOpen(false)} />
       </Box>
@@ -118,7 +122,7 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({ type, notEditable }: Basi
         {!notEditable && <Button
           variant="outlined"
           size="small"
-          onClick={() => { setModalType("company"), setOpen(true) }}
+          onClick={() => { setModalType("company"); setOpen(true); }}
           sx={{
             borderRadius: "20px",
             textTransform: "none",
@@ -133,44 +137,44 @@ const BasicInfoCard: React.FC<BasicInfoCardProps> = ({ type, notEditable }: Basi
         </Button>}
       </Stack>
 
-      <Grid container spacing={4}>
-        <Grid size={{ xs: 12, md: 6 }}>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
           <Typography variant="body2" color="text.secondary">
             Website
           </Typography>
-          <Typography fontWeight="bold">www.anamoulrouf.com</Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography fontWeight="bold">{companyProfile.website}</Typography>
+        </div>
+        <div>
           <Typography variant="body2" color="text.secondary">
             Industry
           </Typography>
-          <Typography fontWeight="bold">Retail</Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography fontWeight="bold">{companyProfile.industry}</Typography>
+        </div>
+        <div>
           <Typography variant="body2" color="text.secondary">
             Company Type
           </Typography>
-          <Typography fontWeight="bold">Private Limited Company</Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography fontWeight="bold">{companyProfile.companyType}</Typography>
+        </div>
+        <div>
           <Typography variant="body2" color="text.secondary">
             Company Size
           </Typography>
-          <Typography fontWeight="bold">10,001+ employees</Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography fontWeight="bold">{companyProfile.companySize}</Typography>
+        </div>
+        <div>
           <Typography variant="body2" color="text.secondary">
             Headquarters
           </Typography>
-          <Typography fontWeight="bold">Faisalabad Punjab Pakistan</Typography>
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography fontWeight="bold">{companyProfile.headquarters}</Typography>
+        </div>
+        <div>
           <Typography variant="body2" color="text.secondary">
             Year of Establishment
           </Typography>
-          <Typography fontWeight="bold">10 Year ago</Typography>
-        </Grid>
-      </Grid>
+          <Typography fontWeight="bold">{companyProfile.yearOfEstablishment}</Typography>
+        </div>
+      </div>
 
       <EditProfileModal type={modalType} open={open} onClose={() => setOpen(false)} />
     </Box>
