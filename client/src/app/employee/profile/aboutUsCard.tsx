@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const AboutUsCard = () => {
   const [open, setOpen] = useState(false);
-  const [aboutText, setAboutText] = useState(
-    `I am a passionate UI/UX & Product Designer, dedicated to creating intuitive, user-friendly, and visually compelling digital experiences...`
-  );
+  const { user } = useCurrentUser();
 
-  const handleSave = (updatedText: string) => {
-    setAboutText(updatedText);
-    setOpen(false);
-  };
+  if (!user) {
+    return null;
+  }
 
   return (
     <Card
@@ -53,24 +51,25 @@ const AboutUsCard = () => {
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
-          Edit About to increase the chance of
+          Edit About to increase the chance of hiring
         </Typography>
         <Typography variant='body2' sx={{ fontSize: 14.5, color: "#333" }}>
-          {aboutText}{" "}
-          <Typography
-            component='span'
-            sx={{ color: "#0073e6", fontWeight: 500 }}
-          >
-            see more
-          </Typography>
+          {user.bio || 'Add a bio to tell employers about yourself'}{" "}
+          {user.bio && user.bio.length > 150 && (
+            <Typography
+              component='span'
+              sx={{ color: "#0073e6", fontWeight: 500, cursor: 'pointer' }}
+            >
+              see more
+            </Typography>
+          )}
         </Typography>
       </CardContent>
 
       <AddAboutModal
         open={open}
         onClose={() => setOpen(false)}
-        savedData={aboutText}
-        onSave={handleSave}
+        savedData={user.bio || ''}
       />
     </Card>
   );

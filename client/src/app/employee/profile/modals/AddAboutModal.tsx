@@ -7,28 +7,58 @@ import {
   TextField,
   Stack,
   Button,
-  Box
+  Box,
+  Alert
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { apiRoutes } from "@/lib/api-routes";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { ApiReplyError } from "@/lib/api-decls";
 
 interface AddAboutModalProps {
   open: boolean;
   onClose: () => void;
   savedData: string;
-  onSave: (text: string) => void;
 }
 
 const AddAboutModal: React.FC<AddAboutModalProps> = ({
   open,
   onClose,
-  savedData,
-  onSave
+  savedData
 }) => {
+  const { refreshUser } = useCurrentUser();
   const [input, setInput] = useState(savedData || "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (open) setInput(savedData || "");
+    if (open) {
+      setInput(savedData || "");
+      setError(null);
+    }
   }, [open, savedData]);
+
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await apiRoutes.updateMe({
+        bio: input
+      });
+
+      await refreshUser();
+      onClose();
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        setError(err.errorMessage);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -50,13 +80,20 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
 
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <TextField
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder='Edit About Here'
+            placeholder='Tell employers about yourself, your experience, and what you are looking for'
             multiline
             minRows={5}
             fullWidth
+            disabled={loading}
             sx={{
               "& .MuiOutlinedInput-root": { borderRadius: 3 }
             }}
@@ -66,6 +103,7 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
             <Button
               variant='outlined'
               onClick={onClose}
+              disabled={loading}
               sx={{
                 borderRadius: "20px",
                 textTransform: "none",
@@ -80,7 +118,8 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
             </Button>
             <Button
               variant='contained'
-              onClick={() => onSave(input)}
+              onClick={handleSave}
+              disabled={loading}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: "20px",
@@ -91,7 +130,7 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
                 "&:hover": { backgroundColor: "#3a6b61" }
               }}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </Stack>
