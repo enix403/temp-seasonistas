@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,18 +10,40 @@ import {
   Box
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { ProfileSectionItem } from "../profileSectionCard";
 
 interface AddSingleInputModalProps {
   open: boolean;
   onClose: () => void;
-  type: "Goal" | "Interests";
+  type: string;
+  onSubmit: (item: ProfileSectionItem) => void;
+  initialData?: ProfileSectionItem | null;
 }
 
 const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
   open,
   onClose,
-  type
+  type,
+  onSubmit,
+  initialData
 }) => {
+  const [title, setTitle] = useState(initialData?.title || "");
+
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+
+    onSubmit({
+      title: title.trim()
+    });
+
+    setTitle("");
+  };
+
+  const getTitle = () => {
+    const action = initialData ? "Edit" : "Add";
+    return `${action} ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+  };
+
   return (
     <Dialog
       open={open}
@@ -35,7 +57,7 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
       }}
     >
       <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
-        Add {type}
+        {getTitle()}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", right: 16, top: 16 }}
@@ -50,6 +72,8 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
             placeholder={`Enter ${type}`}
             fullWidth
             size='small'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 10
@@ -74,6 +98,8 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
             </Button>
             <Button
               variant='contained'
+              onClick={handleSubmit}
+              disabled={!title.trim()}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: 20,
@@ -83,7 +109,7 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
                 minWidth: "100px"
               }}
             >
-              Save
+              {initialData ? "Save Changes" : "Add"}
             </Button>
           </Box>
         </Stack>

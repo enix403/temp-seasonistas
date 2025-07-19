@@ -1,6 +1,7 @@
 "use client";
 
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 import ProfileSectionCard from "./profileSectionCard";
 import ProfileBarCard from "./topProfilebar";
@@ -11,70 +12,50 @@ import AboutUsCard from "./aboutUsCard";
 import RightBarCards from "./rightBarCards";
 import EducationCard from "./educationCard";
 import ExperienceCard from "./experienceCard";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export default function DashboardHome() {
-  const skills = [
-    { title: "UX Design", level: "Expert" },
-    { title: "UI Design", level: "Expert" },
-    { title: "User Research", level: "Expert" },
-    { title: "Design System", level: "Expert" }
-  ];
+  const { user: userData } = useCurrentUser();
 
-  const interests = [
-    { title: "Technology" },
-    { title: "Sports & Fitness" },
-    { title: "Law & Ethics" },
-    { title: "Public Speaking" }
-  ];
-
-  const goals = [
-    { title: "Become a senior analyst" },
-    { title: "Launch my own startup" },
-    { title: "Get a remote tech job" },
-    { title: "Improve leadership skills" }
-  ];
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
-          <ProfileBarCard />
-          <PercentageCard />
-          <GraphCard />
-          <BasicInfoCard />
-          <AboutUsCard />
-          <EducationCard />
-          <ExperienceCard />
+    <Box sx={{ display: "flex", gap: 2 }}>
+      <Box sx={{ flex: "1 1 70%" }}>
+        <ProfileBarCard />
+        <PercentageCard />
+        <GraphCard />
+        <BasicInfoCard />
+        <AboutUsCard />
+        <EducationCard />
+        <ExperienceCard />
 
-          <ProfileSectionCard
-            title='Skills'
-            description='Add skills to increase the chance of hiring'
-            addText='Add Skill'
-            data={skills}
-            type={"skill"}
-            footerText='Show More Skill'
-          />
-          <ProfileSectionCard
-            title='Interests'
-            description='Add your interests to let employers understand your passion areas'
-            addText='Add Interests'
-            data={interests}
-            type={"interest"}
-            footerText='Show More Interests'
-          />
-          <ProfileSectionCard
-            title='Goals'
-            description='Mention your career goals to help employers align with your ambitions'
-            addText='Add Goals'
-            data={goals}
-            type={"goal"}
-            footerText='Show More Goals'
-          />
-        </Grid>
-        <Grid size={{ xs: 12, lg: 3.5 }}>
-          <RightBarCards />
-        </Grid>
-      </Grid>
-    </>
+        <ProfileSectionCard
+          title='Skills'
+          description='Add skills to increase the chance of hiring'
+          addText='Add Skill'
+          data={userData?.skills?.map(skill => ({ title: skill })) || []}
+          fieldName="skills"
+          showLevel={true}
+          footerText='Show More Skills'
+        />
+        <ProfileSectionCard
+          title='Interests'
+          description='Add your interests to let employers understand your passion areas'
+          addText='Add Interest'
+          data={userData?.interests?.map(interest => ({ title: interest })) || []}
+          fieldName="interests"
+          footerText='Show More Interests'
+        />
+        <ProfileSectionCard
+          title='Goals'
+          description='Mention your career goals to help employers align with your ambitions'
+          addText='Add Goal'
+          data={userData?.goals?.map(goal => ({ title: goal })) || []}
+          fieldName="goals"
+          footerText='Show More Goals'
+        />
+      </Box>
+      <Box sx={{ flex: "1 1 30%" }}>
+        <RightBarCards />
+      </Box>
+    </Box>
   );
 }

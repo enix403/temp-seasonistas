@@ -13,14 +13,25 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddSkillModal from "./modals/AddSkillModal";
 import AddSingleInputModal from "./modals/AddSingleInputModal";
+import { toast } from "sonner";
+import { apiRoutes } from "@/lib/api-routes";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface ProfileBarCardProps {
+export interface ProfileSectionItem {
+  id?: string;
+  title: string;
+  level?: string;
+}
+
+interface ProfileSectionCardProps {
   title: string;
   description: string;
   addText: string;
-  data: any;
+  data: ProfileSectionItem[];
   footerText: string;
-  type: "skill" | "interest" | "goal";
+  fieldName: string; // The field name in the user model (e.g. 'skills', 'interests', 'goals')
+  showLevel?: boolean; // Whether to show/edit level field
+  onShowMore?: () => void;
 }
 
 const ProfileSectionCard = ({
@@ -29,25 +40,72 @@ const ProfileSectionCard = ({
   addText,
   data,
   footerText,
-  type
-}: ProfileBarCardProps) => {
-  const [openSkillModal, setSkillModal] = useState(false);
+  fieldName,
+  showLevel = false,
+  onShowMore
+}: ProfileSectionCardProps) => {
   const [openModal, setOpenModal] = useState(false);
-  const [modalType, setModalType] = useState<"Goal" | "Interests">("Goal");
+  const [editingItem, setEditingItem] = useState<ProfileSectionItem | null>(null);
+  const queryClient = useQueryClient();
 
-  const handleOpen = (type: "Goal" | "Interests") => {
-    setModalType(type);
-    setOpenModal(true);
+  // Get current user data
+  const { data: userData } = useQuery({
+    queryKey: ["user"],
+    queryFn: apiRoutes.getMe
+  });
+
+  // Update user profile mutation
+  const updateProfile = useMutation({
+    mutationFn: apiRoutes.updateMe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast.success("Profile updated successfully");
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to update profile");
+    }
+  });
+
+  const handleAdd = async (newItem: ProfileSectionItem) => {
+    if (!userData) return;
+
+    const currentItems = userData[fieldName] || [];
+    const updatedItems = [...currentItems, newItem];
+
+    await updateProfile.mutateAsync({
+      [fieldName]: updatedItems
+    });
+
+    setOpenModal(false);
   };
 
-  const handleAddClick = () => {
-    if (type === "skill") {
-      setSkillModal(true);
-    } else if (type === "interest") {
-      handleOpen("Interests");
-    } else if (type === "goal") {
-      handleOpen("Goal");
-    }
+  const handleEdit = async (oldItem: ProfileSectionItem, newItem: ProfileSectionItem) => {
+    if (!userData) return;
+
+    const currentItems = userData[fieldName] || [];
+    const updatedItems = currentItems.map((item: ProfileSectionItem) =>
+      item.title === oldItem.title ? newItem : item
+    );
+
+    await updateProfile.mutateAsync({
+      [fieldName]: updatedItems
+    });
+
+    setEditingItem(null);
+    setOpenModal(false);
+  };
+
+  const handleDelete = async (itemToDelete: ProfileSectionItem) => {
+    if (!userData) return;
+
+    const currentItems = userData[fieldName] || [];
+    const updatedItems = currentItems.filter(
+      (item: ProfileSectionItem) => item.title !== itemToDelete.title
+    );
+
+    await updateProfile.mutateAsync({
+      [fieldName]: updatedItems
+    });
   };
 
   return (
@@ -75,7 +133,10 @@ const ProfileSectionCard = ({
           <Button
             variant='outlined'
             size='small'
-            onClick={handleAddClick}
+            onClick={() => {
+              setEditingItem(null);
+              setOpenModal(true);
+            }}
             sx={{
               borderRadius: "20px",
               textTransform: "none",
@@ -96,96 +157,111 @@ const ProfileSectionCard = ({
         </Typography>
 
         {/* Grid List */}
-        <Grid container spacing={2}>
+        <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2 }}>
           {data.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6 }} key={index}>
-              <Paper
-                elevation={0}
-                sx={{
-                  border: "1px solid #eee",
-                  borderRadius: 2,
-                  p: 2,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}
-              >
-                <Box>
-                  <Typography fontWeight={600}>{item.title}</Typography>
-                  {item.level && (
-                    <Typography
-                      variant='body2'
-                      sx={{ fontSize: 13, color: "#666" }}
-                    >
-                      {item.level}
-                    </Typography>
-                  )}
-                </Box>
-                <Box display='flex' gap={1}>
-                  <Box
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 1,
-                      backgroundColor: "#888888", // gray background
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer"
-                    }}
-                    onClick={() => {
-                      // handle delete
-                    }}
+            <Paper
+              key={index}
+              elevation={0}
+              sx={{
+                border: "1px solid #eee",
+                borderRadius: 2,
+                p: 2,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
+              <Box>
+                <Typography fontWeight={600}>{item.title}</Typography>
+                {showLevel && item.level && (
+                  <Typography
+                    variant='body2'
+                    sx={{ fontSize: 13, color: "#666" }}
                   >
-                    <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
-                  </Box>
+                    {item.level}
+                  </Typography>
+                )}
+              </Box>
+              <Box display='flex' gap={1}>
+                <Box
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 1,
+                    backgroundColor: "#888888",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer"
+                  }}
+                  onClick={() => handleDelete(item)}
+                >
+                  <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
+                </Box>
 
-                  <Box
-                    sx={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 1,
-                      backgroundColor: "#4e9a8e", // teal green background
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer"
-                    }}
-                    onClick={() => {
-                      // handle edit
-                    }}
-                  >
-                    <EditIcon sx={{ color: "white", fontSize: 16 }} />
-                  </Box>
+                <Box
+                  sx={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 1,
+                    backgroundColor: "#4e9a8e",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer"
+                  }}
+                  onClick={() => {
+                    setEditingItem(item);
+                    setOpenModal(true);
+                  }}
+                >
+                  <EditIcon sx={{ color: "white", fontSize: 16 }} />
                 </Box>
-              </Paper>
-            </Grid>
+              </Box>
+            </Paper>
           ))}
-        </Grid>
+        </Box>
 
         {/* Footer */}
-        <Typography
-          variant='body2'
-          sx={{
-            fontSize: 14,
-            color: "#559093",
-            fontWeight: 600,
-            mt: 2,
-            cursor: "pointer"
-          }}
-        >
-          {footerText}
-        </Typography>
+        {onShowMore && (
+          <Typography
+            variant='body2'
+            sx={{
+              fontSize: 14,
+              color: "#559093",
+              fontWeight: 600,
+              mt: 2,
+              cursor: "pointer"
+            }}
+            onClick={onShowMore}
+          >
+            {footerText}
+          </Typography>
+        )}
       </CardContent>
-      <AddSkillModal
-        open={openSkillModal}
-        onClose={() => setSkillModal(false)}
-      />
-      <AddSingleInputModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        type={modalType}
-      />
+
+      {showLevel ? (
+        <AddSkillModal
+          open={openModal}
+          onClose={() => {
+            setEditingItem(null);
+            setOpenModal(false);
+          }}
+          onSubmit={editingItem ? (newItem) => handleEdit(editingItem, newItem) : handleAdd}
+          initialData={editingItem}
+        />
+      ) : (
+        <AddSingleInputModal
+          open={openModal}
+          onClose={() => {
+            setEditingItem(null);
+            setOpenModal(false);
+          }}
+          type={fieldName}
+          onSubmit={editingItem ? (newItem) => handleEdit(editingItem, newItem) : handleAdd}
+          initialData={editingItem}
+        />
+      )}
     </Card>
   );
 };

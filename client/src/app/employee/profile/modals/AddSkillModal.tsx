@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,29 +10,67 @@ import {
   Box,
   Typography,
   Chip,
-  Grid
+  Grid,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { ProfileSectionItem } from "../profileSectionCard";
 
 interface AddSkillModalProps {
   open: boolean;
   onClose: () => void;
+  onSubmit: (item: ProfileSectionItem) => void;
+  initialData?: ProfileSectionItem | null;
 }
+
+const skillLevels = [
+  "Beginner",
+  "Intermediate",
+  "Advanced",
+  "Expert"
+];
 
 const suggestions = [
   "Figma",
   "Adobe Illustrator",
   "Adobe Photoshop",
-  "Adobe Photoshop",
-  "Figma",
-  "Figma",
-  "Adobe Illustrator",
-  "Adobe Photoshop",
-  "Adobe Photoshop",
-  "Figma"
+  "Adobe XD",
+  "Sketch",
+  "InVision",
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React"
 ];
 
-const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
+const AddSkillModal: React.FC<AddSkillModalProps> = ({
+  open,
+  onClose,
+  onSubmit,
+  initialData
+}) => {
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [level, setLevel] = useState(initialData?.level || skillLevels[0]);
+
+  const handleSubmit = () => {
+    if (!title.trim()) return;
+
+    onSubmit({
+      title: title.trim(),
+      level
+    });
+
+    setTitle("");
+    setLevel(skillLevels[0]);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setTitle(suggestion);
+  };
+
   return (
     <Dialog
       open={open}
@@ -46,7 +84,7 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
       }}
     >
       <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
-        Add Skill
+        {initialData ? "Edit Skill" : "Add Skill"}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", right: 16, top: 16 }}
@@ -58,9 +96,11 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2}>
           <TextField
-            placeholder='Enter Interests'
+            placeholder='Enter skill name'
             fullWidth
             size='small'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 10
@@ -68,26 +108,45 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
             }}
           />
 
+          <FormControl fullWidth size="small">
+            <InputLabel>Skill Level</InputLabel>
+            <Select
+              value={level}
+              label="Skill Level"
+              onChange={(e) => setLevel(e.target.value)}
+              sx={{
+                borderRadius: 10
+              }}
+            >
+              {skillLevels.map((level) => (
+                <MenuItem key={level} value={level}>
+                  {level}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
           <Box sx={{ bgcolor: "#f5f5f5", p: "10px", borderRadius: "10px" }}>
             <Typography fontSize={17} fontWeight={600} mb={2}>
-              Suggestion for you
+              Suggestions for you
             </Typography>
-            <Grid container spacing={1}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
               {suggestions.map((item, idx) => (
-                <Grid size={{ xs: 4 }} key={idx}>
-                  <Chip
-                    label={item}
-                    variant='outlined'
-                    sx={{
-                      fontSize: 12,
-                      borderRadius: 9,
-                      px: 1.5,
-                      height: 32
-                    }}
-                  />
-                </Grid>
+                <Chip
+                  key={idx}
+                  label={item}
+                  variant='outlined'
+                  onClick={() => handleSuggestionClick(item)}
+                  sx={{
+                    fontSize: 12,
+                    borderRadius: 9,
+                    px: 1.5,
+                    height: 32,
+                    cursor: "pointer"
+                  }}
+                />
               ))}
-            </Grid>
+            </Box>
           </Box>
 
           <Box display='flex' justifyContent='flex-end' gap={1}>
@@ -108,6 +167,8 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
             </Button>
             <Button
               variant='contained'
+              onClick={handleSubmit}
+              disabled={!title.trim()}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: 20,
@@ -117,7 +178,7 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
                 minWidth: "100px"
               }}
             >
-              Save
+              {initialData ? "Save Changes" : "Add Skill"}
             </Button>
           </Box>
         </Stack>
