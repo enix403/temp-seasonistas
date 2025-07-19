@@ -57,13 +57,13 @@ const Topbar = (props: Props) => {
           <div
             className='flex cursor-pointer items-center gap-2'
           >
-            <img
-              alt={user?.fullName || 'Profile Picture'}
-              src={user?.profilePictureUrl || defaultProfileImage.src}
-              width={32}
-              height={32}
-              className='rounded-full'
-            />
+            <div className='relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0'>
+              <img
+                alt={user?.fullName || 'Profile Picture'}
+                src={user?.profilePictureUrl || defaultProfileImage.src}
+                className='w-full h-full object-cover object-center'
+              />
+            </div>
             <div className='flex flex-col leading-tight'>
               <span className='text-sm font-medium text-gray-800'>
                 {user?.fullName}
