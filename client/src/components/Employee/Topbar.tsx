@@ -3,10 +3,12 @@ import { IoNotifications } from "react-icons/io5";
 import userImg from "@/assets/employer/employerImg.png";
 import flag from "@/assets/employer/country.png";
 import { usePathname, useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 type Props = {};
 
 const Topbar = (props: Props) => {
+  const { user } = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
   const lastSegment = pathname.split("/").filter(Boolean).pop() || "";
@@ -60,8 +62,8 @@ const Topbar = (props: Props) => {
             className='rounded-full'
           />
           <div className='flex flex-col leading-tight'>
-            <span className='text-sm font-medium text-gray-800'>John Kaon</span>
-            <span className='text-xs text-gray-400'>Artist</span>
+            <span className='text-sm font-medium text-gray-800'>{user?.fullName}</span>
+            <span className='text-xs text-gray-400'>{user?.role}</span>
           </div>
         </div>
       </div>
