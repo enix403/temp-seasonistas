@@ -11,6 +11,7 @@ import AboutUsCard from "./aboutUsCard";
 import RightBarCards from "./rightBarCards";
 import EducationCard from "./educationCard";
 import ExperienceCard from "./experienceCard";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export default function DashboardHome() {
   const skills = [
@@ -40,8 +41,8 @@ export default function DashboardHome() {
           <ProfileBarCard />
           <PercentageCard />
           <GraphCard />
-          <BasicInfoCard/>
-          <AboutUsCard/>
+          <BasicInfoCard />
+          <AboutUsCard />
           <EducationCard />
           <ExperienceCard />
 

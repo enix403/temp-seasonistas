@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,17 +10,35 @@ import {
   MenuItem,
   Stack,
   Button,
-  Box
+  Box,
+  Alert
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { apiRoutes } from "@/lib/api-routes";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { ApiReplyError } from "@/lib/api-decls";
 
 interface EditProfileModalProps {
   open: boolean;
   onClose: () => void;
   type: "individual" | "company";
+  initialData: {
+    email: string;
+    gender?: string;
+    phoneCountryCode?: string;
+    phoneNumber?: string;
+    addressCity?: string;
+    addressCountry?: string;
+    website?: string;
+  };
 }
 
-const genders = ["Male", "Female", "Other"];
+// Map display values to database values
+const genderOptions = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" }
+];
+
 const industries = ["Retail", "Technology", "Finance"];
 const companyTypes = [
   "Private Limited Company",
@@ -39,8 +57,48 @@ const companySizes = [
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
   open,
   onClose,
-  type
+  type,
+  initialData
 }) => {
+  const { refreshUser } = useCurrentUser();
+  const [formData, setFormData] = useState(initialData);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: event.target.value
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      await apiRoutes.updateMe({
+        gender: formData.gender,
+        phoneCountryCode: formData.phoneCountryCode,
+        phoneNumber: formData.phoneNumber,
+        addressCity: formData.addressCity,
+        addressCountry: formData.addressCountry,
+        website: formData.website
+      });
+
+      await refreshUser();
+      onClose();
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        setError(err.errorMessage);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -65,12 +123,20 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           {type === "individual" ? (
             <>
               <TextField
                 variant='outlined'
                 size='small'
                 placeholder='Email Address'
+                value={formData.email}
+                disabled
                 fullWidth
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
               />
@@ -78,27 +144,53 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 variant='outlined'
                 size='small'
                 select
-                defaultValue='Male'
+                value={formData.gender || ''}
+                onChange={handleChange('gender')}
                 fullWidth
+                label="Gender"
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
               >
-                {genders.map(gender => (
-                  <MenuItem key={gender} value={gender}>
-                    {gender}
+                {genderOptions.map(option => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
                   </MenuItem>
                 ))}
               </TextField>
+              <Box display="flex" gap={2}>
+                <TextField
+                  variant='outlined'
+                  size='small'
+                  placeholder='Country Code'
+                  value={formData.phoneCountryCode || ''}
+                  onChange={handleChange('phoneCountryCode')}
+                  fullWidth
+                  sx={{ flex: 1, "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
+                />
+                <TextField
+                  variant='outlined'
+                  size='small'
+                  placeholder='Phone Number'
+                  value={formData.phoneNumber || ''}
+                  onChange={handleChange('phoneNumber')}
+                  fullWidth
+                  sx={{ flex: 2, "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
+                />
+              </Box>
               <TextField
                 variant='outlined'
                 size='small'
-                placeholder='Phone Number'
+                placeholder='City'
+                value={formData.addressCity || ''}
+                onChange={handleChange('addressCity')}
                 fullWidth
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
               />
               <TextField
                 variant='outlined'
                 size='small'
-                placeholder='Location'
+                placeholder='Country'
+                value={formData.addressCountry || ''}
+                onChange={handleChange('addressCountry')}
                 fullWidth
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
               />
@@ -106,11 +198,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 variant='outlined'
                 size='small'
                 placeholder='Website'
+                value={formData.website || ''}
+                onChange={handleChange('website')}
                 fullWidth
                 sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
               />
             </>
           ) : (
+            // Company form fields remain unchanged
             <>
               <TextField
                 variant='outlined'
@@ -202,6 +297,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <Button
               variant='outlined'
               onClick={onClose}
+              disabled={loading}
               sx={{
                 borderRadius: "44px !important",
                 textTransform: "none",
@@ -216,6 +312,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             </Button>
             <Button
               variant='contained'
+              onClick={handleSubmit}
+              disabled={loading}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: "44px !important",
@@ -225,7 +323,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 minWidth: "100px"
               }}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </Stack>

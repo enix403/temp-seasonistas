@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { Box, Typography, Grid, Stack, Button } from "@mui/material";
 import EditProfileModal from "./modals/EditProfileModal";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
-type ProfileType = "individual" | "company";
+// Helper function to capitalize first letter
+const capitalizeFirstLetter = (str: string) => {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
 const BasicInfoCard = () => {
   const [open, setOpen] = useState(false);
+  const { user } = useCurrentUser();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Box
@@ -56,31 +66,41 @@ const BasicInfoCard = () => {
           <Typography variant='body2' color='text.secondary'>
             Email Address
           </Typography>
-          <Typography fontWeight='bold'>anamoulrouf.bd@gmail.com</Typography>
+          <Typography fontWeight='bold'>{user.email}</Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant='body2' color='text.secondary'>
             Gender
           </Typography>
-          <Typography fontWeight='bold'>Male</Typography>
+          <Typography fontWeight='bold'>{user.gender ? capitalizeFirstLetter(user.gender) : 'Not specified'}</Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant='body2' color='text.secondary'>
             Phone Number
           </Typography>
-          <Typography fontWeight='bold'>+8801759693045</Typography>
+          <Typography fontWeight='bold'>
+            {user.phoneCountryCode && user.phoneNumber
+              ? `${user.phoneCountryCode} ${user.phoneNumber}`
+              : 'Not specified'}
+          </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant='body2' color='text.secondary'>
             Location
           </Typography>
-          <Typography fontWeight='bold'>Dhaka, Bangladesh</Typography>
+          <Typography fontWeight='bold'>
+            {user.addressCity && user.addressCountry
+              ? `${user.addressCity}, ${user.addressCountry}`
+              : 'Not specified'}
+          </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant='body2' color='text.secondary'>
             Website
           </Typography>
-          <Typography fontWeight='bold'>www.anamoulrouf.com</Typography>
+          <Typography fontWeight='bold'>
+            {user.website || 'Not specified'}
+          </Typography>
         </Grid>
       </Grid>
 
@@ -88,6 +108,15 @@ const BasicInfoCard = () => {
         type={"individual"}
         open={open}
         onClose={() => setOpen(false)}
+        initialData={{
+          email: user.email,
+          gender: user.gender,
+          phoneCountryCode: user.phoneCountryCode,
+          phoneNumber: user.phoneNumber,
+          addressCity: user.addressCity,
+          addressCountry: user.addressCountry,
+          website: user.website
+        }}
       />
     </Box>
   );
