@@ -180,7 +180,7 @@ const ProfileBarCard = () => {
             color: "#559093"
           }}
         >
-          <Typography fontSize={18}>451 Follower</Typography>
+          <Typography fontSize={18}>0 Follower</Typography>
         </Box>
       </Box>
 
