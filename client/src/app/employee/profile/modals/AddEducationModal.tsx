@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
+import { format } from "date-fns";
 
 interface Education {
   degree: string;
@@ -32,6 +33,16 @@ interface AddEducationModalProps {
   onClose: () => void;
   education?: Education | null;
 }
+
+const formatDateForInput = (dateString: string | undefined) => {
+  if (!dateString) return "";
+  try {
+    return format(new Date(dateString), "yyyy-MM-dd");
+  } catch (e) {
+    console.error("Invalid date:", dateString);
+    return "";
+  }
+};
 
 const AddEducationModal: React.FC<AddEducationModalProps> = ({
   open,
@@ -58,8 +69,8 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
         institure: education.institure,
         grade: education.grade,
         description: education.description || "",
-        dateStart: education.dateStart,
-        dateEnd: education.dateEnd || "",
+        dateStart: formatDateForInput(education.dateStart),
+        dateEnd: formatDateForInput(education.dateEnd),
         currentlyActive: education.currentlyActive
       });
     } else if (open) {
