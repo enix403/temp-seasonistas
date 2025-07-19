@@ -169,6 +169,7 @@ export function uploadDecl<UrlT extends string | ((...args: any) => string)>(
 
 /* ------------------------ */
 
+/* Allows to call an apiRoute with queryParams like so: `apiRoutes.getJobs({ type: 'fullTime` }) */
 export function wq<Q = string | Record<string, any> | URLSearchParams>(
   template: TemplateStringsArray
 ) {
