@@ -4,10 +4,10 @@ import {
   BiBriefcase,
   BiBarChartAlt2
 } from "react-icons/bi";
-import ActivityFeed from "~/components/Admin/Dashboards/Overview/ActivityFeed";
-import AreaStatsTable from "~/components/Admin/Dashboards/Overview/AreaStatsTable";
-import ChartCard from "~/components/Admin/Dashboards/Overview/ChartCard";
-import MetricCard from "~/components/Admin/Dashboards/Overview/MetricCard";
+import ActivityFeed from "@/components/Admin/Dashboards/Overview/ActivityFeed";
+import AreaStatsTable from "@/components/Admin/Dashboards/Overview/AreaStatsTable";
+import ChartCard from "@/components/Admin/Dashboards/Overview/ChartCard";
+import MetricCard from "@/components/Admin/Dashboards/Overview/MetricCard";
 import arrow1 from "@/assets/Admin/arrow1.png";
 import arrow2 from "@/assets/Admin/arrow2.png";
 import arrow3 from "@/assets/Admin/arrow3.png";

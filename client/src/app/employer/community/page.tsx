@@ -1,6 +1,6 @@
 "use client";
 
-import UserCard from "~/components/Employer/Community/UserCard";
+import UserCard from "@/components/Employer/Community/UserCard";
 import avatar from "@/assets/employer/dashboard/applicant2.png";
 import companyLogo from "@/assets/employer/community/companyLogo.png";
 import { IoIosArrowDown } from "react-icons/io";

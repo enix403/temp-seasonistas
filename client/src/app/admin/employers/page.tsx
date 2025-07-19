@@ -1,13 +1,13 @@
 "use client";
 import { FiMoreVertical } from "react-icons/fi";
-import FilterBar from "~/components/Admin/UserAndAbuse/FilterBar";
+import FilterBar from "@/components/Admin/UserAndAbuse/FilterBar";
 import companyLogo from "@/assets/Admin/companyLogo.png";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import VerifyModal from "~/components/Admin/UserAndAbuse/VerifyModal";
-import BanModal from "~/components/Admin/UserAndAbuse/BanModal";
-import SuspendModal from "~/components/Admin/UserAndAbuse/SuspandModal";
+import VerifyModal from "@/components/Admin/UserAndAbuse/VerifyModal";
+import BanModal from "@/components/Admin/UserAndAbuse/BanModal";
+import SuspendModal from "@/components/Admin/UserAndAbuse/SuspandModal";
 
 const employers = Array.from({ length: 8 }).map((_, i) => ({
   businessName: "Lanier Pvt Ltd",

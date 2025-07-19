@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ChatSidebar from "~/components/Chat/ChatSidebar";
-import ChatWindow from "~/components/Chat/ChatWindow";
-import { dummyUsers } from "~/components/Chat/dummyUsers";
-import { userMessages } from "~/components/Chat/userMessages";
+import ChatSidebar from "@/components/Chat/ChatSidebar";
+import ChatWindow from "@/components/Chat/ChatWindow";
+import { dummyUsers } from "@/components/Chat/dummyUsers";
+import { userMessages } from "@/components/Chat/userMessages";
 
 const ChatPage = () => {
   const [selectedId, setSelectedId] = useState<number | null>(1);

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import avatar from "@/assets/employer/dashboard/applicant2.png";
 import { FaFilePdf } from "react-icons/fa";
-import MetricCardsContainer from "~/components/Employer/Application/MetricCardsContainer";
+import MetricCardsContainer from "@/components/Employer/Application/MetricCardsContainer";
 import { useRouter } from "next/navigation";
 
 const applicants = [

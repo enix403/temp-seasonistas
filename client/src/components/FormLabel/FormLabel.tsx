@@ -1,6 +1,6 @@
 import { IconAsterisk, IconAsteriskSimple } from "@tabler/icons-react";
 import { LabelProps as HtmlLabelProps } from "react-html-props";
-import { combineVisualProps } from "~/components/VisualComponent";
+import { combineVisualProps } from "@/components/VisualComponent";
 
 export function FormLabel({
   label,

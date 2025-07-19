@@ -1,12 +1,12 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import ApplicationDetailsSection from "~/components/Employer/Application/ApplicationDetailsSection";
-import ApplicantInfoSidebar from "~/components/Employer/Application/ApplicantInfoSidebar";
+import ApplicationDetailsSection from "@/components/Employer/Application/ApplicationDetailsSection";
+import ApplicantInfoSidebar from "@/components/Employer/Application/ApplicantInfoSidebar";
 import { useState } from "react";
-import InterviewDetailModal from "~/components/Employer/Application/InterviewDetailModal";
-import ConfirmScheduleModal from "~/components/Employer/Application/ConfirmScheduleModal";
-import RejectModal from "~/components/Employer/Application/RejectModal";
+import InterviewDetailModal from "@/components/Employer/Application/InterviewDetailModal";
+import ConfirmScheduleModal from "@/components/Employer/Application/ConfirmScheduleModal";
+import RejectModal from "@/components/Employer/Application/RejectModal";
 
 const applicants = [
   {

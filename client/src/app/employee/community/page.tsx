@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UserCard from "~/components/Employee/Community/UserCard";
+import UserCard from "@/components/Employee/Community/UserCard";
 import avatar from "@/assets/employer/dashboard/applicant2.png";
 import companyLogo from "@/assets/employer/community/companyLogo.png";
 import { FiSearch } from "react-icons/fi";

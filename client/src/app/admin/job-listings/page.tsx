@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { initialJobs } from "./jobData";
 
 import companyLogo from "@/assets/Admin/companyLogo.png";
-import FlagInfoModal from "~/components/Admin/Modal/FlagInfoModal";
+import FlagInfoModal from "@/components/Admin/Modal/FlagInfoModal";
 
 export default function JobListingsPage() {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);

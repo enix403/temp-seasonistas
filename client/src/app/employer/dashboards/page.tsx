@@ -1,8 +1,8 @@
-import MetricCard from "~/components/Employer/Dashboard/MetricCard";
-import UsageCard from "~/components/Employer/Dashboard/UsageCard";
-import ChartSection from "~/components/Employer/Dashboard/ChartSection";
-import EventList from "~/components/Employer/Dashboard/EventList";
-import AllJobsSection from "~/components/Employer/Dashboard/AllJobsSection";
+import MetricCard from "@/components/Employer/Dashboard/MetricCard";
+import UsageCard from "@/components/Employer/Dashboard/UsageCard";
+import ChartSection from "@/components/Employer/Dashboard/ChartSection";
+import EventList from "@/components/Employer/Dashboard/EventList";
+import AllJobsSection from "@/components/Employer/Dashboard/AllJobsSection";
 
 const Page = () => {
   return (

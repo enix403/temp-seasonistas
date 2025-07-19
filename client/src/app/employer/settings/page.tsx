@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import BillingMethod from "~/components/Employer/Settings/BillingMethod";
-import NotificationSettings from "~/components/Employer/Settings/NotificationSettings";
-import Preferences from "~/components/Employer/Settings/Preferences";
-import SecuritySettings from "~/components/Employer/Settings/SecuritySettings";
+import BillingMethod from "@/components/Employer/Settings/BillingMethod";
+import NotificationSettings from "@/components/Employer/Settings/NotificationSettings";
+import Preferences from "@/components/Employer/Settings/Preferences";
+import SecuritySettings from "@/components/Employer/Settings/SecuritySettings";
 
 const SettingsPage = () => {
   const [tab, setTab] = useState<

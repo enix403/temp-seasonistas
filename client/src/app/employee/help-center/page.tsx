@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FaSearch, FaQuestionCircle } from "react-icons/fa";
-import HelpMessageModal from "~/components/HelpCenter/HelpMessageModal";
+import HelpMessageModal from "@/components/HelpCenter/HelpMessageModal";
 
 const helpTopics = [
   {

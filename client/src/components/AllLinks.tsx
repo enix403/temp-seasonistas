@@ -2,7 +2,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentProps } from "react";
-import { useViewMode } from "~/app/providers/auth-state";
+import { useViewMode } from "@/app/providers/auth-state";
 import { useLocale, useTranslations } from "next-intl";
 
 function AppLink(props: ComponentProps<typeof Link>) {

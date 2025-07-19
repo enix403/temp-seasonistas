@@ -1,5 +1,5 @@
-import AllJobs from "~/components/Employee/Home/AllJobs";
-import Banners from "~/components/Employee/Home/Banners";
+import AllJobs from "@/components/Employee/Home/AllJobs";
+import Banners from "@/components/Employee/Home/Banners";
 
 const page = () => {
   return (

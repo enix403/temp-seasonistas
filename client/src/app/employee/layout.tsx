@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Poppins } from "next/font/google";
-import Sidebar from "~/components/Employee/Sidebar";
-import Topbar from "~/components/Employee/Topbar";
+import Sidebar from "@/components/Employee/Sidebar";
+import Topbar from "@/components/Employee/Topbar";
 
 const poppins = Poppins({
   subsets: ["latin"],

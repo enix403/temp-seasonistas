@@ -22,9 +22,9 @@ import cardImage2 from "@/assets/image (5).png";
 import profileImage1 from "@/assets/Ellipse 4149.png";
 import profileImage2 from "@/assets/image (4).png";
 import StatusModal from "./modals/StatusModal";
-import BanModal from "~/components/Admin/UserAndAbuse/BanModal";
-import SuspendModal from "~/components/Admin/UserAndAbuse/SuspandModal";
-import EditEmployeeModal from "~/components/Admin/UserAndAbuse/EditEmployeeModal";
+import BanModal from "@/components/Admin/UserAndAbuse/BanModal";
+import SuspendModal from "@/components/Admin/UserAndAbuse/SuspandModal";
+import EditEmployeeModal from "@/components/Admin/UserAndAbuse/EditEmployeeModal";
 
 const ProfileBarCard = ({ type }) => {
   const [showBanModal, setShowBanModal] = useState(false);

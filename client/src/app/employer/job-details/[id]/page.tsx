@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import "react-circular-progressbar/dist/styles.css";
-import { initialJobs } from "~/components/Employee/Home/JobData";
+import { initialJobs } from "@/components/Employee/Home/JobData";
 import linearCompany from "@/assets/employee/linearCompany.png";
 import { useState } from "react";
 

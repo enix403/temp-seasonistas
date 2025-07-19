@@ -5,10 +5,10 @@ import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 import companyLogo from "@/assets/Admin/companyLogo.png";
 import personLogo from "@/assets/Admin/person.png";
-import MetricCard2 from "~/components/Admin/Transactions/MetricCard2";
+import MetricCard2 from "@/components/Admin/Transactions/MetricCard2";
 import { useState } from "react";
 import { FiMoreVertical } from "react-icons/fi";
-import RefundModal from "~/components/Admin/Modal/RefundModal";
+import RefundModal from "@/components/Admin/Modal/RefundModal";
 
 const transactions = [
   {

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import BillingMethod from "~/components/Admin/Settings/BillingMethod";
-import NotificationSettings from "~/components/Admin/Settings/NotificationSettings";
-import SecuritySettings from "~/components/Admin/Settings/SecuritySettings";
+import BillingMethod from "@/components/Admin/Settings/BillingMethod";
+import NotificationSettings from "@/components/Admin/Settings/NotificationSettings";
+import SecuritySettings from "@/components/Admin/Settings/SecuritySettings";
 
 const SettingsPage = () => {
   const [tab, setTab] = useState<"security" | "notification" | "billing">(

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import InterviewRow from "~/components/Employer/Calender/InterviewRow";
+import InterviewRow from "@/components/Employer/Calender/InterviewRow";
 
 const allInterviews = [
   {

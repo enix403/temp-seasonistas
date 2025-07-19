@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { FiTrash } from "react-icons/fi";
 import { LuPencil } from "react-icons/lu";
-import AddFaqModal from "~/components/Admin/Dashboards/PrivacyCms/AddFaqModal";
-import DeleteModal from "~/components/Admin/Dashboards/PrivacyCms/DeleteModal";
-import EditFaqModal from "~/components/Admin/Dashboards/PrivacyCms/EditFaqModal";
+import AddFaqModal from "@/components/Admin/Dashboards/PrivacyCms/AddFaqModal";
+import DeleteModal from "@/components/Admin/Dashboards/PrivacyCms/DeleteModal";
+import EditFaqModal from "@/components/Admin/Dashboards/PrivacyCms/EditFaqModal";
 
 const faqs = [
   {

@@ -1,10 +1,10 @@
 "use client";
 
-import Steps from "~/components/Employer/CreateJob/Steps";
+import Steps from "@/components/Employer/CreateJob/Steps";
 import { useJobForm } from "../../../../../stores/useJobForm";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CreateJobModal from "~/components/Employer/CreateJob/CreateJobModal";
+import CreateJobModal from "@/components/Employer/CreateJob/CreateJobModal";
 
 const CreateJobPage = () => {
   const [showModal, setShowModal] = useState(false);

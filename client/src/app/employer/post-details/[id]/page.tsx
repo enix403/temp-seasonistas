@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
-import EditJobModal from "~/components/Employer/Dashboard/EditJobModal";
+import EditJobModal from "@/components/Employer/Dashboard/EditJobModal";
 
 const jobs = [
   {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
-import EditPlanModal from "~/components/Admin/Modal/EditPlanModal";
+import EditPlanModal from "@/components/Admin/Modal/EditPlanModal";
 
 const plans = [
   {

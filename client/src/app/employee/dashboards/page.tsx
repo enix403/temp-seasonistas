@@ -2,11 +2,11 @@
 
 import ChartSection from "../../../../../components/Employee/Dashboard/ChartSection";
 import bannerBg2 from "@/assets/employer/home/bannerBg2.png";
-import CreateNewPostModal from "~/components/Employee/Home/CreateNewPostModal";
+import CreateNewPostModal from "@/components/Employee/Home/CreateNewPostModal";
 import { GoArrowUpRight } from "react-icons/go";
 import { useState } from "react";
-import MetricCard from "~/components/Employee/Dashboard/MetricCard";
-import AppliedJobsTable from "~/components/Employee/Dashboard/AppliedJobsTable";
+import MetricCard from "@/components/Employee/Dashboard/MetricCard";
+import AppliedJobsTable from "@/components/Employee/Dashboard/AppliedJobsTable";
 
 const Page = () => {
   const [modalOpen, setModalOpen] = useState(false);
