@@ -2,18 +2,20 @@ import Image from "next/image";
 import { IoNotifications } from "react-icons/io5";
 import userImg from "@/assets/employer/employerImg.png";
 import flag from "@/assets/employer/country.png";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import Link from "next/link";
 
 type Props = {};
 
 const Topbar = (props: Props) => {
   const { user } = useCurrentUser();
-  const router = useRouter();
+
   const pathname = usePathname();
   const lastSegment = pathname.split("/").filter(Boolean).pop() || "";
   const pageName = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
   let title = "";
+
   if (pageName === "Home") {
     title = "Jobs Overview";
   } else if (pageName === "Dashboards") {
@@ -25,9 +27,7 @@ const Topbar = (props: Props) => {
   } else if (pageName === "Profile") {
     title = "Profile Overview";
   }
-  const handleProfile = () => {
-    router.push("/employee/profile");
-  };
+
   return (
     <div className='flex w-full flex-col-reverse items-start justify-between gap-4 pt-3 pb-6 sm:flex-row sm:items-center sm:px-6'>
       {/* Title */}
@@ -50,22 +50,25 @@ const Topbar = (props: Props) => {
             4
           </span>
         </div>
-        <div
-          className='flex cursor-pointer items-center gap-2'
-          onClick={handleProfile}
-        >
-          <Image
-            src={userImg}
-            alt='User'
-            width={32}
-            height={32}
-            className='rounded-full'
-          />
-          <div className='flex flex-col leading-tight'>
-            <span className='text-sm font-medium text-gray-800'>{user?.fullName}</span>
-            <span className='text-xs text-gray-400'>{user?.role}</span>
+        <Link href='/employee/profile'>
+          <div
+            className='flex cursor-pointer items-center gap-2'
+          >
+            <Image
+              src={userImg}
+              alt='User'
+              width={32}
+              height={32}
+              className='rounded-full'
+            />
+            <div className='flex flex-col leading-tight'>
+              <span className='text-sm font-medium text-gray-800'>
+                {user?.fullName}
+              </span>
+              <span className='text-xs text-gray-400'>{user?.role}</span>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
