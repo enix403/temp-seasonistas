@@ -11,12 +11,86 @@ import {
   Avatar,
   Chip,
   Divider,
-  Stack
+  Stack,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from "@mui/material";
 import AddEducationModal from "./modals/AddEducationModal";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { format } from "date-fns";
+import { apiRoutes } from "@/lib/api-routes";
+import { ApiReplyError } from "@/lib/api-decls";
+
+interface Education {
+  degree: string;
+  institure: string;
+  grade: string;
+  description?: string;
+  dateStart: string;
+  dateEnd?: string;
+  currentlyActive: boolean;
+}
 
 const EducationCard = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [editingEducation, setEditingEducation] = useState<Education | null>(null);
+  const [deletingEducation, setDeletingEducation] = useState<Education | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { user, refreshUser } = useCurrentUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const handleEdit = (education: Education) => {
+    setEditingEducation(education);
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setEditingEducation(null);
+    setOpenModal(false);
+  };
+
+  const handleDelete = (education: Education) => {
+    setDeletingEducation(education);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deletingEducation) return;
+
+    try {
+      setLoading(true);
+
+      // Filter out the education to delete
+      const updatedEducations = user.educations.filter(
+        edu => edu !== deletingEducation
+      );
+
+      await apiRoutes.updateMe({
+        educations: updatedEducations
+      });
+
+      await refreshUser();
+      setDeletingEducation(null);
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        console.error(err.errorMessage);
+      } else {
+        console.error("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (date: string | undefined, currentlyActive: boolean) => {
+    if (currentlyActive) return "Present";
+    if (!date) return "";
+    return format(new Date(date), "yyyy");
+  };
 
   return (
     <Card
@@ -63,93 +137,116 @@ const EducationCard = () => {
         </Typography>
 
         {/* Content */}
-        <Box display='flex' mb={2}>
-          <Avatar
-            src='https://upload.wikimedia.org/wikipedia/commons/5/59/CalArts_logo.svg'
-            variant='square'
-            sx={{ width: 48, height: 48, mr: 2 }}
-          />
-          <Box flex={1}>
-            <Box
-              display='flex'
-              justifyContent='space-between'
-              alignItems='center'
-            >
-              <Typography fontWeight={600}>
-                California Institute of the Arts
-              </Typography>
-              <Box display='flex' gap={2}>
-                <Typography
-                  variant='body2'
-                  sx={{
-                    color: "#999",
-                    fontWeight: 500,
-                    cursor: "pointer",
-                    "&:hover": { textDecoration: "underline" }
-                  }}
-                  onClick={() => {
-                    // handle delete
-                  }}
+        {user.educations && user.educations.length > 0 ? (
+          user.educations.map((education, index) => (
+            <React.Fragment key={index}>
+              <Box display='flex' mb={2}>
+                <Avatar
+                  variant='square'
+                  sx={{ width: 48, height: 48, mr: 2, bgcolor: '#4B8378' }}
                 >
-                  Delete
-                </Typography>
+                  {education.institure.charAt(0)}
+                </Avatar>
+                <Box flex={1}>
+                  <Box
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'
+                  >
+                    <Typography fontWeight={600}>
+                      {education.institure}
+                    </Typography>
+                    <Box display='flex' gap={2}>
+                      <Typography
+                        variant='body2'
+                        sx={{
+                          color: "#999",
+                          fontWeight: 500,
+                          cursor: "pointer",
+                          "&:hover": { textDecoration: "underline" }
+                        }}
+                        onClick={() => handleDelete(education)}
+                      >
+                        Delete
+                      </Typography>
 
-                <Typography
-                  variant='body2'
-                  sx={{
-                    color: "#4e9a8e", // Match the green-blue Edit color in your image
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    "&:hover": { textDecoration: "underline" }
-                  }}
-                  onClick={() => {
-                    // handle edit
-                  }}
-                >
-                  Edit
-                </Typography>
+                      <Typography
+                        variant='body2'
+                        sx={{
+                          color: "#4e9a8e",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                          "&:hover": { textDecoration: "underline" }
+                        }}
+                        onClick={() => handleEdit(education)}
+                      >
+                        Edit
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography sx={{ fontSize: 13, color: "#333" }}>
+                    {education.degree}
+                  </Typography>
+                  <Typography sx={{ fontSize: 13, color: "#555" }}>
+                    Grade: {education.grade} &nbsp;&nbsp;•&nbsp;&nbsp;
+                    {formatDate(education.dateStart, false)} - {formatDate(education.dateEnd, education.currentlyActive)}
+                  </Typography>
+
+                  {education.description && (
+                    <Typography sx={{ fontSize: 13.5, mt: 1.2, color: "#333" }}>
+                      {education.description}
+                    </Typography>
+                  )}
+                </Box>
               </Box>
-            </Box>
-
-            <Typography sx={{ fontSize: 13, color: "#333" }}>
-              UX Design Fundamentals
-            </Typography>
-            <Typography sx={{ fontSize: 13, color: "#555" }}>
-              Grade: A+ &nbsp;&nbsp;•&nbsp;&nbsp; 2020 - 2021
-            </Typography>
-          </Box>
-        </Box>
-        <Box>
-          <Typography sx={{ fontSize: 13.5, mt: 1.2, color: "#333" }}>
-            ShareTrip is the country's first and pioneer online travel
-            aggregator (OTA). My goal was to craft a functional and delightful
-            experience through web and mobile apps currently consisting of 1.2M+
-            & future billion users...{" "}
-            <Typography
-              component='span'
-              sx={{ color: "#0073e6", fontWeight: 500 }}
-            >
-              See More
-            </Typography>
+              {index < user.educations.length - 1 && <Divider sx={{ my: 2 }} />}
+            </React.Fragment>
+          ))
+        ) : (
+          <Typography variant='body2' sx={{ color: "#666", textAlign: "center", py: 4 }}>
+            No education records added yet. Add your education details to help employers understand your qualifications.
           </Typography>
-        </Box>
-
-        <Divider sx={{ my: 1 }} />
-
-        <Typography
-          variant='body2'
-          sx={{
-            fontSize: 14,
-            color: "#559093",
-            fontWeight: 600,
-            mt: 1,
-            cursor: "pointer"
-          }}
-        >
-          Show 2 More Education
-        </Typography>
+        )}
       </CardContent>
-      <AddEducationModal open={openModal} onClose={() => setOpenModal(false)} />
+
+      <AddEducationModal
+        open={openModal}
+        onClose={handleClose}
+        education={editingEducation}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={Boolean(deletingEducation)}
+        onClose={() => setDeletingEducation(null)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>Delete Education</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete this education record? This action cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDeletingEducation(null)}
+            disabled={loading}
+            sx={{ color: "text.secondary" }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            disabled={loading}
+            color="error"
+            variant="contained"
+          >
+            {loading ? "Deleting..." : "Delete"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };

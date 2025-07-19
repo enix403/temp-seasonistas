@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -7,19 +7,134 @@ import {
   TextField,
   Stack,
   Button,
-  Box
+  Box,
+  Alert,
+  FormControlLabel,
+  Checkbox
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { apiRoutes } from "@/lib/api-routes";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { ApiReplyError } from "@/lib/api-decls";
+
+interface Education {
+  degree: string;
+  institure: string;
+  grade: string;
+  description?: string;
+  dateStart: string;
+  dateEnd?: string;
+  currentlyActive: boolean;
+}
 
 interface AddEducationModalProps {
   open: boolean;
   onClose: () => void;
+  education?: Education | null;
 }
 
 const AddEducationModal: React.FC<AddEducationModalProps> = ({
   open,
-  onClose
+  onClose,
+  education
 }) => {
+  const { user, refreshUser } = useCurrentUser();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<Education>({
+    degree: "",
+    institure: "",
+    grade: "",
+    description: "",
+    dateStart: "",
+    dateEnd: "",
+    currentlyActive: false
+  });
+
+  useEffect(() => {
+    if (open && education) {
+      setFormData({
+        degree: education.degree,
+        institure: education.institure,
+        grade: education.grade,
+        description: education.description || "",
+        dateStart: education.dateStart,
+        dateEnd: education.dateEnd || "",
+        currentlyActive: education.currentlyActive
+      });
+    } else if (open) {
+      setFormData({
+        degree: "",
+        institure: "",
+        grade: "",
+        description: "",
+        dateStart: "",
+        dateEnd: "",
+        currentlyActive: false
+      });
+    }
+    setError(null);
+  }, [open, education]);
+
+  const handleChange = (field: keyof Education) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: event.target.value
+    }));
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      currentlyActive: event.target.checked,
+      dateEnd: event.target.checked ? undefined : prev.dateEnd
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Validate required fields
+      if (!formData.degree || !formData.institure || !formData.grade || !formData.dateStart) {
+        setError("Please fill in all required fields");
+        return;
+      }
+
+      // Get current educations array
+      const currentEducations = user?.educations || [];
+
+      let updatedEducations;
+      if (education) {
+        // Update existing education
+        updatedEducations = currentEducations.map(edu =>
+          edu === education ? formData : edu
+        );
+      } else {
+        // Add new education
+        updatedEducations = [...currentEducations, formData];
+      }
+
+      await apiRoutes.updateMe({
+        educations: updatedEducations
+      });
+
+      await refreshUser();
+      onClose();
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        setError(err.errorMessage);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -33,7 +148,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
       }}
     >
       <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
-        Add Education
+        {education ? "Edit Education" : "Add Education"}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", right: 16, top: 16 }}
@@ -44,51 +159,100 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
 
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <TextField
-            placeholder='School'
+            label="Institution"
+            placeholder='School/University/Institute name'
+            value={formData.institure}
+            onChange={handleChange("institure")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            placeholder='Degree'
+            label="Degree"
+            placeholder='e.g., Bachelor of Science in Computer Science'
+            value={formData.degree}
+            onChange={handleChange("degree")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            placeholder='Grade'
+            label="Grade"
+            placeholder='e.g., A+, 3.8 GPA, First Class, etc.'
+            value={formData.grade}
+            onChange={handleChange("grade")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
             label='Start Date'
             type='date'
+            value={formData.dateStart}
+            onChange={handleChange("dateStart")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             InputLabelProps={{ shrink: true }}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
-          <TextField
-            label='End Date'
-            type='date'
-            fullWidth
-            size='small'
-            InputLabelProps={{ shrink: true }}
-            sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.currentlyActive}
+                onChange={handleCheckboxChange}
+                disabled={loading}
+              />
+            }
+            label="Currently studying here"
           />
+
+          {!formData.currentlyActive && (
+            <TextField
+              label='End Date'
+              type='date'
+              value={formData.dateEnd}
+              onChange={handleChange("dateEnd")}
+              fullWidth
+              size='small'
+              disabled={loading}
+              InputLabelProps={{ shrink: true }}
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
+            />
+          )}
+
           <TextField
+            label="Description"
+            placeholder='Add any relevant details about your education'
+            value={formData.description}
+            onChange={handleChange("description")}
             multiline
             minRows={4}
-            placeholder='Write Here Message'
             fullWidth
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
           />
+
           <Box display='flex' justifyContent='flex-end' gap={1}>
             <Button
               variant='outlined'
               onClick={onClose}
+              disabled={loading}
               sx={{
                 borderRadius: 20,
                 textTransform: "none",
@@ -103,6 +267,8 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
             </Button>
             <Button
               variant='contained'
+              onClick={handleSubmit}
+              disabled={loading}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: 20,
@@ -112,7 +278,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
                 "&:hover": { backgroundColor: "#3a6b61" }
               }}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </Stack>
