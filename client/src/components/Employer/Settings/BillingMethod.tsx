@@ -152,7 +152,7 @@ const BillingMethod = () => {
                   </td>
                   <td className='p-4 md:p-6'>
                     <button
-                      onClick={() => router.push("/en/employer/receipt")}
+                      onClick={() => router.push("/employer/receipt")}
                       className='text-[12px] leading-[22px] font-normal underline'
                     >
                       View Receipt

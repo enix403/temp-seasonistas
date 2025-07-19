@@ -81,7 +81,7 @@ const JobFormModal = ({ onClose }: { onClose: () => void }) => {
       setStep(step + 1);
     } else {
       useJobForm.getState().setFormData(formData);
-      router.push("/en/employer/create-job");
+      router.push("/employer/create-job");
     }
   };
 

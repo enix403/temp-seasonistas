@@ -19,20 +19,20 @@ import { HiMenu } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
 
 const sidebarItems = [
-  { name: "Home", href: "/en/employer/home", icon: MdHomeFilled },
-  { name: "Dashboards", href: "/en/employer/dashboards", icon: MdDashboard },
+  { name: "Home", href: "/employer/home", icon: MdHomeFilled },
+  { name: "Dashboards", href: "/employer/dashboards", icon: MdDashboard },
   {
     name: "Community",
-    href: "/en/employer/community",
+    href: "/employer/community",
     icon: IoPeopleCircleOutline
   },
   {
     name: "Calendar",
-    href: "/en/employer/calender",
+    href: "/employer/calender",
     icon: HiOutlineCalendarDateRange
   },
-  { name: "Chat", href: "/en/employer/chat", icon: BsChatDots },
-  { name: "Pricing", href: "/en/employer/pricing", icon: ImPriceTags }
+  { name: "Chat", href: "/employer/chat", icon: BsChatDots },
+  { name: "Pricing", href: "/employer/pricing", icon: ImPriceTags }
 ];
 
 const Sidebar = ({
@@ -48,11 +48,11 @@ const Sidebar = ({
 
   const handleLogoutConfirm = () => {
     setShowLogoutModal(false);
-    router.push("/en/employer-login");
+    router.push("/employer-login");
   };
 
   const handleHelpCenter = () => {
-    router.push("/en/employer/help-center");
+    router.push("/employer/help-center");
   };
 
   return (
@@ -140,9 +140,9 @@ const Sidebar = ({
 
             {/* Settings */}
             <Link
-              href='/en/employer/settings'
+              href='/employer/settings'
               className={`flex w-full items-center justify-between gap-3 rounded-[44px] px-8 py-3 transition-all ${
-                pathname === "/en/employee/settings"
+                pathname === "/employee/settings"
                   ? "bg-[#559093] text-white"
                   : "bg-[#FFFFFF0A] hover:bg-[#2B5558]"
               }`}

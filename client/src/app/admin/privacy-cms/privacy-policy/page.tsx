@@ -947,7 +947,7 @@ export default function PrivacyPolicyPage() {
           <li>
             <strong>Pinterest</strong> –
             <a
-              href='http://help.pinterest.com/en/articles/personalization-and-data'
+              href='http://help.pinterest.com/articles/personalization-and-data'
               className='text-blue-600 underline'
               target='_blank'
             >
@@ -955,7 +955,7 @@ export default function PrivacyPolicyPage() {
             </a>
             ,
             <a
-              href='https://about.pinterest.com/en/privacy-policy'
+              href='https://about.pinterest.com/privacy-policy'
               className='text-blue-600 underline'
               target='_blank'
             >

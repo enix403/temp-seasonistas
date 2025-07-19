@@ -24,7 +24,7 @@ const Topbar = (props: Props) => {
     title = "Profile Overview";
   }
   const handleProfile = () => {
-    router.push("/en/employee/profile");
+    router.push("/employee/profile");
   };
   return (
     <div className='flex w-full flex-col-reverse items-start justify-between gap-4 pt-3 pb-6 sm:flex-row sm:items-center sm:px-6'>

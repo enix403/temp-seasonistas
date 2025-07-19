@@ -148,7 +148,7 @@ const AppliedJobsTable = () => {
               <tr
                 key={job.id}
                 className='cursor-pointer border-t text-[12px] font-normal text-[#1C252E] hover:bg-gray-50'
-                onClick={() => router.push("/en/employee/view-profile/4")}
+                onClick={() => router.push("/employee/view-profile/4")}
               >
                 <td className='flex items-center gap-3 px-4 py-4'>
                   <div className='h-9 w-9 rounded-[4px]'>

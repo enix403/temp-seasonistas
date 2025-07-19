@@ -33,27 +33,24 @@ export default function DashboardHome() {
     { title: "Get a remote tech job" },
     { title: "Improve leadership skills" }
   ];
-
-  const notEditable = false;
-
   return (
     <>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
-          <ProfileBarCard notEditable={notEditable} type={"individual"} />
+          <ProfileBarCard notEditable={false} type={"individual"} />
 
-          {!notEditable && <PercentageCard />}
+          <PercentageCard />
 
           <GraphCard />
 
-          <BasicInfoCard notEditable={notEditable} type={"individual"} />
+          <BasicInfoCard notEditable={false} type={"individual"} />
 
-          <AboutUsCard notEditable={notEditable} type={"about"} />
-          <EducationCard notEditable={notEditable} />
-          <ExperienceCard notEditable={notEditable} />
+          <AboutUsCard notEditable={false} type={"about"} />
+          <EducationCard notEditable={false} />
+          <ExperienceCard notEditable={false} />
 
           <ProfileSectionCard
-            notEditable={notEditable}
+            notEditable={false}
             title='Skills'
             description='Add skills to increase the chance of hiring'
             addText='Add Skill'
@@ -62,7 +59,7 @@ export default function DashboardHome() {
             footerText='Show More Skill'
           />
           <ProfileSectionCard
-            notEditable={notEditable}
+            notEditable={false}
             title='Interests'
             description='Add your interests to let employers understand your passion areas'
             addText='Add Interests'
@@ -71,7 +68,7 @@ export default function DashboardHome() {
             footerText='Show More Interests'
           />
           <ProfileSectionCard
-            notEditable={notEditable}
+            notEditable={false}
             title='Goals'
             description='Mention your career goals to help employers align with your ambitions'
             addText='Add Goals'

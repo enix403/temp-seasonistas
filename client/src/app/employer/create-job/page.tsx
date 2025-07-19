@@ -14,7 +14,7 @@ const CreateJobPage = () => {
   if (!formData) return <p className='p-6 text-gray-500'>Data not found!</p>;
 
   const handleCancel = () => {
-    router.push("/en/employer/dashboards");
+    router.push("/employer/dashboards");
   };
   const credit = 0;
   const handlePost = () => {

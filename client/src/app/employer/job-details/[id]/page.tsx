@@ -163,7 +163,7 @@ const JobDetail = () => {
               <div className='self-start lg:self-center'>
                 <button
                   onClick={() =>
-                    router.push(`/en/employer/view-profile/${job.id}`)
+                    router.push(`/employer/view-profile/${job.id}`)
                   }
                   className='text-base font-semibold whitespace-nowrap text-[#559093]'
                 >

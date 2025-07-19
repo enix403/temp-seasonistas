@@ -144,7 +144,7 @@ export default function AllEmployeesPage() {
               >
                 <td
                   className='flex items-center gap-3 px-6 py-5'
-                  onClick={() => router.push("/en/admin/employees/profile")}
+                  onClick={() => router.push("/admin/employees/profile")}
                 >
                   <Image
                     src={avatar}
@@ -155,25 +155,25 @@ export default function AllEmployeesPage() {
                 </td>
                 <td
                   className='px-6 py-5'
-                  onClick={() => router.push("/en/admin/employees/profile")}
+                  onClick={() => router.push("/admin/employees/profile")}
                 >
                   {emp.email}
                 </td>
                 <td
                   className='px-6 py-5 whitespace-nowrap'
-                  onClick={() => router.push("/en/admin/employees/profile")}
+                  onClick={() => router.push("/admin/employees/profile")}
                 >
                   {emp.location}
                 </td>
                 <td
                   className='px-6 py-5'
-                  onClick={() => router.push("/en/admin/employees/profile")}
+                  onClick={() => router.push("/admin/employees/profile")}
                 >
                   {emp.id}
                 </td>
                 <td
                   className='max-w-[200px] truncate px-6 py-5'
-                  onClick={() => router.push("/en/admin/employees/profile")}
+                  onClick={() => router.push("/admin/employees/profile")}
                 >
                   {emp.skill}
                 </td>
@@ -184,7 +184,7 @@ export default function AllEmployeesPage() {
                         ? "border-[#22C55E] bg-[#22C55E2B] text-[#22C55E]"
                         : "border-[#D95057] bg-[#D950572B] text-[#D95057]"
                     }`}
-                    onClick={() => router.push("/en/admin/employees/profile")}
+                    onClick={() => router.push("/admin/employees/profile")}
                   >
                     {emp.status}
                   </span>
@@ -213,7 +213,7 @@ export default function AllEmployeesPage() {
                       <button
                         onClick={() =>
                           router.push(
-                            `/en/admin/employees/job-history/${emp.id}`
+                            `/admin/employees/job-history/${emp.id}`
                           )
                         }
                         className='w-full px-4 py-2 text-left hover:bg-gray-100'

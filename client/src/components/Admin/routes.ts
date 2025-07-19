@@ -10,13 +10,13 @@ export const sidebarRoutes = [
   {
     title: "Dashboards",
     icon: MdDashboard,
-    href: "/en/admin/dashboards/overview",
+    href: "/admin/dashboards/overview",
     subRoutes: ["Overview", "System Alert", "Audit Logs"]
   },
   {
     title: "Privacy & CMS",
     icon: MdOutlinePrivacyTip,
-    href: "/en/admin/privacy-cms/privacy-policy",
+    href: "/admin/privacy-cms/privacy-policy",
     subRoutes: [
       {
         title: "Static Pages",
@@ -29,19 +29,19 @@ export const sidebarRoutes = [
   {
     title: "User & Abuse",
     icon: MdOutlinePeople,
-    href: "/en/admin/user-abuse",
+    href: "/admin/user-abuse",
     subRoutes: ["Employees", "Employers", "Abuse Reports"]
   },
   {
     title: "Jobs & Settings",
     icon: MdOutlineWorkOutline,
-    href: "/en/admin/jobs-settings",
+    href: "/admin/jobs-settings",
     subRoutes: ["Job Listings", "Matching Activity", "Platform Settings"]
   },
   {
     title: "Payments & Roles",
     icon: MdOutlinePayments,
-    href: "/en/admin/transactions",
+    href: "/admin/transactions",
     subRoutes: ["Transactions", "Admin Roles"]
   }
 ];

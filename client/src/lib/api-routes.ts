@@ -217,9 +217,7 @@ export const apiRoutes = {
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
-  getMe: jsonDecl(`/me`),
-  updateProfile: payloadDecl(`/me/profile`, { method: "PATCH" }),
-  contactUs: payloadDecl(`/me/send-contact-message`, { method: "POST" }),
+  getMe: jsonDecl(`/auth/me`),
 
   /* ========================== */
   /* =========== Me =========== */

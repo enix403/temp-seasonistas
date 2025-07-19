@@ -37,7 +37,7 @@ const AllJobsCard = ({
   const [saved, setSaved] = useState(initialSaved);
 
   const handleView = () => {
-    router.push(`/en/employee/job-details/${id}`);
+    router.push(`/employee/job-details/${id}`);
   };
 
   const matchColor =

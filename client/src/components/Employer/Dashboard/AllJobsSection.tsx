@@ -78,7 +78,7 @@ const AllJobsSection = () => {
             {/* Edit icon */}
             <button
               className='absolute top-4 right-4 rounded-full bg-[#E6F4EF] p-2 text-[#4F9A98] hover:text-[#3e7e79]'
-              onClick={() => router.push(`/en/employer/post-details/${job.id}`)}
+              onClick={() => router.push(`/employer/post-details/${job.id}`)}
             >
               <FiEdit2 size={16} />
             </button>
@@ -145,7 +145,7 @@ const AllJobsSection = () => {
               </button>
               <button
                 onClick={() =>
-                  router.push(`/en/employer/application/${job.id}`)
+                  router.push(`/employer/application/${job.id}`)
                 }
                 className='w-fit min-w-[130px] rounded-full bg-[#559093] px-3 py-1 text-[10px] leading-[19px] font-[600] text-white 2xl:min-w-[150px]'
               >

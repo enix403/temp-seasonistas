@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
-  Typography,
-  Card,
-  CardContent,
-  IconButton,
-  Button,
-  Grid,
-  Paper,
-  Avatar,
-  Chip,
+  Typography, Button, Chip,
   Divider,
   Stack,
   useTheme,
@@ -17,15 +9,13 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/card_image.png";
-import cardImage2 from "@/assets/image (5).png";
 import profileImage1 from "@/assets/Ellipse 4149.png";
-import profileImage2 from "@/assets/image (4).png";
 import StatusModal from "./modals/StatusModal";
 interface ProfileBarCardProps {
   notEditable?: boolean;
   type: string;
 }
-const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
+const ProfileBarCard = ({ notEditable }: ProfileBarCardProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
@@ -43,7 +33,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
       {/* Header Image Banner */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Image
-          src={type == "company" ? cardImage2 : cardImage}
+          src={cardImage}
           alt='Profile Banner'
           style={{ width: "100%", height: "180px", objectFit: "contain" }}
           priority
@@ -62,7 +52,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
       >
         <Image
           alt='Anamoul Rouf'
-          src={type == "company" ? profileImage2 : profileImage1}
+          src={profileImage1}
           style={{
             width: 110,
             height: 110,
@@ -74,7 +64,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
           <Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant='h5' fontWeight='bold'>
-                {type == "company" ? "Lowe's Companies, Inc." : "Anamoul Rouf"}
+                { "Anamoul Rouf"}
               </Typography>
               <Chip
                 label='#EMP001'
@@ -86,9 +76,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
             <Typography
               sx={{ color: "gray", fontWeight: "500", fontSize: "14px" }}
             >
-              {type == "company"
-                ? `Do it right for less. Start with Lowe's.`
-                : "Product Designer"}
+              {"Product Designer"}
             </Typography>
           </Box>
         </Box>
@@ -129,7 +117,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
             }
           }}
         >
-          {type == "company" ? "Follow" : "Open to work"}
+          {"Open to work"}
         </Button>
 
         {/* Add Profile Section */}

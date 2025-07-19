@@ -76,7 +76,7 @@ const JobFormModal = ({ onClose }: { onClose: () => void }) => {
       setStep(step + 1);
     } else {
       useJobForm.getState().setFormData(formData); // ✅ Save to global state
-      router.push("/en/employer/create-job"); // ✅ Navigate to review page
+      router.push("/employer/create-job"); // ✅ Navigate to review page
     }
   };
 

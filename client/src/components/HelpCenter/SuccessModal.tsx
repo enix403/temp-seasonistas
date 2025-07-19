@@ -18,10 +18,10 @@ const SuccessModal = ({
   const handleBackToHome = () => {
     onClose();
 
-    if (pathname.includes("/en/employee/help-center")) {
-      router.push("/en/employee/home");
-    } else if (pathname.includes("/en/employer/help-center")) {
-      router.push("/en/employer/home");
+    if (pathname.includes("/employee/help-center")) {
+      router.push("/employee/home");
+    } else if (pathname.includes("/employer/help-center")) {
+      router.push("/employer/home");
     }
   };
 

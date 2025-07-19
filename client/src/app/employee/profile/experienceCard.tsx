@@ -43,7 +43,7 @@ const experiences: Experience[] = [
     duration: "January 2022 to Present",
     description:
       "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png"
+    logo: "https://upload.wikimedia.org/wikipedia/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png"
   }
 ];
 

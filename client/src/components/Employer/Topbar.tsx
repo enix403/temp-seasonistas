@@ -13,7 +13,7 @@ const Topbar = (props: Props) => {
   const pageName = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
 
   const handleProfile = () => {
-    router.push("/en/employer/profile");
+    router.push("/employer/profile");
     console.log("clicked");
   };
 

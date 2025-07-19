@@ -23,7 +23,7 @@ const ActiveJobCard = ({
 
   const handleView = () => {
     const jobSlug = title.toLowerCase().replace(/\s+/g, "-");
-    router.push(`/en/employer/job-details/${id}`);
+    router.push(`/employer/job-details/${id}`);
   };
 
   return (

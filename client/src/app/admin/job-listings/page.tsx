@@ -70,7 +70,7 @@ export default function JobListingsPage() {
                 <td
                   className='cursor-pointer px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   {job.title}
@@ -78,7 +78,7 @@ export default function JobListingsPage() {
                 <td
                   className='mt-1 flex cursor-pointer items-center gap-2 px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   <Image
@@ -93,7 +93,7 @@ export default function JobListingsPage() {
                 <td
                   className='cursor-pointer px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   {job.date}
@@ -101,7 +101,7 @@ export default function JobListingsPage() {
                 <td
                   className='cursor-pointer px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   {job.location}
@@ -109,7 +109,7 @@ export default function JobListingsPage() {
                 <td
                   className='cursor-pointer px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   {job.match > 90 || job.status === "Rejected" ? (
@@ -123,7 +123,7 @@ export default function JobListingsPage() {
                 <td
                   className='cursor-pointer px-6 py-5'
                   onClick={() =>
-                    router.push(`/en/admin/job-listings/job-detail/${job.id}`)
+                    router.push(`/admin/job-listings/job-detail/${job.id}`)
                   }
                 >
                   <span

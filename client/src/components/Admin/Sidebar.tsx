@@ -200,9 +200,9 @@ const AdminSidebar = () => {
         {/* Settings + Logout */}
         <div className='mt-6 flex flex-col gap-3'>
           <Link
-            href='/en/admin/settings'
+            href='/admin/settings'
             className={`flex w-full items-center justify-between gap-3 rounded-[44px] px-6 py-4 transition-all ${
-              pathname === "/en/admin/settings"
+              pathname === "/admin/settings"
                 ? "bg-[#2B5558] text-white"
                 : "bg-[#FFFFFF0A] hover:bg-[#2B5558]"
             }`}

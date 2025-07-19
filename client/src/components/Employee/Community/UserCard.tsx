@@ -64,7 +64,7 @@ const UserCard = ({
       <div className='relative mb-3 flex items-start justify-between'>
         <div
           className='flex cursor-pointer gap-3'
-          onClick={() => router.push("/en/employee/view-profile/6")}
+          onClick={() => router.push("/employee/view-profile/6")}
         >
           {isCompany ? (
             <div className='h-10 w-10 rounded-[4px]'>

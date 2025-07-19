@@ -225,7 +225,7 @@ const JobDetailsPage = () => {
                 <tr
                   key={idx}
                   onClick={() =>
-                    router.push(`/en/employer/applicant/${applicant.id}`)
+                    router.push(`/employer/applicant/${applicant.id}`)
                   }
                   className='group cursor-pointer border-t hover:bg-[#F5F5F5]'
                 >

@@ -26,7 +26,7 @@ const Topbar = (props: Props) => {
   }
 
   const handleProfile = () => {
-    // router.push('/en/admin/profile')
+    // router.push('/admin/profile')
   };
 
   return (

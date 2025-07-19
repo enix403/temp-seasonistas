@@ -7,6 +7,10 @@ import localFont from "next/font/local";
 import "@/styles/global.css";
 import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 
+import { apiRoutes } from "@/lib/api-routes";
+import { useEffect } from "react";
+import AddGlobals from "@/providers/AddGlobals";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-pjs",
   subsets: ["latin"]
@@ -115,6 +119,7 @@ export default function RootLayout({
       <body
         className={`${metropolis.variable} ${plusJakartaSans.variable} antialiased`}
       >
+        <AddGlobals />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

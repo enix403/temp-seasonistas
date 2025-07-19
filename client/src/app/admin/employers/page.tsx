@@ -66,7 +66,7 @@ const EmployersTable = () => {
                 >
                   <td
                     className='flex items-center gap-3 px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     <div className='flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#ECEEFF]'>
                       <Image
@@ -79,43 +79,43 @@ const EmployersTable = () => {
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.email}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.website}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.location}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.userId}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.verification}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     {emp.totalJobs}
                   </td>
                   <td
                     className='px-3 py-5'
-                    onClick={() => router.push("/en/admin/employers/profile")}
+                    onClick={() => router.push("/admin/employers/profile")}
                   >
                     <span
                       className={`rounded-full border-[0.6px] px-3 py-1 text-xs font-medium ${
@@ -151,7 +151,7 @@ const EmployersTable = () => {
                         <button
                           onClick={() =>
                             router.push(
-                              `/en/admin/employers/jobs/${emp.userId}`
+                              `/admin/employers/jobs/${emp.userId}`
                             )
                           }
                           className='w-full px-4 py-2 text-left hover:bg-gray-100'
@@ -162,7 +162,7 @@ const EmployersTable = () => {
                           className='w-full px-4 py-2 text-left hover:bg-gray-100'
                           onClick={() =>
                             router.push(
-                              `/en/admin/employers/payments/${emp.userId}`
+                              `/admin/employers/payments/${emp.userId}`
                             )
                           }
                         >

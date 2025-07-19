@@ -54,7 +54,7 @@ const RightBarCards = () => {
             alignItems='center'
           >
             <div
-              onClick={() => router.push("/en/employee/view-profile/4")}
+              onClick={() => router.push("/employee/view-profile/4")}
               className='cursor-pointer'
             >
               <Stack direction='row' spacing={1.5} alignItems='center'>
