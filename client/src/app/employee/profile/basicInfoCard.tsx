@@ -105,7 +105,6 @@ const BasicInfoCard = () => {
       </Grid>
 
       <EditProfileModal
-        type={"individual"}
         open={open}
         onClose={() => setOpen(false)}
         initialData={{
