@@ -10,11 +10,11 @@ import {
   useMediaQuery,
   IconButton
 } from "@mui/material";
-import Image from "next/image";
-import cardImage from "@/assets/card_image.png";
+import defaultCoverImage from "@/assets/real/blank-cover.png";
 import defaultProfileImage from "@/assets/real/blank-pfp.png";
 import StatusModal from "./modals/StatusModal";
 import ProfilePictureModal from "./modals/ProfilePictureModal";
+import CoverPictureModal from "./modals/CoverPictureModal";
 import { Badge } from "@/components/ui/badge";
 import clsx from "clsx";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -25,6 +25,7 @@ const ProfileBarCard = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [statusModalOpen, setStatusModalOpen] = useState(false);
   const [pictureModalOpen, setPictureModalOpen] = useState(false);
+  const [coverModalOpen, setCoverModalOpen] = useState(false);
   const { user } = useCurrentUser();
 
   return (
@@ -39,12 +40,54 @@ const ProfileBarCard = () => {
     >
       {/* Header Image Banner */}
       <Box sx={{ position: "relative", width: "100%" }}>
-        <Image
-          src={cardImage}
-          alt='Profile Banner'
-          style={{ width: "100%", height: "180px", objectFit: "contain" }}
-          priority
-        />
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: 180,
+            backgroundColor: "#E5E7EB",
+            cursor: "pointer",
+            "&:hover .overlay": {
+              opacity: 1
+            }
+          }}
+          onClick={() => setCoverModalOpen(true)}
+        >
+          <img
+            src={user?.coverPictureUrl || defaultCoverImage.src}
+            alt='Profile Banner'
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center"
+            }}
+          />
+          {/* Hover Overlay */}
+          <Box
+            className="overlay"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              opacity: 0,
+              transition: "opacity 0.2s"
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{ color: "white" }}
+            >
+              <CameraIcon />
+            </IconButton>
+          </Box>
+        </Box>
       </Box>
 
       {/* Profile Section */}
@@ -226,6 +269,7 @@ const ProfileBarCard = () => {
       </Stack>
       <StatusModal open={statusModalOpen} onClose={() => setStatusModalOpen(false)} />
       <ProfilePictureModal open={pictureModalOpen} onClose={() => setPictureModalOpen(false)} />
+      <CoverPictureModal open={coverModalOpen} onClose={() => setCoverModalOpen(false)} />
     </Box>
   );
 };
