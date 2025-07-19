@@ -33,7 +33,7 @@ const experiences: Experience[] = [
     location: "Dhaka, Bangladesh",
     duration: "January 2022 to Present",
     description:
-      "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
+      "ShareTrip is the country's first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
     logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/ShareTrip_Logo.png"
   },
   {
@@ -42,15 +42,12 @@ const experiences: Experience[] = [
     location: "Dhaka, Bangladesh",
     duration: "January 2022 to Present",
     description:
-      "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
+      "ShareTrip is the country's first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
     logo: "https://upload.wikimedia.org/wikipedia/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png"
   }
 ];
 
-interface ExperienceCardProps {
-  notEditable?: boolean;
-}
-const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
+const ExperienceCard = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -75,27 +72,23 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
           <Typography variant='h6' fontWeight={600}>
             Experiences
           </Typography>
-          {!notEditable && (
-            <>
-              <Button
-                variant='outlined'
-                size='small'
-                onClick={() => setOpenModal(true)}
-                sx={{
-                  borderRadius: "20px",
-                  textTransform: "none",
-                  fontWeight: 550,
-                  borderColor: "#EBECF0",
-                  color: "#000000",
-                  fontSize: "0.875rem",
-                  px: 3,
-                  py: 0.8
-                }}
-              >
-                Add Experiences
-              </Button>
-            </>
-          )}
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setOpenModal(true)}
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: 550,
+              borderColor: "#EBECF0",
+              color: "#000000",
+              fontSize: "0.875rem",
+              px: 3,
+              py: 0.8
+            }}
+          >
+            Add Experiences
+          </Button>
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -130,39 +123,37 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({ notEditable }) => {
                       }}
                     />
                   </Typography>
-                  {!notEditable && (
-                    <Box display='flex' gap={2}>
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#999",
-                          fontWeight: 500,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => {
-                          // handle delete
-                        }}
-                      >
-                        Delete
-                      </Typography>
+                  <Box display='flex' gap={2}>
+                    <Typography
+                      variant='body2'
+                      sx={{
+                        color: "#999",
+                        fontWeight: 500,
+                        cursor: "pointer",
+                        "&:hover": { textDecoration: "underline" }
+                      }}
+                      onClick={() => {
+                        // handle delete
+                      }}
+                    >
+                      Delete
+                    </Typography>
 
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#4e9a8e",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => {
-                          // handle edit
-                        }}
-                      >
-                        Edit
-                      </Typography>
-                    </Box>
-                  )}
+                    <Typography
+                      variant='body2'
+                      sx={{
+                        color: "#4e9a8e",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        "&:hover": { textDecoration: "underline" }
+                      }}
+                      onClick={() => {
+                        // handle edit
+                      }}
+                    >
+                      Edit
+                    </Typography>
+                  </Box>
                 </Box>
 
                 <Typography

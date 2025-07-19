@@ -41,10 +41,9 @@ export default function DashboardHome() {
           <PercentageCard />
           <GraphCard />
           <BasicInfoCard/>
-
           <AboutUsCard/>
-          <EducationCard notEditable={false} />
-          <ExperienceCard notEditable={false} />
+          <EducationCard />
+          <ExperienceCard />
 
           <ProfileSectionCard
             notEditable={false}

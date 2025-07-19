@@ -14,10 +14,8 @@ import {
   Stack
 } from "@mui/material";
 import AddEducationModal from "./modals/AddEducationModal";
-interface EducationCardProps {
-  notEditable?: boolean;
-}
-const EducationCard = ({ notEditable }: EducationCardProps) => {
+
+const EducationCard = () => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -41,25 +39,23 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
           <Typography variant='h6' fontWeight={600}>
             Education & Certifications
           </Typography>
-          {!notEditable && (
-            <Button
-              variant='outlined'
-              size='small'
-              onClick={() => setOpenModal(true)}
-              sx={{
-                borderRadius: "20px",
-                textTransform: "none",
-                fontWeight: 550,
-                borderColor: "#EBECF0",
-                color: "#000000",
-                fontSize: "0.875rem",
-                px: 3,
-                py: 0.8
-              }}
-            >
-              Add Education
-            </Button>
-          )}
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setOpenModal(true)}
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: 550,
+              borderColor: "#EBECF0",
+              color: "#000000",
+              fontSize: "0.875rem",
+              px: 3,
+              py: 0.8
+            }}
+          >
+            Add Education
+          </Button>
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -82,39 +78,37 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
               <Typography fontWeight={600}>
                 California Institute of the Arts
               </Typography>
-              {!notEditable && (
-                <Box display='flex' gap={2}>
-                  <Typography
-                    variant='body2'
-                    sx={{
-                      color: "#999",
-                      fontWeight: 500,
-                      cursor: "pointer",
-                      "&:hover": { textDecoration: "underline" }
-                    }}
-                    onClick={() => {
-                      // handle delete
-                    }}
-                  >
-                    Delete
-                  </Typography>
+              <Box display='flex' gap={2}>
+                <Typography
+                  variant='body2'
+                  sx={{
+                    color: "#999",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    "&:hover": { textDecoration: "underline" }
+                  }}
+                  onClick={() => {
+                    // handle delete
+                  }}
+                >
+                  Delete
+                </Typography>
 
-                  <Typography
-                    variant='body2'
-                    sx={{
-                      color: "#4e9a8e", // Match the green-blue Edit color in your image
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      "&:hover": { textDecoration: "underline" }
-                    }}
-                    onClick={() => {
-                      // handle edit
-                    }}
-                  >
-                    Edit
-                  </Typography>
-                </Box>
-              )}
+                <Typography
+                  variant='body2'
+                  sx={{
+                    color: "#4e9a8e", // Match the green-blue Edit color in your image
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    "&:hover": { textDecoration: "underline" }
+                  }}
+                  onClick={() => {
+                    // handle edit
+                  }}
+                >
+                  Edit
+                </Typography>
+              </Box>
             </Box>
 
             <Typography sx={{ fontSize: 13, color: "#333" }}>
@@ -127,7 +121,7 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
         </Box>
         <Box>
           <Typography sx={{ fontSize: 13.5, mt: 1.2, color: "#333" }}>
-            ShareTrip is the country’s first and pioneer online travel
+            ShareTrip is the country's first and pioneer online travel
             aggregator (OTA). My goal was to craft a functional and delightful
             experience through web and mobile apps currently consisting of 1.2M+
             & future billion users...{" "}
@@ -146,7 +140,6 @@ const EducationCard = ({ notEditable }: EducationCardProps) => {
           variant='body2'
           sx={{
             fontSize: 14,
-
             color: "#559093",
             fontWeight: 600,
             mt: 1,
