@@ -16,6 +16,7 @@ import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
 import { ImPriceTags } from "react-icons/im";
+import clsx from "clsx";
 
 const sidebarItems = [
   { name: "Home", href: "/employee/home", icon: MdHomeFilled },
@@ -66,9 +67,16 @@ const Sidebar = ({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-[250px] transform bg-[#022127] text-white transition-transform duration-300 sm:static sm:w-[250px] lg:w-[290px] ${
+        data-temp-open={String(sidebarOpen)}
+        className={clsx(
+          "fixed top-0 left-0 z-50",
+          "sm:static sm:!translate-x-0",
+          "h-full w-64 lg:w-72",
+          "overflow-y-auto px-8 py-6",
+          "bg-[#022127] text-white",
+          "transform transition-transform duration-300",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } overflow-y-auto px-8 py-6 sm:translate-x-0`}
+        )}
       >
         {/* Close on mobile */}
         <div className='flex justify-end sm:hidden'>
@@ -87,7 +95,9 @@ const Sidebar = ({
               className='h-full w-full'
             />
             <nav className='mt-3 w-full space-y-3'>
-              <p className='mb-6 pl-2 text-[20px] font-[500]'>Over View</p>
+              <p className='mb-6 pl-2 text-[20px] font-[500]'>
+                Over View {String(sidebarOpen)}
+              </p>
               <div className='flex w-full flex-col gap-3'>
                 {sidebarItems.map(({ name, href, icon: Icon }) => (
                   <Link

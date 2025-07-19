@@ -18,13 +18,13 @@ export default function EmployeeLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
-  useEffect(() => {
-    if (sidebarOpen && window.innerWidth < 640) {
-      setSidebarOpen(false);
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (sidebarOpen && window.innerWidth < 640) {
+  //     setSidebarOpen(false);
+  //   }
+  // }, [pathname]);
 
   return (
     <div
