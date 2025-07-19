@@ -67,7 +67,6 @@ const ProfileBarCard = () => {
             },
             width: 110,
             height: 110,
-            // marginTop: -70,
             borderRadius: "50%",
             overflow: "hidden",
             flexShrink: 0,

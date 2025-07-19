@@ -3,12 +3,14 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  IconButton,
+  DialogActions,
   Button,
   Box,
   Stack,
   Typography,
-  Alert
+  Alert,
+  CircularProgress,
+  IconButton
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -150,15 +152,17 @@ const ProfilePictureModal: React.FC<ProfilePictureModalProps> = ({ open, onClose
                       }}
                     />
                   </Box>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    onClick={() => setShowDeleteConfirm(true)}
-                    sx={{ position: "absolute", bottom: 8, right: 8 }}
-                  >
-                    Remove
-                  </Button>
+                  {user.profilePictureUrl && (
+                    <Button
+                      variant="contained"
+                      color="error"
+                      size="small"
+                      onClick={() => setShowDeleteConfirm(true)}
+                      sx={{ position: "absolute", bottom: 8, right: 8 }}
+                    >
+                      Remove
+                    </Button>
+                  )}
                 </Box>
               </Box>
             )}
@@ -244,20 +248,36 @@ const ProfilePictureModal: React.FC<ProfilePictureModalProps> = ({ open, onClose
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Remove Profile Picture</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to remove your profile picture? This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleRemove}>Remove</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Dialog
+        open={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>Remove Profile Picture?</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to remove your profile picture? This action cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setShowDeleteConfirm(false)}
+            disabled={updateProfile.isPending}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleRemove}
+            color="error"
+            variant="contained"
+            disabled={updateProfile.isPending}
+            startIcon={updateProfile.isPending ? <CircularProgress size={20} /> : null}
+          >
+            {updateProfile.isPending ? 'Removing...' : 'Remove'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
