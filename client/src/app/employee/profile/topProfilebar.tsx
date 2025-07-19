@@ -7,20 +7,24 @@ import {
   Divider,
   Stack,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  IconButton
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/card_image.png";
-import profileImage1 from "@/assets/Ellipse 4149.png";
+import defaultProfileImage from "@/assets/default-profile.svg";
 import StatusModal from "./modals/StatusModal";
+import ProfilePictureModal from "./modals/ProfilePictureModal";
 import { Badge } from "@/components/ui/badge";
 import clsx from "clsx";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { CameraIcon } from "lucide-react";
 
 const ProfileBarCard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [open, setOpen] = useState(false);
+  const [statusModalOpen, setStatusModalOpen] = useState(false);
+  const [pictureModalOpen, setPictureModalOpen] = useState(false);
   const { user } = useCurrentUser();
 
   return (
@@ -53,16 +57,60 @@ const ProfileBarCard = () => {
           gap: 2
         }}
       >
-        <Image
-          alt={user?.fullName || 'Profile Picture'}
-          src={profileImage1}
-          style={{
+        {/* Profile Picture with Upload Overlay */}
+        <Box
+          sx={{
+            position: "relative",
+            cursor: "pointer",
+            "&:hover .overlay": {
+              opacity: 1
+            },
             width: 110,
             height: 110,
-            zIndex: 1,
-            marginTop: -70
+            // marginTop: -70,
+            borderRadius: "50%",
+            overflow: "hidden",
+            flexShrink: 0,
+            backgroundColor: "#E5E7EB"
           }}
-        />
+          onClick={() => setPictureModalOpen(true)}
+        >
+          <img
+            alt={user?.fullName || 'Profile Picture'}
+            src={user?.profilePictureUrl || defaultProfileImage}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center"
+            }}
+          />
+          {/* Hover Overlay */}
+          <Box
+            className="overlay"
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              opacity: 0,
+              transition: "opacity 0.2s"
+            }}
+          >
+            <IconButton
+              size="small"
+              sx={{ color: "white" }}
+            >
+              <CameraIcon />
+            </IconButton>
+          </Box>
+        </Box>
+
         <Box sx={{ display: "flex" }}>
           <Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -139,7 +187,7 @@ const ProfileBarCard = () => {
         <Button
           variant='outlined'
           fullWidth={isMobile}
-          onClick={() => setOpen(true)}
+          onClick={() => setStatusModalOpen(true)}
           sx={{
             borderRadius: "999px",
             textTransform: "none",
@@ -177,7 +225,8 @@ const ProfileBarCard = () => {
           More
         </Button>
       </Stack>
-      <StatusModal open={open} onClose={() => setOpen(false)} />
+      <StatusModal open={statusModalOpen} onClose={() => setStatusModalOpen(false)} />
+      <ProfilePictureModal open={pictureModalOpen} onClose={() => setPictureModalOpen(false)} />
     </Box>
   );
 };
