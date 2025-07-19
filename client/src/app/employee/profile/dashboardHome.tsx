@@ -31,7 +31,7 @@ export default function DashboardHome() {
           title='Skills'
           description='Add skills to increase the chance of hiring'
           addText='Add Skill'
-          data={userData?.skills?.map(skill => ({ title: skill })) || []}
+          data={userData?.skills || []}
           fieldName="skills"
           showLevel={true}
           footerText='Show More Skills'
@@ -40,7 +40,7 @@ export default function DashboardHome() {
           title='Interests'
           description='Add your interests to let employers understand your passion areas'
           addText='Add Interest'
-          data={userData?.interests?.map(interest => ({ title: interest })) || []}
+          data={userData?.interests || []}
           fieldName="interests"
           footerText='Show More Interests'
         />
@@ -48,7 +48,7 @@ export default function DashboardHome() {
           title='Goals'
           description='Mention your career goals to help employers align with your ambitions'
           addText='Add Goal'
-          data={userData?.goals?.map(goal => ({ title: goal })) || []}
+          data={userData?.goals || []}
           fieldName="goals"
           footerText='Show More Goals'
         />
