@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "@/assets/card_image.png";
-import defaultProfileImage from "@/assets/default-profile.svg";
+import defaultProfileImage from "@/assets/real/blank-pfp.png";
 import StatusModal from "./modals/StatusModal";
 import ProfilePictureModal from "./modals/ProfilePictureModal";
 import { Badge } from "@/components/ui/badge";
@@ -76,7 +76,7 @@ const ProfileBarCard = () => {
         >
           <img
             alt={user?.fullName || 'Profile Picture'}
-            src={user?.profilePictureUrl || defaultProfileImage}
+            src={user?.profilePictureUrl || defaultProfileImage.src}
             style={{
               width: "100%",
               height: "100%",
