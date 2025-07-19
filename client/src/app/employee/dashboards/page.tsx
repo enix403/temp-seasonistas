@@ -1,6 +1,6 @@
 "use client";
 
-import ChartSection from "../../../../../components/Employee/Dashboard/ChartSection";
+import ChartSection from "@/components/Employee/Dashboard/ChartSection";
 import bannerBg2 from "@/assets/employer/home/bannerBg2.png";
 import CreateNewPostModal from "@/components/Employee/Home/CreateNewPostModal";
 import { GoArrowUpRight } from "react-icons/go";

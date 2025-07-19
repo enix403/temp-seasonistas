@@ -1,4 +1,4 @@
-import { Pricing } from "@/app/[locale]/(landing)/Pricing";
+import { Pricing } from "@/app/(landing)/Pricing";
 import React from "react";
 
 const page = () => {

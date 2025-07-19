@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { ApiReplyError } from "../api-routes";
+import { ApiReplyError } from "@/lib/api-routes";
 
 export function sleep(ms: number = 2500) {
   return new Promise<void>(resolve => setTimeout(() => resolve(), ms));

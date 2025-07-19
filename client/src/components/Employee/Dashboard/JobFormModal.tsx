@@ -6,7 +6,7 @@ import { SlCalender } from "react-icons/sl";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
-import { useJobForm } from "../../../stores/useJobForm";
+import { useJobForm } from "@/stores/useJobForm";
 
 const JobFormModal = ({ onClose }: { onClose: () => void }) => {
   const router = useRouter();
