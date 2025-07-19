@@ -1,5 +1,3 @@
-// ~/constants/sidebarRoutes.ts
-
 import {
   MdDashboard,
   MdOutlinePrivacyTip,
