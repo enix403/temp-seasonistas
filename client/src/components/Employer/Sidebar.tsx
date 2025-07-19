@@ -17,6 +17,7 @@ import LogoutModal from "../Employer/LogoutModal";
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
 import { IoIosArrowForward } from "react-icons/io";
+import clsx from "clsx";
 
 const sidebarItems = [
   { name: "Home", href: "/employer/home", icon: MdHomeFilled },
@@ -67,9 +68,15 @@ const Sidebar = ({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-[250px] transform bg-[#022127] text-white transition-transform duration-300 sm:static sm:w-[250px] lg:w-[290px] ${
+        className={clsx(
+          "fixed top-0 left-0 z-50",
+          "sm:static sm:!translate-x-0",
+          "h-full w-64 lg:w-72",
+          "overflow-y-hidden px-8 py-6",
+          "bg-[#022127] text-white",
+          "transform transition-transform duration-300",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } overflow-y-auto px-8 py-6 sm:translate-x-0`}
+        )}
       >
         {/* Close on mobile */}
         <div className='flex justify-end sm:hidden'>
