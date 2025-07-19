@@ -13,42 +13,43 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddSkillModal from "./modals/AddSkillModal";
 import AddSingleInputModal from "./modals/AddSingleInputModal";
+
 interface ProfileBarCardProps {
-  notEditable?: boolean;
   title: string;
   description: string;
   addText: string;
   data: any;
   footerText: string;
-  type;
+  type: "skill" | "interest" | "goal";
 }
+
 const ProfileSectionCard = ({
   title,
   description,
   addText,
   data,
   footerText,
-  type,
-  notEditable
+  type
 }: ProfileBarCardProps) => {
   const [openSkillModal, setSkillModal] = useState(false);
-  const [openInterestModal, setInterestModal] = useState(false);
-  const [openGoalModal, setGoalModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState<"Goal" | "Interests">("Goal");
+
   const handleOpen = (type: "Goal" | "Interests") => {
     setModalType(type);
     setOpenModal(true);
   };
-  function check() {
-    if (type == "skill") {
+
+  const handleAddClick = () => {
+    if (type === "skill") {
       setSkillModal(true);
-    } else if (type == "interest") {
+    } else if (type === "interest") {
       handleOpen("Interests");
-    } else if (type == "goal") {
+    } else if (type === "goal") {
       handleOpen("Goal");
     }
-  }
+  };
+
   return (
     <Card
       sx={{
@@ -71,27 +72,23 @@ const ProfileSectionCard = ({
             {title}
           </Typography>
 
-          {!notEditable && (
-            <>
-              <Button
-                variant='outlined'
-                size='small'
-                onClick={() => check()}
-                sx={{
-                  borderRadius: "20px",
-                  textTransform: "none",
-                  fontWeight: 550,
-                  borderColor: "#EBECF0",
-                  color: "#000000",
-                  fontSize: "0.875rem",
-                  px: 3,
-                  py: 0.8
-                }}
-              >
-                {addText}
-              </Button>
-            </>
-          )}
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={handleAddClick}
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: 550,
+              borderColor: "#EBECF0",
+              color: "#000000",
+              fontSize: "0.875rem",
+              px: 3,
+              py: 0.8
+            }}
+          >
+            {addText}
+          </Button>
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -124,45 +121,43 @@ const ProfileSectionCard = ({
                     </Typography>
                   )}
                 </Box>
-                {!notEditable && (
-                  <Box display='flex' gap={1}>
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 1,
-                        backgroundColor: "#888888", // gray background
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer"
-                      }}
-                      onClick={() => {
-                        // handle delete
-                      }}
-                    >
-                      <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
-                    </Box>
-
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 1,
-                        backgroundColor: "#4e9a8e", // teal green background
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer"
-                      }}
-                      onClick={() => {
-                        // handle edit
-                      }}
-                    >
-                      <EditIcon sx={{ color: "white", fontSize: 16 }} />
-                    </Box>
+                <Box display='flex' gap={1}>
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 1,
+                      backgroundColor: "#888888", // gray background
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                    onClick={() => {
+                      // handle delete
+                    }}
+                  >
+                    <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
                   </Box>
-                )}
+
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 1,
+                      backgroundColor: "#4e9a8e", // teal green background
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                    onClick={() => {
+                      // handle edit
+                    }}
+                  >
+                    <EditIcon sx={{ color: "white", fontSize: 16 }} />
+                  </Box>
+                </Box>
               </Paper>
             </Grid>
           ))}

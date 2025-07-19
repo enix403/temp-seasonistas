@@ -46,7 +46,6 @@ export default function DashboardHome() {
           <ExperienceCard />
 
           <ProfileSectionCard
-            notEditable={false}
             title='Skills'
             description='Add skills to increase the chance of hiring'
             addText='Add Skill'
@@ -55,7 +54,6 @@ export default function DashboardHome() {
             footerText='Show More Skill'
           />
           <ProfileSectionCard
-            notEditable={false}
             title='Interests'
             description='Add your interests to let employers understand your passion areas'
             addText='Add Interests'
@@ -64,7 +62,6 @@ export default function DashboardHome() {
             footerText='Show More Interests'
           />
           <ProfileSectionCard
-            notEditable={false}
             title='Goals'
             description='Mention your career goals to help employers align with your ambitions'
             addText='Add Goals'
