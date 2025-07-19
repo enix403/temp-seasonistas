@@ -8,7 +8,7 @@ import {
   Avatar,
   Divider
 } from "@mui/material";
-import EduLogo from "~/app/assets/Admin/edu1.png";
+import EduLogo from "@/assets/Admin/edu1.png";
 import Image from "next/image";
 
 const EducationCard = () => {

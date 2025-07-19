@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import logo from "~/app/assets/Admin/companyLogo.png";
+import logo from "@/assets/Admin/companyLogo.png";
 
 const applications = [
   {

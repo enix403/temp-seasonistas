@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { GoPencil } from "react-icons/go";
 
-import companyLogo from "~/app/assets/employer/community/companyLogo.png";
+import companyLogo from "@/assets/employer/community/companyLogo.png";
 
 type Props = {
   company: string;

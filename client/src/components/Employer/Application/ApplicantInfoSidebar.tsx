@@ -1,5 +1,5 @@
 import Image from "next/image";
-import avatar from "~/app/assets/employer/dashboard/applicant2.png";
+import avatar from "@/assets/employer/dashboard/applicant2.png";
 import { CiMail, CiLocationOn, CiLinkedin } from "react-icons/ci";
 import { BsTelephone } from "react-icons/bs";
 

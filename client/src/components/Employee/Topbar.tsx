@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { IoNotifications } from "react-icons/io5";
-import userImg from "../../app/assets/employer/employerImg.png";
-import flag from "../../app/assets/employer/country.png";
+import userImg from "@/assets/employer/employerImg.png";
+import flag from "@/assets/employer/country.png";
 import { usePathname, useRouter } from "next/navigation";
 
 type Props = {};

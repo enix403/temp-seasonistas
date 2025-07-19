@@ -15,8 +15,8 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import GrameenphoneLogo from "~/app/assets/Admin/grameenphone.png";
-import ShartTripLogo from "~/app/assets/Admin/ShartTrip.png";
+import GrameenphoneLogo from "@/assets/Admin/grameenphone.png";
+import ShartTripLogo from "@/assets/Admin/ShartTrip.png";
 import Image from "next/image";
 
 interface Experience {

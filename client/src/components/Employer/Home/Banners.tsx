@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import bannerBg1 from "~/app/assets/employer/home/bannerBg1.png";
-import bannerHero from "~/app/assets/employer/home/bannerHero.png";
+import bannerBg1 from "@/assets/employer/home/bannerBg1.png";
+import bannerHero from "@/assets/employer/home/bannerHero.png";
 
 const Banners = () => {
   return (

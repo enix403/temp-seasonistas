@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import meImg from "~/app/assets/employer/chat/me.png";
+import meImg from "@/assets/employer/chat/me.png";
 import { FaPaperclip } from "react-icons/fa6";
 import { IoMdSend } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";

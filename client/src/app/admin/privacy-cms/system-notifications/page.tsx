@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
-import logo from "~/app/assets/employer/logo.png";
+import logo from "@/assets/employer/logo.png";
 
 const templates = [
   {

@@ -14,7 +14,7 @@ import {
   Stack
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import profileImage1 from "~/app/assets/Ellipse 4149.png";
+import profileImage1 from "@/assets/Ellipse 4149.png";
 import Image from "next/image";
 import ProfileMenu from "./modals/ProfileMenu";
 import { useRouter } from "next/navigation";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Stack, Card, CardContent } from "@mui/material";
-import locationImg from "~/app/assets/location.png";
+import locationImg from "@/assets/location.png";
 import Image from "next/image";
 
 const LocationCard: React.FC = () => {

@@ -1,23 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import {
-  Box,
-  Avatar,
-  Button,
-  Typography,
-  Chip,
-  Stack,
-  CircularProgress,
-  Grid,
-  IconButton,
-  Card,
-  CardContent
-} from "@mui/material";
-import cardImage from "~/app/assets/card_image.png";
-import Image from "next/image";
-import { Divider } from "@mui/material";
-import barGraph from "~/app/assets/barGraph.png"; // Your green bar graph icon
-import arrowUp from "~/app/assets/arrowUp.png";
+
+import { Grid } from "@mui/material";
 
 import ProfileSectionCard from "./profileSectionCard";
 import ProfileBarCard from "./topProfilebar";
@@ -29,10 +12,7 @@ import RightBarCards from "./rightBarCards";
 import EducationCard from "./educationCard";
 import ExperienceCard from "./experienceCard";
 
-interface DashboardHomeProps {
-  notEditable?: boolean;
-}
-export default function DashboardHome({ notEditable }: DashboardHomeProps) {
+export default function DashboardHome() {
   const skills = [
     { title: "UX Design", level: "Expert" },
     { title: "UI Design", level: "Expert" },
@@ -53,6 +33,8 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
     { title: "Get a remote tech job" },
     { title: "Improve leadership skills" }
   ];
+
+  const notEditable = false;
 
   return (
     <>

@@ -16,9 +16,9 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Image from "next/image";
-import cardImage from "~/app/assets/card_image.png";
-import barGraph from "~/app/assets/barGraph.png"; // Your green bar graph icon
-import arrowUp from "~/app/assets/arrowUp.png";
+import cardImage from "@/assets/card_image.png";
+import barGraph from "@/assets/barGraph.png"; // Your green bar graph icon
+import arrowUp from "@/assets/arrowUp.png";
 const GraphCard = () => {
   return (
     <Box sx={{ width: "100%", m: "20px 0px" }}>

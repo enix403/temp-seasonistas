@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { initialJobs } from "~/components/Employee/Home/JobData";
-import linearCompany from "~/app/assets/employee/linearCompany.png";
+import linearCompany from "@/assets/employee/linearCompany.png";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCheckToSlot } from "react-icons/fa6";

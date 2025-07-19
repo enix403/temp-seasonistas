@@ -3,10 +3,10 @@
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
 import MetricCard from "~/components/Admin/Dashboards/Overview/MetricCard";
-import arrow1 from "~/app/assets/Admin/arrow1.png";
-import arrow5 from "~/app/assets/Admin/arrow5.png";
+import arrow1 from "@/assets/Admin/arrow1.png";
+import arrow5 from "@/assets/Admin/arrow5.png";
 
 const dummyJobs = [
   {

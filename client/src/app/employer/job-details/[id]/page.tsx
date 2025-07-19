@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import "react-circular-progressbar/dist/styles.css";
 import { initialJobs } from "~/components/Employee/Home/JobData";
-import linearCompany from "~/app/assets/employee/linearCompany.png";
+import linearCompany from "@/assets/employee/linearCompany.png";
 import { useState } from "react";
 
 const JobDetail = () => {

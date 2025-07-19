@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import avatar from "~/app/assets/employer/dashboard/applicant2.png";
+import avatar from "@/assets/employer/dashboard/applicant2.png";
 import { GoPlus } from "react-icons/go";
 import { useRouter } from "next/navigation";
 

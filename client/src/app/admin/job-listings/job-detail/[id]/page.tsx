@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { initialJobs } from "../../jobData";
-import linearCompany from "~/app/assets/employee/linearCompany.png";
+import linearCompany from "@/assets/employee/linearCompany.png";
 import { useState } from "react";
 
 const JobDetail = () => {

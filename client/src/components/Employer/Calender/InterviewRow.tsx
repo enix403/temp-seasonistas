@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { GoPencil } from "react-icons/go";
 
-import avatar from "../../../app/assets/employer/dashboard/applicant2.png";
+import avatar from "@/assets/employer/dashboard/applicant2.png";
 import EditModal from "./EditModal";
 import { useState } from "react";
 

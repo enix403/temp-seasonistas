@@ -2,7 +2,7 @@
 
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
 
 interface FlagInfoModalProps {
   onClose: () => void;

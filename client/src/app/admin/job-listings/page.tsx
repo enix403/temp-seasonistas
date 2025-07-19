@@ -8,7 +8,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { initialJobs } from "./jobData";
 
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
 import FlagInfoModal from "~/components/Admin/Modal/FlagInfoModal";
 
 export default function JobListingsPage() {

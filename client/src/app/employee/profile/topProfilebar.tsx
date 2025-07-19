@@ -16,10 +16,10 @@ import {
   useMediaQuery
 } from "@mui/material";
 import Image from "next/image";
-import cardImage from "~/app/assets/card_image.png";
-import cardImage2 from "~/app/assets/image (5).png";
-import profileImage1 from "~/app/assets/Ellipse 4149.png";
-import profileImage2 from "~/app/assets/image (4).png";
+import cardImage from "@/assets/card_image.png";
+import cardImage2 from "@/assets/image (5).png";
+import profileImage1 from "@/assets/Ellipse 4149.png";
+import profileImage2 from "@/assets/image (4).png";
 import StatusModal from "./modals/StatusModal";
 interface ProfileBarCardProps {
   notEditable?: boolean;

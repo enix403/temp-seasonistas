@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import UserCard from "~/components/Employee/Community/UserCard";
-import avatar from "~/app/assets/employer/dashboard/applicant2.png";
-import companyLogo from "~/app/assets/employer/community/companyLogo.png";
+import avatar from "@/assets/employer/dashboard/applicant2.png";
+import companyLogo from "@/assets/employer/community/companyLogo.png";
 import { FiSearch } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 

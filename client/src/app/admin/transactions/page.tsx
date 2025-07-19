@@ -3,8 +3,8 @@
 import { HiOutlineSearch } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
-import personLogo from "~/app/assets/Admin/person.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
+import personLogo from "@/assets/Admin/person.png";
 import MetricCard2 from "~/components/Admin/Transactions/MetricCard2";
 import { useState } from "react";
 import { FiMoreVertical } from "react-icons/fi";

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "~/app/assets/employer/logo.png";
+import logo from "@/assets/employer/logo.png";
 import { ImCloudDownload } from "react-icons/im";
 import { IoIosPrint } from "react-icons/io";
 import { IoShareSocial, IoReturnUpBack } from "react-icons/io5";

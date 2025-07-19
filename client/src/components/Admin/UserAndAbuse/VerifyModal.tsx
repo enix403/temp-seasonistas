@@ -2,7 +2,7 @@
 
 import { IoMdClose } from "react-icons/io";
 import Image from "next/image";
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
 import { MdVerified } from "react-icons/md";
 
 type Props = {

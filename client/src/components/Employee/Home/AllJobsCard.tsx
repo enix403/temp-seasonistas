@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
-import dummyImg from "~/app/assets/employer/home/employerImg.png";
+import dummyImg from "@/assets/employer/home/employerImg.png";
 
 type JobCardProps = {
   id: number;

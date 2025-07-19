@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import personLogo from "~/app/assets/Admin/person.png";
+import personLogo from "@/assets/Admin/person.png";
 
 const admins = [
   { name: "Linear company", status: "Active" },

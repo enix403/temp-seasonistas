@@ -13,11 +13,11 @@ import {
   Card,
   CardContent
 } from "@mui/material";
-import cardImage from "~/app/assets/card_image.png";
+import cardImage from "@/assets/card_image.png";
 import Image from "next/image";
 import { Divider } from "@mui/material";
-import barGraph from "~/app/assets/barGraph.png"; // Your green bar graph icon
-import arrowUp from "~/app/assets/arrowUp.png";
+import barGraph from "@/assets/barGraph.png"; // Your green bar graph icon
+import arrowUp from "@/assets/arrowUp.png";
 
 import ProfileSectionCard from "./profileSectionCard";
 import ProfileBarCard from "./topProfilebar";

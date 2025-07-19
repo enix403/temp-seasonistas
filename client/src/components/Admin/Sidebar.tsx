@@ -10,7 +10,7 @@ import { CiLogout } from "react-icons/ci";
 import { HiMenu } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { sidebarRoutes } from "./routes";
-import logo from "../../app/assets/employer/logo.png";
+import logo from "@/assets/employer/logo.png";
 
 const slugify = (str: string) => str.toLowerCase().replace(/\s+/g, "-");
 

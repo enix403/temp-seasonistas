@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
-import avatar from "~/app/assets/Admin/person.png";
+import avatar from "@/assets/Admin/person.png";
 import FilterBar from "~/components/Admin/UserAndAbuse/FilterBar";
 import EditEmployeeModal from "~/components/Admin/UserAndAbuse/EditEmployeeModal";
 import BanModal from "~/components/Admin/UserAndAbuse/BanModal";

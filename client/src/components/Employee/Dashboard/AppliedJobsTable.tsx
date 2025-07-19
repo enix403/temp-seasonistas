@@ -5,10 +5,10 @@ import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 // Dummy applied jobs data
-import linearCompany from "~/app/assets/employee/linearCompany.png";
-import loomCompany from "~/app/assets/employee/loomCompany.png";
-import trainline2Company from "~/app/assets/employee/trainline2Company.png";
-import trainlineCompany from "~/app/assets/employee/trainlineCompany.jpg";
+import linearCompany from "@/assets/employee/linearCompany.png";
+import loomCompany from "@/assets/employee/loomCompany.png";
+import trainline2Company from "@/assets/employee/trainline2Company.png";
+import trainlineCompany from "@/assets/employee/trainlineCompany.jpg";
 import { useRouter } from "next/navigation";
 
 export const appliedJobs = [

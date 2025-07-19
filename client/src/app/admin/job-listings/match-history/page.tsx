@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import avatar from "~/app/assets/Admin/person.png";
+import avatar from "@/assets/Admin/person.png";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 

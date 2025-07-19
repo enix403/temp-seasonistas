@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import avatar from "~/app/assets/Admin/person.png";
+import avatar from "@/assets/Admin/person.png";
 
 const auditLogs = [
   {

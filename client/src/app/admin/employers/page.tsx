@@ -1,7 +1,7 @@
 "use client";
 import { FiMoreVertical } from "react-icons/fi";
 import FilterBar from "~/components/Admin/UserAndAbuse/FilterBar";
-import companyLogo from "~/app/assets/Admin/companyLogo.png";
+import companyLogo from "@/assets/Admin/companyLogo.png";
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

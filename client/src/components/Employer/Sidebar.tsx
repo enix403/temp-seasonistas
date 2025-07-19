@@ -12,7 +12,7 @@ import { CiLogout } from "react-icons/ci";
 import { ImPriceTags } from "react-icons/im";
 
 import { RxCross2 } from "react-icons/rx";
-import logo from "../../app/assets/employer/logo.png";
+import logo from "@/assets/employer/logo.png";
 import LogoutModal from "../Employer/LogoutModal";
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";

@@ -1,10 +1,10 @@
-import hamishImg from "~/app/assets/employer/chat/Hamish.png";
-import AishaImg from "~/app/assets/employer/chat/Aisha.png";
-import AliImg from "~/app/assets/employer/chat/Ali.png";
-import CarterImg from "~/app/assets/employer/chat/Carter.png";
-import EmmaImg from "~/app/assets/employer/chat/Emma.png";
-import NoorImg from "~/app/assets/employer/chat/Noor.png";
-import SiddiqImg from "~/app/assets/employer/chat/Siddiq.png";
+import hamishImg from "@/assets/employer/chat/Hamish.png";
+import AishaImg from "@/assets/employer/chat/Aisha.png";
+import AliImg from "@/assets/employer/chat/Ali.png";
+import CarterImg from "@/assets/employer/chat/Carter.png";
+import EmmaImg from "@/assets/employer/chat/Emma.png";
+import NoorImg from "@/assets/employer/chat/Noor.png";
+import SiddiqImg from "@/assets/employer/chat/Siddiq.png";
 
 export const dummyUsers = [
   {

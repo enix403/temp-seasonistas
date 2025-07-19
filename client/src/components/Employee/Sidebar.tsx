@@ -10,7 +10,7 @@ import { BsChatDots } from "react-icons/bs";
 import { IoIosPeople } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
-import logo from "../../app/assets/employer/logo.png";
+import logo from "@/assets/employer/logo.png";
 import LogoutModal from "../Employer/LogoutModal";
 import { useState } from "react";
 import { HiMenu } from "react-icons/hi";
@@ -18,20 +18,20 @@ import { IoIosArrowForward } from "react-icons/io";
 import { ImPriceTags } from "react-icons/im";
 
 const sidebarItems = [
-  { name: "Home", href: "/en/employee/home", icon: MdHomeFilled },
-  { name: "Dashboards", href: "/en/employee/dashboards", icon: MdDashboard },
+  { name: "Home", href: "/employee/home", icon: MdHomeFilled },
+  { name: "Dashboards", href: "/employee/dashboards", icon: MdDashboard },
   {
     name: "Community",
-    href: "/en/employee/community",
+    href: "/employee/community",
     icon: IoPeopleCircleOutline
   },
   {
     name: "Calendar",
-    href: "/en/employee/calender",
+    href: "/employee/calender",
     icon: HiOutlineCalendarDateRange
   },
-  { name: "Chat", href: "/en/employee/chat", icon: BsChatDots },
-  { name: "Pricing", href: "/en/employee/pricing", icon: ImPriceTags }
+  { name: "Chat", href: "/employee/chat", icon: BsChatDots },
+  { name: "Pricing", href: "/employee/pricing", icon: ImPriceTags }
 ];
 
 const Sidebar = ({
@@ -47,11 +47,11 @@ const Sidebar = ({
 
   const handleLogoutConfirm = () => {
     setShowLogoutModal(false);
-    router.push("/en/employee-login");
+    router.push("/employee-login");
   };
 
   const handleHelpCenter = () => {
-    router.push("/en/employee/help-center");
+    router.push("/employee/help-center");
   };
 
   return (
@@ -139,9 +139,9 @@ const Sidebar = ({
 
             {/* Settings */}
             <Link
-              href='/en/employee/settings'
+              href='/employee/settings'
               className={`flex w-full items-center justify-between gap-3 rounded-[44px] px-8 py-3 transition-all ${
-                pathname === "/en/employee/settings"
+                pathname === "/employee/settings"
                   ? "bg-[#559093] text-white"
                   : "bg-[#FFFFFF0A] hover:bg-[#2B5558]"
               }`}

@@ -7,7 +7,7 @@ import {
   Card,
   CardContent
 } from "@mui/material";
-import locationImg from "~/app/assets/employer/location.png";
+import locationImg from "@/assets/employer/location.png";
 interface LocationCardProps {
   notEditable?: boolean;
 }

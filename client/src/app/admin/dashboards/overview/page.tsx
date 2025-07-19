@@ -8,10 +8,10 @@ import ActivityFeed from "~/components/Admin/Dashboards/Overview/ActivityFeed";
 import AreaStatsTable from "~/components/Admin/Dashboards/Overview/AreaStatsTable";
 import ChartCard from "~/components/Admin/Dashboards/Overview/ChartCard";
 import MetricCard from "~/components/Admin/Dashboards/Overview/MetricCard";
-import arrow1 from "~/app/assets/Admin/arrow1.png";
-import arrow2 from "~/app/assets/Admin/arrow2.png";
-import arrow3 from "~/app/assets/Admin/arrow3.png";
-import arrow4 from "~/app/assets/Admin/arrow4.png";
+import arrow1 from "@/assets/Admin/arrow1.png";
+import arrow2 from "@/assets/Admin/arrow2.png";
+import arrow3 from "@/assets/Admin/arrow3.png";
+import arrow4 from "@/assets/Admin/arrow4.png";
 
 export default function OverviewPage() {
   return (
