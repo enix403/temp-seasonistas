@@ -1,7 +1,9 @@
 import { useState } from "react";
 import {
   Box,
-  Typography, Button, Chip,
+  Typography,
+  Button,
+  Chip,
   Divider,
   Stack,
   useTheme,
@@ -11,19 +13,16 @@ import Image from "next/image";
 import cardImage from "@/assets/card_image.png";
 import profileImage1 from "@/assets/Ellipse 4149.png";
 import StatusModal from "./modals/StatusModal";
-interface ProfileBarCardProps {
-  notEditable?: boolean;
-  type: string;
-}
-const ProfileBarCard = ({ notEditable }: ProfileBarCardProps) => {
+
+const ProfileBarCard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+
   return (
     <Box
       sx={{
         width: "100%",
-
         borderRadius: 3,
         overflow: "hidden",
         bgcolor: "white",
@@ -64,7 +63,7 @@ const ProfileBarCard = ({ notEditable }: ProfileBarCardProps) => {
           <Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant='h5' fontWeight='bold'>
-                { "Anamoul Rouf"}
+                {"Anamoul Rouf"}
               </Typography>
               <Chip
                 label='#EMP001'
@@ -121,50 +120,46 @@ const ProfileBarCard = ({ notEditable }: ProfileBarCardProps) => {
         </Button>
 
         {/* Add Profile Section */}
-        {!notEditable && (
-          <>
-            <Button
-              variant='outlined'
-              fullWidth={isMobile}
-              sx={{
-                borderRadius: "999px",
-                textTransform: "none",
-                fontWeight: 500,
-                px: 2,
-                fontSize: isMobile ? "0.9rem" : "1rem",
-                borderColor: "#ddd",
-                color: "#000",
-                "&:hover": {
-                  borderColor: "#bbb"
-                }
-              }}
-            >
-              Add Profile Section
-            </Button>
+        <Button
+          variant='outlined'
+          fullWidth={isMobile}
+          sx={{
+            borderRadius: "999px",
+            textTransform: "none",
+            fontWeight: 500,
+            px: 2,
+            fontSize: isMobile ? "0.9rem" : "1rem",
+            borderColor: "#ddd",
+            color: "#000",
+            "&:hover": {
+              borderColor: "#bbb"
+            }
+          }}
+        >
+          Add Profile Section
+        </Button>
 
-            {/* Status */}
-            <Button
-              variant='outlined'
-              fullWidth={isMobile}
-              onClick={() => setOpen(true)}
-              sx={{
-                borderRadius: "999px",
-                textTransform: "none",
-                fontWeight: 500,
-                px: 3,
-                fontSize: isMobile ? "0.9rem" : "1rem",
-                borderColor: "#ddd",
-                color: "#000",
-                cursor: "pointer",
-                "&:hover": {
-                  borderColor: "#bbb"
-                }
-              }}
-            >
-              Status
-            </Button>
-          </>
-        )}
+        {/* Status */}
+        <Button
+          variant='outlined'
+          fullWidth={isMobile}
+          onClick={() => setOpen(true)}
+          sx={{
+            borderRadius: "999px",
+            textTransform: "none",
+            fontWeight: 500,
+            px: 3,
+            fontSize: isMobile ? "0.9rem" : "1rem",
+            borderColor: "#ddd",
+            color: "#000",
+            cursor: "pointer",
+            "&:hover": {
+              borderColor: "#bbb"
+            }
+          }}
+        >
+          Status
+        </Button>
 
         {/* More */}
         <Button

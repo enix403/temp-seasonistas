@@ -37,13 +37,10 @@ export default function DashboardHome() {
     <>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
-          <ProfileBarCard notEditable={false} type={"individual"} />
-
+          <ProfileBarCard />
           <PercentageCard />
-
           <GraphCard />
-
-          <BasicInfoCard notEditable={false} type={"individual"} />
+          <BasicInfoCard/>
 
           <AboutUsCard notEditable={false} type={"about"} />
           <EducationCard notEditable={false} />
