@@ -19,7 +19,7 @@ export default function DashboardHome() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       <Box sx={{ flex: "1 1 70%" }}>
-        <ProfileBarCard />
+        <ProfileBarCard profileTitleKey="fullName" />
         <PercentageCard />
         <GraphCard />
         <BasicInfoCard />

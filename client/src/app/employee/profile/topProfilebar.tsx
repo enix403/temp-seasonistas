@@ -20,7 +20,7 @@ import clsx from "clsx";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { CameraIcon } from "lucide-react";
 
-const ProfileBarCard = () => {
+const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "companyName" }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [statusModalOpen, setStatusModalOpen] = useState(false);
@@ -118,7 +118,7 @@ const ProfileBarCard = () => {
           onClick={() => setPictureModalOpen(true)}
         >
           <img
-            alt={user?.fullName || 'Profile Picture'}
+            alt={user?.[profileTitleKey] || 'Profile Picture'}
             src={user?.profilePictureUrl || defaultProfileImage.src}
             style={{
               width: "100%",
@@ -157,7 +157,7 @@ const ProfileBarCard = () => {
           <Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant='h5' fontWeight='bold'>
-                {user?.fullName || "Loading..."}
+                {user?.[profileTitleKey] || "Loading..."}
               </Typography>
               <Chip
                 label='#EMP001'

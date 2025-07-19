@@ -20,7 +20,7 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
     <>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
-          <ProfileBarCard />
+          <ProfileBarCard profileTitleKey="companyName" />
           <GraphCard />
           <AboutUsCard />
           <BasicInfoCard />
