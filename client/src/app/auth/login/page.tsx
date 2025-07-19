@@ -12,9 +12,27 @@ import { AuthPage } from "../common/AuthPage";
 import { AuthQuote } from "../common/AuthQuote";
 import { AnimatedColorfulText } from "../common/AnimatedColorfulText";
 import { Testimonials } from "../common/Testimonials";
+import { useLogin } from "@/hooks/useLogin";
+import { useMutation } from "@tanstack/react-query";
+import { apiRoutes } from "@/lib/api-routes";
+import { ErrorDisplay } from "@/components/ErrorDisplay";
 
 export default function Login() {
   const { register, handleSubmit } = useForm();
+
+  const loginApp = useLogin();
+
+  const loginMut = useMutation({
+    mutationFn: apiRoutes.login,
+    onSuccess: ({ accessToken, user }) => {
+      console.log(accessToken, user);
+      loginApp(user, accessToken);
+    }
+  });
+
+  const onSubmit = handleSubmit(values => {
+    loginMut.mutate(values as any);
+  });
 
   return (
     <AuthPage
@@ -46,7 +64,14 @@ export default function Login() {
         </span>
       </div>
 
-      <form onSubmit={handleSubmit(() => {})} className='grid gap-6'>
+      <ErrorDisplay
+        error={loginMut.error}
+        map={{
+          val_err: "Please fill all the input fields",
+          invalid_creds: "Invalid email or password"
+        }}
+      />
+      <form onSubmit={onSubmit} className='grid gap-6'>
         <div className='grid gap-2'>
           <Label htmlFor='email'>Email</Label>
           <Input
@@ -75,7 +100,7 @@ export default function Login() {
           />
         </div>
         <Button
-          // loading={loginMut.isPending}
+          loading={loginMut.isPending}
           type='submit'
           className='w-full'
           size='lg'

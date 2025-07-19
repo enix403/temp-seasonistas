@@ -1,5 +1,5 @@
 import ky, { HTTPError } from "ky";
-import { getAuthState } from "./providers/auth-state";
+import { getAuthState } from "@/stores/auth-store";
 
 function unslashStart(str: string) {
   return str.replace(/^\/+/, "");
@@ -36,6 +36,13 @@ export class ApiReplyError extends HTTPError {
     }
     return "An error occured";
   }
+
+  public static getCode(error: any) {
+    if (error instanceof ApiReplyError) {
+      return error.errorCode;
+    }
+    return "unset";
+  }
 }
 
 export const apiConn = ky.extend({
@@ -44,7 +51,8 @@ export const apiConn = ky.extend({
   hooks: {
     beforeRequest: [
       request => {
-        let { isLoggedIn, token } = getAuthState();
+        let { token } = getAuthState();
+        const isLoggedIn = Boolean(token);
         if (isLoggedIn) {
           request.headers.set("Authorization", `Bearer: ${token}`);
         }
@@ -200,78 +208,78 @@ export const apiRoutes = {
   /* ========================== */
   /* ========== Auth ========== */
   /* ========================== */
-  login: payloadDecl(`/api/auth/login`),
-  register: payloadDecl(`/api/auth/register`),
-  forgotPassword: payloadDecl(`/api/auth/forgot-password`),
-  resetPassword: payloadDecl(`/api/auth/reset-password`),
-  updatePassword: payloadDecl(`/api/auth/update-password`, { method: "PATCH" }),
+  login: payloadDecl(`/auth/login`),
+  register: payloadDecl(`/auth/register`),
+  forgotPassword: payloadDecl(`/auth/forgot-password`),
+  resetPassword: payloadDecl(`/auth/reset-password`),
+  updatePassword: payloadDecl(`/auth/update-password`, { method: "PATCH" }),
 
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
-  getMe: jsonDecl(`/api/me`),
-  updateProfile: payloadDecl(`/api/me/profile`, { method: "PATCH" }),
-  contactUs: payloadDecl(`/api/me/send-contact-message`, { method: "POST" }),
+  getMe: jsonDecl(`/me`),
+  updateProfile: payloadDecl(`/me/profile`, { method: "PATCH" }),
+  contactUs: payloadDecl(`/me/send-contact-message`, { method: "POST" }),
 
   /* ========================== */
   /* =========== Me =========== */
   /* ========================== */
-  getNotifications: jsonDecl(`/api/notif`),
-  markNotificationsRead: payloadDecl(`/api/notif/mark-read`, { method: 'PATCH' }),
+  getNotifications: jsonDecl(`/notif`),
+  markNotificationsRead: payloadDecl(`/notif/mark-read`, { method: 'PATCH' }),
 
   /* ========================= */
   /* ======= Community ======= */
   /* ========================= */
-  getCommunity: jsonDecl(wq`/api/community`),
-  getUser: jsonDecl((userId: string) => `/api/user/${userId}`),
-  addFriend: payloadDecl(`/api/add-friend`),
-  isFriend: payloadDecl(`/api/add-friend?checkOnly=true`),
-  removeFriend: payloadDecl(`/api/remove-friend`, { method: "DELETE" }),
+  getCommunity: jsonDecl(wq`/community`),
+  getUser: jsonDecl((userId: string) => `/user/${userId}`),
+  addFriend: payloadDecl(`/add-friend`),
+  isFriend: payloadDecl(`/add-friend?checkOnly=true`),
+  removeFriend: payloadDecl(`/remove-friend`, { method: "DELETE" }),
 
   /* ========================= */
   /* ======= Favourites ====== */
   /* ========================= */
-  getPostingFavourites: jsonDecl(`/api/posting-favourites`),
-  markPostingFavourite: payloadDecl(`/api/mark-posting-favourite`, { method: "PATCH" }),
+  getPostingFavourites: jsonDecl(`/posting-favourites`),
+  markPostingFavourite: payloadDecl(`/mark-posting-favourite`, { method: "PATCH" }),
 
   /* ========================== */
   /* ======== Postings ======== */
   /* ========================== */
   // Queries
-  searchJobs: jsonDecl(wq`/api/job/search`),
-  getJob: jsonDecl((jobId: string) => `/api/job/${jobId}`),
-  getApplication: jsonDecl((applId: string) => `/api/job/application/${applId}`),
-  getMyApplications: jsonDecl(`/api/employee/my-applications`),
-  getMyPostings: jsonDecl(`/api/employer/my-postings`),
-  getJobApplicants: jsonDecl((jobId: string) => `/api/job/${jobId}/applicants`),
-  isPostingApplied: jsonDecl((postingId: string) => `/api/is-posting-applied/${postingId}`),
-  isEmployeeInvited: payloadDecl(`/api/is-employee-invited`),
-  getCandidatePostingApplication: jsonDecl((postingId: string) => `/api/candidate-posting-application/${postingId}`),
+  searchJobs: jsonDecl(wq`/job/search`),
+  getJob: jsonDecl((jobId: string) => `/job/${jobId}`),
+  getApplication: jsonDecl((applId: string) => `/job/application/${applId}`),
+  getMyApplications: jsonDecl(`/employee/my-applications`),
+  getMyPostings: jsonDecl(`/employer/my-postings`),
+  getJobApplicants: jsonDecl((jobId: string) => `/job/${jobId}/applicants`),
+  isPostingApplied: jsonDecl((postingId: string) => `/is-posting-applied/${postingId}`),
+  isEmployeeInvited: payloadDecl(`/is-employee-invited`),
+  getCandidatePostingApplication: jsonDecl((postingId: string) => `/candidate-posting-application/${postingId}`),
 
   // Mutations
-  postJob: payloadDecl(`/api/job/post`),
-  deleteJob: payloadDecl((jobId: string) => `/api/job/${jobId}`, { method: "DELETE" }),
-  applyToJob: payloadDecl(`/api/job/apply`),
-  updateJobStatus: payloadDecl((jobId: string) => `/api/job/${jobId}/update-status`, { method: "PATCH" }),
-  updateApplDecision: payloadDecl((applId: string) => `/api/job/application/${applId}/update-decision`, { method: "PATCH" }),
-  markApplInterested: payloadDecl((applId: string) => `/api/job/application/${applId}/mark-interested`, { method: "PATCH" }),
-  inviteEmployee: payloadDecl(`/api/invite-employee`),
+  postJob: payloadDecl(`/job/post`),
+  deleteJob: payloadDecl((jobId: string) => `/job/${jobId}`, { method: "DELETE" }),
+  applyToJob: payloadDecl(`/job/apply`),
+  updateJobStatus: payloadDecl((jobId: string) => `/job/${jobId}/update-status`, { method: "PATCH" }),
+  updateApplDecision: payloadDecl((applId: string) => `/job/application/${applId}/update-decision`, { method: "PATCH" }),
+  markApplInterested: payloadDecl((applId: string) => `/job/application/${applId}/mark-interested`, { method: "PATCH" }),
+  inviteEmployee: payloadDecl(`/invite-employee`),
 
   /* ========================== */
   /* ========= Uploads ======== */
   /* ========================== */
-  uploadImage: uploadDecl(`/api/upload/image`, { key: "image" }),
+  uploadImage: uploadDecl(`/upload/image`, { key: "image" }),
 
   /* ========================== */
   /* ========== Chats ========= */
   /* ========================== */
-  // getChatMessages: jsonDecl((receiverId: string) => `/api/chat/messages/${receiverId}`),
-  // startConversation: payloadDecl(`/api/chat/start-conversation`),
+  // getChatMessages: jsonDecl((receiverId: string) => `/chat/messages/${receiverId}`),
+  // startConversation: payloadDecl(`/chat/start-conversation`),
 
-  getConversations: jsonDecl(`/api/chat/conversations`),
-  resumeConversationSingle: payloadDecl(`/api/chat/resume-conv-single`),
-  updateMessage: payloadDecl(`/api/chat/update-message`, { method: "PATCH" }),
-  deleteMessage: payloadDecl(`/api/chat/delete-message`, { method: "DELETE" }),
+  getConversations: jsonDecl(`/chat/conversations`),
+  resumeConversationSingle: payloadDecl(`/chat/resume-conv-single`),
+  updateMessage: payloadDecl(`/chat/update-message`, { method: "PATCH" }),
+  deleteMessage: payloadDecl(`/chat/delete-message`, { method: "DELETE" }),
 
 } as const;
 

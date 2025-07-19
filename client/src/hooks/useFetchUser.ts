@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useState } from "react";
-import { apiRoutes } from "../api-routes";
+import { apiRoutes } from "@/lib/api-routes";
 
 export function useFetchUser(userId?: string) {
   const [status, setStatus] = useState<"ok" | "loading" | "error">("loading");

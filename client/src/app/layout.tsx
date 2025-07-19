@@ -5,22 +5,12 @@ import localFont from "next/font/local";
 
 // import "@/app/globals.css";
 import "@/styles/global.css";
-import { NextIntlClientProvider } from "next-intl";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-pjs",
   subsets: ["latin"]
 });
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"]
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"]
-// });
 
 /* prettier-ignore */
 const metropolis = localFont({
@@ -125,7 +115,7 @@ export default function RootLayout({
       <body
         className={`${metropolis.variable} ${plusJakartaSans.variable} antialiased`}
       >
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
