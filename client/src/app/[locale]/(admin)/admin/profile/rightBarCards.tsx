@@ -11,7 +11,7 @@ import {
   Avatar,
   Chip,
   Divider,
-  Stack,
+  Stack
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import profileImage1 from "~/app/assets/Ellipse 4149.png";
@@ -30,8 +30,7 @@ const RightBarCards = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const router = useRouter()
-
+  const router = useRouter();
 
   const open = Boolean(anchorEl);
   return (
@@ -45,51 +44,52 @@ const RightBarCards = () => {
             boxShadow: "0px 0px 4px rgba(0,0,0,0.05)",
             p: 2,
             width: "100%",
-            mb: "20px",
+            mb: "20px"
           }}
         >
           {/* Header Section */}
           <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
+            direction='row'
+            justifyContent='space-between'
+            alignItems='center'
           >
-            <div onClick={() => router.push('/en/employer/view-profile/4')} className="cursor-pointer">
-              <Stack direction="row" spacing={1.5} alignItems="center">
+            <div
+              onClick={() => router.push("/en/employer/view-profile/4")}
+              className='cursor-pointer'
+            >
+              <Stack direction='row' spacing={1.5} alignItems='center'>
                 <Image
                   src={profileImage1}
-                  alt="Ali Haider"
+                  alt='Ali Haider'
                   style={{ width: 45, height: 45 }}
                 />
                 <Box>
-                  <Typography fontWeight="bold" fontSize={14}>
+                  <Typography fontWeight='bold' fontSize={14}>
                     Ali Haider
                   </Typography>
-                  <Typography fontSize={12} color="text.secondary">
+                  <Typography fontSize={12} color='text.secondary'>
                     UI/UX Designer
                   </Typography>
                 </Box>
               </Stack>
             </div>
 
-            <IconButton size="small" onClick={handleClick}>
-              <MoreVertIcon fontSize="small" />
+            <IconButton size='small' onClick={handleClick}>
+              <MoreVertIcon fontSize='small' />
             </IconButton>
           </Stack>
 
-          <Divider
-            sx={{ m: "10px 10px 10px 10px", borderColor: "#e0e0e0" }}
-          />
+          <Divider sx={{ m: "10px 10px 10px 10px", borderColor: "#e0e0e0" }} />
 
           {/* Description */}
           <Typography
-            variant="body2"
-            color="text.secondary"
+            variant='body2'
+            color='text.secondary'
             mt={2}
             mb={2}
             sx={{
               fontSize: 12.5,
-              lineHeight: 1.4,
+              lineHeight: 1.4
             }}
           >
             We are seeking a creative and detail-oriented UI/UX Designer to
@@ -97,22 +97,22 @@ const RightBarCards = () => {
           </Typography>
 
           {/* Buttons */}
-          <Stack direction="row" spacing={1}>
+          <Stack direction='row' spacing={1}>
             <Button
-              variant="outlined"
+              variant='outlined'
               fullWidth
               sx={{
                 textTransform: "none",
                 fontSize: 13,
                 borderRadius: "999px",
                 borderColor: "gray",
-                color: "#000000",
+                color: "#000000"
               }}
             >
               Message
             </Button>
             <Button
-              variant="contained"
+              variant='contained'
               fullWidth
               sx={{
                 textTransform: "none",
@@ -120,8 +120,8 @@ const RightBarCards = () => {
                 borderRadius: "999px",
                 backgroundColor: "#4e8c8a",
                 "&:hover": {
-                  backgroundColor: "#407878",
-                },
+                  backgroundColor: "#407878"
+                }
               }}
             >
               Connect
@@ -131,7 +131,6 @@ const RightBarCards = () => {
         </Box>
       ))}
     </>
-
   );
 };
 

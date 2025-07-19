@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,25 +8,38 @@ import {
   Stack,
   Button,
   Box
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface AddSingleInputModalProps {
   open: boolean;
   onClose: () => void;
-  type: 'Goal' | 'Interests';
+  type: "Goal" | "Interests";
 }
 
-const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose, type }) => {
+const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
+  open,
+  onClose,
+  type
+}) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth PaperProps={{
-      sx: {
-        borderRadius: '16px',
-      },
-    }}>
-      <DialogTitle sx={{ fontWeight: 'bold', px: 3, pt: 3 }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth='xs'
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: "16px"
+        }
+      }}
+    >
+      <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
         Add {type}
-        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
+        <IconButton
+          onClick={onClose}
+          sx={{ position: "absolute", right: 16, top: 16 }}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -36,35 +49,38 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({ open, onClose
           <TextField
             placeholder={`Enter ${type}`}
             fullWidth
-            size="small"
+            size='small'
             sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: 10,
-              },
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 10
+              }
             }}
           />
-          <Box display="flex" justifyContent="flex-end" gap={1}>
+          <Box display='flex' justifyContent='flex-end' gap={1}>
             <Button
-              variant="outlined"
+              variant='outlined'
               onClick={onClose}
               sx={{
-                borderRadius: 20, textTransform: 'none', px: 3, borderColor: "gray",
+                borderRadius: 20,
+                textTransform: "none",
+                px: 3,
+                borderColor: "gray",
                 color: "#000000",
-                height: '40px',
-                minWidth: '100px'
+                height: "40px",
+                minWidth: "100px"
               }}
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
+              variant='contained'
               sx={{
-                backgroundColor: '#4B8378',
+                backgroundColor: "#4B8378",
                 borderRadius: 20,
-                textTransform: 'none',
-                '&:hover': { backgroundColor: '#3a6b61' },
-                height: '40px',
-                minWidth: '100px'
+                textTransform: "none",
+                "&:hover": { backgroundColor: "#3a6b61" },
+                height: "40px",
+                minWidth: "100px"
               }}
             >
               Save

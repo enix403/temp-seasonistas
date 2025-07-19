@@ -4,9 +4,12 @@ export function useResumableAction<ExecuteProps extends any[]>({
   executeFn,
   hydrateFn,
   hydrateDeps = [],
-  defaultIsDone = false,
+  defaultIsDone = false
 }: {
-  executeFn: (currentDone: boolean, ...executeProps: ExecuteProps) => boolean | Promise<boolean>;
+  executeFn: (
+    currentDone: boolean,
+    ...executeProps: ExecuteProps
+  ) => boolean | Promise<boolean>;
   hydrateFn: () => boolean | Promise<boolean>;
   hydrateDeps?: any[];
   defaultIsDone?: boolean;
@@ -30,22 +33,25 @@ export function useResumableAction<ExecuteProps extends any[]>({
 
     setIsHydrating(true);
     performHydration();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...hydrateDeps]);
 
-  const execute = useCallback(async (...executeProps: ExecuteProps) => {
-    setIsExecuting(true);
-    let result: boolean | undefined = undefined;
-    try {
-      result = await executeFn(isDone, ...executeProps);
-    } catch {}
+  const execute = useCallback(
+    async (...executeProps: ExecuteProps) => {
+      setIsExecuting(true);
+      let result: boolean | undefined = undefined;
+      try {
+        result = await executeFn(isDone, ...executeProps);
+      } catch {}
 
-    if (result !== undefined) {
-      setIsDone(result);
-    }
+      if (result !== undefined) {
+        setIsDone(result);
+      }
 
-    setIsExecuting(false);
-  }, [executeFn, isDone]);
+      setIsExecuting(false);
+    },
+    [executeFn, isDone]
+  );
 
   const isLoading = isHydrating || isExecuting;
 
@@ -54,6 +60,6 @@ export function useResumableAction<ExecuteProps extends any[]>({
     isHydrating,
     isExecuting,
     isLoading,
-    execute,
+    execute
   };
 }

@@ -13,7 +13,7 @@ import {
   Divider,
   Stack,
   useTheme,
-  useMediaQuery,
+  useMediaQuery
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "~/app/assets/card_image.png";
@@ -37,14 +37,14 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
         borderRadius: 3,
         overflow: "hidden",
         bgcolor: "white",
-        fontFamily: "'Segoe UI', sans-serif",
+        fontFamily: "'Segoe UI', sans-serif"
       }}
     >
       {/* Header Image Banner */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Image
           src={type == "company" ? cardImage2 : cardImage}
-          alt="Profile Banner"
+          alt='Profile Banner'
           style={{ width: "100%", height: "180px", objectFit: "contain" }}
           priority
         />
@@ -57,46 +57,46 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
           py: 2,
           display: "flex",
           alignItems: "center",
-          gap: 2,
+          gap: 2
         }}
       >
         <Image
-          alt="Anamoul Rouf"
+          alt='Anamoul Rouf'
           src={type == "company" ? profileImage2 : profileImage1}
           style={{
             width: 110,
             height: 110,
             zIndex: 1,
-            marginTop: -70,
+            marginTop: -70
           }}
         />
         <Box sx={{ display: "flex" }}>
           <Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="h5" fontWeight="bold">
-                {type == "company" ? "Lowe's Companies, Inc." : 'Anamoul Rouf'}
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography variant='h5' fontWeight='bold'>
+                {type == "company" ? "Lowe's Companies, Inc." : "Anamoul Rouf"}
               </Typography>
               <Chip
-                label="#EMP001"
-                size="small"
-                variant="filled"
+                label='#EMP001'
+                size='small'
+                variant='filled'
                 sx={{ ml: "10px", bgcolor: "#f5f5f5" }}
               />
             </Box>
             <Typography
               sx={{ color: "gray", fontWeight: "500", fontSize: "14px" }}
             >
-              {type == "company" ? `Do it right for less. Start with Lowe's.` : 'Product Designer'}
+              {type == "company"
+                ? `Do it right for less. Start with Lowe's.`
+                : "Product Designer"}
             </Typography>
           </Box>
-
-
         </Box>
         <Box
           sx={{
             marginLeft: "auto",
             textAlign: "right",
-            color: "#559093",
+            color: "#559093"
           }}
         >
           <Typography fontSize={18}>451 Follower</Typography>
@@ -110,12 +110,12 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
         spacing={2}
         sx={{
           m: isMobile ? "16px" : "18px 28px",
-          alignItems: isMobile ? "stretch" : "center",
+          alignItems: isMobile ? "stretch" : "center"
         }}
       >
         {/* Open to work */}
         <Button
-          variant="contained"
+          variant='contained'
           fullWidth={isMobile}
           sx={{
             backgroundColor: "#4e8c8a",
@@ -125,20 +125,18 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
             px: 2,
             fontSize: isMobile ? "0.9rem" : "1rem",
             "&:hover": {
-              backgroundColor: "#407878",
-            },
+              backgroundColor: "#407878"
+            }
           }}
         >
           {type == "company" ? "Follow" : "Open to work"}
         </Button>
 
         {/* Add Profile Section */}
-        {
-          !notEditable &&
+        {!notEditable && (
           <>
-
             <Button
-              variant="outlined"
+              variant='outlined'
               fullWidth={isMobile}
               sx={{
                 borderRadius: "999px",
@@ -149,8 +147,8 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
                 borderColor: "#ddd",
                 color: "#000",
                 "&:hover": {
-                  borderColor: "#bbb",
-                },
+                  borderColor: "#bbb"
+                }
               }}
             >
               Add Profile Section
@@ -158,7 +156,7 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
 
             {/* Status */}
             <Button
-              variant="outlined"
+              variant='outlined'
               fullWidth={isMobile}
               onClick={() => setOpen(true)}
               sx={{
@@ -171,18 +169,18 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
                 color: "#000",
                 cursor: "pointer",
                 "&:hover": {
-                  borderColor: "#bbb",
-                },
+                  borderColor: "#bbb"
+                }
               }}
             >
               Status
             </Button>
           </>
-        }
+        )}
 
         {/* More */}
         <Button
-          variant="outlined"
+          variant='outlined'
           fullWidth={isMobile}
           sx={{
             borderRadius: "999px",
@@ -193,8 +191,8 @@ const ProfileBarCard = ({ type, notEditable }: ProfileBarCardProps) => {
             borderColor: "#eee",
             color: "#000",
             "&:hover": {
-              borderColor: "#ccc",
-            },
+              borderColor: "#ccc"
+            }
           }}
         >
           More

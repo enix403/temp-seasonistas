@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";
@@ -34,9 +34,11 @@ import LocationCard from "./LocationCard";
 import AllJobsGrid from "./AllJobsGrid";
 import AllJobPeopleGrid from "./AllJobPeopleGrid";
 interface DashboardCompanyHomeProps {
-  notEditable?: boolean
+  notEditable?: boolean;
 }
-export default function DashboardCompanyHome({ notEditable }: DashboardCompanyHomeProps) {
+export default function DashboardCompanyHome({
+  notEditable
+}: DashboardCompanyHomeProps) {
   const [selectedView, setSelectedView] = useState<string>("home");
   const renderContent = () => {
     switch (selectedView) {

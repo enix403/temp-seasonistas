@@ -5,7 +5,7 @@ import {
   MdOutlinePrivacyTip,
   MdOutlinePeople,
   MdOutlineWorkOutline,
-  MdOutlinePayments,
+  MdOutlinePayments
 } from "react-icons/md";
 
 export const sidebarRoutes = [
@@ -13,7 +13,7 @@ export const sidebarRoutes = [
     title: "Dashboards",
     icon: MdDashboard,
     href: "/en/admin/dashboards/overview",
-    subRoutes: ["Overview", "System Alert", "Audit Logs"],
+    subRoutes: ["Overview", "System Alert", "Audit Logs"]
   },
   {
     title: "Privacy & CMS",
@@ -22,28 +22,28 @@ export const sidebarRoutes = [
     subRoutes: [
       {
         title: "Static Pages",
-        children: ["Privacy Policy", "Terms of Use"],
+        children: ["Privacy Policy", "Terms of Use"]
       },
       "FAQ Help Center",
-      "System Notifications",
-    ],
+      "System Notifications"
+    ]
   },
   {
     title: "User & Abuse",
     icon: MdOutlinePeople,
     href: "/en/admin/user-abuse",
-    subRoutes: ["Employees", "Employers", "Abuse Reports"],
+    subRoutes: ["Employees", "Employers", "Abuse Reports"]
   },
   {
     title: "Jobs & Settings",
     icon: MdOutlineWorkOutline,
     href: "/en/admin/jobs-settings",
-    subRoutes: ["Job Listings", "Matching Activity", "Platform Settings"],
+    subRoutes: ["Job Listings", "Matching Activity", "Platform Settings"]
   },
   {
     title: "Payments & Roles",
     icon: MdOutlinePayments,
     href: "/en/admin/transactions",
-    subRoutes: ["Transactions", "Admin Roles"],
-  },
+    subRoutes: ["Transactions", "Admin Roles"]
+  }
 ];

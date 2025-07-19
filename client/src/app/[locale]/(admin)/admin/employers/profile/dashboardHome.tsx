@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";
@@ -36,21 +36,21 @@ export default function DashboardHome() {
     { title: "UX Design", level: "Expert" },
     { title: "UI Design", level: "Expert" },
     { title: "User Research", level: "Expert" },
-    { title: "Design System", level: "Expert" },
+    { title: "Design System", level: "Expert" }
   ];
 
   const interests = [
     { title: "Technology" },
     { title: "Sports & Fitness" },
     { title: "Law & Ethics" },
-    { title: "Public Speaking" },
+    { title: "Public Speaking" }
   ];
 
   const goals = [
     { title: "Become a senior analyst" },
     { title: "Launch my own startup" },
     { title: "Get a remote tech job" },
-    { title: "Improve leadership skills" },
+    { title: "Improve leadership skills" }
   ];
 
   return (

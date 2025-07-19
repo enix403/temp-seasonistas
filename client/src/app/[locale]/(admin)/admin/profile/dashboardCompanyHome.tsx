@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";
@@ -42,8 +42,8 @@ export default function DashboardCompanyHome() {
         return (
           <>
             <Grid container spacing={2}>
-              <Grid size={{ xs: 12, md:12,lg:8.5}}>
-                <ProfileBarCard type={"company"}/>
+              <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
+                <ProfileBarCard type={"company"} />
 
                 {/* <PercentageCard /> */}
 
@@ -54,7 +54,7 @@ export default function DashboardCompanyHome() {
                 <AllPeople changeView={setSelectedView} />
                 <LocationCard />
               </Grid>
-              <Grid size={{ xs:12,lg: 3.5 }}>
+              <Grid size={{ xs: 12, lg: 3.5 }}>
                 <RightBarCards />
               </Grid>
             </Grid>

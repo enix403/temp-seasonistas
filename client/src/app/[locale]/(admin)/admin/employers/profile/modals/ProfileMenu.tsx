@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Menu, MenuItem } from '@mui/material';
-import ReportProfileModal from './ReportProfileModal';
+import React, { useState } from "react";
+import { Menu, MenuItem } from "@mui/material";
+import ReportProfileModal from "./ReportProfileModal";
 
 interface ProfileMenuProps {
   anchorEl: HTMLElement | null;
@@ -8,7 +8,11 @@ interface ProfileMenuProps {
   onClose: () => void;
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, open, onClose }) => {
+const ProfileMenu: React.FC<ProfileMenuProps> = ({
+  anchorEl,
+  open,
+  onClose
+}) => {
   const [reportOpen, setReportOpen] = useState(false);
 
   const handleReportClick = () => {
@@ -23,7 +27,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, open, onClose }) =>
         open={open}
         onClose={onClose}
         PaperProps={{
-          sx: { borderRadius: 2, boxShadow: 3 },
+          sx: { borderRadius: 2, boxShadow: 3 }
         }}
       >
         <MenuItem onClick={onClose}>Share Profile</MenuItem>

@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Card, CardContent, Grid, Paper } from "@mui/material";
 
 const ProfileSectionCard = ({
   title,
@@ -14,7 +7,7 @@ const ProfileSectionCard = ({
   addText,
   data,
   footerText,
-  type,
+  type
 }) => {
   return (
     <Card
@@ -23,18 +16,18 @@ const ProfileSectionCard = ({
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         p: 2,
         backgroundColor: "#fff",
-        width: '100%'
+        width: "100%"
       }}
     >
       <CardContent>
         {/* Header */}
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
           mb={1}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant='h6' fontWeight={600}>
             {title}
           </Typography>
         </Box>
@@ -51,14 +44,14 @@ const ProfileSectionCard = ({
                   p: 2,
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
                 <Box>
                   <Typography fontWeight={600}>{item.title}</Typography>
                   {item.level && (
                     <Typography
-                      variant="body2"
+                      variant='body2'
                       sx={{ fontSize: 13, color: "#666" }}
                     >
                       {item.level}
@@ -72,19 +65,18 @@ const ProfileSectionCard = ({
 
         {/* Footer */}
         <Typography
-          variant="body2"
+          variant='body2'
           sx={{
             fontSize: 14,
             color: "#559093",
             fontWeight: 600,
             mt: 2,
-            cursor: "pointer",
+            cursor: "pointer"
           }}
         >
           {footerText}
         </Typography>
       </CardContent>
-
     </Card>
   );
 };

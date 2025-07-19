@@ -10,13 +10,13 @@ import {
   Grid,
   Divider,
   Stack,
-  Link,
+  Link
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import GrameenphoneLogo from '~/app/assets/Admin/grameenphone.png'
-import ShartTripLogo from '~/app/assets/Admin/ShartTrip.png'
+import GrameenphoneLogo from "~/app/assets/Admin/grameenphone.png";
+import ShartTripLogo from "~/app/assets/Admin/ShartTrip.png";
 import Image from "next/image";
 
 interface Experience {
@@ -36,7 +36,7 @@ const experiences: Experience[] = [
     duration: "January 2022 to Present",
     description:
       "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: ShartTripLogo,
+    logo: ShartTripLogo
   },
   {
     role: "Product Designer",
@@ -45,8 +45,8 @@ const experiences: Experience[] = [
     duration: "January 2022 to Present",
     description:
       "ShareTrip is the country’s first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: GrameenphoneLogo,
-  },
+    logo: GrameenphoneLogo
+  }
 ];
 
 const ExperienceCard: React.FC = () => {
@@ -55,26 +55,26 @@ const ExperienceCard: React.FC = () => {
   return (
     <Card
       sx={{
-        maxWidth: '100%',
+        maxWidth: "100%",
         borderRadius: 2,
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         p: 2,
-        backgroundColor: "#fff",
+        backgroundColor: "#fff"
       }}
     >
       <CardContent>
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
           mb={1}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant='h6' fontWeight={600}>
             Experiences
           </Typography>
         </Box>
 
-        <Typography variant="body2" sx={{ color: "#666", mb: 2, fontSize: 13 }}>
+        <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
           Add experience to increase the chance of hiring
         </Typography>
 
@@ -82,13 +82,18 @@ const ExperienceCard: React.FC = () => {
           <Box key={idx} mb={2}>
             <Grid container spacing={1}>
               <Grid size={{ xs: 12, md: 1 }}>
-                <Image src={exp.logo} alt={exp.company} width={62} height={62} />
+                <Image
+                  src={exp.logo}
+                  alt={exp.company}
+                  width={62}
+                  height={62}
+                />
               </Grid>
               <Grid size={{ xs: 12, md: 11 }}>
                 <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
+                  display='flex'
+                  justifyContent='space-between'
+                  alignItems='center'
                 >
                   <Typography fontWeight={600}>
                     {exp.role}{" "}
@@ -97,21 +102,21 @@ const ExperienceCard: React.FC = () => {
                         fontSize: 16,
                         color: "#00c292",
                         ml: 0.5,
-                        verticalAlign: "middle",
+                        verticalAlign: "middle"
                       }}
                     />
                   </Typography>
                 </Box>
 
                 <Typography
-                  variant="body2"
+                  variant='body2'
                   fontWeight={500}
-                  color="text.secondary"
+                  color='text.secondary'
                 >
                   {exp.company}
                 </Typography>
                 <Typography
-                  variant="body2"
+                  variant='body2'
                   sx={{ fontSize: 13, color: "#555", mb: 1 }}
                 >
                   {exp.location} &nbsp;&nbsp; {exp.duration}
@@ -119,12 +124,12 @@ const ExperienceCard: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <Typography
-                  variant="body2"
+                  variant='body2'
                   sx={{ fontSize: 13.5, color: "#333" }}
                 >
                   {exp.description}{" "}
                   <Typography
-                    component="span"
+                    component='span'
                     sx={{ color: "#0073e6", fontWeight: 500 }}
                   >
                     See More
@@ -135,15 +140,15 @@ const ExperienceCard: React.FC = () => {
             {idx < experiences.length - 1 && <Divider sx={{ my: 2 }} />}
           </Box>
         ))}
-        <hr className="w-full mb-4" />
+        <hr className='mb-4 w-full' />
         <Typography
-          variant="body2"
+          variant='body2'
           sx={{
             fontSize: 15,
             color: "#559093",
             fontWeight: 600,
             mt: 1,
-            cursor: "pointer",
+            cursor: "pointer"
           }}
         >
           Show 2 More Experiences

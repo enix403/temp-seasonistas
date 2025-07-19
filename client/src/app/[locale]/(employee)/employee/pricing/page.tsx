@@ -1,10 +1,12 @@
-import { Pricing } from '@/app/[locale]/(landing)/Pricing'
-import React from 'react'
+import { Pricing } from "@/app/[locale]/(landing)/Pricing";
+import React from "react";
 
 const page = () => {
-    return (
-        <div><Pricing isEmployee={true} /></div>
-    )
-}
+  return (
+    <div>
+      <Pricing isEmployee={true} />
+    </div>
+  );
+};
 
-export default page
+export default page;

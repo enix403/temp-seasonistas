@@ -2,10 +2,13 @@ import toast from "react-hot-toast";
 import { ApiReplyError } from "../api-routes";
 
 export function sleep(ms: number = 2500) {
-  return new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
+  return new Promise<void>(resolve => setTimeout(() => resolve(), ms));
 }
 
-export async function delay<T>(promise: Promise<T>, ms: number = 2500): Promise<T> {
+export async function delay<T>(
+  promise: Promise<T>,
+  ms: number = 2500
+): Promise<T> {
   await sleep(ms);
   return await promise;
 }
@@ -19,7 +22,7 @@ export function reportedCall<T>(
   return toast.promise(replyPromise, {
     ...(opts || {}),
     loading: "Loading...",
-    success: (reply) => reply["message"],
-    error: (error) => ApiReplyError.userMessage(error),
+    success: reply => reply["message"],
+    error: error => ApiReplyError.userMessage(error)
   });
 }

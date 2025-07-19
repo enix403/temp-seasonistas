@@ -1,84 +1,84 @@
-import Image from "next/image"
-import { FiSearch } from 'react-icons/fi'
+import Image from "next/image";
+import { FiSearch } from "react-icons/fi";
 
 type ChatUser = {
-    id: number
-    name: string
-    role: string
-    company: string
-    lastMessage: string
-    avatar: any
-    online: boolean
-    unread: boolean
-}
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  lastMessage: string;
+  avatar: any;
+  online: boolean;
+  unread: boolean;
+};
 
 const ChatSidebar = ({
-    users,
-    activeId,
-    onSelect,
+  users,
+  activeId,
+  onSelect
 }: {
-    users: ChatUser[]
-    activeId: number | null
+  users: ChatUser[];
+  activeId: number | null;
 
-    onSelect: (id: number) => void
+  onSelect: (id: number) => void;
 }) => {
-    return (
-        <div className="w-full md:w-[300px] h-full flex flex-col bg-white border-r">
-            {/* Header  */}
-            <div className="p-4 border-b">
-                <h2 className="font-[400] text-[20px] leading-[24px] mb-2">Messages</h2>
-                <div className="relative w-full">
-                    <input
-                        className="w-full p-2 pl-10 rounded-full border text-sm"
-                        placeholder="Search messages"
-                    />
-                    <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                </div>
-            </div>
-
-            {/* Chat List */}
-            <div className="flex-1 overflow-y-auto px-2 py-2 space-y-2">
-                {users.map((user) => (
-                    <div
-                        key={user.id}
-                        onClick={() => onSelect(user.id)}
-                        className={`flex items-center gap-3 px-4 py-[10px] cursor-pointer transition-colors
-                            ${user.id === activeId
-                                ? 'bg-[#559093] text-white'
-                                : 'hover:bg-gray-100 text-black'
-                            } rounded-[7px]`}
-                    >
-                        {/* Avatar with online dot */}
-                        <div className="relative w-12 h-12 shrink-0">
-                            <div className="w-full h-full rounded-full overflow-hidden bg-[#F3F2FF]">
-                                <Image
-                                    width={40}
-                                    height={40}
-                                    alt={user.name}
-                                    src={user.avatar}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            {user.online && (
-                                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-[2px] border-white rounded-full" />
-                            )}
-                        </div>
-
-                        {/* Info */}
-                        <div className="flex-1">
-                            <p className="font-medium text-sm truncate">{user.name}</p>
-                            <p className="text-xs truncate">{user.lastMessage}</p>
-                        </div>
-
-                        {/* Unread Dot */}
-                        {user.unread && (
-                            <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                        )}
-                    </div>
-                ))}
-            </div>
+  return (
+    <div className='flex h-full w-full flex-col border-r bg-white md:w-[300px]'>
+      {/* Header  */}
+      <div className='border-b p-4'>
+        <h2 className='mb-2 text-[20px] leading-[24px] font-[400]'>Messages</h2>
+        <div className='relative w-full'>
+          <input
+            className='w-full rounded-full border p-2 pl-10 text-sm'
+            placeholder='Search messages'
+          />
+          <FiSearch className='absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400' />
         </div>
-    )
-}
+      </div>
 
-export default ChatSidebar
+      {/* Chat List */}
+      <div className='flex-1 space-y-2 overflow-y-auto px-2 py-2'>
+        {users.map(user => (
+          <div
+            key={user.id}
+            onClick={() => onSelect(user.id)}
+            className={`flex cursor-pointer items-center gap-3 px-4 py-[10px] transition-colors ${
+              user.id === activeId
+                ? "bg-[#559093] text-white"
+                : "text-black hover:bg-gray-100"
+            } rounded-[7px]`}
+          >
+            {/* Avatar with online dot */}
+            <div className='relative h-12 w-12 shrink-0'>
+              <div className='h-full w-full overflow-hidden rounded-full bg-[#F3F2FF]'>
+                <Image
+                  width={40}
+                  height={40}
+                  alt={user.name}
+                  src={user.avatar}
+                  className='h-full w-full object-cover'
+                />
+              </div>
+              {user.online && (
+                <span className='absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-[2px] border-white bg-green-500' />
+              )}
+            </div>
+
+            {/* Info */}
+            <div className='flex-1'>
+              <p className='truncate text-sm font-medium'>{user.name}</p>
+              <p className='truncate text-xs'>{user.lastMessage}</p>
+            </div>
+
+            {/* Unread Dot */}
+            {user.unread && (
+              <div className='h-2 w-2 rounded-full bg-purple-500' />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ChatSidebar;

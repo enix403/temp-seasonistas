@@ -15,7 +15,7 @@ export const dummyUsers = [
     lastMessage: "Thank you very much for your...",
     avatar: hamishImg,
     online: true,
-    unread: true,
+    unread: true
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const dummyUsers = [
     lastMessage: "Let’s catch up tomorrow!",
     avatar: AishaImg,
     online: false,
-    unread: false,
+    unread: false
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const dummyUsers = [
     lastMessage: "Please send the updated resume.",
     avatar: CarterImg,
     online: true,
-    unread: false,
+    unread: false
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ export const dummyUsers = [
     lastMessage: "Looking forward to your reply.",
     avatar: AliImg,
     online: false,
-    unread: false,
+    unread: false
   },
   {
     id: 5,
@@ -55,7 +55,7 @@ export const dummyUsers = [
     lastMessage: "Can we reschedule?",
     avatar: SiddiqImg,
     online: true,
-    unread: true,
+    unread: true
   },
   {
     id: 6,
@@ -65,7 +65,7 @@ export const dummyUsers = [
     lastMessage: "Sure, I’ll get back to you.",
     avatar: EmmaImg,
     online: true,
-    unread: false,
+    unread: false
   },
   {
     id: 7,
@@ -75,6 +75,6 @@ export const dummyUsers = [
     lastMessage: "See you at the call!",
     avatar: NoorImg,
     online: false,
-    unread: false,
-  },
+    unread: false
+  }
 ];

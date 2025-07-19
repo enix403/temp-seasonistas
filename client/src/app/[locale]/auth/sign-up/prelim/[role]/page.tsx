@@ -44,7 +44,6 @@ export default function PrelimForm() {
     router.push(`/auth/sign-up/${role}`);
   };
 
-
   return (
     <AuthPage
       title='Create an Account'

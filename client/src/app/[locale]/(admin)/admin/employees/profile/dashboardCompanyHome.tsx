@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";

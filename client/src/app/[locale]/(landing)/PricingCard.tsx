@@ -22,8 +22,9 @@ export function PricingCard({
 }: PricingCardProps) {
   return (
     <div
-      className={`${isHighlighted ? "bg-[#022127] text-white" : "border bg-white text-black"
-        } flex flex-col rounded-3xl p-6`}
+      className={`${
+        isHighlighted ? "bg-[#022127] text-white" : "border bg-white text-black"
+      } flex flex-col rounded-3xl p-6`}
     >
       <h3 className='text-lg font-bold'>{name}</h3>
       <div className='mt-7'>
@@ -42,25 +43,38 @@ export function PricingCard({
         </p>
       </div>
 
-      <hr className={clsx('my-7', isHighlighted ? "border-[#E3E4E5]/20" : "border-[#5B7486]/10")} />
+      <hr
+        className={clsx(
+          "my-7",
+          isHighlighted ? "border-[#E3E4E5]/20" : "border-[#5B7486]/10"
+        )}
+      />
 
       <div className='mb-10 flex-grow space-y-3'>
         {benefits.map((benefit, index) => (
           <div key={index} className='flex items-center'>
-            <div className={clsx('mr-3 shrink-0 rounded-full bg-primary p-0.5 text-white')}>
+            <div
+              className={clsx(
+                "mr-3 shrink-0 rounded-full bg-primary p-0.5 text-white"
+              )}
+            >
               <Check className='size-4' />
             </div>
-            <span className={clsx(isHighlighted && "font-semibold")}>{benefit}</span>
+            <span className={clsx(isHighlighted && "font-semibold")}>
+              {benefit}
+            </span>
           </div>
         ))}
       </div>
 
-      {!isEmployee && <Button
-        variant={isHighlighted ? "default" : "outline"}
-        className={`w-full`}
-      >
-        Purchase Now
-      </Button>}
+      {!isEmployee && (
+        <Button
+          variant={isHighlighted ? "default" : "outline"}
+          className={`w-full`}
+        >
+          Purchase Now
+        </Button>
+      )}
     </div>
   );
 }

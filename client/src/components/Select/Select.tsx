@@ -39,10 +39,10 @@ export function Select({
           className: [
             "appearance-none bg-transparent flex-1 self-stretch border-none outline-none",
             selectClassName
-          ],
+          ]
         })}
         value={value}
-        onChange={(e) => {
+        onChange={e => {
           onChange?.(e);
           selectProps?.onChange?.(e);
         }}

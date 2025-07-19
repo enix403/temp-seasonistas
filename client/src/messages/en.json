@@ -380,28 +380,28 @@
     "passwordResetSuccess": "Password has been reset successfully",
     "passwordResetFailed": "Failed to reset password"
   },
-    "settings": {
-      "display": {
-        "title": "Display Settings"
-      },
-      "notifications": {
-        "title": "Notification Settings"
-      },
-      "privacy": {
-        "title": "Privacy & Security"
-      },
-      "twoFactor": {
-        "title": "Two-Factor Authentication"
-      },
-      "help": {
-        "title": "Help & Support"
-      },
-      "account": {
-        "title": "Account Settings"
-      },
-      "payment": {
-        "title": "Payment Settings"
-      },
-      "logout": "Logout"
-    }
+  "settings": {
+    "display": {
+      "title": "Display Settings"
+    },
+    "notifications": {
+      "title": "Notification Settings"
+    },
+    "privacy": {
+      "title": "Privacy & Security"
+    },
+    "twoFactor": {
+      "title": "Two-Factor Authentication"
+    },
+    "help": {
+      "title": "Help & Support"
+    },
+    "account": {
+      "title": "Account Settings"
+    },
+    "payment": {
+      "title": "Payment Settings"
+    },
+    "logout": "Logout"
+  }
 }

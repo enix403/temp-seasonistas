@@ -11,7 +11,7 @@ import {
   Avatar,
   Chip,
   Divider,
-  Stack,
+  Stack
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,25 +29,25 @@ const GraphCard = () => {
               borderRadius: 2,
               p: 2.5,
               backgroundColor: "#fff",
-              maxWidth: "100%",
+              maxWidth: "100%"
             }}
           >
             <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-start"
+              direction='row'
+              justifyContent='space-between'
+              alignItems='flex-start'
             >
               {/* Left Side */}
               <Box>
                 <Typography
-                  variant="body2"
+                  variant='body2'
                   fontWeight={600}
-                  color="#333"
+                  color='#333'
                   mb={0.5}
                 >
                   The latest hiring
                 </Typography>
-                <Typography variant="h4" fontWeight={700}>
+                <Typography variant='h4' fontWeight={700}>
                   120
                 </Typography>
               </Box>
@@ -56,27 +56,27 @@ const GraphCard = () => {
               <Box sx={{ width: 50, height: 50, mt: "20px" }}>
                 <Image
                   src={barGraph}
-                  alt="Bar Chart"
-                  layout="responsive"
-                  objectFit="contain"
+                  alt='Bar Chart'
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </Box>
             </Stack>
 
             {/* Bottom Stats Row */}
-            <Stack direction="row" alignItems="center" spacing={1} mt={1.5}>
+            <Stack direction='row' alignItems='center' spacing={1} mt={1.5}>
               <Box sx={{ width: 18, height: 18 }}>
                 <Image
                   src={arrowUp}
-                  alt="Up Arrow"
-                  layout="responsive"
-                  objectFit="contain"
+                  alt='Up Arrow'
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </Box>
-              <Typography variant="body2" color="green" fontWeight={600}>
+              <Typography variant='body2' color='green' fontWeight={600}>
                 +2.6%
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant='body2' color='text.secondary'>
                 last 30 days
               </Typography>
             </Stack>
@@ -89,25 +89,25 @@ const GraphCard = () => {
               borderRadius: 2,
               p: 2.5,
               backgroundColor: "#fff",
-              maxWidth: "100%",
+              maxWidth: "100%"
             }}
           >
             <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-start"
+              direction='row'
+              justifyContent='space-between'
+              alignItems='flex-start'
             >
               {/* Left Side */}
               <Box>
                 <Typography
-                  variant="body2"
+                  variant='body2'
                   fontWeight={600}
-                  color="#333"
+                  color='#333'
                   mb={0.5}
                 >
                   Growth trends
                 </Typography>
-                <Typography variant="h4" fontWeight={700}>
+                <Typography variant='h4' fontWeight={700}>
                   200
                 </Typography>
               </Box>
@@ -116,27 +116,27 @@ const GraphCard = () => {
               <Box sx={{ width: 50, height: 50, mt: "20px" }}>
                 <Image
                   src={barGraph}
-                  alt="Bar Chart"
-                  layout="responsive"
-                  objectFit="contain"
+                  alt='Bar Chart'
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </Box>
             </Stack>
 
             {/* Bottom Stats Row */}
-            <Stack direction="row" alignItems="center" spacing={1} mt={1.5}>
+            <Stack direction='row' alignItems='center' spacing={1} mt={1.5}>
               <Box sx={{ width: 18, height: 18 }}>
                 <Image
                   src={arrowUp}
-                  alt="Up Arrow"
-                  layout="responsive"
-                  objectFit="contain"
+                  alt='Up Arrow'
+                  layout='responsive'
+                  objectFit='contain'
                 />
               </Box>
-              <Typography variant="body2" color="green" fontWeight={600}>
+              <Typography variant='body2' color='green' fontWeight={600}>
                 +0.2%
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant='body2' color='text.secondary'>
                 last 30 days
               </Typography>
             </Stack>

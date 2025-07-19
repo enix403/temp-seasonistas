@@ -7,7 +7,7 @@ import {
   IconButton,
   Button,
   Grid,
-  Paper,
+  Paper
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,7 +20,7 @@ const ProfileSectionCard = ({
   addText,
   data,
   footerText,
-  type,
+  type
 }) => {
   const [openSkillModal, setSkillModal] = useState(false);
   const [openInterestModal, setInterestModal] = useState(false);
@@ -47,39 +47,39 @@ const ProfileSectionCard = ({
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         p: 2,
         m: "20px 0px",
-        backgroundColor: "#fff",
+        backgroundColor: "#fff"
       }}
     >
       <CardContent>
         {/* Header */}
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
           mb={1}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant='h6' fontWeight={600}>
             {title}
           </Typography>
           <Button
-            variant="outlined"
-            size="small"
+            variant='outlined'
+            size='small'
             onClick={() => check()}
             sx={{
-             borderRadius: "20px",
-            textTransform: "none",
-            fontWeight: 550,
-            borderColor:"gray",
-            color:"#000000",
-            fontSize: "0.875rem",
-            px: 2.5,
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: 550,
+              borderColor: "gray",
+              color: "#000000",
+              fontSize: "0.875rem",
+              px: 2.5
             }}
           >
             {addText}
           </Button>
         </Box>
 
-        <Typography variant="body2" sx={{ color: "#666", mb: 2, fontSize: 13 }}>
+        <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
           {description}
         </Typography>
 
@@ -95,21 +95,21 @@ const ProfileSectionCard = ({
                   p: 2,
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: "center"
                 }}
               >
                 <Box>
                   <Typography fontWeight={600}>{item.title}</Typography>
                   {item.level && (
                     <Typography
-                      variant="body2"
+                      variant='body2'
                       sx={{ fontSize: 13, color: "#666" }}
                     >
                       {item.level}
                     </Typography>
                   )}
                 </Box>
-                <Box display="flex" gap={1}>
+                <Box display='flex' gap={1}>
                   <Box
                     sx={{
                       width: 30,
@@ -119,7 +119,7 @@ const ProfileSectionCard = ({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      cursor: "pointer",
+                      cursor: "pointer"
                     }}
                     onClick={() => {
                       // handle delete
@@ -137,7 +137,7 @@ const ProfileSectionCard = ({
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      cursor: "pointer",
+                      cursor: "pointer"
                     }}
                     onClick={() => {
                       // handle edit
@@ -153,13 +153,13 @@ const ProfileSectionCard = ({
 
         {/* Footer */}
         <Typography
-          variant="body2"
+          variant='body2'
           sx={{
             fontSize: 14,
             color: "#559093",
             fontWeight: 600,
             mt: 2,
-            cursor: "pointer",
+            cursor: "pointer"
           }}
         >
           {footerText}

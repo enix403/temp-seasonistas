@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
 interface AboutUsCardProps {
-  notEditable?: boolean
-  type: string
+  notEditable?: boolean;
+  type: string;
 }
 const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
   const [open, setOpen] = useState(false);
@@ -29,44 +23,49 @@ const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
         borderRadius: 2,
         boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         p: 2,
-        backgroundColor: "#fff",
+        backgroundColor: "#fff"
       }}
     >
       <CardContent>
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          display='flex'
+          justifyContent='space-between'
+          alignItems='center'
           mb={1}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant='h6' fontWeight={600}>
             {type === "about" ? "About" : "Overview"}
           </Typography>
-          {!notEditable && <Button
-            variant="outlined"
-            size="small"
-            onClick={() => setOpen(true)}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: 550,
-              borderColor: "#EBECF0",
-              color: "#000000",
-              fontSize: "0.875rem",
-              px: 3,
-              py: 0.8,
-            }}
-          >
-            Edit About
-          </Button>}
+          {!notEditable && (
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setOpen(true)}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8
+              }}
+            >
+              Edit About
+            </Button>
+          )}
         </Box>
 
-        <Typography variant="body2" sx={{ color: "#666", mb: 2, fontSize: 13 }}>
+        <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
           Edit About to increase the chance of
         </Typography>
-        <Typography variant="body2" sx={{ fontSize: 14.5, color: "#333" }}>
+        <Typography variant='body2' sx={{ fontSize: 14.5, color: "#333" }}>
           {aboutText}{" "}
-          <Typography component="span" sx={{ color: "#0073e6", fontWeight: 500 }}>
+          <Typography
+            component='span'
+            sx={{ color: "#0073e6", fontWeight: 500 }}
+          >
             see more
           </Typography>
         </Typography>

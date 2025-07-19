@@ -1,8 +1,6 @@
-import InvoiceDetails from '~/components/Shared/InvoiceDetails'
+import InvoiceDetails from "~/components/Shared/InvoiceDetails";
 const InvoiceDetailsPage = () => {
-    return (
-        <InvoiceDetails hasTitle={false} />
-    )
-}
+  return <InvoiceDetails hasTitle={false} />;
+};
 
-export default InvoiceDetailsPage
+export default InvoiceDetailsPage;

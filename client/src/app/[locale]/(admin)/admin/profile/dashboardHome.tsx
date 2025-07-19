@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";
@@ -34,21 +34,21 @@ export default function DashboardHome() {
     { title: "UX Design", level: "Expert" },
     { title: "UI Design", level: "Expert" },
     { title: "User Research", level: "Expert" },
-    { title: "Design System", level: "Expert" },
+    { title: "Design System", level: "Expert" }
   ];
 
   const interests = [
     { title: "Technology" },
     { title: "Sports & Fitness" },
     { title: "Law & Ethics" },
-    { title: "Public Speaking" },
+    { title: "Public Speaking" }
   ];
 
   const goals = [
     { title: "Become a senior analyst" },
     { title: "Launch my own startup" },
     { title: "Get a remote tech job" },
-    { title: "Improve leadership skills" },
+    { title: "Improve leadership skills" }
   ];
 
   return (
@@ -68,28 +68,28 @@ export default function DashboardHome() {
           <EducationCard />
 
           <ProfileSectionCard
-            title="Skills"
-            description="Add skills to increase the chance of hiring"
-            addText="Add Skill"
+            title='Skills'
+            description='Add skills to increase the chance of hiring'
+            addText='Add Skill'
             data={skills}
             type={"skill"}
-            footerText="Show More Skill"
+            footerText='Show More Skill'
           />
           <ProfileSectionCard
-            title="Interests"
-            description="Add your interests to let employers understand your passion areas"
-            addText="Add Interests"
+            title='Interests'
+            description='Add your interests to let employers understand your passion areas'
+            addText='Add Interests'
             data={interests}
             type={"interest"}
-            footerText="Show More Interests"
+            footerText='Show More Interests'
           />
           <ProfileSectionCard
-            title="Goals"
-            description="Mention your career goals to help employers align with your ambitions"
-            addText="Add Goals"
+            title='Goals'
+            description='Mention your career goals to help employers align with your ambitions'
+            addText='Add Goals'
             data={goals}
             type={"goal"}
-            footerText="Show More Goals"
+            footerText='Show More Goals'
           />
         </Grid>
         <Grid size={{ xs: 12, lg: 3.5 }}>

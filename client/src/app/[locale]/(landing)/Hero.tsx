@@ -38,16 +38,16 @@ export function Hero({ children }: PropsWithChildren) {
 
       {/* Padding below top bar */}
       <div className='md:pt-20'></div>
-      <div className="w-full flex justify-center items-center">
+      <div className='flex w-full items-center justify-center'>
         <div
           className={clsx(
             "flex flex-col items-start justify-between md:flex-row",
-            "gap-x-4 max-w-7xl w-full"
+            "w-full max-w-7xl gap-x-4"
             // "gap-x-10 xl:gap-x-60 2xl:gap-x-80"
           )}
         >
           {/* Main Text */}
-          <h1 className='mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl lg:text-7xl text-between-xl-2xl'>
+          <h1 className='text-between-xl-2xl mt-4 text-4xl leading-[105%] font-semibold text-white sm:text-5xl md:text-6xl lg:text-7xl'>
             <HeroShadow>Finding</HeroShadow>{" "}
             <AuroraText
               className='font-pjs font-bold'

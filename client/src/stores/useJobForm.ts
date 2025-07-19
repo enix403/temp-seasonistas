@@ -26,7 +26,7 @@ interface JobFormStore {
   setFormData: (data: JobFormData) => void;
 }
 
-export const useJobForm = create<JobFormStore>((set) => ({
+export const useJobForm = create<JobFormStore>(set => ({
   formData: null,
-  setFormData: (data) => set({ formData: data }),
+  setFormData: data => set({ formData: data })
 }));

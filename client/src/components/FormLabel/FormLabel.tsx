@@ -18,14 +18,14 @@ export function FormLabel({
       {...combineVisualProps(rest, {
         className: [
           "flex gap-y-1.5 gap-x-2", //
-          inline ? "flex-row" : "flex-col",
-        ],
+          inline ? "flex-row" : "flex-col"
+        ]
       })}
     >
       {label && (
-        <span className="flex items-center gap-x-1">
+        <span className='flex items-center gap-x-1'>
           {label}
-          {showAsterik && <IconAsterisk stroke={3} color="red" size={13} />}
+          {showAsterik && <IconAsterisk stroke={3} color='red' size={13} />}
         </span>
       )}
       {children}

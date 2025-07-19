@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   Divider,
   Stack,
   useTheme,
-  useMediaQuery,
+  useMediaQuery
 } from "@mui/material";
 import Image from "next/image";
 import cardImage from "~/app/assets/card_image.png";
@@ -27,10 +27,10 @@ import SuspendModal from "~/components/Admin/UserAndAbuse/SuspandModal";
 import EditEmployeeModal from "~/components/Admin/UserAndAbuse/EditEmployeeModal";
 
 const ProfileBarCard = ({ type }) => {
-  const [showBanModal, setShowBanModal] = useState(false)
-  const [showSuspendModal, setShowSuspendModal] = useState(false)
+  const [showBanModal, setShowBanModal] = useState(false);
+  const [showSuspendModal, setShowSuspendModal] = useState(false);
 
-  const [showEditModal, setShowEditModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
@@ -42,14 +42,14 @@ const ProfileBarCard = ({ type }) => {
         borderRadius: 3,
         overflow: "hidden",
         bgcolor: "white",
-        fontFamily: "'Segoe UI', sans-serif",
+        fontFamily: "'Segoe UI', sans-serif"
       }}
     >
       {/* Header Image Banner */}
       <Box sx={{ position: "relative", width: "100%" }}>
         <Image
           src={type == "company" ? cardImage2 : cardImage}
-          alt="Profile Banner"
+          alt='Profile Banner'
           style={{ width: "100%", objectFit: "contain" }}
           priority
         />
@@ -62,38 +62,38 @@ const ProfileBarCard = ({ type }) => {
           py: 2,
           display: "flex",
           alignItems: "center",
-          gap: 2,
+          gap: 2
         }}
       >
         <Image
-          alt="Anamoul Rouf"
+          alt='Anamoul Rouf'
           src={type == "company" ? profileImage2 : profileImage1}
           style={{
             width: 110,
             height: 110,
             zIndex: 1,
-            marginTop: -70,
+            marginTop: -70
           }}
         />
         <Box sx={{ display: "flex" }}>
           <Box>
-            <Typography variant="h5" fontWeight="bold">
-              {type == "company" ? "Lowe's Companies, Inc." : 'Anamoul Rouf'}
+            <Typography variant='h5' fontWeight='bold'>
+              {type == "company" ? "Lowe's Companies, Inc." : "Anamoul Rouf"}
             </Typography>
             <Typography
               sx={{ color: "gray", fontWeight: "500", fontSize: "14px" }}
             >
-              {type == "company" ? `Do it right for less. Start with Lowe's.` : 'Product Designer'}
+              {type == "company"
+                ? `Do it right for less. Start with Lowe's.`
+                : "Product Designer"}
             </Typography>
           </Box>
-
-
         </Box>
         <Box
           sx={{
             marginLeft: "auto",
             textAlign: "right",
-            color: "#559093",
+            color: "#559093"
           }}
         >
           <Typography fontSize={18}>451 Follower</Typography>
@@ -107,12 +107,12 @@ const ProfileBarCard = ({ type }) => {
         spacing={2}
         sx={{
           m: isMobile ? "16px" : "18px 28px",
-          alignItems: isMobile ? "stretch" : "center",
+          alignItems: isMobile ? "stretch" : "center"
         }}
       >
         {/* Open to work */}
         <Button
-          variant="contained"
+          variant='contained'
           fullWidth={isMobile}
           sx={{
             backgroundColor: "#4e8c8a",
@@ -122,8 +122,8 @@ const ProfileBarCard = ({ type }) => {
             px: 3,
             fontSize: isMobile ? "0.9rem" : "1rem",
             "&:hover": {
-              backgroundColor: "#407878",
-            },
+              backgroundColor: "#407878"
+            }
           }}
         >
           {type == "company" ? "Follow" : "View Job History"}
@@ -131,7 +131,7 @@ const ProfileBarCard = ({ type }) => {
 
         {/* Add Profile Section */}
         <Button
-          variant="outlined"
+          variant='outlined'
           fullWidth={isMobile}
           sx={{
             borderRadius: "999px",
@@ -142,11 +142,11 @@ const ProfileBarCard = ({ type }) => {
             borderColor: "#ddd",
             color: "#000",
             "&:hover": {
-              borderColor: "#bbb",
-            },
+              borderColor: "#bbb"
+            }
           }}
           onClick={() => {
-            setShowEditModal(true)
+            setShowEditModal(true);
           }}
         >
           Edit Employee
@@ -154,7 +154,7 @@ const ProfileBarCard = ({ type }) => {
 
         {/* Status */}
         <Button
-          variant="outlined"
+          variant='outlined'
           fullWidth={isMobile}
           sx={{
             borderRadius: "999px",
@@ -166,11 +166,11 @@ const ProfileBarCard = ({ type }) => {
             color: "#000",
             cursor: "pointer",
             "&:hover": {
-              borderColor: "#bbb",
-            },
+              borderColor: "#bbb"
+            }
           }}
           onClick={() => {
-            setShowBanModal(true)
+            setShowBanModal(true);
           }}
         >
           Ban User
@@ -178,7 +178,7 @@ const ProfileBarCard = ({ type }) => {
 
         {/* More */}
         <Button
-          variant="outlined"
+          variant='outlined'
           fullWidth={isMobile}
           sx={{
             borderRadius: "999px",
@@ -189,11 +189,11 @@ const ProfileBarCard = ({ type }) => {
             borderColor: "#eee",
             color: "#000",
             "&:hover": {
-              borderColor: "#ccc",
-            },
+              borderColor: "#ccc"
+            }
           }}
           onClick={() => {
-            setShowSuspendModal(true)
+            setShowSuspendModal(true);
           }}
         >
           Suspend User
@@ -204,7 +204,7 @@ const ProfileBarCard = ({ type }) => {
         <BanModal
           onCancel={() => setShowBanModal(false)}
           onConfirm={() => {
-            setShowBanModal(false)
+            setShowBanModal(false);
           }}
         />
       )}
@@ -212,7 +212,7 @@ const ProfileBarCard = ({ type }) => {
         <SuspendModal
           onCancel={() => setShowSuspendModal(false)}
           onConfirm={() => {
-            setShowSuspendModal(false)
+            setShowSuspendModal(false);
           }}
         />
       )}

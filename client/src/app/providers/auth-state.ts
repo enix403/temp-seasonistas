@@ -34,7 +34,7 @@ export function getAuthState() {
             token: parsed["token"],
             userRole: parsed["userRole"],
             userId: parsed["userId"],
-            user: parsed["user"],
+            user: parsed["user"]
           };
         }
       } catch {
@@ -48,7 +48,7 @@ export function getAuthState() {
       token,
       userRole: user["role"] as any,
       userId: user["_id"] as any,
-      user: user,
+      user: user
     });
   }
 
@@ -60,7 +60,7 @@ export function getAuthState() {
     login,
     logout,
     isLoggedIn: Boolean(stateData?.token),
-    ...(stateData || {}),
+    ...(stateData || {})
     // token: stateData?.token,
     // userRole: stateData?.userRole,
     // userId: stateData?.userId,
@@ -75,7 +75,7 @@ export function useAuthState() {
       token,
       userRole: user["role"] as any,
       userId: user["_id"] as any,
-      user: user,
+      user: user
     });
   }
 
@@ -88,7 +88,7 @@ export function useAuthState() {
     logout,
     isLoggedIn: Boolean(stateData?.token),
     token: stateData?.token,
-    ...(stateData || {}),
+    ...(stateData || {})
     // token: stateData?.token,
     // userRole: stateData?.userRole,
     // userId: stateData?.userId,

@@ -14,7 +14,6 @@
 /* ======================== */
 
 @layer base {
-
   html,
   body {
     padding: 0;
@@ -171,8 +170,6 @@ body {
   }
 } */
 
-
-
 @layer components {
   .d {
     @apply bg-red-400;
@@ -203,7 +200,7 @@ body {
 
 /* Employer dashboard input */
 .Employer-dashboard-input {
-  @apply w-full border border-[#DDE1E0] px-4 py-2 rounded-full text-[#767676] text-[14px] font-[400] leading-[24px] focus:outline-none focus:ring;
+  @apply w-full rounded-full border border-[#DDE1E0] px-4 py-2 text-[14px] leading-[24px] font-[400] text-[#767676] focus:ring focus:outline-none;
 }
 
 /* Add this to your global CSS */

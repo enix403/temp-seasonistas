@@ -43,16 +43,16 @@ export const apiConn = ky.extend({
   timeout: false,
   hooks: {
     beforeRequest: [
-      (request) => {
+      request => {
         let { isLoggedIn, token } = getAuthState();
         if (isLoggedIn) {
           request.headers.set("Authorization", `Bearer: ${token}`);
         }
         return request;
-      },
+      }
     ],
     beforeError: [
-      async (error) => {
+      async error => {
         const { response } = error;
 
         let isApiReplyError = false;
@@ -71,9 +71,9 @@ export const apiConn = ky.extend({
         }
 
         return error;
-      },
-    ],
-  },
+      }
+    ]
+  }
 });
 
 if (typeof window !== "undefined") {
@@ -88,7 +88,7 @@ function decl<
   FuncRet
 >({
   url,
-  invoke,
+  invoke
 }: {
   url: UrlT;
   invoke: (url: UrlT, ...args: FuncArgs) => FuncRet;
@@ -122,9 +122,9 @@ function jsonDecl<UrlT extends string | ((...args: any) => string)>(
     url,
     invoke: (url, ...args: MaybeParameters<UrlT>) => {
       return apiConn(toUrl(url, args), {
-        method: opts?.method ?? "GET",
+        method: opts?.method ?? "GET"
       }).json<any>();
-    },
+    }
   });
 }
 
@@ -137,9 +137,9 @@ function payloadDecl<UrlT extends string | ((...args: any) => string)>(
     invoke: (url, payload: any, ...args: MaybeParameters<UrlT>) => {
       return apiConn(toUrl(url, args), {
         method: opts?.method ?? "POST",
-        json: payload,
+        json: payload
       }).json<any>();
-    },
+    }
   });
 }
 
@@ -160,9 +160,9 @@ function uploadDecl<UrlT extends string | ((...args: any) => string)>(
 
       return apiConn(toUrl(url, args), {
         method: opts?.method ?? "POST",
-        body: formData,
+        body: formData
       }).json<any>();
-    },
+    }
   });
 }
 

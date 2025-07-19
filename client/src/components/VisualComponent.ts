@@ -11,8 +11,8 @@ export interface CombineVisualPropsIn {
   style?: CSSProperties | undefined;
 }
 
-export type NoClass<T> = Omit<T, 'className'>;
-export type NoChildren<T> = Omit<T, 'children'>;
+export type NoClass<T> = Omit<T, "className">;
+export type NoChildren<T> = Omit<T, "children">;
 
 export function combineVisualProps<T extends VisualProps>(
   baseProps: T,

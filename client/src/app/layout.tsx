@@ -126,7 +126,6 @@ export default function RootLayout({
         className={`${metropolis.variable} ${plusJakartaSans.variable} antialiased`}
       >
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
-
       </body>
     </html>
   );

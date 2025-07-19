@@ -1,5 +1,5 @@
 export function Spinner() {
-    return (
-        <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-    );
+  return (
+    <div className='h-6 w-6 animate-spin rounded-full border-4 border-blue-500 border-t-transparent' />
+  );
 }

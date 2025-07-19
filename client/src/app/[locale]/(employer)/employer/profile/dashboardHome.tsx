@@ -11,7 +11,7 @@ import {
   Grid,
   IconButton,
   Card,
-  CardContent,
+  CardContent
 } from "@mui/material";
 import cardImage from "~/app/assets/card_image.png";
 import Image from "next/image";
@@ -32,28 +32,28 @@ import AllJobs from "./AllJobsCard";
 import AllPeople from "./AllPeople";
 import LocationCard from "./LocationCard";
 interface DashboardHomeProps {
-  notEditable?: boolean
+  notEditable?: boolean;
 }
 export default function DashboardHome({ notEditable }: DashboardHomeProps) {
   const skills = [
     { title: "UX Design", level: "Expert" },
     { title: "UI Design", level: "Expert" },
     { title: "User Research", level: "Expert" },
-    { title: "Design System", level: "Expert" },
+    { title: "Design System", level: "Expert" }
   ];
 
   const interests = [
     { title: "Technology" },
     { title: "Sports & Fitness" },
     { title: "Law & Ethics" },
-    { title: "Public Speaking" },
+    { title: "Public Speaking" }
   ];
 
   const goals = [
     { title: "Become a senior analyst" },
     { title: "Launch my own startup" },
     { title: "Get a remote tech job" },
-    { title: "Improve leadership skills" },
+    { title: "Improve leadership skills" }
   ];
 
   return (
@@ -61,7 +61,6 @@ export default function DashboardHome({ notEditable }: DashboardHomeProps) {
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 12, lg: 8.5 }}>
           <ProfileBarCard notEditable={notEditable} type={"company"} />
-
 
           <GraphCard />
 

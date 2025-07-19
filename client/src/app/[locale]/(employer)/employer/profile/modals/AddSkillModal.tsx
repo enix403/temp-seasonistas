@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -11,8 +11,8 @@ import {
   Typography,
   Chip,
   Grid
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface AddSkillModalProps {
   open: boolean;
@@ -20,17 +20,27 @@ interface AddSkillModalProps {
 }
 
 const suggestions = [
-  'Figma', 'Adobe Illustrator', 'Adobe Photoshop',
-  'Adobe Photoshop', 'Figma', 'Figma', 'Adobe Illustrator',
-  'Adobe Photoshop', 'Adobe Photoshop', 'Figma'
+  "Figma",
+  "Adobe Illustrator",
+  "Adobe Photoshop",
+  "Adobe Photoshop",
+  "Figma",
+  "Figma",
+  "Adobe Illustrator",
+  "Adobe Photoshop",
+  "Adobe Photoshop",
+  "Figma"
 ];
 
 const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ fontWeight: 'bold', px: 3, pt: 3 }}>
+    <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
+      <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
         Add Skill
-        <IconButton onClick={onClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
+        <IconButton
+          onClick={onClose}
+          sx={{ position: "absolute", right: 16, top: 16 }}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -38,31 +48,31 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2}>
           <TextField
-            placeholder="Enter Interests"
+            placeholder='Enter Interests'
             fullWidth
-            size="small"
+            size='small'
             sx={{
-              '& .MuiOutlinedInput-root': {
+              "& .MuiOutlinedInput-root": {
                 borderRadius: 10
               }
             }}
           />
 
-          <Box sx={{bgcolor:"#f5f5f5",p:"10px", borderRadius:"10px"}}>
+          <Box sx={{ bgcolor: "#f5f5f5", p: "10px", borderRadius: "10px" }}>
             <Typography fontSize={17} fontWeight={600} mb={2}>
               Suggestion for you
             </Typography>
             <Grid container spacing={1}>
               {suggestions.map((item, idx) => (
-                <Grid size={{xs:4}} key={idx}>
+                <Grid size={{ xs: 4 }} key={idx}>
                   <Chip
                     label={item}
-                    variant="outlined"
+                    variant='outlined'
                     sx={{
                       fontSize: 12,
                       borderRadius: 9,
                       px: 1.5,
-                      height: 32,
+                      height: 32
                     }}
                   />
                 </Grid>
@@ -70,23 +80,28 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({ open, onClose }) => {
             </Grid>
           </Box>
 
-          <Box display="flex" justifyContent="flex-end" gap={1}>
+          <Box display='flex' justifyContent='flex-end' gap={1}>
             <Button
-              variant="outlined"
+              variant='outlined'
               onClick={onClose}
-              sx={{ borderRadius: 20, textTransform: 'none', px: 3 ,borderColor:"gray",
-            color:"#000000",}}
+              sx={{
+                borderRadius: 20,
+                textTransform: "none",
+                px: 3,
+                borderColor: "gray",
+                color: "#000000"
+              }}
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
+              variant='contained'
               sx={{
-                backgroundColor: '#4B8378',
+                backgroundColor: "#4B8378",
                 borderRadius: 20,
-                textTransform: 'none',
+                textTransform: "none",
                 px: 3,
-                '&:hover': { backgroundColor: '#3a6b61' },
+                "&:hover": { backgroundColor: "#3a6b61" }
               }}
             >
               Save

@@ -30,8 +30,7 @@ export function useFetchUser(userId?: string) {
   }, [userId, loadUser]);
 
   const refreshUser = useCallback(() => {
-    if (userId)
-      loadUser(userId);
+    if (userId) loadUser(userId);
   }, [loadUser, userId]);
 
   return {
@@ -39,6 +38,6 @@ export function useFetchUser(userId?: string) {
     status,
     isLoading: status == "loading",
     isError: status == "error",
-    refreshUser,
+    refreshUser
   };
 }

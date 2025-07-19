@@ -16,7 +16,8 @@ const pricingPlans: PricingPlan[] = [
   {
     name: "Basic",
     price: 25,
-    description: "This package is ideal for individuals or tiny teams just getting started.",
+    description:
+      "This package is ideal for individuals or tiny teams just getting started.",
     benefits: [
       "0–5 ads",
       "CV Search",
@@ -25,13 +26,14 @@ const pricingPlans: PricingPlan[] = [
       "Access to chat",
       "Video Interviews",
       "Automatic notifications",
-      "Professional networking",
-    ],
+      "Professional networking"
+    ]
   },
   {
     name: "Standard",
     price: 75,
-    description: "Perfect for small businesses looking to expand their reach affordably.",
+    description:
+      "Perfect for small businesses looking to expand their reach affordably.",
     benefits: [
       "6–15 ads",
       "CV Search",
@@ -40,13 +42,14 @@ const pricingPlans: PricingPlan[] = [
       "Access to chat",
       "Video Interviews",
       "Automatic notifications",
-      "Professional networking",
-    ],
+      "Professional networking"
+    ]
   },
   {
     name: "Premium",
     price: 120,
-    description: "Designed for growing companies that need more capacity and insights.",
+    description:
+      "Designed for growing companies that need more capacity and insights.",
     benefits: [
       "16–30 ads",
       "CV Search",
@@ -55,14 +58,15 @@ const pricingPlans: PricingPlan[] = [
       "Access to chat",
       "Video Interviews",
       "Automatic notifications",
-      "Professional networking",
+      "Professional networking"
     ],
-    isHighlighted: true,
+    isHighlighted: true
   },
   {
     name: "Platinum",
     price: 200,
-    description: "Our most comprehensive plan for enterprises with high-volume needs.",
+    description:
+      "Our most comprehensive plan for enterprises with high-volume needs.",
     benefits: [
       "30+ ads",
       "CV Search",
@@ -71,21 +75,21 @@ const pricingPlans: PricingPlan[] = [
       "Access to chat",
       "Video Interviews",
       "Automatic notifications",
-      "Professional networking",
-    ],
-  },
+      "Professional networking"
+    ]
+  }
 ];
 
 interface PricingProps {
-  isEmployee?: boolean
+  isEmployee?: boolean;
 }
 export function Pricing({ isEmployee }: PricingProps) {
   return (
     <section
-      id="pricing-wrapper"
-      className='container mx-auto bg-white px-4 py-16 text-black relative'
+      id='pricing-wrapper'
+      className='relative container mx-auto bg-white px-4 py-16 text-black'
     >
-      <div id="pricing" className="absolute -top-12 left-1/2" />
+      <div id='pricing' className='absolute -top-12 left-1/2' />
       <div className='flex flex-col items-center gap-y-4'>
         {/* <RoundPill label='Pricing' /> */}
         <h1 className='text-[#1E1E1E] max-md:text-4xl'>Our Pricing</h1>

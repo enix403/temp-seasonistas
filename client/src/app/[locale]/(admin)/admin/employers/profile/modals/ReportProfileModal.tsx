@@ -13,7 +13,7 @@ import {
   Select,
   SelectChangeEvent,
   InputLabel,
-  FormControl,
+  FormControl
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -25,7 +25,7 @@ interface ReportProfileModalProps {
 
 const ReportProfileModal: React.FC<ReportProfileModalProps> = ({
   open,
-  onClose,
+  onClose
 }) => {
   const [reason, setReason] = useState("");
   const [message, setMessage] = useState("");
@@ -50,7 +50,7 @@ const ReportProfileModal: React.FC<ReportProfileModalProps> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
       <DialogTitle sx={{ fontWeight: 600 }}>
         Repot Profile
         <IconButton
@@ -67,39 +67,39 @@ const ReportProfileModal: React.FC<ReportProfileModalProps> = ({
           <Select
             value={reason}
             onChange={handleReasonChange}
-            label="Reason for Report"
+            label='Reason for Report'
             fullWidth
             sx={{
               "& .MuiOutlinedInput-root": {
-                borderRadius: "10px",
+                borderRadius: "10px"
               },
-              borderRadius: 2,
+              borderRadius: 2
             }}
           >
-            <MenuItem value="spam">Spam</MenuItem>
-            <MenuItem value="abuse">Abuse</MenuItem>
-            <MenuItem value="fake">Fake Profile</MenuItem>
+            <MenuItem value='spam'>Spam</MenuItem>
+            <MenuItem value='abuse'>Abuse</MenuItem>
+            <MenuItem value='fake'>Fake Profile</MenuItem>
           </Select>
         </FormControl>
 
         <TextField
-          placeholder="Write Here Message"
+          placeholder='Write Here Message'
           multiline
           minRows={4}
           fullWidth
-          variant="outlined"
+          variant='outlined'
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={e => setMessage(e.target.value)}
           sx={{
             borderRadius: 2,
             mb: 2,
-            "& .MuiOutlinedInput-root": { borderRadius: 2 },
+            "& .MuiOutlinedInput-root": { borderRadius: 2 }
           }}
         />
 
         <Box
-          component="label"
-          htmlFor="file-upload"
+          component='label'
+          htmlFor='file-upload'
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -111,17 +111,17 @@ const ReportProfileModal: React.FC<ReportProfileModalProps> = ({
             cursor: "pointer",
             backgroundColor: "#fafafa",
             "&:hover": {
-              backgroundColor: "#f0f0f0",
-            },
+              backgroundColor: "#f0f0f0"
+            }
           }}
         >
           <CloudUploadIcon sx={{ fontSize: 40, color: "gray", mb: 1 }} />
-          <Typography variant="body2" sx={{ color: "gray" }}>
+          <Typography variant='body2' sx={{ color: "gray" }}>
             Add Attachment (optional)
           </Typography>
           <input
-            id="file-upload"
-            type="file"
+            id='file-upload'
+            type='file'
             hidden
             onChange={handleAttachmentChange}
           />
@@ -130,22 +130,22 @@ const ReportProfileModal: React.FC<ReportProfileModalProps> = ({
 
       <DialogActions sx={{ justifyContent: "end", pb: 2 }}>
         <Button
-          variant="outlined"
+          variant='outlined'
           onClick={onClose}
           sx={{ borderRadius: 8, borderColor: "gray", color: "#000000" }}
         >
           Cancel
         </Button>
         <Button
-          variant="contained"
+          variant='contained'
           onClick={handleSubmit}
           sx={{
             backgroundColor: "#4e9a8e",
             color: "#fff",
             borderRadius: 8,
             "&:hover": {
-              backgroundColor: "#407e75",
-            },
+              backgroundColor: "#407e75"
+            }
           }}
         >
           Submit

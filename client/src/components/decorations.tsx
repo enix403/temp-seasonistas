@@ -6,7 +6,7 @@ export const TitleMark = (props: SVGProps<SVGSVGElement>) => (
     width={142}
     height={12}
     fill='none'
-    viewBox="0 0 142 12"
+    viewBox='0 0 142 12'
     {...props}
   >
     <path

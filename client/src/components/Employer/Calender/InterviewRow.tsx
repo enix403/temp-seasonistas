@@ -1,70 +1,90 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
+import Image from "next/image";
 import { GoPencil } from "react-icons/go";
 
-import avatar from '../../../app/assets/employer/dashboard/applicant2.png'
-import EditModal from './EditModal';
-import { useState } from 'react';
+import avatar from "../../../app/assets/employer/dashboard/applicant2.png";
+import EditModal from "./EditModal";
+import { useState } from "react";
 
 type Props = {
-    name: string
-    role: string
-    date: string
-    time: string
-    location: string
-    index: number
-    isLast: boolean
-}
+  name: string;
+  role: string;
+  date: string;
+  time: string;
+  location: string;
+  index: number;
+  isLast: boolean;
+};
 
-const InterviewRow = ({ name, role, date, time, location, index, isLast }: Props) => {
+const InterviewRow = ({
+  name,
+  role,
+  date,
+  time,
+  location,
+  index,
+  isLast
+}: Props) => {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditConfirm = () => {
+    setShowEditModal(false);
+  };
 
-    const [showEditModal, setShowEditModal] = useState(false)
-    const handleEditConfirm = () => {
-        setShowEditModal(false)
-    }
+  return (
+    <>
+      <tr className='cursor-pointer hover:bg-[#F5F5F5]'>
+        <td className='mt-2 flex items-center gap-3 px-6 py-4'>
+          <div className='h-[32px] w-[32px] overflow-hidden rounded-full'>
+            <Image
+              src={avatar}
+              alt={name}
+              width={40}
+              height={40}
+              className='h-full w-full object-cover'
+            />
+          </div>
+          <p className='text-[12px] leading-[22px] font-[400]'>{name}</p>
+        </td>
+        <td className='px-6 py-4 text-[12px] leading-[22px] font-[400]'>
+          {role}
+        </td>
+        <td className='px-6 py-4 text-[12px] leading-[22px] font-[400]'>
+          {date}
+        </td>
+        <td className='px-6 py-4 text-[12px] leading-[22px] font-[400]'>
+          {time}
+        </td>
+        <td className='px-6 py-4 text-[12px] leading-[22px] font-[400]'>
+          {location}
+        </td>
+        <td className='px-6 py-4 text-right'>
+          <button
+            onClick={() => {
+              setShowEditModal(true);
+            }}
+            className='hover:bg-opacity-85 rounded-full bg-[#EEF4F4] p-4 text-[#559093]'
+          >
+            <GoPencil size={16} />
+          </button>
+          {showEditModal && (
+            <EditModal
+              onClose={() => setShowEditModal(false)}
+              onConfirm={handleEditConfirm}
+            />
+          )}
+        </td>
+      </tr>
 
-    return (
-        <>
-            <tr className='hover:bg-[#F5F5F5] cursor-pointer'>
-                <td className="px-6 mt-2 py-4 flex items-center gap-3 ">
-                    <div className='w-[32px] h-[32px] rounded-full overflow-hidden'>
-                        <Image
-                            src={avatar}
-                            alt={name}
-                            width={40}
-                            height={40}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    <p className='text-[12px] font-[400] leading-[22px]'>{name}</p>
-                </td>
-                <td className="px-6 py-4 text-[12px] font-[400] leading-[22px]">{role}</td>
-                <td className="px-6 py-4 text-[12px] font-[400] leading-[22px]">{date}</td>
-                <td className="px-6 py-4 text-[12px] font-[400] leading-[22px]">{time}</td>
-                <td className="px-6 py-4 text-[12px] font-[400] leading-[22px]">{location}</td>
-                <td className="px-6 py-4 text-right">
-                    <button onClick={() => {
-                        setShowEditModal(true)
-                    }} className="bg-[#EEF4F4] p-4 rounded-full text-[#559093] hover:bg-opacity-85">
-                        <GoPencil size={16} />
-                    </button>
-                    {showEditModal && (
-                        <EditModal
-                            onClose={() => setShowEditModal(false)}
-                            onConfirm={handleEditConfirm}
-                        />
-                    )}
-                </td>
-            </tr>
+      {!isLast && (
+        <tr>
+          <td colSpan={6}>
+            <hr className='border-gray-200' />
+          </td>
+        </tr>
+      )}
+    </>
+  );
+};
 
-            {!isLast && (
-                <tr>
-                    <td colSpan={6}><hr className="border-gray-200" /></td>
-                </tr>
-            )}
-        </>
-    )
-}
-
-export default InterviewRow
+export default InterviewRow;

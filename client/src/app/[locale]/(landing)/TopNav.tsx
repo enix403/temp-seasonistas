@@ -58,8 +58,9 @@ export function TopNav({
 
   return (
     <header
-      className={`top-0 right-0 left-0 z-40 text-[#DBDBDB] duration-100 max-md:bg-[#022127] sticky md:fixed md:transition-all ${scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
-        }`}
+      className={`sticky top-0 right-0 left-0 z-40 text-[#DBDBDB] duration-100 max-md:bg-[#022127] md:fixed md:transition-all ${
+        scrolled ? "py-4 md:bg-[#022127] md:shadow-xl" : "py-8"
+      }`}
     >
       <div className='px-6 md:px-10 lg:px-20'>
         <div className='flex-wrap items-center justify-between gap-y-2 sm:flex'>
@@ -92,7 +93,7 @@ export function TopNav({
             })}
           </nav>
 
-          <div className='flex z-50 items-center gap-1 max-sm:mt-3'>
+          <div className='z-50 flex items-center gap-1 max-sm:mt-3'>
             {/* Mobile Menu Button */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
@@ -155,8 +156,6 @@ export function TopNav({
                       Contact Us
                     </p>
                   </nav>
-
-
                 </div>
               </SheetContent>
             </Sheet>
