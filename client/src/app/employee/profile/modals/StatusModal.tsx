@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,9 +10,14 @@ import {
   IconButton,
   Typography,
   Box,
-  Stack
+  Stack,
+  Button
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { apiRoutes } from "@/lib/api-routes";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 interface StatusModalProps {
   open: boolean;
@@ -20,10 +25,34 @@ interface StatusModalProps {
 }
 
 const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
-  const [status, setStatus] = useState<"looking" | "notLooking">("looking");
+  const { user } = useCurrentUser();
+  const queryClient = useQueryClient();
+  const [isLookingForJob, setIsLookingForJob] = useState(user?.isLookingForJob ?? true);
 
-  const handleChange = (value: "looking" | "notLooking") => {
-    setStatus(value);
+  // Update state when modal opens/closes or user data changes
+  useEffect(() => {
+    if (open && user) {
+      setIsLookingForJob(user.isLookingForJob);
+    }
+  }, [open, user]);
+
+  // Update user profile mutation
+  const updateProfile = useMutation({
+    mutationFn: apiRoutes.updateMe,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast.success("Status updated successfully");
+      onClose();
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to update status");
+    }
+  });
+
+  const handleSave = async () => {
+    await updateProfile.mutateAsync({
+      isLookingForJob
+    });
   };
 
   return (
@@ -55,8 +84,8 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={status === "looking"}
-                onChange={() => handleChange("looking")}
+                checked={isLookingForJob}
+                onChange={() => setIsLookingForJob(true)}
                 sx={{
                   color: "#559093",
                   "&.Mui-checked": {
@@ -71,8 +100,8 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={status === "notLooking"}
-                onChange={() => handleChange("notLooking")}
+                checked={!isLookingForJob}
+                onChange={() => setIsLookingForJob(false)}
                 sx={{
                   color: "#559093",
                   "&.Mui-checked": {
@@ -94,6 +123,39 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
             Note: By hiding your status, your profile will be hidden from
             employers.
           </Typography>
+        </Box>
+
+        <Box mt={3} display="flex" justifyContent="flex-end" gap={1}>
+          <Button
+            variant='outlined'
+            onClick={onClose}
+            sx={{
+              borderRadius: 20,
+              textTransform: "none",
+              px: 3,
+              borderColor: "gray",
+              color: "#000000",
+              height: "40px",
+              minWidth: "100px"
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            onClick={handleSave}
+            disabled={updateProfile.isPending}
+            sx={{
+              backgroundColor: "#4B8378",
+              borderRadius: 20,
+              textTransform: "none",
+              "&:hover": { backgroundColor: "#3a6b61" },
+              height: "40px",
+              minWidth: "100px"
+            }}
+          >
+            Save
+          </Button>
         </Box>
       </DialogContent>
     </Dialog>

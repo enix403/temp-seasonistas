@@ -13,11 +13,15 @@ import Image from "next/image";
 import cardImage from "@/assets/card_image.png";
 import profileImage1 from "@/assets/Ellipse 4149.png";
 import StatusModal from "./modals/StatusModal";
+import { Badge } from "@/components/ui/badge";
+import clsx from "clsx";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 const ProfileBarCard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+  const { user } = useCurrentUser();
 
   return (
     <Box
@@ -50,7 +54,7 @@ const ProfileBarCard = () => {
         }}
       >
         <Image
-          alt='Anamoul Rouf'
+          alt={user?.fullName || 'Profile Picture'}
           src={profileImage1}
           style={{
             width: 110,
@@ -63,7 +67,7 @@ const ProfileBarCard = () => {
           <Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant='h5' fontWeight='bold'>
-                {"Anamoul Rouf"}
+                {user?.fullName || "Loading..."}
               </Typography>
               <Chip
                 label='#EMP001'
@@ -75,7 +79,7 @@ const ProfileBarCard = () => {
             <Typography
               sx={{ color: "gray", fontWeight: "500", fontSize: "14px" }}
             >
-              {"Product Designer"}
+              {user?.bio || "No bio added"}
             </Typography>
           </Box>
         </Box>
@@ -100,24 +104,16 @@ const ProfileBarCard = () => {
           alignItems: isMobile ? "stretch" : "center"
         }}
       >
-        {/* Open to work */}
-        <Button
-          variant='contained'
-          fullWidth={isMobile}
-          sx={{
-            backgroundColor: "#4e8c8a",
-            borderRadius: "999px",
-            textTransform: "none",
-            fontWeight: 600,
-            px: 2,
-            fontSize: isMobile ? "0.9rem" : "1rem",
-            "&:hover": {
-              backgroundColor: "#407878"
-            }
-          }}
-        >
-          {"Open to work"}
-        </Button>
+        {user?.isLookingForJob && (
+          <Badge
+            className={clsx(
+              "bg-[#4e8c8a] px-3 py-1 text-white hover:bg-[#4e8c8a] text-lg",
+              isMobile && "w-full"
+            )}
+          >
+            Open to work
+          </Badge>
+        )}
 
         {/* Add Profile Section */}
         <Button
