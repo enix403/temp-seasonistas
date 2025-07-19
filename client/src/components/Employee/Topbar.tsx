@@ -8,7 +8,6 @@ import Link from "next/link";
 
 import defaultProfileImage from "@/assets/real/blank-pfp.png";
 
-
 type Props = {};
 
 const Topbar = (props: Props) => {

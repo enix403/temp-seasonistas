@@ -3,19 +3,20 @@ import { IoNotifications } from "react-icons/io5";
 import userImg from "@/assets/employer/employerImg.png";
 import flag from "@/assets/employer/country.png";
 import { usePathname, useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+
+import defaultProfileImage from "@/assets/real/blank-pfp.png";
+import Link from "next/link";
 
 type Props = {};
 
 const Topbar = (props: Props) => {
+  const { user } = useCurrentUser();
+
   const router = useRouter();
   const pathname = usePathname();
   const lastSegment = pathname.split("/").filter(Boolean).pop() || "";
   const pageName = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
-
-  const handleProfile = () => {
-    router.push("/employer/profile");
-    console.log("clicked");
-  };
 
   let title = "";
   if (pageName === "Home") {
@@ -57,22 +58,25 @@ const Topbar = (props: Props) => {
         </div>
 
         {/* Profile */}
-        <div
-          className='flex cursor-pointer items-center gap-2'
-          onClick={handleProfile}
-        >
-          <Image
-            src={userImg}
-            alt='User'
-            width={32}
-            height={32}
-            className='rounded-full'
-          />
-          <div className='flex flex-col leading-tight'>
-            <span className='text-sm font-medium text-gray-800'>John Kaon</span>
-            <span className='text-xs text-gray-400'>Artist</span>
+        <Link href='/employer/profile'>
+          <div
+            className='flex cursor-pointer items-center gap-2'
+          >
+            <div className='relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0'>
+              <img
+                alt={user?.fullName || 'Profile Picture'}
+                src={user?.profilePictureUrl || defaultProfileImage.src}
+                className='w-full h-full object-cover object-center'
+              />
+            </div>
+            <div className='flex flex-col leading-tight'>
+              <span className='text-sm font-medium text-gray-800'>
+                {user?.fullName}
+              </span>
+              <span className='text-xs text-gray-400'>{user?.role}</span>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
