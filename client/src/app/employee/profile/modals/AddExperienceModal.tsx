@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,13 +10,29 @@ import {
   Button,
   Box,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
+  Alert
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { apiRoutes } from "@/lib/api-routes";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { ApiReplyError } from "@/lib/api-decls";
+import { format } from "date-fns";
+
+interface Experience {
+  title: string;
+  company: string;
+  description?: string;
+  dateStart: string;
+  dateEnd?: string;
+  currentlyActive: boolean;
+  employmentType?: string;
+}
 
 interface AddExperienceModalProps {
   open: boolean;
   onClose: () => void;
+  experience?: Experience | null;
 }
 
 const employmentTypes = [
@@ -24,17 +40,120 @@ const employmentTypes = [
   "Part-time",
   "Contract",
   "Internship",
-  "Freelance",
-  "Employment type"
+  "Freelance"
 ];
+
+const formatDateForInput = (dateString: string | undefined) => {
+  if (!dateString) return "";
+  try {
+    return format(new Date(dateString), "yyyy-MM-dd");
+  } catch (e) {
+    console.error("Invalid date:", dateString);
+    return "";
+  }
+};
 
 const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
   open,
-  onClose
+  onClose,
+  experience
 }) => {
-  const [currentlyWorking, setCurrentlyWorking] = useState(true);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const { user, refreshUser } = useCurrentUser();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<Experience>({
+    title: "",
+    company: "",
+    description: "",
+    dateStart: "",
+    dateEnd: "",
+    currentlyActive: false,
+    employmentType: "Full-time"
+  });
+
+  useEffect(() => {
+    if (open && experience) {
+      setFormData({
+        title: experience.title,
+        company: experience.company,
+        description: experience.description || "",
+        dateStart: formatDateForInput(experience.dateStart),
+        dateEnd: formatDateForInput(experience.dateEnd),
+        currentlyActive: experience.currentlyActive,
+        employmentType: experience.employmentType || "Full-time"
+      });
+    } else if (open) {
+      setFormData({
+        title: "",
+        company: "",
+        description: "",
+        dateStart: "",
+        dateEnd: "",
+        currentlyActive: false,
+        employmentType: "Full-time"
+      });
+    }
+    setError(null);
+  }, [open, experience]);
+
+  const handleChange = (field: keyof Experience) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: event.target.value
+    }));
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      currentlyActive: event.target.checked,
+      dateEnd: event.target.checked ? undefined : prev.dateEnd
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      // Validate required fields
+      if (!formData.title || !formData.company || !formData.dateStart) {
+        setError("Please fill in all required fields");
+        return;
+      }
+
+      // Get current experiences array
+      const currentExperiences = user?.experiences || [];
+
+      let updatedExperiences;
+      if (experience) {
+        // Update existing experience
+        updatedExperiences = currentExperiences.map(exp =>
+          exp === experience ? formData : exp
+        );
+      } else {
+        // Add new experience
+        updatedExperiences = [...currentExperiences, formData];
+      }
+
+      await apiRoutes.updateMe({
+        experiences: updatedExperiences
+      });
+
+      await refreshUser();
+      onClose();
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        setError(err.errorMessage);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -49,7 +168,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
       }}
     >
       <DialogTitle sx={{ fontWeight: "bold", px: 3, pt: 3 }}>
-        Add Experience
+        {experience ? "Edit Experience" : "Add Experience"}
         <IconButton
           onClick={onClose}
           sx={{ position: "absolute", right: 16, top: 16 }}
@@ -60,24 +179,42 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
 
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
           <TextField
-            placeholder='Job Title'
+            label="Job Title"
+            placeholder='e.g., Software Engineer'
+            value={formData.title}
+            onChange={handleChange("title")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            placeholder='Company Name'
+            label="Company"
+            placeholder='e.g., Google'
+            value={formData.company}
+            onChange={handleChange("company")}
             fullWidth
             size='small'
+            required
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
             select
-            placeholder='Employment type'
+            label="Employment Type"
+            value={formData.employmentType}
+            onChange={handleChange("employmentType")}
             fullWidth
             size='small'
-            defaultValue='Employment type'
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           >
             {employmentTypes.map(type => (
@@ -90,10 +227,10 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={currentlyWorking}
-                onChange={e => setCurrentlyWorking(e.target.checked)}
+                checked={formData.currentlyActive}
+                onChange={handleCheckboxChange}
+                disabled={loading}
                 sx={{
-                  p: 0.5,
                   color: "#559093",
                   "&.Mui-checked": {
                     color: "#559093"
@@ -102,35 +239,44 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
               />
             }
             label='I am currently working in this role'
-            sx={{ fontSize: 13, ml: 0.5 }}
           />
 
           <TextField
-            type='date'
             label='Start Date'
-            value={startDate}
-            onChange={e => setStartDate(e.target.value)}
-            size='small'
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
-          />
-          <TextField
             type='date'
-            label='End Date'
-            value={endDate}
-            onChange={e => setEndDate(e.target.value)}
-            size='small'
+            value={formData.dateStart}
+            onChange={handleChange("dateStart")}
             fullWidth
+            size='small'
+            required
+            disabled={loading}
             InputLabelProps={{ shrink: true }}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
 
+          {!formData.currentlyActive && (
+            <TextField
+              label='End Date'
+              type='date'
+              value={formData.dateEnd}
+              onChange={handleChange("dateEnd")}
+              fullWidth
+              size='small'
+              disabled={loading}
+              InputLabelProps={{ shrink: true }}
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
+            />
+          )}
+
           <TextField
+            label="Description"
+            placeholder='Describe your role, responsibilities, and achievements'
+            value={formData.description}
+            onChange={handleChange("description")}
             multiline
             minRows={4}
-            placeholder='Write Here Message'
             fullWidth
+            disabled={loading}
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 3 } }}
           />
 
@@ -138,6 +284,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
             <Button
               variant='outlined'
               onClick={onClose}
+              disabled={loading}
               sx={{
                 borderRadius: 20,
                 textTransform: "none",
@@ -152,16 +299,18 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
             </Button>
             <Button
               variant='contained'
+              onClick={handleSubmit}
+              disabled={loading}
               sx={{
                 backgroundColor: "#4B8378",
                 borderRadius: 20,
                 textTransform: "none",
-                "&:hover": { backgroundColor: "#3a6b61" },
                 height: "40px",
-                minWidth: "100px"
+                minWidth: "100px",
+                "&:hover": { backgroundColor: "#3a6b61" }
               }}
             >
-              Save
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </Stack>

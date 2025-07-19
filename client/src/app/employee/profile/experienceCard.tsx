@@ -1,54 +1,92 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
   Card,
   CardContent,
   Avatar,
-  IconButton,
   Button,
   Grid,
   Divider,
-  Stack,
-  Link
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import AddExperienceModal from "./modals/AddExperienceModal";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { format } from "date-fns";
+import { apiRoutes } from "@/lib/api-routes";
+import { ApiReplyError } from "@/lib/api-decls";
 
 interface Experience {
-  role: string;
+  title: string;
   company: string;
-  location: string;
-  duration: string;
-  description: string;
-  logo: string;
+  description?: string;
+  dateStart: string;
+  dateEnd?: string;
+  currentlyActive: boolean;
 }
-
-const experiences: Experience[] = [
-  {
-    role: "Sr. Product Designer",
-    company: "SharTrip Inc.",
-    location: "Dhaka, Bangladesh",
-    duration: "January 2022 to Present",
-    description:
-      "ShareTrip is the country's first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/ShareTrip_Logo.png"
-  },
-  {
-    role: "Product Designer",
-    company: "Grameenphone",
-    location: "Dhaka, Bangladesh",
-    duration: "January 2022 to Present",
-    description:
-      "ShareTrip is the country's first and pioneer online travel aggregator (OTA). My goal was to craft a functional and delightful experience through web and mobile apps currently consisting of 1.2M+ & future billion users...",
-    logo: "https://upload.wikimedia.org/wikipedia/thumb/f/fd/Grameenphone_logo.svg/1200px-Grameenphone_logo.svg.png"
-  }
-];
 
 const ExperienceCard = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
+  const [deletingExperience, setDeletingExperience] = useState<Experience | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { user, refreshUser } = useCurrentUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const handleEdit = (experience: Experience) => {
+    setEditingExperience(experience);
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setEditingExperience(null);
+    setOpenModal(false);
+  };
+
+  const handleDelete = (experience: Experience) => {
+    setDeletingExperience(experience);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deletingExperience) return;
+
+    try {
+      setLoading(true);
+
+      // Filter out the experience to delete
+      const updatedExperiences = user.experiences.filter(
+        exp => exp !== deletingExperience
+      );
+
+      await apiRoutes.updateMe({
+        experiences: updatedExperiences
+      });
+
+      await refreshUser();
+      setDeletingExperience(null);
+    } catch (err) {
+      if (err instanceof ApiReplyError) {
+        console.error(err.errorMessage);
+      } else {
+        console.error("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (date: string | undefined, currentlyActive: boolean) => {
+    if (currentlyActive) return "Present";
+    if (!date) return "";
+    return format(new Date(date), "MMMM yyyy");
+  };
 
   return (
     <Card
@@ -87,7 +125,7 @@ const ExperienceCard = () => {
               py: 0.8
             }}
           >
-            Add Experiences
+            Add Experience
           </Button>
         </Box>
 
@@ -95,117 +133,138 @@ const ExperienceCard = () => {
           Add experience to increase the chance of hiring
         </Typography>
 
-        {experiences.map((exp, idx) => (
-          <Box key={idx} mb={2}>
-            <Grid container spacing={1}>
-              <Grid size={{ xs: 12, md: 1 }}>
-                <Avatar
-                  src={exp.logo}
-                  alt={exp.company}
-                  sx={{ width: 48, height: 48 }}
-                  variant='circular'
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 11 }}>
-                <Box
-                  display='flex'
-                  justifyContent='space-between'
-                  alignItems='center'
-                >
-                  <Typography fontWeight={600}>
-                    {exp.role}{" "}
-                    <CheckCircleRoundedIcon
-                      sx={{
-                        fontSize: 16,
-                        color: "#00c292",
-                        ml: 0.5,
-                        verticalAlign: "middle"
-                      }}
-                    />
-                  </Typography>
-                  <Box display='flex' gap={2}>
-                    <Typography
-                      variant='body2'
-                      sx={{
-                        color: "#999",
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        "&:hover": { textDecoration: "underline" }
-                      }}
-                      onClick={() => {
-                        // handle delete
-                      }}
-                    >
-                      Delete
-                    </Typography>
-
-                    <Typography
-                      variant='body2'
-                      sx={{
-                        color: "#4e9a8e",
-                        fontWeight: 600,
-                        cursor: "pointer",
-                        "&:hover": { textDecoration: "underline" }
-                      }}
-                      onClick={() => {
-                        // handle edit
-                      }}
-                    >
-                      Edit
-                    </Typography>
-                  </Box>
-                </Box>
-
-                <Typography
-                  variant='body2'
-                  fontWeight={500}
-                  color='text.secondary'
-                >
-                  {exp.company}
-                </Typography>
-                <Typography
-                  variant='body2'
-                  sx={{ fontSize: 13, color: "#555", mb: 1 }}
-                >
-                  {exp.location} &nbsp;&nbsp; {exp.duration}
-                </Typography>
-              </Grid>
-              <Grid size={{ xs: 12 }}>
-                <Typography
-                  variant='body2'
-                  sx={{ fontSize: 13.5, color: "#333" }}
-                >
-                  {exp.description}{" "}
-                  <Typography
-                    component='span'
-                    sx={{ color: "#0073e6", fontWeight: 500 }}
+        {user.experiences && user.experiences.length > 0 ? (
+          user.experiences.map((experience, idx) => (
+            <Box key={idx} mb={2}>
+              <Grid container spacing={1}>
+                <Grid size={{ xs: 12, md: 1 }}>
+                  <Avatar
+                    sx={{ width: 48, height: 48, bgcolor: '#4B8378' }}
+                    variant='circular'
                   >
-                    See More
+                    {experience.company.charAt(0)}
+                  </Avatar>
+                </Grid>
+                <Grid size={{ xs: 12, md: 11 }}>
+                  <Box
+                    display='flex'
+                    justifyContent='space-between'
+                    alignItems='center'
+                  >
+                    <Typography fontWeight={600}>
+                      {experience.title}{" "}
+                      {experience.currentlyActive && (
+                        <CheckCircleRoundedIcon
+                          sx={{
+                            fontSize: 16,
+                            color: "#00c292",
+                            ml: 0.5,
+                            verticalAlign: "middle"
+                          }}
+                        />
+                      )}
+                    </Typography>
+                    <Box display='flex' gap={2}>
+                      <Typography
+                        variant='body2'
+                        sx={{
+                          color: "#999",
+                          fontWeight: 500,
+                          cursor: "pointer",
+                          "&:hover": { textDecoration: "underline" }
+                        }}
+                        onClick={() => handleDelete(experience)}
+                      >
+                        Delete
+                      </Typography>
+
+                      <Typography
+                        variant='body2'
+                        sx={{
+                          color: "#4e9a8e",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                          "&:hover": { textDecoration: "underline" }
+                        }}
+                        onClick={() => handleEdit(experience)}
+                      >
+                        Edit
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Typography
+                    variant='body2'
+                    fontWeight={500}
+                    color='text.secondary'
+                  >
+                    {experience.company}
                   </Typography>
-                </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ fontSize: 13, color: "#555", mb: 1 }}
+                  >
+                    {formatDate(experience.dateStart, false)} - {formatDate(experience.dateEnd, experience.currentlyActive)}
+                  </Typography>
+                </Grid>
+                {experience.description && (
+                  <Grid size={{ xs: 12 }}>
+                    <Typography
+                      variant='body2'
+                      sx={{ fontSize: 13.5, color: "#333" }}
+                    >
+                      {experience.description}
+                    </Typography>
+                  </Grid>
+                )}
               </Grid>
-            </Grid>
-            {idx < experiences.length - 1 && <Divider sx={{ my: 2 }} />}
-          </Box>
-        ))}
-        <hr className='mb-4 w-full' />
-        <Typography
-          variant='body2'
-          sx={{
-            fontSize: 15,
-            color: "#559093",
-            fontWeight: 600,
-            mt: 1,
-            cursor: "pointer"
-          }}
-        >
-          Show 2 More Experiences
-        </Typography>
+              {idx < user.experiences.length - 1 && <Divider sx={{ my: 2 }} />}
+            </Box>
+          ))
+        ) : (
+          <Typography variant='body2' sx={{ color: "#666", textAlign: "center", py: 4 }}>
+            No experience records added yet. Add your work experience to help employers understand your background.
+          </Typography>
+        )}
       </CardContent>
+
       <AddExperienceModal
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={handleClose}
+        experience={editingExperience}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={Boolean(deletingExperience)}
+        onClose={() => setDeletingExperience(null)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogTitle>Delete Experience</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete this experience record? This action cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDeletingExperience(null)}
+            disabled={loading}
+            sx={{ color: "text.secondary" }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            disabled={loading}
+            color="error"
+            variant="contained"
+          >
+            {loading ? "Deleting..." : "Delete"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
