@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
-interface AboutUsCardProps {
-  notEditable?: boolean;
-  type: string;
-}
-const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
+
+const AboutUsCard = () => {
   const [open, setOpen] = useState(false);
   const [aboutText, setAboutText] = useState(
     `I am a passionate UI/UX & Product Designer, dedicated to creating intuitive, user-friendly, and visually compelling digital experiences...`
@@ -34,27 +31,25 @@ const AboutUsCard = ({ type, notEditable }: AboutUsCardProps) => {
           mb={1}
         >
           <Typography variant='h6' fontWeight={600}>
-            {type === "about" ? "About" : "Overview"}
+            About
           </Typography>
-          {!notEditable && (
-            <Button
-              variant='outlined'
-              size='small'
-              onClick={() => setOpen(true)}
-              sx={{
-                borderRadius: "20px",
-                textTransform: "none",
-                fontWeight: 550,
-                borderColor: "#EBECF0",
-                color: "#000000",
-                fontSize: "0.875rem",
-                px: 3,
-                py: 0.8
-              }}
-            >
-              Edit About
-            </Button>
-          )}
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setOpen(true)}
+            sx={{
+              borderRadius: "20px",
+              textTransform: "none",
+              fontWeight: 550,
+              borderColor: "#EBECF0",
+              color: "#000000",
+              fontSize: "0.875rem",
+              px: 3,
+              py: 0.8
+            }}
+          >
+            Edit About
+          </Button>
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>

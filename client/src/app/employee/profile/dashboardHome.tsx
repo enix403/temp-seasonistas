@@ -42,7 +42,7 @@ export default function DashboardHome() {
           <GraphCard />
           <BasicInfoCard/>
 
-          <AboutUsCard notEditable={false} type={"about"} />
+          <AboutUsCard/>
           <EducationCard notEditable={false} />
           <ExperienceCard notEditable={false} />
 
