@@ -16,6 +16,7 @@ import AddSingleInputModal from "./modals/AddSingleInputModal";
 import { toast } from "sonner";
 import { apiRoutes } from "@/lib/api-routes";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { USER_QUERY_KEY } from "@/hooks/useCurrentUser";
 
 export interface ProfileSectionItem {
   id?: string;
@@ -50,7 +51,7 @@ const ProfileSectionCard = ({
 
   // Get current user data
   const { data: userData } = useQuery({
-    queryKey: ["user"],
+    queryKey: USER_QUERY_KEY,
     queryFn: apiRoutes.getMe
   });
 
@@ -58,7 +59,7 @@ const ProfileSectionCard = ({
   const updateProfile = useMutation({
     mutationFn: apiRoutes.updateMe,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY });
       toast.success("Profile updated successfully");
     },
     onError: (error) => {
@@ -70,7 +71,12 @@ const ProfileSectionCard = ({
     if (!userData) return;
 
     const currentItems = userData[fieldName] || [];
-    const updatedItems = [...currentItems, newItem];
+    // Add a unique ID to the new item
+    const itemWithId = {
+      ...newItem,
+      id: crypto.randomUUID()
+    };
+    const updatedItems = [...currentItems, itemWithId];
 
     await updateProfile.mutateAsync({
       [fieldName]: updatedItems
@@ -84,7 +90,10 @@ const ProfileSectionCard = ({
 
     const currentItems = userData[fieldName] || [];
     const updatedItems = currentItems.map((item: ProfileSectionItem) =>
-      item.title === oldItem.title ? newItem : item
+      // Use ID for comparison if available, otherwise fallback to title
+      (item.id && item.id === oldItem.id) || (!item.id && item.title === oldItem.title)
+        ? { ...newItem, id: item.id || oldItem.id }
+        : item
     );
 
     await updateProfile.mutateAsync({
@@ -100,7 +109,9 @@ const ProfileSectionCard = ({
 
     const currentItems = userData[fieldName] || [];
     const updatedItems = currentItems.filter(
-      (item: ProfileSectionItem) => item.title !== itemToDelete.title
+      (item: ProfileSectionItem) =>
+        // Use ID for comparison if available, otherwise fallback to title
+        (item.id && item.id !== itemToDelete.id) || (!item.id && item.title !== itemToDelete.title)
     );
 
     await updateProfile.mutateAsync({
@@ -160,7 +171,7 @@ const ProfileSectionCard = ({
         <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2 }}>
           {data.map((item, index) => (
             <Paper
-              key={index}
+              key={item.id || index}
               elevation={0}
               sx={{
                 border: "1px solid #eee",

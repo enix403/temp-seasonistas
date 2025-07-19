@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -29,10 +29,18 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
 }) => {
   const [title, setTitle] = useState(initialData?.title || "");
 
+  // Update state when modal opens/closes or initialData changes
+  useEffect(() => {
+    if (open) {
+      setTitle(initialData?.title || "");
+    }
+  }, [open, initialData]);
+
   const handleSubmit = () => {
     if (!title.trim()) return;
 
     onSubmit({
+      ...(initialData?.id ? { id: initialData.id } : {}),
       title: title.trim()
     });
 
