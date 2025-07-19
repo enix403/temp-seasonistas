@@ -6,6 +6,9 @@ import { usePathname } from "next/navigation";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import Link from "next/link";
 
+import defaultProfileImage from "@/assets/real/blank-pfp.png";
+
+
 type Props = {};
 
 const Topbar = (props: Props) => {
@@ -54,9 +57,9 @@ const Topbar = (props: Props) => {
           <div
             className='flex cursor-pointer items-center gap-2'
           >
-            <Image
-              src={userImg}
-              alt='User'
+            <img
+              alt={user?.fullName || 'Profile Picture'}
+              src={user?.profilePictureUrl || defaultProfileImage.src}
               width={32}
               height={32}
               className='rounded-full'
