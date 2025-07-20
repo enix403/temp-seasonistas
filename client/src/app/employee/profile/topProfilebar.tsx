@@ -280,14 +280,17 @@ const ProfileBarCard = ({
       {editable && (
         <>
           <StatusModal
+            userId={userId}
             open={statusModalOpen}
             onClose={() => setStatusModalOpen(false)}
           />
           <ProfilePictureModal
+            userId={userId}
             open={pictureModalOpen}
             onClose={() => setPictureModalOpen(false)}
           />
           <CoverPictureModal
+            userId={userId}
             open={coverModalOpen}
             onClose={() => setCoverModalOpen(false)}
           />

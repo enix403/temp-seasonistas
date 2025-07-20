@@ -16,7 +16,7 @@ import AddSingleInputModal from "./modals/AddSingleInputModal";
 import { toast } from "sonner";
 import { apiRoutes } from "@/lib/api-routes";
 import { useMutation } from "@tanstack/react-query";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 
 export interface ProfileSectionItem {
   id?: string;

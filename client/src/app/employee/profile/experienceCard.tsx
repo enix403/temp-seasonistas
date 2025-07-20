@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import AddExperienceModal from "./modals/AddExperienceModal";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import { format } from "date-fns";
 import { apiRoutes } from "@/lib/api-routes";
 import { ApiReplyError } from "@/lib/api-decls";

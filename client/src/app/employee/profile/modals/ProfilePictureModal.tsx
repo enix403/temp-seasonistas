@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import ImageUploadModal from "@/components/modals/ImageUploadModal";
 
 interface ProfilePictureModalProps {

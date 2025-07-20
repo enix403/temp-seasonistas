@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
 
 interface EditProfileModalProps {

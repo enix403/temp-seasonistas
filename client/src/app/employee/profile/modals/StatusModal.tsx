@@ -14,7 +14,7 @@ import {
   Button
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import { apiRoutes } from "@/lib/api-routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
 import { format } from "date-fns";
+import { useUser } from "@/hooks/useCurrentUser";
 
 interface Experience {
   title: string;
@@ -60,7 +60,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
   onClose,
   experience
 }) => {
-  const { user, refreshUser } = useCurrentUser();
+  const { user, refreshUser } = useUser(userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Experience>({

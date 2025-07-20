@@ -14,7 +14,7 @@ import EducationCard from "./educationCard";
 import ExperienceCard from "./experienceCard";
 
 export default function DashboardHome() {
-  const { user: userData } = useCurrentUser();
+  const { user } = useCurrentUser();
 
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
@@ -32,7 +32,7 @@ export default function DashboardHome() {
           title='Skills'
           description='Add skills to increase the chance of hiring'
           addText='Add Skill'
-          data={userData?.skills || []}
+          data={user?.skills || []}
           fieldName='skills'
           showLevel={true}
           footerText='Show More Skills'
@@ -42,7 +42,7 @@ export default function DashboardHome() {
           title='Interests'
           description='Add your interests to let employers understand your passion areas'
           addText='Add Interest'
-          data={userData?.interests || []}
+          data={user?.interests || []}
           fieldName='interests'
           footerText='Show More Interests'
         />
@@ -51,7 +51,7 @@ export default function DashboardHome() {
           title='Goals'
           description='Mention your career goals to help employers align with your ambitions'
           addText='Add Goal'
-          data={userData?.goals || []}
+          data={user?.goals || []}
           fieldName='goals'
           footerText='Show More Goals'
         />
