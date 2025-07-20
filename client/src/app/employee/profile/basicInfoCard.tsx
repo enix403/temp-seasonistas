@@ -9,7 +9,17 @@ const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const BasicInfoCard = () => {
+function useUser(userId) {
+
+}
+
+const BasicInfoCard = ({
+  userId,
+  editable = false
+}: {
+  userId?: string;
+  editable?: boolean;
+}) => {
   const [open, setOpen] = useState(false);
   const { user } = useCurrentUser();
 
@@ -72,7 +82,9 @@ const BasicInfoCard = () => {
           <Typography variant='body2' color='text.secondary'>
             Gender
           </Typography>
-          <Typography fontWeight='bold'>{user.gender ? capitalizeFirstLetter(user.gender) : 'Not specified'}</Typography>
+          <Typography fontWeight='bold'>
+            {user.gender ? capitalizeFirstLetter(user.gender) : "Not specified"}
+          </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant='body2' color='text.secondary'>
@@ -81,7 +93,7 @@ const BasicInfoCard = () => {
           <Typography fontWeight='bold'>
             {user.phoneCountryCode && user.phoneNumber
               ? `${user.phoneCountryCode} ${user.phoneNumber}`
-              : 'Not specified'}
+              : "Not specified"}
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -91,7 +103,7 @@ const BasicInfoCard = () => {
           <Typography fontWeight='bold'>
             {user.addressCity && user.addressCountry
               ? `${user.addressCity}, ${user.addressCountry}`
-              : 'Not specified'}
+              : "Not specified"}
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
@@ -99,7 +111,7 @@ const BasicInfoCard = () => {
             Website
           </Typography>
           <Typography fontWeight='bold'>
-            {user.website || 'Not specified'}
+            {user.website || "Not specified"}
           </Typography>
         </Grid>
       </Grid>

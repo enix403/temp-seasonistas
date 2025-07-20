@@ -15,8 +15,8 @@ import AddSkillModal from "./modals/AddSkillModal";
 import AddSingleInputModal from "./modals/AddSingleInputModal";
 import { toast } from "sonner";
 import { apiRoutes } from "@/lib/api-routes";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { USER_QUERY_KEY } from "@/hooks/useCurrentUser";
+import { useMutation } from "@tanstack/react-query";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export interface ProfileSectionItem {
   id?: string;
@@ -46,23 +46,21 @@ const ProfileSectionCard = ({
   onShowMore
 }: ProfileSectionCardProps) => {
   const [openModal, setOpenModal] = useState(false);
-  const [editingItem, setEditingItem] = useState<ProfileSectionItem | null>(null);
-  const queryClient = useQueryClient();
+  const [editingItem, setEditingItem] = useState<ProfileSectionItem | null>(
+    null
+  );
 
   // Get current user data
-  const { data: userData } = useQuery({
-    queryKey: USER_QUERY_KEY,
-    queryFn: apiRoutes.getMe
-  });
+  const { user: userData, refreshUser } = useCurrentUser();
 
   // Update user profile mutation
   const updateProfile = useMutation({
     mutationFn: apiRoutes.updateMe,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY });
+      refreshUser();
       toast.success("Profile updated successfully");
     },
-    onError: (error) => {
+    onError: error => {
       toast.error(error.message || "Failed to update profile");
     }
   });
@@ -85,13 +83,17 @@ const ProfileSectionCard = ({
     setOpenModal(false);
   };
 
-  const handleEdit = async (oldItem: ProfileSectionItem, newItem: ProfileSectionItem) => {
+  const handleEdit = async (
+    oldItem: ProfileSectionItem,
+    newItem: ProfileSectionItem
+  ) => {
     if (!userData) return;
 
     const currentItems = userData[fieldName] || [];
     const updatedItems = currentItems.map((item: ProfileSectionItem) =>
       // Use ID for comparison if available, otherwise fallback to title
-      (item.id && item.id === oldItem.id) || (!item.id && item.title === oldItem.title)
+      (item.id && item.id === oldItem.id) ||
+      (!item.id && item.title === oldItem.title)
         ? { ...newItem, id: item.id || oldItem.id }
         : item
     );
@@ -111,7 +113,8 @@ const ProfileSectionCard = ({
     const updatedItems = currentItems.filter(
       (item: ProfileSectionItem) =>
         // Use ID for comparison if available, otherwise fallback to title
-        (item.id && item.id !== itemToDelete.id) || (!item.id && item.title !== itemToDelete.title)
+        (item.id && item.id !== itemToDelete.id) ||
+        (!item.id && item.title !== itemToDelete.title)
     );
 
     await updateProfile.mutateAsync({
@@ -168,7 +171,13 @@ const ProfileSectionCard = ({
         </Typography>
 
         {/* Grid List */}
-        <Box sx={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 2 }}>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: 2
+          }}
+        >
           {data.map((item, index) => (
             <Paper
               key={item.id || index}
@@ -258,7 +267,11 @@ const ProfileSectionCard = ({
             setEditingItem(null);
             setOpenModal(false);
           }}
-          onSubmit={editingItem ? (newItem) => handleEdit(editingItem, newItem) : handleAdd}
+          onSubmit={
+            editingItem
+              ? newItem => handleEdit(editingItem, newItem)
+              : handleAdd
+          }
           initialData={editingItem}
         />
       ) : (
@@ -269,7 +282,11 @@ const ProfileSectionCard = ({
             setOpenModal(false);
           }}
           type={fieldName}
-          onSubmit={editingItem ? (newItem) => handleEdit(editingItem, newItem) : handleAdd}
+          onSubmit={
+            editingItem
+              ? newItem => handleEdit(editingItem, newItem)
+              : handleAdd
+          }
           initialData={editingItem}
         />
       )}
