@@ -1,6 +1,7 @@
 import { skipToken, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRoutes } from "@/lib/api-routes";
 import { useAuthState } from "@/stores/auth-store";
+import { useMemo } from "react";
 
 const CURRENT_USER_ID = "__current__";
 
@@ -10,9 +11,19 @@ export function useUser(userId: string = CURRENT_USER_ID) {
 
   const queryKey = ["users", userId];
 
+  const queryFn = useMemo(
+    () =>
+      userId === CURRENT_USER_ID
+        ? token
+          ? apiRoutes.getMe
+          : skipToken
+        : () => apiRoutes.getUser(userId),
+    [userId]
+  );
+
   const { data: user, ...rest } = useQuery({
     queryKey: queryKey,
-    queryFn: token ? apiRoutes.getMe : skipToken,
+    queryFn,
     staleTime: 0 // Allow refetching immediately when invalidated
   });
 

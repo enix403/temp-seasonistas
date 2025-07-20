@@ -19,6 +19,19 @@ export const apiRoutes = {
   googleCallback: jsonDecl(`/auth/google/callback`),
 
   /* ========================== */
+  /* ======== Users ========== */
+  /* ========================== */
+  // Queries
+  getUsers: jsonDecl(wq`/users`),
+  getUser: jsonDecl((id: string) => `/users/${id}`),
+
+  // Mutations
+  createUser: payloadDecl(`/users`),
+  updateUser: payloadDecl((id: string) => `/users/${id}`, { method: "PATCH" }),
+  deleteUser: payloadDecl((id: string) => `/users/${id}`, { method: "DELETE" }),
+  batchDeleteUsers: payloadDecl(`/users/batch-delete`, { method: "DELETE" }),
+
+  /* ========================== */
   /* =========== Jobs ========= */
   /* ========================== */
   // Queries
