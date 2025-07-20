@@ -15,12 +15,13 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
 
 interface EditProfileModalProps {
   open: boolean;
   onClose: () => void;
+  userId?: string;
   initialData: {
     email: string;
     gender?: string;
@@ -41,9 +42,10 @@ const genderOptions = [
 const EditProfileModal: React.FC<EditProfileModalProps> = ({
   open,
   onClose,
+  userId,
   initialData
 }) => {
-  const { refreshUser } = useCurrentUser();
+  const { refreshUser } = useUser(userId);
   const [formData, setFormData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -22,7 +22,7 @@ export default function DashboardHome() {
         <ProfileBarCard profileTitleKey="fullName" />
         <PercentageCard />
         <GraphCard />
-        <BasicInfoCard />
+        <BasicInfoCard editable />
         <AboutUsCard />
         <EducationCard />
         <ExperienceCard />
