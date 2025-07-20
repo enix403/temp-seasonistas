@@ -25,12 +25,6 @@ export default function EmployerInfo() {
   const { basicInfo, setEmployerInfo, clearSignUpData } = useSignUpStore();
   const login = useLogin();
 
-  // Redirect if no basic info
-  if (!basicInfo) {
-    router.replace("/auth/sign-up");
-    return null;
-  }
-
   const form = useForm({
     defaultValues: {
       companyName: "",
@@ -43,6 +37,12 @@ export default function EmployerInfo() {
   });
 
   const onSubmit = async values => {
+    // Redirect if no basic info
+    if (!basicInfo) {
+      router.replace("/auth/sign-up");
+      return null;
+    }
+
     try {
       setIsLoading(true);
       setEmployerInfo(values);

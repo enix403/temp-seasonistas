@@ -21,7 +21,7 @@ export function useLogin() {
       router.replace("/employee/profile");
     } else {
       // Default to employee for any other role
-      router.replace("/employee/profile");
+      router.replace("/");
     }
   }, [router, setAuthState]);
 }

@@ -13,11 +13,7 @@ import { SimpleFormItem } from "@/components/form/SimpleFormItem";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { Textarea } from "@/components/ui/textarea";
-import {
-  FormControl,
-  FormItem,
-  FormLabel
-} from "@/components/ui/form";
+import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
 
 import { useSignUpStore } from "@/stores/auth-store";
 import { useRouter } from "next/navigation";
@@ -83,12 +79,6 @@ export default function CandiateInfo() {
   const { basicInfo, setEmployeeInfo, clearSignUpData } = useSignUpStore();
   const login = useLogin();
 
-  // Redirect if no basic info
-  if (!basicInfo) {
-    router.replace("/auth/sign-up");
-    return null;
-  }
-
   const form = useForm<FormValues>({
     defaultValues: {
       phone: "",
@@ -100,6 +90,12 @@ export default function CandiateInfo() {
   });
 
   const onSubmit = async (values: FormValues) => {
+    // Redirect if no basic info
+    if (!basicInfo) {
+      router.replace("/auth/sign-up");
+      return
+    }
+
     try {
       setIsLoading(true);
       setEmployeeInfo(values);
