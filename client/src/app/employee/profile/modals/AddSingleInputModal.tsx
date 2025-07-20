@@ -81,7 +81,7 @@ const AddSingleInputModal: React.FC<AddSingleInputModalProps> = ({
             fullWidth
             size='small'
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 10

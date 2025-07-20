@@ -76,7 +76,7 @@ interface SignUpState {
 const signUpAtom = atom<SignUpState>({
   basicInfo: null,
   employeeInfo: null,
-  employerInfo: null,
+  employerInfo: null
 });
 
 export function useSignUpStore() {
@@ -86,9 +86,13 @@ export function useSignUpStore() {
 
   return {
     ...state,
-    setBasicInfo: (info: SignUpBasicInfo) => setState(prev => ({ ...prev, basicInfo: info })),
-    setEmployeeInfo: (info: SignUpEmployeeInfo) => setState(prev => ({ ...prev, employeeInfo: info })),
-    setEmployerInfo: (info: SignUpEmployerInfo) => setState(prev => ({ ...prev, employerInfo: info })),
-    clearSignUpData: () => setState({ basicInfo: null, employeeInfo: null, employerInfo: null }),
+    setBasicInfo: (info: SignUpBasicInfo) =>
+      setState(prev => ({ ...prev, basicInfo: info })),
+    setEmployeeInfo: (info: SignUpEmployeeInfo) =>
+      setState(prev => ({ ...prev, employeeInfo: info })),
+    setEmployerInfo: (info: SignUpEmployerInfo) =>
+      setState(prev => ({ ...prev, employerInfo: info })),
+    clearSignUpData: () =>
+      setState({ basicInfo: null, employeeInfo: null, employerInfo: null })
   };
 }

@@ -22,7 +22,7 @@ interface ImageUploadModalProps {
   onClose: () => void;
   title: string;
   currentImageUrl: string | null | undefined;
-  updateField: 'profilePictureUrl' | 'coverPictureUrl';
+  updateField: "profilePictureUrl" | "coverPictureUrl";
   aspectRatio?: {
     width: number;
     height: number;
@@ -31,7 +31,7 @@ interface ImageUploadModalProps {
     width: number | string;
     height: number;
   };
-  modalSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  modalSize?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
@@ -42,7 +42,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   updateField,
   aspectRatio = { width: 1, height: 1 },
   previewSize = { width: 200, height: 200 },
-  modalSize = 'sm'
+  modalSize = "sm"
 }) => {
   const queryClient = useQueryClient();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -67,18 +67,18 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       toast.success(`${title} updated successfully`);
       handleClose();
     },
-    onError: (error) => {
+    onError: error => {
       toast.error(error.message || `Failed to update ${title.toLowerCase()}`);
     }
   });
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif']
+      "image/*": [".jpeg", ".jpg", ".png", ".gif"]
     },
     maxSize: 5 * 1024 * 1024, // 5MB
     maxFiles: 1,
-    onDrop: (acceptedFiles) => {
+    onDrop: acceptedFiles => {
       const file = acceptedFiles[0];
       if (file) {
         setSelectedFile(file);
@@ -160,9 +160,15 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
           <Stack spacing={3}>
             {/* Current Image */}
             {currentImageUrl && !previewUrl && (
-              <Box textAlign="center">
-                <Typography variant="subtitle1" gutterBottom>Current {title}</Typography>
-                <Box position="relative" display="inline-block" width={previewSize.width}>
+              <Box textAlign='center'>
+                <Typography variant='subtitle1' gutterBottom>
+                  Current {title}
+                </Typography>
+                <Box
+                  position='relative'
+                  display='inline-block'
+                  width={previewSize.width}
+                >
                   <Box sx={imageContainerStyle}>
                     <img
                       src={currentImageUrl}
@@ -172,9 +178,9 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                   </Box>
                   {currentImageUrl && (
                     <Button
-                      variant="contained"
-                      color="error"
-                      size="small"
+                      variant='contained'
+                      color='error'
+                      size='small'
                       onClick={() => setShowDeleteConfirm(true)}
                       sx={{ position: "absolute", bottom: 8, right: 8 }}
                     >
@@ -189,27 +195,27 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
             <Box
               {...getRootProps()}
               sx={{
-                border: '2px dashed',
-                borderColor: isDragActive ? 'primary.main' : 'grey.300',
+                border: "2px dashed",
+                borderColor: isDragActive ? "primary.main" : "grey.300",
                 borderRadius: 2,
                 p: 3,
-                textAlign: 'center',
-                cursor: 'pointer',
-                bgcolor: isDragActive ? 'action.hover' : 'background.paper'
+                textAlign: "center",
+                cursor: "pointer",
+                bgcolor: isDragActive ? "action.hover" : "background.paper"
               }}
             >
               <input {...getInputProps()} />
-              <Stack spacing={1} alignItems="center">
-                <Typography variant="h6">
-                  {isDragActive ? "Drop the image here" : `Drop your ${title.toLowerCase()} here`}
+              <Stack spacing={1} alignItems='center'>
+                <Typography variant='h6'>
+                  {isDragActive
+                    ? "Drop the image here"
+                    : `Drop your ${title.toLowerCase()} here`}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant='body2' color='text.secondary'>
                   or
                 </Typography>
-                <Button variant="outlined">
-                  Select File
-                </Button>
-                <Typography variant="caption" color="text.secondary">
+                <Button variant='outlined'>Select File</Button>
+                <Typography variant='caption' color='text.secondary'>
                   PNG, JPG, GIF up to 5MB
                 </Typography>
               </Stack>
@@ -217,29 +223,24 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
             {/* Preview */}
             {previewUrl && (
-              <Box textAlign="center">
-                <Typography variant="subtitle1" gutterBottom>Preview</Typography>
+              <Box textAlign='center'>
+                <Typography variant='subtitle1' gutterBottom>
+                  Preview
+                </Typography>
                 <Box sx={{ ...imageContainerStyle, margin: "0 auto" }}>
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    style={imageStyle}
-                  />
+                  <img src={previewUrl} alt='Preview' style={imageStyle} />
                 </Box>
               </Box>
             )}
 
             {/* Upload Button */}
             {selectedFile && (
-              <Box display="flex" justifyContent="flex-end" gap={1}>
-                <Button
-                  variant="outlined"
-                  onClick={handleClose}
-                >
+              <Box display='flex' justifyContent='flex-end' gap={1}>
+                <Button variant='outlined' onClick={handleClose}>
                   Cancel
                 </Button>
                 <Button
-                  variant="contained"
+                  variant='contained'
                   onClick={handleUpload}
                   disabled={uploadMutation.isPending || updateProfile.isPending}
                 >
@@ -255,13 +256,14 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       <Dialog
         open={showDeleteConfirm}
         onClose={() => setShowDeleteConfirm(false)}
-        maxWidth="xs"
+        maxWidth='xs'
         fullWidth
       >
         <DialogTitle>Remove {title}?</DialogTitle>
         <DialogContent>
           <Typography>
-            Are you sure you want to remove your {title.toLowerCase()}? This action cannot be undone.
+            Are you sure you want to remove your {title.toLowerCase()}? This
+            action cannot be undone.
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -273,12 +275,14 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
           </Button>
           <Button
             onClick={handleRemove}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
             disabled={updateProfile.isPending}
-            startIcon={updateProfile.isPending ? <CircularProgress size={20} /> : null}
+            startIcon={
+              updateProfile.isPending ? <CircularProgress size={20} /> : null
+            }
           >
-            {updateProfile.isPending ? 'Removing...' : 'Remove'}
+            {updateProfile.isPending ? "Removing..." : "Remove"}
           </Button>
         </DialogActions>
       </Dialog>

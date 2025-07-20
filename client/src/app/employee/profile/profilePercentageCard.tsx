@@ -2,44 +2,48 @@
 
 import React from "react";
 import { Box, Typography, CircularProgress, Stack } from "@mui/material";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 
-const PercentageCard = () => {
-  const { user } = useCurrentUser();
+const PercentageCard = ({ userId }: { userId?: string }) => {
+  const { user } = useUser(userId);
 
   const calculateCompletionPercentage = (user: any) => {
     if (!user) return 0;
 
     const requiredFields = [
-      'fullName',
-      'email',
-      'bio',
-      'gender',
-      'dateOfBirth',
-      'phoneNumber',
-      'addressCountry',
-      'addressCity',
-      'contactEmail',
-      'website'
+      "fullName",
+      "email",
+      "bio",
+      "gender",
+      "dateOfBirth",
+      "phoneNumber",
+      "addressCountry",
+      "addressCity",
+      "contactEmail",
+      "website"
     ];
 
     const arrayFields = [
-      { name: 'experiences', weight: 2 }, // More weight as it's more important
-      { name: 'educations', weight: 2 },  // More weight as it's more important
-      { name: 'skills', weight: 1.5 },    // Moderate weight
-      { name: 'interests', weight: 1 },   // Normal weight
-      { name: 'goals', weight: 1 }        // Normal weight
+      { name: "experiences", weight: 2 }, // More weight as it's more important
+      { name: "educations", weight: 2 }, // More weight as it's more important
+      { name: "skills", weight: 1.5 }, // Moderate weight
+      { name: "interests", weight: 1 }, // Normal weight
+      { name: "goals", weight: 1 } // Normal weight
     ];
 
     // Calculate basic fields completion
-    const filledBasicFields = requiredFields.filter(field =>
-      user[field] && user[field].toString().trim() !== ''
+    const filledBasicFields = requiredFields.filter(
+      field => user[field] && user[field].toString().trim() !== ""
     ).length;
-    const basicFieldsPercentage = (filledBasicFields / requiredFields.length) * 50; // Basic fields worth 50%
+    const basicFieldsPercentage =
+      (filledBasicFields / requiredFields.length) * 50; // Basic fields worth 50%
 
     // Calculate array fields completion
     let arrayFieldsScore = 0;
-    let totalArrayWeight = arrayFields.reduce((sum, field) => sum + field.weight, 0);
+    let totalArrayWeight = arrayFields.reduce(
+      (sum, field) => sum + field.weight,
+      0
+    );
 
     arrayFields.forEach(field => {
       if (Array.isArray(user[field.name]) && user[field.name].length > 0) {
@@ -50,7 +54,9 @@ const PercentageCard = () => {
     const arrayFieldsPercentage = (arrayFieldsScore / totalArrayWeight) * 50; // Array fields worth 50%
 
     // Calculate total percentage
-    const totalPercentage = Math.round(basicFieldsPercentage + arrayFieldsPercentage);
+    const totalPercentage = Math.round(
+      basicFieldsPercentage + arrayFieldsPercentage
+    );
 
     return Math.min(totalPercentage, 100); // Cap at 100%
   };
@@ -152,7 +158,8 @@ const PercentageCard = () => {
               variant='body2'
               sx={{ color: "#aaa", mt: 0.5, maxWidth: "500px" }}
             >
-              Add more details like {missingFields.join(", ")} to complete your profile.
+              Add more details like {missingFields.join(", ")} to complete your
+              profile.
             </Typography>
           )}
           {missingFields.length === 0 && (

@@ -4,21 +4,16 @@ import {
   Typography,
   Card,
   CardContent,
-  IconButton,
   Button,
-  Grid,
-  Paper,
   Avatar,
-  Chip,
   Divider,
-  Stack,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions
 } from "@mui/material";
 import AddEducationModal from "./modals/AddEducationModal";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import { format } from "date-fns";
 import { apiRoutes } from "@/lib/api-routes";
 import { ApiReplyError } from "@/lib/api-decls";
@@ -33,12 +28,16 @@ interface Education {
   currentlyActive: boolean;
 }
 
-const EducationCard = () => {
+const EducationCard = ({ userId }: { userId?: string }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [editingEducation, setEditingEducation] = useState<Education | null>(null);
-  const [deletingEducation, setDeletingEducation] = useState<Education | null>(null);
+  const [editingEducation, setEditingEducation] = useState<Education | null>(
+    null
+  );
+  const [deletingEducation, setDeletingEducation] = useState<Education | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
-  const { user, refreshUser } = useCurrentUser();
+  const { user, refreshUser } = useUser(userId);
 
   if (!user) {
     return null;
@@ -143,7 +142,7 @@ const EducationCard = () => {
               <Box display='flex' mb={2}>
                 <Avatar
                   variant='square'
-                  sx={{ width: 48, height: 48, mr: 2, bgcolor: '#4B8378' }}
+                  sx={{ width: 48, height: 48, mr: 2, bgcolor: "#4B8378" }}
                 >
                   {education.institure.charAt(0)}
                 </Avatar>
@@ -190,7 +189,8 @@ const EducationCard = () => {
                   </Typography>
                   <Typography sx={{ fontSize: 13, color: "#555" }}>
                     Grade: {education.grade} &nbsp;&nbsp;•&nbsp;&nbsp;
-                    {formatDate(education.dateStart, false)} - {formatDate(education.dateEnd, education.currentlyActive)}
+                    {formatDate(education.dateStart, false)} -{" "}
+                    {formatDate(education.dateEnd, education.currentlyActive)}
                   </Typography>
 
                   {education.description && (
@@ -204,8 +204,12 @@ const EducationCard = () => {
             </React.Fragment>
           ))
         ) : (
-          <Typography variant='body2' sx={{ color: "#666", textAlign: "center", py: 4 }}>
-            No education records added yet. Add your education details to help employers understand your qualifications.
+          <Typography
+            variant='body2'
+            sx={{ color: "#666", textAlign: "center", py: 4 }}
+          >
+            No education records added yet. Add your education details to help
+            employers understand your qualifications.
           </Typography>
         )}
       </CardContent>
@@ -220,13 +224,14 @@ const EducationCard = () => {
       <Dialog
         open={Boolean(deletingEducation)}
         onClose={() => setDeletingEducation(null)}
-        maxWidth="xs"
+        maxWidth='xs'
         fullWidth
       >
         <DialogTitle>Delete Education</DialogTitle>
         <DialogContent>
           <Typography>
-            Are you sure you want to delete this education record? This action cannot be undone.
+            Are you sure you want to delete this education record? This action
+            cannot be undone.
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -240,8 +245,8 @@ const EducationCard = () => {
           <Button
             onClick={handleConfirmDelete}
             disabled={loading}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
           >
             {loading ? "Deleting..." : "Delete"}
           </Button>

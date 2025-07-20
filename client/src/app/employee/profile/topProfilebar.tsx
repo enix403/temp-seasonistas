@@ -17,13 +17,15 @@ import ProfilePictureModal from "./modals/ProfilePictureModal";
 import CoverPictureModal from "./modals/CoverPictureModal";
 import { Badge } from "@/components/ui/badge";
 import clsx from "clsx";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 import { CameraIcon } from "lucide-react";
 
 const ProfileBarCard = ({
+  userId,
   profileTitleKey,
   editable = false
 }: {
+  userId?: string;
   profileTitleKey: "fullName" | "companyName";
   editable?: boolean;
 }) => {
@@ -32,7 +34,7 @@ const ProfileBarCard = ({
   const [statusModalOpen, setStatusModalOpen] = useState(false);
   const [pictureModalOpen, setPictureModalOpen] = useState(false);
   const [coverModalOpen, setCoverModalOpen] = useState(false);
-  const { user } = useCurrentUser();
+  const { user } = useUser(userId);
 
   return (
     <Box

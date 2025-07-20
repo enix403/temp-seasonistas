@@ -93,7 +93,7 @@ export default function CandiateInfo() {
     // Redirect if no basic info
     if (!basicInfo) {
       router.replace("/auth/sign-up");
-      return
+      return;
     }
 
     try {

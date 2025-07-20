@@ -16,7 +16,7 @@ import AddSingleInputModal from "./modals/AddSingleInputModal";
 import { toast } from "sonner";
 import { apiRoutes } from "@/lib/api-routes";
 import { useMutation } from "@tanstack/react-query";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 
 export interface ProfileSectionItem {
   id?: string;
@@ -25,6 +25,7 @@ export interface ProfileSectionItem {
 }
 
 interface ProfileSectionCardProps {
+  userId?: string;
   title: string;
   description: string;
   addText: string;
@@ -36,6 +37,7 @@ interface ProfileSectionCardProps {
 }
 
 const ProfileSectionCard = ({
+  userId,
   title,
   description,
   addText,
@@ -51,7 +53,7 @@ const ProfileSectionCard = ({
   );
 
   // Get current user data
-  const { user: userData, refreshUser } = useCurrentUser();
+  const { user: userData, refreshUser } = useUser(userId);
 
   // Update user profile mutation
   const updateProfile = useMutation({

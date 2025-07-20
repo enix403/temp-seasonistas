@@ -96,14 +96,14 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
     setError(null);
   }, [open, experience]);
 
-  const handleChange = (field: keyof Experience) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: event.target.value
-    }));
-  };
+  const handleChange =
+    (field: keyof Experience) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData(prev => ({
+        ...prev,
+        [field]: event.target.value
+      }));
+    };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -180,13 +180,13 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert severity='error' sx={{ mb: 2 }}>
               {error}
             </Alert>
           )}
 
           <TextField
-            label="Job Title"
+            label='Job Title'
             placeholder='e.g., Software Engineer'
             value={formData.title}
             onChange={handleChange("title")}
@@ -197,7 +197,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            label="Company"
+            label='Company'
             placeholder='e.g., Google'
             value={formData.company}
             onChange={handleChange("company")}
@@ -209,7 +209,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
           />
           <TextField
             select
-            label="Employment Type"
+            label='Employment Type'
             value={formData.employmentType}
             onChange={handleChange("employmentType")}
             fullWidth
@@ -269,7 +269,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
           )}
 
           <TextField
-            label="Description"
+            label='Description'
             placeholder='Describe your role, responsibilities, and achievements'
             value={formData.description}
             onChange={handleChange("description")}

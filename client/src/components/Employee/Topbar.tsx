@@ -53,14 +53,12 @@ const Topbar = (props: Props) => {
           </span>
         </div>
         <Link href='/employee/profile'>
-          <div
-            className='flex cursor-pointer items-center gap-2'
-          >
-            <div className='relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0'>
+          <div className='flex cursor-pointer items-center gap-2'>
+            <div className='relative h-8 w-8 flex-shrink-0 overflow-hidden rounded-full bg-gray-200'>
               <img
-                alt={user?.fullName || 'Profile Picture'}
+                alt={user?.fullName || "Profile Picture"}
                 src={user?.profilePictureUrl || defaultProfileImage.src}
-                className='w-full h-full object-cover object-center'
+                className='h-full w-full object-cover object-center'
               />
             </div>
             <div className='flex flex-col leading-tight'>

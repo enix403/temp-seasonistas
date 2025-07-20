@@ -19,7 +19,7 @@ export default function DashboardHome() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       <Box sx={{ flex: "1 1 70%" }}>
-        <ProfileBarCard editable profileTitleKey="fullName" />
+        <ProfileBarCard editable profileTitleKey='fullName' />
         <PercentageCard />
         <GraphCard />
         <BasicInfoCard editable />
@@ -32,7 +32,7 @@ export default function DashboardHome() {
           description='Add skills to increase the chance of hiring'
           addText='Add Skill'
           data={userData?.skills || []}
-          fieldName="skills"
+          fieldName='skills'
           showLevel={true}
           footerText='Show More Skills'
         />
@@ -41,7 +41,7 @@ export default function DashboardHome() {
           description='Add your interests to let employers understand your passion areas'
           addText='Add Interest'
           data={userData?.interests || []}
-          fieldName="interests"
+          fieldName='interests'
           footerText='Show More Interests'
         />
         <ProfileSectionCard
@@ -49,7 +49,7 @@ export default function DashboardHome() {
           description='Mention your career goals to help employers align with your ambitions'
           addText='Add Goal'
           data={userData?.goals || []}
-          fieldName="goals"
+          fieldName='goals'
           footerText='Show More Goals'
         />
       </Box>

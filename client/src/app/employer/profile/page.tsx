@@ -4,7 +4,6 @@ import { Box } from "@mui/material";
 import DashboardHome from "./dashboardHome";
 
 export default function Dashboard() {
-
   return (
     <Box
       sx={{

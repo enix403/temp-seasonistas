@@ -150,9 +150,7 @@ const EmployersTable = () => {
 
                         <button
                           onClick={() =>
-                            router.push(
-                              `/admin/employers/jobs/${emp.userId}`
-                            )
+                            router.push(`/admin/employers/jobs/${emp.userId}`)
                           }
                           className='w-full px-4 py-2 text-left hover:bg-gray-100'
                         >

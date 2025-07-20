@@ -144,9 +144,7 @@ const AllJobsSection = () => {
                 Repost Job
               </button>
               <button
-                onClick={() =>
-                  router.push(`/employer/application/${job.id}`)
-                }
+                onClick={() => router.push(`/employer/application/${job.id}`)}
                 className='w-fit min-w-[130px] rounded-full bg-[#559093] px-3 py-1 text-[10px] leading-[19px] font-[600] text-white 2xl:min-w-[150px]'
               >
                 View Applicants

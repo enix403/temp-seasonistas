@@ -94,9 +94,7 @@ const Sidebar = ({
               className='h-full w-full'
             />
             <nav className='mt-3 w-full space-y-3'>
-              <p className='mb-6 pl-2 text-[20px] font-[500]'>
-                Over View
-              </p>
+              <p className='mb-6 pl-2 text-[20px] font-[500]'>Over View</p>
               <div className='flex w-full flex-col gap-3'>
                 {sidebarItems.map(({ name, href, icon: Icon }) => (
                   <Link

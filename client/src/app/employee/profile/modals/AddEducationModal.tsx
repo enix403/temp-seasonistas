@@ -87,14 +87,14 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
     setError(null);
   }, [open, education]);
 
-  const handleChange = (field: keyof Education) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: event.target.value
-    }));
-  };
+  const handleChange =
+    (field: keyof Education) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData(prev => ({
+        ...prev,
+        [field]: event.target.value
+      }));
+    };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -110,7 +110,12 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
       setError(null);
 
       // Validate required fields
-      if (!formData.degree || !formData.institure || !formData.grade || !formData.dateStart) {
+      if (
+        !formData.degree ||
+        !formData.institure ||
+        !formData.grade ||
+        !formData.dateStart
+      ) {
         setError("Please fill in all required fields");
         return;
       }
@@ -171,13 +176,13 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
       <DialogContent sx={{ px: 3, pt: 0, pb: 3 }}>
         <Stack spacing={2.2}>
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert severity='error' sx={{ mb: 2 }}>
               {error}
             </Alert>
           )}
 
           <TextField
-            label="Institution"
+            label='Institution'
             placeholder='School/University/Institute name'
             value={formData.institure}
             onChange={handleChange("institure")}
@@ -188,7 +193,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            label="Degree"
+            label='Degree'
             placeholder='e.g., Bachelor of Science in Computer Science'
             value={formData.degree}
             onChange={handleChange("degree")}
@@ -199,7 +204,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
             sx={{ "& .MuiOutlinedInput-root": { borderRadius: 10 } }}
           />
           <TextField
-            label="Grade"
+            label='Grade'
             placeholder='e.g., A+, 3.8 GPA, First Class, etc.'
             value={formData.grade}
             onChange={handleChange("grade")}
@@ -230,7 +235,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
                 disabled={loading}
               />
             }
-            label="Currently studying here"
+            label='Currently studying here'
           />
 
           {!formData.currentlyActive && (
@@ -248,7 +253,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
           )}
 
           <TextField
-            label="Description"
+            label='Description'
             placeholder='Add any relevant details about your education'
             value={formData.description}
             onChange={handleChange("description")}

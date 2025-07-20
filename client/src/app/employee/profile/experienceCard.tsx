@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import AddExperienceModal from "./modals/AddExperienceModal";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 import { format } from "date-fns";
 import { apiRoutes } from "@/lib/api-routes";
 import { ApiReplyError } from "@/lib/api-decls";
@@ -29,12 +29,15 @@ interface Experience {
   currentlyActive: boolean;
 }
 
-const ExperienceCard = () => {
+const ExperienceCard = ({ userId }: { userId?: string }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
-  const [deletingExperience, setDeletingExperience] = useState<Experience | null>(null);
+  const [editingExperience, setEditingExperience] = useState<Experience | null>(
+    null
+  );
+  const [deletingExperience, setDeletingExperience] =
+    useState<Experience | null>(null);
   const [loading, setLoading] = useState(false);
-  const { user, refreshUser } = useCurrentUser();
+  const { user, refreshUser } = useUser(userId);
 
   if (!user) {
     return null;
@@ -139,7 +142,7 @@ const ExperienceCard = () => {
               <Grid container spacing={1}>
                 <Grid size={{ xs: 12, md: 1 }}>
                   <Avatar
-                    sx={{ width: 48, height: 48, bgcolor: '#4B8378' }}
+                    sx={{ width: 48, height: 48, bgcolor: "#4B8378" }}
                     variant='circular'
                   >
                     {experience.company.charAt(0)}
@@ -204,7 +207,8 @@ const ExperienceCard = () => {
                     variant='body2'
                     sx={{ fontSize: 13, color: "#555", mb: 1 }}
                   >
-                    {formatDate(experience.dateStart, false)} - {formatDate(experience.dateEnd, experience.currentlyActive)}
+                    {formatDate(experience.dateStart, false)} -{" "}
+                    {formatDate(experience.dateEnd, experience.currentlyActive)}
                   </Typography>
                 </Grid>
                 {experience.description && (
@@ -222,8 +226,12 @@ const ExperienceCard = () => {
             </Box>
           ))
         ) : (
-          <Typography variant='body2' sx={{ color: "#666", textAlign: "center", py: 4 }}>
-            No experience records added yet. Add your work experience to help employers understand your background.
+          <Typography
+            variant='body2'
+            sx={{ color: "#666", textAlign: "center", py: 4 }}
+          >
+            No experience records added yet. Add your work experience to help
+            employers understand your background.
           </Typography>
         )}
       </CardContent>
@@ -238,13 +246,14 @@ const ExperienceCard = () => {
       <Dialog
         open={Boolean(deletingExperience)}
         onClose={() => setDeletingExperience(null)}
-        maxWidth="xs"
+        maxWidth='xs'
         fullWidth
       >
         <DialogTitle>Delete Experience</DialogTitle>
         <DialogContent>
           <Typography>
-            Are you sure you want to delete this experience record? This action cannot be undone.
+            Are you sure you want to delete this experience record? This action
+            cannot be undone.
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -258,8 +267,8 @@ const ExperienceCard = () => {
           <Button
             onClick={handleConfirmDelete}
             disabled={loading}
-            color="error"
-            variant="contained"
+            color='error'
+            variant='contained'
           >
             {loading ? "Deleting..." : "Delete"}
           </Button>

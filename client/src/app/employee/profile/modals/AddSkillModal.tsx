@@ -26,12 +26,7 @@ interface AddSkillModalProps {
   initialData?: ProfileSectionItem | null;
 }
 
-const skillLevels = [
-  "Beginner",
-  "Intermediate",
-  "Advanced",
-  "Expert"
-];
+const skillLevels = ["Beginner", "Intermediate", "Advanced", "Expert"];
 
 const suggestions = [
   "Figma",
@@ -109,7 +104,7 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({
             fullWidth
             size='small'
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={e => setTitle(e.target.value)}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 10
@@ -117,17 +112,17 @@ const AddSkillModal: React.FC<AddSkillModalProps> = ({
             }}
           />
 
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size='small'>
             <InputLabel>Skill Level</InputLabel>
             <Select
               value={level}
-              label="Skill Level"
-              onChange={(e) => setLevel(e.target.value)}
+              label='Skill Level'
+              onChange={e => setLevel(e.target.value)}
               sx={{
                 borderRadius: 10
               }}
             >
-              {skillLevels.map((level) => (
+              {skillLevels.map(level => (
                 <MenuItem key={level} value={level}>
                   {level}
                 </MenuItem>

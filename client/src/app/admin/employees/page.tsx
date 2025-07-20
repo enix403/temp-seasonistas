@@ -212,9 +212,7 @@ export default function AllEmployeesPage() {
                       </button>
                       <button
                         onClick={() =>
-                          router.push(
-                            `/admin/employees/job-history/${emp.id}`
-                          )
+                          router.push(`/admin/employees/job-history/${emp.id}`)
                         }
                         className='w-full px-4 py-2 text-left hover:bg-gray-100'
                       >

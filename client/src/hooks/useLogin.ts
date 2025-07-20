@@ -6,22 +6,25 @@ export function useLogin() {
   const setAuthState = useSetAuthState();
   const router = useRouter();
 
-  return useCallback((user, accessToken) => {
-    // TODO: should validate user ?
-    setAuthState({
-      token: accessToken,
-      userId: user["_id"],
-      userRole: user["role"]
-    });
+  return useCallback(
+    (user, accessToken) => {
+      // TODO: should validate user ?
+      setAuthState({
+        token: accessToken,
+        userId: user["_id"],
+        userRole: user["role"]
+      });
 
-    // Redirect based on role
-    if (user.role === "employer") {
-      router.replace("/employer/profile");
-    } else if (user.role === "employee") {
-      router.replace("/employee/profile");
-    } else {
-      // Default to employee for any other role
-      router.replace("/");
-    }
-  }, [router, setAuthState]);
+      // Redirect based on role
+      if (user.role === "employer") {
+        router.replace("/employer/profile");
+      } else if (user.role === "employee") {
+        router.replace("/employee/profile");
+      } else {
+        // Default to employee for any other role
+        router.replace("/");
+      }
+    },
+    [router, setAuthState]
+  );
 }

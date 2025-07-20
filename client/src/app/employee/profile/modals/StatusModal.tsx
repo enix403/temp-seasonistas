@@ -14,20 +14,23 @@ import {
   Button
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 import { apiRoutes } from "@/lib/api-routes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 interface StatusModalProps {
+  userId?: string;
   open: boolean;
   onClose: () => void;
 }
 
-const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
-  const { user } = useCurrentUser();
+const StatusModal: React.FC<StatusModalProps> = ({ userId, open, onClose }) => {
+  const { user } = useUser(userId);
   const queryClient = useQueryClient();
-  const [isLookingForJob, setIsLookingForJob] = useState(user?.isLookingForJob ?? true);
+  const [isLookingForJob, setIsLookingForJob] = useState(
+    user?.isLookingForJob ?? true
+  );
 
   // Update state when modal opens/closes or user data changes
   useEffect(() => {
@@ -44,7 +47,7 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
       toast.success("Status updated successfully");
       onClose();
     },
-    onError: (error) => {
+    onError: error => {
       toast.error(error.message || "Failed to update status");
     }
   });
@@ -125,7 +128,7 @@ const StatusModal: React.FC<StatusModalProps> = ({ open, onClose }) => {
           </Typography>
         </Box>
 
-        <Box mt={3} display="flex" justifyContent="flex-end" gap={1}>
+        <Box mt={3} display='flex' justifyContent='flex-end' gap={1}>
           <Button
             variant='outlined'
             onClick={onClose}

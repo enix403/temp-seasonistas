@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 
-const AboutUsCard = () => {
+const AboutUsCard = ({ userId }: { userId?: string }) => {
   const [open, setOpen] = useState(false);
-  const { user } = useCurrentUser();
+  const { user } = useUser(userId);
 
   if (!user) {
     return null;
@@ -54,11 +54,11 @@ const AboutUsCard = () => {
           Edit About to increase the chance of hiring
         </Typography>
         <Typography variant='body2' sx={{ fontSize: 14.5, color: "#333" }}>
-          {user.bio || 'Add a bio to tell employers about yourself'}{" "}
+          {user.bio || "Add a bio to tell employers about yourself"}{" "}
           {user.bio && user.bio.length > 150 && (
             <Typography
               component='span'
-              sx={{ color: "#0073e6", fontWeight: 500, cursor: 'pointer' }}
+              sx={{ color: "#0073e6", fontWeight: 500, cursor: "pointer" }}
             >
               see more
             </Typography>
@@ -69,7 +69,7 @@ const AboutUsCard = () => {
       <AddAboutModal
         open={open}
         onClose={() => setOpen(false)}
-        savedData={user.bio || ''}
+        savedData={user.bio || ""}
       />
     </Card>
   );
