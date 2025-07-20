@@ -51,7 +51,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const { updateUser } = useUser(userId);
+  const { updateUser, refreshUser } = useUser(userId);
 
   // Upload file mutation
   const uploadMutation = useMutation({
@@ -67,7 +67,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const updateProfile = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      refreshUser();
       toast.success(`${title} updated successfully`);
       handleClose();
     },

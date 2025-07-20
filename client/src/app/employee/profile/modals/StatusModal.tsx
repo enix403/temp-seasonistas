@@ -26,8 +26,7 @@ interface StatusModalProps {
 }
 
 const StatusModal: React.FC<StatusModalProps> = ({ userId, open, onClose }) => {
-  const { user, updateUser } = useUser(userId);
-  const queryClient = useQueryClient();
+  const { user, updateUser, refreshUser } = useUser(userId);
   const [isLookingForJob, setIsLookingForJob] = useState(
     user?.isLookingForJob ?? true
   );
@@ -43,7 +42,7 @@ const StatusModal: React.FC<StatusModalProps> = ({ userId, open, onClose }) => {
   const updateProfile = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      refreshUser();
       toast.success("Status updated successfully");
       onClose();
     },
