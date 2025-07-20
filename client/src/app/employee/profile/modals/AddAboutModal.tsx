@@ -12,21 +12,23 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
 
 interface AddAboutModalProps {
+  userId?:string;
   open: boolean;
   onClose: () => void;
   savedData: string;
 }
 
 const AddAboutModal: React.FC<AddAboutModalProps> = ({
+  userId,
   open,
   onClose,
   savedData
 }) => {
-  const { refreshUser } = useCurrentUser();
+  const { refreshUser } = useUser(userId);
   const [input, setInput] = useState(savedData || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

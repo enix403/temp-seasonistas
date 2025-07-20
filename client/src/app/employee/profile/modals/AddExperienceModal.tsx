@@ -30,6 +30,7 @@ interface Experience {
 }
 
 interface AddExperienceModalProps {
+  userId?: string;
   open: boolean;
   onClose: () => void;
   experience?: Experience | null;
@@ -54,6 +55,7 @@ const formatDateForInput = (dateString: string | undefined) => {
 };
 
 const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
+  userId,
   open,
   onClose,
   experience

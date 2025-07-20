@@ -227,6 +227,7 @@ const EducationCard = ({
       {editable && (
         <>
           <AddEducationModal
+            userId={userId}
             open={openModal}
             onClose={handleClose}
             education={editingEducation}

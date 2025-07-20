@@ -3,7 +3,13 @@ import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
 import { useUser } from "@/hooks/useCurrentUser";
 
-const AboutUsCard = ({ userId, editable=false, }: { userId?: string, editable?:boolean }) => {
+const AboutUsCard = ({
+  userId,
+  editable = false
+}: {
+  userId?: string;
+  editable?: boolean;
+}) => {
   const [open, setOpen] = useState(false);
   const { user } = useUser(userId);
 
@@ -31,23 +37,25 @@ const AboutUsCard = ({ userId, editable=false, }: { userId?: string, editable?:b
           <Typography variant='h6' fontWeight={600}>
             About
           </Typography>
-          {editable &&<Button
-            variant='outlined'
-            size='small'
-            onClick={() => setOpen(true)}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: 550,
-              borderColor: "#EBECF0",
-              color: "#000000",
-              fontSize: "0.875rem",
-              px: 3,
-              py: 0.8
-            }}
-          >
-            Edit About
-          </Button>}
+          {editable && (
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setOpen(true)}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8
+              }}
+            >
+              Edit About
+            </Button>
+          )}
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -66,11 +74,14 @@ const AboutUsCard = ({ userId, editable=false, }: { userId?: string, editable?:b
         </Typography>
       </CardContent>
 
-      {editable &&<AddAboutModal
-        open={open}
-        onClose={() => setOpen(false)}
-        savedData={user.bio || ""}
-      />}
+      {editable && (
+        <AddAboutModal
+          userId={userId}
+          open={open}
+          onClose={() => setOpen(false)}
+          savedData={user.bio || ""}
+        />
+      )}
     </Card>
   );
 };

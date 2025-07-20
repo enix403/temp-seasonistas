@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Grid, Stack, Button } from "@mui/material";
 import EditProfileModal from "./modals/EditProfileModal";
-import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
+import { useUser } from "@/hooks/useCurrentUser";
 
 // Helper function to capitalize first letter
 const capitalizeFirstLetter = (str: string) => {

@@ -34,6 +34,7 @@ interface ProfileSectionCardProps {
   fieldName: string; // The field name in the user model (e.g. 'skills', 'interests', 'goals')
   showLevel?: boolean; // Whether to show/edit level field
   onShowMore?: () => void;
+  editable?: boolean;
 }
 
 const ProfileSectionCard = ({
@@ -45,7 +46,8 @@ const ProfileSectionCard = ({
   footerText,
   fieldName,
   showLevel = false,
-  onShowMore
+  onShowMore,
+  editable = false
 }: ProfileSectionCardProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [editingItem, setEditingItem] = useState<ProfileSectionItem | null>(
@@ -146,26 +148,28 @@ const ProfileSectionCard = ({
             {title}
           </Typography>
 
-          <Button
-            variant='outlined'
-            size='small'
-            onClick={() => {
-              setEditingItem(null);
-              setOpenModal(true);
-            }}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: 550,
-              borderColor: "#EBECF0",
-              color: "#000000",
-              fontSize: "0.875rem",
-              px: 3,
-              py: 0.8
-            }}
-          >
-            {addText}
-          </Button>
+          {editable && (
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => {
+                setEditingItem(null);
+                setOpenModal(true);
+              }}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8
+              }}
+            >
+              {addText}
+            </Button>
+          )}
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -204,42 +208,44 @@ const ProfileSectionCard = ({
                   </Typography>
                 )}
               </Box>
-              <Box display='flex' gap={1}>
-                <Box
-                  sx={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 1,
-                    backgroundColor: "#888888",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => handleDelete(item)}
-                >
-                  <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
-                </Box>
+              {editable && (
+                <Box display='flex' gap={1}>
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 1,
+                      backgroundColor: "#888888",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                    onClick={() => handleDelete(item)}
+                  >
+                    <DeleteIcon sx={{ color: "white", fontSize: 16 }} />
+                  </Box>
 
-                <Box
-                  sx={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 1,
-                    backgroundColor: "#4e9a8e",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => {
-                    setEditingItem(item);
-                    setOpenModal(true);
-                  }}
-                >
-                  <EditIcon sx={{ color: "white", fontSize: 16 }} />
+                  <Box
+                    sx={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 1,
+                      backgroundColor: "#4e9a8e",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer"
+                    }}
+                    onClick={() => {
+                      setEditingItem(item);
+                      setOpenModal(true);
+                    }}
+                  >
+                    <EditIcon sx={{ color: "white", fontSize: 16 }} />
+                  </Box>
                 </Box>
-              </Box>
+              )}
             </Paper>
           ))}
         </Box>
@@ -262,35 +268,39 @@ const ProfileSectionCard = ({
         )}
       </CardContent>
 
-      {showLevel ? (
-        <AddSkillModal
-          open={openModal}
-          onClose={() => {
-            setEditingItem(null);
-            setOpenModal(false);
-          }}
-          onSubmit={
-            editingItem
-              ? newItem => handleEdit(editingItem, newItem)
-              : handleAdd
-          }
-          initialData={editingItem}
-        />
-      ) : (
-        <AddSingleInputModal
-          open={openModal}
-          onClose={() => {
-            setEditingItem(null);
-            setOpenModal(false);
-          }}
-          type={fieldName}
-          onSubmit={
-            editingItem
-              ? newItem => handleEdit(editingItem, newItem)
-              : handleAdd
-          }
-          initialData={editingItem}
-        />
+      {editable && (
+        <>
+          {showLevel ? (
+            <AddSkillModal
+              open={openModal}
+              onClose={() => {
+                setEditingItem(null);
+                setOpenModal(false);
+              }}
+              onSubmit={
+                editingItem
+                  ? newItem => handleEdit(editingItem, newItem)
+                  : handleAdd
+              }
+              initialData={editingItem}
+            />
+          ) : (
+            <AddSingleInputModal
+              open={openModal}
+              onClose={() => {
+                setEditingItem(null);
+                setOpenModal(false);
+              }}
+              type={fieldName}
+              onSubmit={
+                editingItem
+                  ? newItem => handleEdit(editingItem, newItem)
+                  : handleAdd
+              }
+              initialData={editingItem}
+            />
+          )}
+        </>
       )}
     </Card>
   );

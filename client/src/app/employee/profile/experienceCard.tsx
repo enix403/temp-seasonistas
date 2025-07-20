@@ -249,6 +249,7 @@ const ExperienceCard = ({
       {editable && (
         <>
           <AddExperienceModal
+            userId={userId}
             open={openModal}
             onClose={handleClose}
             experience={editingExperience}

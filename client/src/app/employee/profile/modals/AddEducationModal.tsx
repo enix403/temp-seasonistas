@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { apiRoutes } from "@/lib/api-routes";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useCurrentUser, useUser } from "@/hooks/useCurrentUser";
 import { ApiReplyError } from "@/lib/api-decls";
 import { format } from "date-fns";
 
@@ -29,6 +29,7 @@ interface Education {
 }
 
 interface AddEducationModalProps {
+  userId?: string;
   open: boolean;
   onClose: () => void;
   education?: Education | null;
@@ -45,11 +46,12 @@ const formatDateForInput = (dateString: string | undefined) => {
 };
 
 const AddEducationModal: React.FC<AddEducationModalProps> = ({
+  userId,
   open,
   onClose,
   education
 }) => {
-  const { user, refreshUser } = useCurrentUser();
+  const { user, refreshUser } = useUser(userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Education>({
