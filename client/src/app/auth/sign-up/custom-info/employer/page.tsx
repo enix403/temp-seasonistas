@@ -12,7 +12,6 @@ import { AnimatedColorfulText } from "@/app/auth/common/AnimatedColorfulText";
 
 import { Form, FormField } from "@/components/ui/form";
 import { SimpleFormItem } from "@/components/form/SimpleFormItem";
-import { AvatarChanger } from "@/components/form/file-input/AvatarChanger";
 
 export default function EmployerInfo() {
   const form = useForm({

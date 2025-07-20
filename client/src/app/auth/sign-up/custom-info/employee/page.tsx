@@ -18,7 +18,6 @@ import {
   FormItem,
   FormLabel
 } from "@/components/ui/form";
-import { AvatarChanger } from "@/components/form/file-input/AvatarChanger";
 
 interface JobCategory {
   id: string;
