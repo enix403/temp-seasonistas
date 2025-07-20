@@ -22,9 +22,11 @@ import { DatePicker } from "@/components/form/DatePicker";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useParams, useRouter } from "next/navigation";
+import { useSignUpStore } from "@/stores/auth-store";
 
 export default function PrelimForm() {
   const { role } = useParams<{ role: string }>();
+  const { setBasicInfo } = useSignUpStore();
   const form = useForm({
     defaultValues: {
       firstName: "",
@@ -40,7 +42,8 @@ export default function PrelimForm() {
   const router = useRouter();
 
   const onSubmit = values => {
-    console.log(values);
+    const { confirmPassword, ...basicInfo } = values;
+    setBasicInfo(basicInfo);
     router.push(`/auth/sign-up/custom-info/${role}`);
   };
 

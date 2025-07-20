@@ -13,7 +13,24 @@ import { AnimatedColorfulText } from "@/app/auth/common/AnimatedColorfulText";
 import { Form, FormField } from "@/components/ui/form";
 import { SimpleFormItem } from "@/components/form/SimpleFormItem";
 
+import { useSignUpStore } from "@/stores/auth-store";
+import { useRouter } from "next/navigation";
+import { apiRoutes } from "@/lib/api-routes";
+import { useState } from "react";
+import { useLogin } from "@/hooks/useLogin";
+
 export default function EmployerInfo() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const { basicInfo, setEmployerInfo, clearSignUpData } = useSignUpStore();
+  const login = useLogin();
+
+  // Redirect if no basic info
+  if (!basicInfo) {
+    router.replace("/auth/sign-up");
+    return null;
+  }
+
   const form = useForm({
     defaultValues: {
       companyName: "",
@@ -25,8 +42,30 @@ export default function EmployerInfo() {
     mode: "onBlur"
   });
 
-  const onSubmit = values => {
-    console.log(values);
+  const onSubmit = async values => {
+    try {
+      setIsLoading(true);
+      setEmployerInfo(values);
+
+      const result = await apiRoutes.signUp({
+        ...basicInfo,
+        ...values,
+        role: "employer",
+        fullName: `${basicInfo.firstName} ${basicInfo.lastName}`
+      });
+
+      if (!result.ok) {
+        throw new Error("Sign up failed");
+      }
+
+      const { user, accessToken } = result.data;
+      login(user, accessToken);
+      clearSignUpData();
+    } catch (error) {
+      console.error("Sign up error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -104,8 +143,10 @@ export default function EmployerInfo() {
             effect='expandIcon'
             icon={ArrowRightIcon}
             iconPlacement='right'
+            loading={isLoading}
+            disabled={isLoading}
           >
-            Continue
+            Complete Sign Up
           </Button>
         </form>
       </Form>

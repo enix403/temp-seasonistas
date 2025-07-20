@@ -19,6 +19,12 @@ import {
   FormLabel
 } from "@/components/ui/form";
 
+import { useSignUpStore } from "@/stores/auth-store";
+import { useRouter } from "next/navigation";
+import { apiRoutes } from "@/lib/api-routes";
+import { useState } from "react";
+import { useLogin } from "@/hooks/useLogin";
+
 interface JobCategory {
   id: string;
   label: string;
@@ -72,19 +78,51 @@ interface FormValues {
 }
 
 export default function CandiateInfo() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const { basicInfo, setEmployeeInfo, clearSignUpData } = useSignUpStore();
+  const login = useLogin();
+
+  // Redirect if no basic info
+  if (!basicInfo) {
+    router.replace("/auth/sign-up");
+    return null;
+  }
+
   const form = useForm<FormValues>({
     defaultValues: {
       phone: "",
       location: "",
       description: "",
-      jobCategories: ["hospitality", "construction2"] // Pre-selected categories
+      jobCategories: []
     },
     mode: "onBlur"
   });
 
-  const onSubmit = (values: FormValues) => {
-    console.log(values);
-    // Handle form submission
+  const onSubmit = async (values: FormValues) => {
+    try {
+      setIsLoading(true);
+      setEmployeeInfo(values);
+
+      const result = await apiRoutes.signUp({
+        ...basicInfo,
+        ...values,
+        role: "employee",
+        fullName: `${basicInfo.firstName} ${basicInfo.lastName}`
+      });
+
+      if (!result.ok) {
+        throw new Error("Sign up failed");
+      }
+
+      const { user, accessToken } = result.data;
+      login(user, accessToken);
+      clearSignUpData();
+    } catch (error) {
+      console.error("Sign up error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -204,8 +242,10 @@ export default function CandiateInfo() {
               effect='expandIcon'
               icon={ArrowRightIcon}
               iconPlacement='right'
+              loading={isLoading}
+              disabled={isLoading}
             >
-              Continue
+              Complete Sign Up
             </Button>
           </div>
         </form>
