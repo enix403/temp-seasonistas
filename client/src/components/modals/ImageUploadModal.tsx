@@ -16,8 +16,10 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRoutes } from "@/lib/api-routes";
+import { useUser } from "@/hooks/useCurrentUser";
 
 interface ImageUploadModalProps {
+  userId?: string;
   open: boolean;
   onClose: () => void;
   title: string;
@@ -35,6 +37,7 @@ interface ImageUploadModalProps {
 }
 
 const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
+  userId,
   open,
   onClose,
   title,
@@ -48,6 +51,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const { updateUser } = useUser(userId);
 
   // Upload file mutation
   const uploadMutation = useMutation({
@@ -61,7 +65,7 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
 
   // Update profile mutation
   const updateProfile = useMutation({
-    mutationFn: apiRoutes.updateMe,
+    mutationFn: updateUser,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success(`${title} updated successfully`);

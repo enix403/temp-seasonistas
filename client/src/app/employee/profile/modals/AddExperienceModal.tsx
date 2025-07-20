@@ -60,7 +60,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
   onClose,
   experience
 }) => {
-  const { user, refreshUser } = useUser(userId);
+  const { user, refreshUser, updateUser } = useUser(userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Experience>({
@@ -140,7 +140,7 @@ const AddExperienceModal: React.FC<AddExperienceModalProps> = ({
         updatedExperiences = [...currentExperiences, formData];
       }
 
-      await apiRoutes.updateMe({
+      await updateUser({
         experiences: updatedExperiences
       });
 

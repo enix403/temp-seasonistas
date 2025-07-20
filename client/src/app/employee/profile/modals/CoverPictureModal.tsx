@@ -17,6 +17,7 @@ const CoverPictureModal: React.FC<CoverPictureModalProps> = ({
 
   return (
     <ImageUploadModal
+      userId={userId}
       open={open}
       onClose={onClose}
       title='Cover Image'

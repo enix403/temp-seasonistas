@@ -43,7 +43,7 @@ const EducationCard = ({
     null
   );
   const [loading, setLoading] = useState(false);
-  const { user, refreshUser } = useUser(userId);
+  const { user, refreshUser, updateUser } = useUser(userId);
 
   if (!user) {
     return null;
@@ -74,7 +74,7 @@ const EducationCard = ({
         edu => edu !== deletingEducation
       );
 
-      await apiRoutes.updateMe({
+      await updateUser({
         educations: updatedEducations
       });
 

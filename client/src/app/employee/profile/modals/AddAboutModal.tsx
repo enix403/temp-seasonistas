@@ -28,7 +28,7 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
   onClose,
   savedData
 }) => {
-  const { refreshUser } = useUser(userId);
+  const { refreshUser, updateUser } = useUser(userId);
   const [input, setInput] = useState(savedData || "");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +45,7 @@ const AddAboutModal: React.FC<AddAboutModalProps> = ({
       setLoading(true);
       setError(null);
 
-      await apiRoutes.updateMe({
+      await updateUser({
         bio: input
       });
 

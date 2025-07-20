@@ -55,11 +55,11 @@ const ProfileSectionCard = ({
   );
 
   // Get current user data
-  const { user: userData, refreshUser } = useUser(userId);
+  const { user: userData, refreshUser, updateUser } = useUser(userId);
 
   // Update user profile mutation
   const updateProfile = useMutation({
-    mutationFn: apiRoutes.updateMe,
+    mutationFn: updateUser,
     onSuccess: () => {
       refreshUser();
       toast.success("Profile updated successfully");

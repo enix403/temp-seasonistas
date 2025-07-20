@@ -51,7 +51,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
   onClose,
   education
 }) => {
-  const { user, refreshUser } = useUser(userId);
+  const { user, refreshUser, updateUser } = useUser(userId);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState<Education>({
@@ -136,7 +136,7 @@ const AddEducationModal: React.FC<AddEducationModalProps> = ({
         updatedEducations = [...currentEducations, formData];
       }
 
-      await apiRoutes.updateMe({
+      await updateUser({
         educations: updatedEducations
       });
 

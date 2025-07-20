@@ -31,7 +31,15 @@ export function useUser(userId: string = CURRENT_USER_ID) {
     await queryClient.invalidateQueries({ queryKey: queryKey });
   };
 
-  return { user, refreshUser, ...rest };
+  const updateUser = async (payload: any) => {
+    if (userId == CURRENT_USER_ID) {
+      return apiRoutes.updateMe(payload);
+    } else {
+      return apiRoutes.updateUser(payload, userId);
+    }
+  };
+
+  return { user, refreshUser, updateUser, ...rest };
 }
 
 export function useCurrentUser() {

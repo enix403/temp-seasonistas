@@ -43,7 +43,7 @@ const ExperienceCard = ({
   const [deletingExperience, setDeletingExperience] =
     useState<Experience | null>(null);
   const [loading, setLoading] = useState(false);
-  const { user, refreshUser } = useUser(userId);
+  const { user, refreshUser, updateUser } = useUser(userId);
 
   if (!user) {
     return null;
@@ -74,7 +74,7 @@ const ExperienceCard = ({
         exp => exp !== deletingExperience
       );
 
-      await apiRoutes.updateMe({
+      await updateUser({
         experiences: updatedExperiences
       });
 

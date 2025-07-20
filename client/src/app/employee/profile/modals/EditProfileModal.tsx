@@ -45,7 +45,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   userId,
   initialData
 }) => {
-  const { refreshUser } = useUser(userId);
+  const { refreshUser, updateUser } = useUser(userId);
   const [formData, setFormData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,7 +63,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       setLoading(true);
       setError(null);
 
-      await apiRoutes.updateMe({
+      await updateUser({
         gender: formData.gender,
         phoneCountryCode: formData.phoneCountryCode,
         phoneNumber: formData.phoneNumber,
