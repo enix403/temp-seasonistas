@@ -20,7 +20,13 @@ import clsx from "clsx";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { CameraIcon } from "lucide-react";
 
-const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "companyName" }) => {
+const ProfileBarCard = ({
+  profileTitleKey,
+  editable = false
+}: {
+  profileTitleKey: "fullName" | "companyName";
+  editable?: boolean;
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [statusModalOpen, setStatusModalOpen] = useState(false);
@@ -51,7 +57,7 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
               opacity: 1
             }
           }}
-          onClick={() => setCoverModalOpen(true)}
+          onClick={() => editable && setCoverModalOpen(true)}
         >
           <img
             src={user?.coverPictureUrl || defaultCoverImage.src}
@@ -64,29 +70,28 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
             }}
           />
           {/* Hover Overlay */}
-          <Box
-            className="overlay"
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              opacity: 0,
-              transition: "opacity 0.2s"
-            }}
-          >
-            <IconButton
-              size="small"
-              sx={{ color: "white" }}
+          {editable && (
+            <Box
+              className='overlay'
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0,
+                transition: "opacity 0.2s"
+              }}
             >
-              <CameraIcon />
-            </IconButton>
-          </Box>
+              <IconButton size='small' sx={{ color: "white" }}>
+                <CameraIcon />
+              </IconButton>
+            </Box>
+          )}
         </Box>
       </Box>
 
@@ -115,10 +120,10 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
             flexShrink: 0,
             backgroundColor: "#E5E7EB"
           }}
-          onClick={() => setPictureModalOpen(true)}
+          onClick={() => editable && setPictureModalOpen(true)}
         >
           <img
-            alt={user?.[profileTitleKey] || 'Profile Picture'}
+            alt={user?.[profileTitleKey] || "Profile Picture"}
             src={user?.profilePictureUrl || defaultProfileImage.src}
             style={{
               width: "100%",
@@ -128,29 +133,28 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
             }}
           />
           {/* Hover Overlay */}
-          <Box
-            className="overlay"
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              opacity: 0,
-              transition: "opacity 0.2s"
-            }}
-          >
-            <IconButton
-              size="small"
-              sx={{ color: "white" }}
+          {editable && (
+            <Box
+              className='overlay'
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                opacity: 0,
+                transition: "opacity 0.2s"
+              }}
             >
-              <CameraIcon />
-            </IconButton>
-          </Box>
+              <IconButton size='small' sx={{ color: "white" }}>
+                <CameraIcon />
+              </IconButton>
+            </Box>
+          )}
         </Box>
 
         <Box sx={{ display: "flex" }}>
@@ -197,7 +201,7 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
         {user?.isLookingForJob && (
           <Badge
             className={clsx(
-              "bg-[#4e8c8a] px-3 py-1 text-white hover:bg-[#4e8c8a] text-lg",
+              "bg-[#4e8c8a] px-3 py-1 text-lg text-white hover:bg-[#4e8c8a]",
               isMobile && "w-full"
             )}
           >
@@ -206,46 +210,50 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
         )}
 
         {/* Add Profile Section */}
-        <Button
-          variant='outlined'
-          fullWidth={isMobile}
-          sx={{
-            borderRadius: "999px",
-            textTransform: "none",
-            fontWeight: 500,
-            px: 2,
-            fontSize: isMobile ? "0.9rem" : "1rem",
-            borderColor: "#ddd",
-            color: "#000",
-            "&:hover": {
-              borderColor: "#bbb"
-            }
-          }}
-        >
-          Add Profile Section
-        </Button>
+        {editable && (
+          <Button
+            variant='outlined'
+            fullWidth={isMobile}
+            sx={{
+              borderRadius: "999px",
+              textTransform: "none",
+              fontWeight: 500,
+              px: 2,
+              fontSize: isMobile ? "0.9rem" : "1rem",
+              borderColor: "#ddd",
+              color: "#000",
+              "&:hover": {
+                borderColor: "#bbb"
+              }
+            }}
+          >
+            Add Profile Section
+          </Button>
+        )}
 
         {/* Status */}
-        <Button
-          variant='outlined'
-          fullWidth={isMobile}
-          onClick={() => setStatusModalOpen(true)}
-          sx={{
-            borderRadius: "999px",
-            textTransform: "none",
-            fontWeight: 500,
-            px: 3,
-            fontSize: isMobile ? "0.9rem" : "1rem",
-            borderColor: "#ddd",
-            color: "#000",
-            cursor: "pointer",
-            "&:hover": {
-              borderColor: "#bbb"
-            }
-          }}
-        >
-          Status
-        </Button>
+        {editable && (
+          <Button
+            variant='outlined'
+            fullWidth={isMobile}
+            onClick={() => setStatusModalOpen(true)}
+            sx={{
+              borderRadius: "999px",
+              textTransform: "none",
+              fontWeight: 500,
+              px: 3,
+              fontSize: isMobile ? "0.9rem" : "1rem",
+              borderColor: "#ddd",
+              color: "#000",
+              cursor: "pointer",
+              "&:hover": {
+                borderColor: "#bbb"
+              }
+            }}
+          >
+            Status
+          </Button>
+        )}
 
         {/* More */}
         <Button
@@ -267,9 +275,22 @@ const ProfileBarCard = ({ profileTitleKey }: { profileTitleKey: "fullName" | "co
           More
         </Button>
       </Stack>
-      <StatusModal open={statusModalOpen} onClose={() => setStatusModalOpen(false)} />
-      <ProfilePictureModal open={pictureModalOpen} onClose={() => setPictureModalOpen(false)} />
-      <CoverPictureModal open={coverModalOpen} onClose={() => setCoverModalOpen(false)} />
+      {editable && (
+        <>
+          <StatusModal
+            open={statusModalOpen}
+            onClose={() => setStatusModalOpen(false)}
+          />
+          <ProfilePictureModal
+            open={pictureModalOpen}
+            onClose={() => setPictureModalOpen(false)}
+          />
+          <CoverPictureModal
+            open={coverModalOpen}
+            onClose={() => setCoverModalOpen(false)}
+          />
+        </>
+      )}
     </Box>
   );
 };

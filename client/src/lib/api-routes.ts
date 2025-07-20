@@ -110,7 +110,7 @@ export const apiRoutes = {
   removeConnection: payloadDecl((identityId: string) => `/community/connections/${identityId}`, { method: "DELETE" }),
 
   /* ========================== */
-  /* ========= FAQs ========== */
+  /* ========== FAQs ========== */
   /* ========================== */
   // Public Queries
   getFAQs: jsonDecl(wq`/faqs`),
