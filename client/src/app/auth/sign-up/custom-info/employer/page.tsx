@@ -46,7 +46,7 @@ export default function EmployerInfo() {
     >
       <Form {...form}>
         <form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
-          <AvatarChanger initialImageSrc={"/pfp-1.png"} />
+          {/* <AvatarChanger initialImageSrc={"/pfp-1.png"} /> */}
 
           <FormField
             name='companyName'

@@ -96,9 +96,9 @@ export default function CandiateInfo() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
           <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-            <div className='col-span-full'>
+            {/* <div className='col-span-full'>
               <AvatarChanger initialImageSrc={"/pfp-1.png"} />
-            </div>
+            </div> */}
 
             {/* Phone Field */}
             <FormField
