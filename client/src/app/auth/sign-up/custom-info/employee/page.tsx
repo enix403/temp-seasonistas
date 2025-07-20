@@ -104,18 +104,13 @@ export default function CandiateInfo() {
       setIsLoading(true);
       setEmployeeInfo(values);
 
-      const result = await apiRoutes.signUp({
+      const { user, accessToken } = await apiRoutes.signUp({
         ...basicInfo,
         ...values,
         role: "employee",
         fullName: `${basicInfo.firstName} ${basicInfo.lastName}`
       });
 
-      if (!result.ok) {
-        throw new Error("Sign up failed");
-      }
-
-      const { user, accessToken } = result.data;
       login(user, accessToken);
       clearSignUpData();
     } catch (error) {

@@ -47,18 +47,13 @@ export default function EmployerInfo() {
       setIsLoading(true);
       setEmployerInfo(values);
 
-      const result = await apiRoutes.signUp({
+      const { user, accessToken } = await apiRoutes.signUp({
         ...basicInfo,
         ...values,
         role: "employer",
         fullName: `${basicInfo.firstName} ${basicInfo.lastName}`
       });
 
-      if (!result.ok) {
-        throw new Error("Sign up failed");
-      }
-
-      const { user, accessToken } = result.data;
       login(user, accessToken);
       clearSignUpData();
     } catch (error) {
