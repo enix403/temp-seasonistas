@@ -29,7 +29,13 @@ interface Experience {
   currentlyActive: boolean;
 }
 
-const ExperienceCard = ({ userId }: { userId?: string }) => {
+const ExperienceCard = ({
+  userId,
+  editable = false
+}: {
+  userId?: string;
+  editable?: boolean;
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [editingExperience, setEditingExperience] = useState<Experience | null>(
     null
@@ -113,23 +119,25 @@ const ExperienceCard = ({ userId }: { userId?: string }) => {
           <Typography variant='h6' fontWeight={600}>
             Experiences
           </Typography>
-          <Button
-            variant='outlined'
-            size='small'
-            onClick={() => setOpenModal(true)}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: 550,
-              borderColor: "#EBECF0",
-              color: "#000000",
-              fontSize: "0.875rem",
-              px: 3,
-              py: 0.8
-            }}
-          >
-            Add Experience
-          </Button>
+          {editable && (
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setOpenModal(true)}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8
+              }}
+            >
+              Add Experience
+            </Button>
+          )}
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -167,33 +175,35 @@ const ExperienceCard = ({ userId }: { userId?: string }) => {
                         />
                       )}
                     </Typography>
-                    <Box display='flex' gap={2}>
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#999",
-                          fontWeight: 500,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => handleDelete(experience)}
-                      >
-                        Delete
-                      </Typography>
+                    {editable && (
+                      <Box display='flex' gap={2}>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            color: "#999",
+                            fontWeight: 500,
+                            cursor: "pointer",
+                            "&:hover": { textDecoration: "underline" }
+                          }}
+                          onClick={() => handleDelete(experience)}
+                        >
+                          Delete
+                        </Typography>
 
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#4e9a8e",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => handleEdit(experience)}
-                      >
-                        Edit
-                      </Typography>
-                    </Box>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            color: "#4e9a8e",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            "&:hover": { textDecoration: "underline" }
+                          }}
+                          onClick={() => handleEdit(experience)}
+                        >
+                          Edit
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
 
                   <Typography
@@ -236,44 +246,48 @@ const ExperienceCard = ({ userId }: { userId?: string }) => {
         )}
       </CardContent>
 
-      <AddExperienceModal
-        open={openModal}
-        onClose={handleClose}
-        experience={editingExperience}
-      />
+      {editable && (
+        <>
+          <AddExperienceModal
+            open={openModal}
+            onClose={handleClose}
+            experience={editingExperience}
+          />
 
-      {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={Boolean(deletingExperience)}
-        onClose={() => setDeletingExperience(null)}
-        maxWidth='xs'
-        fullWidth
-      >
-        <DialogTitle>Delete Experience</DialogTitle>
-        <DialogContent>
-          <Typography>
-            Are you sure you want to delete this experience record? This action
-            cannot be undone.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => setDeletingExperience(null)}
-            disabled={loading}
-            sx={{ color: "text.secondary" }}
+          {/* Delete Confirmation Dialog */}
+          <Dialog
+            open={Boolean(deletingExperience)}
+            onClose={() => setDeletingExperience(null)}
+            maxWidth='xs'
+            fullWidth
           >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleConfirmDelete}
-            disabled={loading}
-            color='error'
-            variant='contained'
-          >
-            {loading ? "Deleting..." : "Delete"}
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <DialogTitle>Delete Experience</DialogTitle>
+            <DialogContent>
+              <Typography>
+                Are you sure you want to delete this experience record? This
+                action cannot be undone.
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setDeletingExperience(null)}
+                disabled={loading}
+                sx={{ color: "text.secondary" }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleConfirmDelete}
+                disabled={loading}
+                color='error'
+                variant='contained'
+              >
+                {loading ? "Deleting..." : "Delete"}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </>
+      )}
     </Card>
   );
 };

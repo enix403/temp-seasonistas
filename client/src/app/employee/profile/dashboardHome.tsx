@@ -23,9 +23,9 @@ export default function DashboardHome() {
         <PercentageCard />
         <GraphCard />
         <BasicInfoCard editable />
-        <AboutUsCard />
-        <EducationCard />
-        <ExperienceCard />
+        <AboutUsCard editable />
+        <EducationCard editable />
+        <ExperienceCard editable />
 
         <ProfileSectionCard
           title='Skills'

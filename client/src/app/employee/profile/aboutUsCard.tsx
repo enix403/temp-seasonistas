@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, Button } from "@mui/material";
 import AddAboutModal from "./modals/AddAboutModal";
 import { useUser } from "@/hooks/useCurrentUser";
 
-const AboutUsCard = ({ userId }: { userId?: string }) => {
+const AboutUsCard = ({ userId, editable=false, }: { userId?: string, editable?:boolean }) => {
   const [open, setOpen] = useState(false);
   const { user } = useUser(userId);
 
@@ -31,7 +31,7 @@ const AboutUsCard = ({ userId }: { userId?: string }) => {
           <Typography variant='h6' fontWeight={600}>
             About
           </Typography>
-          <Button
+          {editable &&<Button
             variant='outlined'
             size='small'
             onClick={() => setOpen(true)}
@@ -47,7 +47,7 @@ const AboutUsCard = ({ userId }: { userId?: string }) => {
             }}
           >
             Edit About
-          </Button>
+          </Button>}
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -66,11 +66,11 @@ const AboutUsCard = ({ userId }: { userId?: string }) => {
         </Typography>
       </CardContent>
 
-      <AddAboutModal
+      {editable &&<AddAboutModal
         open={open}
         onClose={() => setOpen(false)}
         savedData={user.bio || ""}
-      />
+      />}
     </Card>
   );
 };

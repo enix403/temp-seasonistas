@@ -28,7 +28,13 @@ interface Education {
   currentlyActive: boolean;
 }
 
-const EducationCard = ({ userId }: { userId?: string }) => {
+const EducationCard = ({
+  userId,
+  editable = false
+}: {
+  userId?: string;
+  editable?: boolean;
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [editingEducation, setEditingEducation] = useState<Education | null>(
     null
@@ -112,23 +118,25 @@ const EducationCard = ({ userId }: { userId?: string }) => {
           <Typography variant='h6' fontWeight={600}>
             Education & Certifications
           </Typography>
-          <Button
-            variant='outlined'
-            size='small'
-            onClick={() => setOpenModal(true)}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: 550,
-              borderColor: "#EBECF0",
-              color: "#000000",
-              fontSize: "0.875rem",
-              px: 3,
-              py: 0.8
-            }}
-          >
-            Add Education
-          </Button>
+          {editable && (
+            <Button
+              variant='outlined'
+              size='small'
+              onClick={() => setOpenModal(true)}
+              sx={{
+                borderRadius: "20px",
+                textTransform: "none",
+                fontWeight: 550,
+                borderColor: "#EBECF0",
+                color: "#000000",
+                fontSize: "0.875rem",
+                px: 3,
+                py: 0.8
+              }}
+            >
+              Add Education
+            </Button>
+          )}
         </Box>
 
         <Typography variant='body2' sx={{ color: "#666", mb: 2, fontSize: 13 }}>
@@ -155,33 +163,35 @@ const EducationCard = ({ userId }: { userId?: string }) => {
                     <Typography fontWeight={600}>
                       {education.institure}
                     </Typography>
-                    <Box display='flex' gap={2}>
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#999",
-                          fontWeight: 500,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => handleDelete(education)}
-                      >
-                        Delete
-                      </Typography>
+                    {editable && (
+                      <Box display='flex' gap={2}>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            color: "#999",
+                            fontWeight: 500,
+                            cursor: "pointer",
+                            "&:hover": { textDecoration: "underline" }
+                          }}
+                          onClick={() => handleDelete(education)}
+                        >
+                          Delete
+                        </Typography>
 
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          color: "#4e9a8e",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          "&:hover": { textDecoration: "underline" }
-                        }}
-                        onClick={() => handleEdit(education)}
-                      >
-                        Edit
-                      </Typography>
-                    </Box>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            color: "#4e9a8e",
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            "&:hover": { textDecoration: "underline" }
+                          }}
+                          onClick={() => handleEdit(education)}
+                        >
+                          Edit
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
 
                   <Typography sx={{ fontSize: 13, color: "#333" }}>
@@ -214,44 +224,48 @@ const EducationCard = ({ userId }: { userId?: string }) => {
         )}
       </CardContent>
 
-      <AddEducationModal
-        open={openModal}
-        onClose={handleClose}
-        education={editingEducation}
-      />
+      {editable && (
+        <>
+          <AddEducationModal
+            open={openModal}
+            onClose={handleClose}
+            education={editingEducation}
+          />
 
-      {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={Boolean(deletingEducation)}
-        onClose={() => setDeletingEducation(null)}
-        maxWidth='xs'
-        fullWidth
-      >
-        <DialogTitle>Delete Education</DialogTitle>
-        <DialogContent>
-          <Typography>
-            Are you sure you want to delete this education record? This action
-            cannot be undone.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => setDeletingEducation(null)}
-            disabled={loading}
-            sx={{ color: "text.secondary" }}
+          {/* Delete Confirmation Dialog */}
+          <Dialog
+            open={Boolean(deletingEducation)}
+            onClose={() => setDeletingEducation(null)}
+            maxWidth='xs'
+            fullWidth
           >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleConfirmDelete}
-            disabled={loading}
-            color='error'
-            variant='contained'
-          >
-            {loading ? "Deleting..." : "Delete"}
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <DialogTitle>Delete Education</DialogTitle>
+            <DialogContent>
+              <Typography>
+                Are you sure you want to delete this education record? This
+                action cannot be undone.
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => setDeletingEducation(null)}
+                disabled={loading}
+                sx={{ color: "text.secondary" }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleConfirmDelete}
+                disabled={loading}
+                color='error'
+                variant='contained'
+              >
+                {loading ? "Deleting..." : "Delete"}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </>
+      )}
     </Card>
   );
 };
