@@ -1,7 +1,6 @@
 import { User } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-export type UserType = "employer" | "candidate";
+import { UserType } from "../common/UserType";
 
 interface UserTypeCardProps {
   type: UserType;
@@ -57,10 +56,10 @@ export function UserTypeSelector({
       title: "Sign Up a Employer",
       description: "Find the right people for your team.",
       details:
-        "Create your company profile, post job openings, and connect with qualified seasonal candidates."
+        "Create your company profile, post job openings, and connect with qualified seasonal employees."
     },
     {
-      type: "candidate" as UserType,
+      type: "employee" as UserType,
       title: "Sign Up a Candidate",
       description: "Discover your next seasonal opportunity.",
       details:

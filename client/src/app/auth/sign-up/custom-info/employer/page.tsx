@@ -3,25 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 
-import { AuthPage } from "../../common/AuthPage";
-import { AuthQuote } from "../../common/AuthQuote";
-import { AnimatedColorfulText } from "../../common/AnimatedColorfulText";
-import { Testimonials } from "../../common/Testimonials";
+import { AuthPage } from "@/app/auth/common/AuthPage";
+import { AuthQuote } from "@/app/auth/common/AuthQuote";
+import { AnimatedColorfulText } from "@/app/auth/common/AnimatedColorfulText";
 
-import {
-  PasswordInput,
-  PasswordInputWithStrength
-} from "@/components/form/PasswordInput";
 import { Form, FormField } from "@/components/ui/form";
 import { SimpleFormItem } from "@/components/form/SimpleFormItem";
-import { DatePicker } from "@/components/form/DatePicker";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { useParams } from "next/navigation";
 import { AvatarChanger } from "@/components/form/file-input/AvatarChanger";
 
 export default function EmployerInfo() {

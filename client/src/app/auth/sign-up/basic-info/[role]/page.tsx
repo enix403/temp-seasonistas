@@ -41,7 +41,7 @@ export default function PrelimForm() {
 
   const onSubmit = values => {
     console.log(values);
-    router.push(`/auth/sign-up/${role}`);
+    router.push(`/auth/sign-up/custom-info/${role}`);
   };
 
   return (
@@ -192,7 +192,7 @@ export default function PrelimForm() {
           className='px-0 py-0 font-bold text-foreground'
           effect='hoverUnderline'
         >
-          <Link href='#'>Sign in</Link>
+          <Link href='/auth/login'>Sign in</Link>
         </Button>
       </div>
     </AuthPage>

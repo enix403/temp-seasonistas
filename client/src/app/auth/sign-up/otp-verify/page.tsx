@@ -6,7 +6,6 @@ import { ArrowRightIcon } from "lucide-react";
 import { AuthPage } from "../../common/AuthPage";
 import { AuthQuote } from "../../common/AuthQuote";
 import { AnimatedColorfulText } from "../../common/AnimatedColorfulText";
-import { Testimonials } from "../../common/Testimonials";
 
 import { OTPInput } from "input-otp";
 

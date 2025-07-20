@@ -3,37 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 
-import { AuthPage } from "../../common/AuthPage";
+import { AuthPage } from "@/app/auth/common/AuthPage";
 
-import {
-  PasswordInput,
-  PasswordInputWithStrength
-} from "@/components/form/PasswordInput";
 import { Form, FormField } from "@/components/ui/form";
 import { SimpleFormItem } from "@/components/form/SimpleFormItem";
-import { DatePicker } from "@/components/form/DatePicker";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
 import { Textarea } from "@/components/ui/textarea";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 import {
   FormControl,
   FormItem,
-  FormLabel,
-  FormMessage
+  FormLabel
 } from "@/components/ui/form";
 import { AvatarChanger } from "@/components/form/file-input/AvatarChanger";
 

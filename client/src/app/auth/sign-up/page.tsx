@@ -13,7 +13,9 @@ import { AuthQuote } from "../common/AuthQuote";
 import { AnimatedColorfulText } from "../common/AnimatedColorfulText";
 import { Testimonials } from "../common/Testimonials";
 import { useState } from "react";
-import { UserTypeSelector, UserType } from "./UserTypeSelector";
+import { UserTypeSelector } from "./UserTypeSelector";
+import { UserType } from "../common/UserType";
+import { usePathname } from "next/navigation";
 
 export default function SignUp() {
   const [selectedType, setSelectedType] = useState<UserType>("employer");
@@ -47,7 +49,7 @@ export default function SignUp() {
         iconPlacement='right'
         asChild
       >
-        <Link href={`/auth/sign-up/prelim/${selectedType}`}>Continue</Link>
+        <Link href={`/auth/sign-up/basic-info/${selectedType}`}>Continue</Link>
       </Button>
 
       <div className='mt-4 text-center text-sm text-[#475569]'>
